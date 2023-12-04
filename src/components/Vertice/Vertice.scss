@@ -1,0 +1,23 @@
+.vertice {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #00bfff;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+#mydiv {
+  position: absolute;
+  z-index: 9;
+}
