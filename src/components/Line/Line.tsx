@@ -1,7 +1,4 @@
 import React, { useRef, useEffect } from "react";
-// import DraggableDiv from "./DraggableDiv";
-import Drag from "components/Drag/Drag";
-import Vertice from "components/Vertice/Vertice";
 
 type LineProps = {
   children?: React.ReactNode;
@@ -36,6 +33,21 @@ const Line: React.FC<LineProps> = ({ children }: LineProps) => {
     };
   }, []);
 
+  const firstChildren = React.Children.toArray(children)[0];
+  const secondChildren = React.Children.toArray(children)[1];
+  const updatedFirstChildren = React.cloneElement(
+    firstChildren as React.ReactElement,
+    {
+      ref: div1Ref,
+    }
+  );
+  const updatedSecondChildren = React.cloneElement(
+    secondChildren as React.ReactElement,
+    {
+      ref: div2Ref,
+    }
+  );
+
   return (
     <>
       <svg
@@ -49,14 +61,8 @@ const Line: React.FC<LineProps> = ({ children }: LineProps) => {
       >
         <line ref={lineRef} stroke="black" />
       </svg>
-      {/* <DraggableDiv ref={div1Ref} />
-      <DraggableDiv ref={div2Ref} /> */}
-      <Drag ref={div1Ref}>
-        <Vertice label={1} />
-      </Drag>
-      <Drag ref={div2Ref}>
-        <Vertice label={2} />
-      </Drag>
+      {updatedFirstChildren}
+      {updatedSecondChildren}
     </>
   );
 };

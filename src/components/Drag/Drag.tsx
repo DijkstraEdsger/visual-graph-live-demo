@@ -62,7 +62,6 @@ const Drag = forwardRef<HTMLDivElement, DraggableDivProps>(
 
     return (
       <div id="mydiv" ref={divRef}>
-        {/* {children} */}
         {updatedChildren}
       </div>
     );
