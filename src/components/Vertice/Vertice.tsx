@@ -1,5 +1,6 @@
 import React, { forwardRef } from "react";
 import "./Vertice.scss";
+import Drag from "components/Drag/Drag";
 
 type VerticeProps = {
   label?: string | number;
@@ -7,11 +8,13 @@ type VerticeProps = {
 
 const Vertice = forwardRef<HTMLDivElement, VerticeProps>(({ label }, ref) => {
   return (
-    <div id="mydiv" ref={ref}>
-      <div className="vertice">
-        <span>{label}</span>
+    <Drag ref={ref}>
+      <div id="mydiv">
+        <div className="vertice">
+          <span>{label}</span>
+        </div>
       </div>
-    </div>
+    </Drag>
   );
 });
 

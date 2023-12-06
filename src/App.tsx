@@ -7,7 +7,7 @@ import Line from "components/Line/Line";
 function App() {
   return (
     <div className="App">
-      <Line>
+      {/* <Line>
         <Drag>
           <Vertice label={1} />
         </Drag>
@@ -15,13 +15,15 @@ function App() {
           <Vertice label={2} />
         </Drag>
       </Line>
+       */}
       <Line>
-        <Drag>
-          <Vertice label={3} />
-        </Drag>
-        <Drag>
-          <Vertice label={4} />
-        </Drag>
+        <Vertice label={1} />
+        <Vertice label={2} />
+      </Line>
+
+      <Line>
+        <Vertice label={3} />
+        <Vertice label={4} />
       </Line>
     </div>
   );
