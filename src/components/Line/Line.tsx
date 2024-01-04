@@ -1,18 +1,17 @@
 import React, { useRef, useEffect } from "react";
 
 type LineProps = {
-  children?: React.ReactNode;
+  div1Ref: React.RefObject<HTMLDivElement> | null;
+  div2Ref: React.RefObject<HTMLDivElement> | null;
 };
 
-const Line: React.FC<LineProps> = ({ children }: LineProps) => {
-  const div1Ref = useRef<HTMLDivElement>(null);
-  const div2Ref = useRef<HTMLDivElement>(null);
+const Line: React.FC<LineProps> = ({ div1Ref, div2Ref }: LineProps) => {
   const lineRef = useRef<SVGLineElement>(null);
 
   useEffect(() => {
     const handleMouseMove = () => {
-      const div1 = div1Ref.current;
-      const div2 = div2Ref.current;
+      const div1 = div1Ref?.current;
+      const div2 = div2Ref?.current;
       const line = lineRef.current;
 
       if (div1 && div2 && line) {
@@ -33,37 +32,18 @@ const Line: React.FC<LineProps> = ({ children }: LineProps) => {
     };
   }, []);
 
-  const firstChildren = React.Children.toArray(children)[0];
-  const secondChildren = React.Children.toArray(children)[1];
-  const updatedFirstChildren = React.cloneElement(
-    firstChildren as React.ReactElement,
-    {
-      ref: div1Ref,
-    }
-  );
-  const updatedSecondChildren = React.cloneElement(
-    secondChildren as React.ReactElement,
-    {
-      ref: div2Ref,
-    }
-  );
-
   return (
-    <>
-      <svg
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-        }}
-      >
-        <line ref={lineRef} stroke="black" />
-      </svg>
-      {updatedFirstChildren}
-      {updatedSecondChildren}
-    </>
+    <svg
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      <line ref={lineRef} stroke="black" />
+    </svg>
   );
 };
 

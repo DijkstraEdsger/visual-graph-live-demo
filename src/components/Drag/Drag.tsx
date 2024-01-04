@@ -1,4 +1,5 @@
 import { Children, cloneElement, forwardRef, useEffect, useRef } from "react";
+import "./Drag.scss";
 
 type DraggableDivProps = {
   children: React.ReactNode;
@@ -61,7 +62,7 @@ const Drag = forwardRef<HTMLDivElement, DraggableDivProps>(
     });
 
     return (
-      <div id="mydiv" ref={divRef}>
+      <div className="drag" ref={divRef}>
         {updatedChildren}
       </div>
     );

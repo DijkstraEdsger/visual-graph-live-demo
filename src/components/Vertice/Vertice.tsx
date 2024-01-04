@@ -9,10 +9,8 @@ type VerticeProps = {
 const Vertice = forwardRef<HTMLDivElement, VerticeProps>(({ label }, ref) => {
   return (
     <Drag ref={ref}>
-      <div id="mydiv">
-        <div className="vertice">
-          <span>{label}</span>
-        </div>
+      <div className="vertice">
+        <span>{label}</span>
       </div>
     </Drag>
   );
