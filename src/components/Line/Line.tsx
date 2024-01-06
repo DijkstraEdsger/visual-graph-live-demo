@@ -32,19 +32,7 @@ const Line: React.FC<LineProps> = ({ div1Ref, div2Ref }: LineProps) => {
     };
   }, []);
 
-  return (
-    <svg
-      style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-      }}
-    >
-      <line ref={lineRef} stroke="black" />
-    </svg>
-  );
+  return <line ref={lineRef} stroke="black" />;
 };
 
 export default Line;
