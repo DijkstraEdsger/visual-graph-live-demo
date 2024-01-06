@@ -25,12 +25,14 @@ const Line: React.FC<LineProps> = ({ div1Ref, div2Ref }: LineProps) => {
       }
     };
 
+    handleMouseMove();
+
     window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, []);
+  }, [div1Ref, div2Ref]);
 
   return <line ref={lineRef} stroke="black" />;
 };
