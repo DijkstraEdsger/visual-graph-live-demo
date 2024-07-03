@@ -34,7 +34,16 @@ const Line: React.FC<LineProps> = ({ div1Ref, div2Ref }: LineProps) => {
     };
   }, [div1Ref, div2Ref]);
 
-  return <line ref={lineRef} stroke="black" />;
+  return (
+    <>
+      <line
+        ref={lineRef}
+        stroke="black"
+        className="animated-line"
+        strokeWidth="2"
+      />
+    </>
+  );
 };
 
 export default Line;
