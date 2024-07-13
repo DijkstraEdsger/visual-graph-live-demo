@@ -3,13 +3,13 @@ import React, { useRef, useEffect } from "react";
 type LineProps = {
   div1Ref: React.RefObject<HTMLDivElement> | null;
   div2Ref: React.RefObject<HTMLDivElement> | null;
-  isAnimated?: boolean;
+  isTraversed?: boolean;
 };
 
 const Line: React.FC<LineProps> = ({
   div1Ref,
   div2Ref,
-  isAnimated = false,
+  isTraversed = false,
 }: LineProps) => {
   const lineRef = useRef<SVGLineElement>(null);
   const lineBorderRef = useRef<SVGLineElement>(null);
@@ -32,7 +32,7 @@ const Line: React.FC<LineProps> = ({
         line.setAttribute("y2", (rect2.top + rect2.bottom) / 2 + "");
 
         // Border line
-        if (isAnimated) {
+        if (isTraversed) {
           lineBorder?.setAttribute("x1", (rect1.left + rect1.right) / 2 + "");
           lineBorder?.setAttribute("y1", (rect1.top + rect1.bottom) / 2 + "");
           lineBorder?.setAttribute("x2", (rect2.left + rect2.right) / 2 + "");
@@ -52,7 +52,7 @@ const Line: React.FC<LineProps> = ({
 
   return (
     <>
-      {isAnimated && (
+      {isTraversed && (
         <line
           ref={lineBorderRef}
           x1="10"
@@ -66,7 +66,7 @@ const Line: React.FC<LineProps> = ({
       <line
         ref={lineRef}
         stroke="black"
-        className={isAnimated ? "animated-line" : ""}
+        className={isTraversed ? "is_traversed" : ""}
         strokeWidth="2"
       />
     </>

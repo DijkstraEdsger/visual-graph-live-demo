@@ -53,3 +53,8 @@ code {
 .animated-line {
   animation: lightingEffect 0.5s ease-in-out forwards;
 }
+
+.is_traversed {
+  stroke: #84ee0d;
+  stroke-width: 5;
+}
