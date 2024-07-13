@@ -69,6 +69,34 @@ const useGraph = ({
 
         return newVertices;
       });
+
+      setEdgesElements((prev) => {
+        const newEdges = [...prev];
+        wayPointsSecuential.forEach((wayPoint, index) => {
+          if (index < wayPointsSecuential.length - 1) {
+            const vertice1 = wayPoint;
+            const vertice2 = wayPointsSecuential[index + 1];
+            const edgeIndex = edges.findIndex(
+              ([v1, v2]) =>
+                (v1 === vertice1 && v2 === vertice2) ||
+                (v1 === vertice2 && v2 === vertice1)
+            );
+
+            if (edgeIndex !== -1) {
+              newEdges[edgeIndex] = (
+                <Line
+                  key={`${vertice1}-${vertice2}`}
+                  div1Ref={verticesRefs.current[vertices.indexOf(vertice1)]}
+                  div2Ref={verticesRefs.current[vertices.indexOf(vertice2)]}
+                  isTraversed
+                />
+              );
+            }
+          }
+        });
+
+        return newEdges;
+      });
     }
   }, [wayPointsSecuential]);
 
@@ -130,6 +158,7 @@ const useGraph = ({
 
     setEdgesElements(edgesEl);
   };
+
   return {
     verticesElements,
     edgesElements,

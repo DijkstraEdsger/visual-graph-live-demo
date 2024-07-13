@@ -52,7 +52,7 @@ const Line: React.FC<LineProps> = ({
 
   return (
     <>
-      {isTraversed && (
+      {/* {isTraversed && (
         <line
           ref={lineBorderRef}
           x1="10"
@@ -62,7 +62,7 @@ const Line: React.FC<LineProps> = ({
           stroke="#55862e"
           strokeWidth="6"
         />
-      )}
+      )} */}
       <line
         ref={lineRef}
         stroke="black"

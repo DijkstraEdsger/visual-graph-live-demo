@@ -8,35 +8,37 @@ function App() {
   const [edges, setEdges] = React.useState<Edge[]>([
     [1, 2],
     [2, 3],
+    [3, 1],
   ]);
-  const [traversalPath, setWayPoints] = React.useState<VerticeType[]>([]);
+  const [traversalPath, setWayPoints] = React.useState<VerticeType[]>([
+    1, 2, 3,
+  ]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setEdges([
-        [1, 2],
-        [2, 3],
-        [3, 1],
-      ]);
-    }, 5000);
-
-    setTimeout(() => {
-      setVertices([1, 2, 3, 4]);
-      setEdges([
-        [1, 2],
-        [2, 3],
-        [3, 1],
-        [4, 1],
-        [4, 2],
-        [4, 3],
-      ]);
-    }, 10000);
+    // setTimeout(() => {
+    //   setEdges([
+    //     [1, 2],
+    //     [2, 3],
+    //     [3, 1],
+    //   ]);
+    // }, 5000);
+    // setTimeout(() => {
+    //   setVertices([1, 2, 3, 4]);
+    //   setEdges([
+    //     [1, 2],
+    //     [2, 3],
+    //     [3, 1],
+    //     [4, 1],
+    //     [4, 2],
+    //     [4, 3],
+    //   ]);
+    // }, 10000);
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
-      setWayPoints([1, 2, 3]);
-    }, 3000);
+    // setTimeout(() => {
+    //   setWayPoints([1, 2, 3]);
+    // }, 6000);
   }, []);
 
   return (
