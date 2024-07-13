@@ -4,17 +4,17 @@ import Drag from "components/Drag/Drag";
 
 type VerticeProps = {
   label?: string | number;
-  color?: string;
+  isVisited?: boolean;
 };
 
 const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
-  ({ label, color = "#00bfff" }, ref) => {
+  ({ label, isVisited = false }, ref) => {
     return (
       <Drag ref={ref}>
         <div
           className="vertice"
           style={{
-            backgroundColor: color,
+            backgroundColor: isVisited ? "green" : "#00bff",
           }}
         >
           <span>{label}</span>

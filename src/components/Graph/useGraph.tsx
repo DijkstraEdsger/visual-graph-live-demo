@@ -52,7 +52,7 @@ const useGraph = ({
               <Vertice
                 key={wayPoint}
                 label={wayPoint}
-                color="green"
+                isVisited
                 ref={verticesRefs.current[index]}
               />
             );
