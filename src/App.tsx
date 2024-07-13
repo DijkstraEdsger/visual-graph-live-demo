@@ -9,7 +9,7 @@ function App() {
     [1, 2],
     [2, 3],
   ]);
-  const [wayPoints, setWayPoints] = React.useState<VerticeType[]>([]);
+  const [traversalPath, setWayPoints] = React.useState<VerticeType[]>([]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -41,7 +41,7 @@ function App() {
 
   return (
     <>
-      <Graph vertices={vertices} edges={edges} wayPoints={wayPoints} />
+      <Graph vertices={vertices} edges={edges} traversalPath={traversalPath} />
     </>
   );
 }

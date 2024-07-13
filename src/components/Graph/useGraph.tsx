@@ -6,13 +6,13 @@ import { Edge, VerticeType } from "types/graph";
 type GraphProps = {
   vertices?: VerticeType[];
   edges?: Edge[];
-  wayPoints?: VerticeType[];
+  traversalPath?: VerticeType[];
 };
 
 const useGraph = ({
   vertices = [],
   edges = [],
-  wayPoints = [],
+  traversalPath = [],
 }: GraphProps) => {
   const verticesRefs = useRef(vertices.map(() => createRef<HTMLDivElement>()));
   const [verticesElements, setVerticesElements] = useState<JSX.Element[]>([]);
@@ -24,17 +24,17 @@ const useGraph = ({
   useEffect(() => {
     let counter = 1;
     const interval = setInterval(() => {
-      const newWayPoints = wayPoints.slice(0, counter);
+      const newWayPoints = traversalPath.slice(0, counter);
       setWayPointsSecuential(newWayPoints);
       counter += 1;
 
-      if (newWayPoints.length === wayPoints.length) {
+      if (newWayPoints.length === traversalPath.length) {
         clearInterval(interval);
       }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [wayPoints]);
+  }, [traversalPath]);
 
   useEffect(() => {
     updateVerticesRefs();
