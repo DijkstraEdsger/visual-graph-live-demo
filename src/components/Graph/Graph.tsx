@@ -6,17 +6,20 @@ type GraphProps = {
   vertices?: VerticeType[];
   edges?: Edge[];
   traversalPath?: VerticeType[];
+  animatePath?: boolean;
 };
 
 const Graph: React.FC<GraphProps> = ({
   vertices = [],
   edges = [],
   traversalPath = [],
+  animatePath = false,
 }: GraphProps) => {
   const { verticesElements, edgesElements } = useGraph({
     vertices,
     edges,
     traversalPath,
+    animatePath,
   });
 
   return (

@@ -7,12 +7,14 @@ type GraphProps = {
   vertices?: VerticeType[];
   edges?: Edge[];
   traversalPath?: VerticeType[];
+  animatePath?: boolean;
 };
 
 const useGraph = ({
   vertices = [],
   edges = [],
   traversalPath = [],
+  animatePath = false,
 }: GraphProps) => {
   const verticesRefs = useRef(vertices.map(() => createRef<HTMLDivElement>()));
   const [verticesElements, setVerticesElements] = useState<JSX.Element[]>([]);
@@ -22,19 +24,25 @@ const useGraph = ({
   );
 
   useEffect(() => {
-    let counter = 1;
-    const interval = setInterval(() => {
-      const newWayPoints = traversalPath.slice(0, counter);
-      setWayPointsSecuential(newWayPoints);
-      counter += 1;
+    let interval: NodeJS.Timeout;
 
-      if (newWayPoints.length === traversalPath.length) {
-        clearInterval(interval);
-      }
-    }, 1000);
+    if (animatePath) {
+      let counter = 1;
+      interval = setInterval(() => {
+        const newWayPoints = traversalPath.slice(0, counter);
+        setWayPointsSecuential(newWayPoints);
+        counter += 1;
+
+        if (newWayPoints.length === traversalPath.length) {
+          clearInterval(interval);
+        }
+      }, 1000);
+    } else {
+      setWayPointsSecuential(traversalPath);
+    }
 
     return () => clearInterval(interval);
-  }, [traversalPath]);
+  }, [traversalPath, animatePath]);
 
   useEffect(() => {
     updateVerticesRefs();

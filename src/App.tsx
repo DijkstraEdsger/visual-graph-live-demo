@@ -41,7 +41,12 @@ function App() {
 
   return (
     <>
-      <Graph vertices={vertices} edges={edges} traversalPath={traversalPath} />
+      <Graph
+        vertices={vertices}
+        edges={edges}
+        traversalPath={traversalPath}
+        animatePath
+      />
     </>
   );
 }
