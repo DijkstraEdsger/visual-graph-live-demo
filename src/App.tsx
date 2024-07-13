@@ -9,6 +9,7 @@ function App() {
     [1, 2],
     [2, 3],
   ]);
+  const [wayPoints, setWayPoints] = React.useState<VerticeType[]>([]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -32,9 +33,15 @@ function App() {
     }, 10000);
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setWayPoints([1, 2, 3]);
+    }, 3000);
+  }, []);
+
   return (
     <>
-      <Graph vertices={vertices} edges={edges} />
+      <Graph vertices={vertices} edges={edges} wayPoints={wayPoints} />
     </>
   );
 }

@@ -5,13 +5,19 @@ import { Edge, VerticeType } from "types/graph";
 type GraphProps = {
   vertices?: VerticeType[];
   edges?: Edge[];
+  wayPoints?: VerticeType[];
 };
 
 const Graph: React.FC<GraphProps> = ({
   vertices = [],
   edges = [],
+  wayPoints = [],
 }: GraphProps) => {
-  const { verticesElements, edgesElements } = useGraph({ vertices, edges });
+  const { verticesElements, edgesElements } = useGraph({
+    vertices,
+    edges,
+    wayPoints,
+  });
 
   return (
     <>

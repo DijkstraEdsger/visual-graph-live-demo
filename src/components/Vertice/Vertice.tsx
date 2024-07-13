@@ -4,16 +4,24 @@ import Drag from "components/Drag/Drag";
 
 type VerticeProps = {
   label?: string | number;
+  color?: string;
 };
 
-const Vertice = forwardRef<HTMLDivElement, VerticeProps>(({ label }, ref) => {
-  return (
-    <Drag ref={ref}>
-      <div className="vertice">
-        <span>{label}</span>
-      </div>
-    </Drag>
-  );
-});
+const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
+  ({ label, color = "#00bfff" }, ref) => {
+    return (
+      <Drag ref={ref}>
+        <div
+          className="vertice"
+          style={{
+            backgroundColor: color,
+          }}
+        >
+          <span>{label}</span>
+        </div>
+      </Drag>
+    );
+  }
+);
 
 export default Vertice;
