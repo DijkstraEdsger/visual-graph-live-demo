@@ -3,6 +3,9 @@ import "./App.css";
 import Graph from "components/Graph/Graph";
 import { Edge, VerticeType } from "types/graph";
 import { GraphContainer } from "contexts/graphContainerContext";
+import withAsyncData from "components/HOCs/withAsyncData";
+
+const GraphWithAsyncData = withAsyncData(Graph);
 
 function App() {
   const [vertices, setVertices] = React.useState<VerticeType[]>([1, 2, 3]);
@@ -12,7 +15,7 @@ function App() {
     [3, 1],
   ]);
   const [traversalPath, setWayPoints] = React.useState<VerticeType[]>([
-    1, 2, 3,
+    1, 2
   ]);
 
   useEffect(() => {
@@ -36,15 +39,15 @@ function App() {
     // }, 10000);
   }, []);
 
-  useEffect(() => {
-    // setTimeout(() => {
-    //   setWayPoints([1, 2, 3]);
-    // }, 6000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setWayPoints([1, 2, 3]);
+  //   }, 6000);
+  // }, []);
 
   return (
     <GraphContainer>
-      <Graph
+      <GraphWithAsyncData
         vertices={vertices}
         edges={edges}
         traversalPath={traversalPath}

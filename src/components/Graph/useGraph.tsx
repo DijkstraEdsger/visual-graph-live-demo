@@ -14,91 +14,17 @@ const useGraph = ({
   vertices = [],
   edges = [],
   traversalPath = [],
-  animatePath = false,
 }: GraphProps) => {
   const verticesRefs = useRef(vertices.map(() => createRef<HTMLDivElement>()));
   const [verticesElements, setVerticesElements] = useState<JSX.Element[]>([]);
   const [edgesElements, setEdgesElements] = useState<JSX.Element[]>([]);
-  const [wayPointsSecuential, setWayPointsSecuential] = useState<VerticeType[]>(
-    []
-  );
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
-
-    if (animatePath) {
-      let counter = 1;
-      interval = setInterval(() => {
-        const newWayPoints = traversalPath.slice(0, counter);
-        setWayPointsSecuential(newWayPoints);
-        counter += 1;
-
-        if (newWayPoints.length === traversalPath.length) {
-          clearInterval(interval);
-        }
-      }, 1000);
-    } else {
-      setWayPointsSecuential(traversalPath);
+    if (vertices.length) {
+      updateVerticesRefs();
+      updateVerticesElements();
     }
-
-    return () => clearInterval(interval);
-  }, [traversalPath, animatePath]);
-
-  useEffect(() => {
-    updateVerticesRefs();
-    updateVerticesElements();
-  }, [vertices]);
-
-  useEffect(() => {
-    if (wayPointsSecuential.length > 0) {
-      setVerticesElements((prev) => {
-        const newVertices = [...prev];
-        wayPointsSecuential.forEach((wayPoint) => {
-          const index = vertices.indexOf(wayPoint);
-          if (index !== -1) {
-            newVertices[index] = (
-              <Vertice
-                key={wayPoint}
-                label={wayPoint}
-                isVisited
-                ref={verticesRefs.current[index]}
-              />
-            );
-          }
-        });
-
-        return newVertices;
-      });
-
-      setEdgesElements((prev) => {
-        const newEdges = [...prev];
-        wayPointsSecuential.forEach((wayPoint, index) => {
-          if (index < wayPointsSecuential.length - 1) {
-            const vertice1 = wayPoint;
-            const vertice2 = wayPointsSecuential[index + 1];
-            const edgeIndex = edges.findIndex(
-              ([v1, v2]) =>
-                (v1 === vertice1 && v2 === vertice2) ||
-                (v1 === vertice2 && v2 === vertice1)
-            );
-
-            if (edgeIndex !== -1) {
-              newEdges[edgeIndex] = (
-                <Line
-                  key={`${vertice1}-${vertice2}`}
-                  div1Ref={verticesRefs.current[vertices.indexOf(vertice1)]}
-                  div2Ref={verticesRefs.current[vertices.indexOf(vertice2)]}
-                  isTraversed
-                />
-              );
-            }
-          }
-        });
-
-        return newEdges;
-      });
-    }
-  }, [wayPointsSecuential]);
+  }, [vertices, traversalPath]);
 
   const updateVerticesRefs = () => {
     verticesRefs.current = vertices.map(
@@ -108,27 +34,73 @@ const useGraph = ({
 
   const updateVerticesElements = () => {
     if (verticesElements.length === 0) {
-      const verticesEl = vertices.map((vertice, index) => (
-        <Vertice
-          key={vertice}
-          label={vertice}
-          ref={verticesRefs.current[index]}
-        />
-      ));
+      if (traversalPath.length) {
+        const verticesEl = vertices.map((vertice) => {
+          const isVisited = traversalPath.includes(vertice);
+          return (
+            <Vertice
+              key={vertice}
+              label={vertice}
+              isVisited={isVisited}
+              ref={verticesRefs.current[vertices.indexOf(vertice)]}
+            />
+          );
+        });
 
-      setVerticesElements(verticesEl);
+        setVerticesElements(verticesEl);
+      } else {
+        const verticesEl = vertices.map((vertice) => (
+          <Vertice
+            key={vertice}
+            label={vertice}
+            ref={verticesRefs.current[vertices.indexOf(vertice)]}
+          />
+        ));
+
+        setVerticesElements(verticesEl);
+      }
     } else {
       setVerticesElements((prev) => {
         const newVertices = [...prev];
         vertices.forEach((vertice, index) => {
           if (!newVertices[index]) {
-            newVertices[index] = (
-              <Vertice
-                key={vertice}
-                label={vertice}
-                ref={verticesRefs.current[index]}
-              />
-            );
+            if (traversalPath.includes(vertice)) {
+              newVertices[index] = (
+                <Vertice
+                  key={vertice}
+                  label={vertice}
+                  isVisited
+                  ref={verticesRefs.current[index]}
+                />
+              );
+            } else {
+              newVertices[index] = (
+                <Vertice
+                  key={vertice}
+                  label={vertice}
+                  ref={verticesRefs.current[index]}
+                />
+              );
+            }
+          } else {
+            if (traversalPath.includes(vertice)) {
+              newVertices[index] = (
+                <Vertice
+                  key={vertice}
+                  label={vertice}
+                  isVisited
+                  ref={verticesRefs.current[index]}
+                />
+              );
+            } else {
+              newVertices[index] = (
+                <Vertice
+                  key={vertice}
+                  label={vertice}
+                  ref={verticesRefs.current[index]}
+                />
+              );
+            }
           }
         });
 
