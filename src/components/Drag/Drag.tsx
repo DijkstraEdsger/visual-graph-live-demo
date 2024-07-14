@@ -27,13 +27,30 @@ const Drag = forwardRef<HTMLDivElement, DraggableDivProps>(
 
       const elementDrag = (e: MouseEvent) => {
         e.preventDefault();
+        // Calculate the new cursor position:
         pos1 = pos3 - e.clientX;
         pos2 = pos4 - e.clientY;
         pos3 = e.clientX;
         pos4 = e.clientY;
-        if (div) {
-          div.style.top = `${div.offsetTop - pos2}px`;
-          div.style.left = `${div.offsetLeft - pos1}px`;
+        // Assuming the parent of the div is its container
+        const parent = div?.parentElement;
+        if (div && parent) {
+          // New position based on cursor movement
+          let newTop = div.offsetTop - pos2;
+          let newLeft = div.offsetLeft - pos1;
+
+          // Container boundaries
+          const minX = 0;
+          const maxX = parent.offsetWidth - div.offsetWidth;
+          const minY = 0;
+          const maxY = parent.offsetHeight - div.offsetHeight;
+
+          // Clamp newTop and newLeft within the container boundaries
+          newTop = Math.max(Math.min(newTop, maxY), minY);
+          newLeft = Math.max(Math.min(newLeft, maxX), minX);
+
+          div.style.top = `${newTop}px`;
+          div.style.left = `${newLeft}px`;
         }
       };
 

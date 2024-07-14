@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "./App.css";
 import Graph from "components/Graph/Graph";
 import { Edge, VerticeType } from "types/graph";
+import { GraphContainer } from "contexts/graphContainerContext";
 
 function App() {
   const [vertices, setVertices] = React.useState<VerticeType[]>([1, 2, 3]);
@@ -42,14 +43,14 @@ function App() {
   }, []);
 
   return (
-    <>
+    <GraphContainer>
       <Graph
         vertices={vertices}
         edges={edges}
         traversalPath={traversalPath}
         animatePath
       />
-    </>
+    </GraphContainer>
   );
 }
 

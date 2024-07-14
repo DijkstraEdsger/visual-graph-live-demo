@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from "react";
+import { useGraphContainer } from "contexts/graphContainerContext";
 
 type LineProps = {
   div1Ref: React.RefObject<HTMLDivElement> | null;
@@ -12,31 +13,29 @@ const Line: React.FC<LineProps> = ({
   isTraversed = false,
 }: LineProps) => {
   const lineRef = useRef<SVGLineElement>(null);
-  const lineBorderRef = useRef<SVGLineElement>(null);
+  const containerEl = useGraphContainer();
 
   useEffect(() => {
     const handleMouseMove = () => {
       const div1 = div1Ref?.current;
       const div2 = div2Ref?.current;
       const line = lineRef.current;
-      const lineBorder = lineBorderRef.current;
 
       if (div1 && div2 && line) {
         const rect1 = div1.getBoundingClientRect();
         const rect2 = div2.getBoundingClientRect();
+        const containerRect = containerEl?.getBoundingClientRect();
 
-        // Main line
-        line.setAttribute("x1", (rect1.left + rect1.right) / 2 + "");
-        line.setAttribute("y1", (rect1.top + rect1.bottom) / 2 + "");
-        line.setAttribute("x2", (rect2.left + rect2.right) / 2 + "");
-        line.setAttribute("y2", (rect2.top + rect2.bottom) / 2 + "");
+        if (containerRect) {
+          const x1 = rect1.x + rect1.width / 2 - containerRect.x;
+          const y1 = rect1.y + rect1.height / 2 - containerRect.y;
+          const x2 = rect2.x + rect2.width / 2 - containerRect.x;
+          const y2 = rect2.y + rect2.height / 2 - containerRect.y;
 
-        // Border line
-        if (isTraversed) {
-          lineBorder?.setAttribute("x1", (rect1.left + rect1.right) / 2 + "");
-          lineBorder?.setAttribute("y1", (rect1.top + rect1.bottom) / 2 + "");
-          lineBorder?.setAttribute("x2", (rect2.left + rect2.right) / 2 + "");
-          lineBorder?.setAttribute("y2", (rect2.top + rect2.bottom) / 2 + "");
+          line.setAttribute("x1", x1.toString());
+          line.setAttribute("y1", y1.toString());
+          line.setAttribute("x2", x2.toString());
+          line.setAttribute("y2", y2.toString());
         }
       }
     };
@@ -51,25 +50,12 @@ const Line: React.FC<LineProps> = ({
   }, [div1Ref, div2Ref]);
 
   return (
-    <>
-      {/* {isTraversed && (
-        <line
-          ref={lineBorderRef}
-          x1="10"
-          y1="50"
-          x2="190"
-          y2="50"
-          stroke="#55862e"
-          strokeWidth="6"
-        />
-      )} */}
-      <line
-        ref={lineRef}
-        stroke="black"
-        className={isTraversed ? "is_traversed" : ""}
-        strokeWidth="2"
-      />
-    </>
+    <line
+      ref={lineRef}
+      stroke="black"
+      className={isTraversed ? "is_traversed" : ""}
+      strokeWidth="2"
+    />
   );
 };
 
