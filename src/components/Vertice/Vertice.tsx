@@ -5,12 +5,13 @@ import Drag from "components/Drag/Drag";
 type VerticeProps = {
   label?: string | number;
   isVisited?: boolean;
+  initialPosition?: { top: number; left: number };
 };
 
 const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
-  ({ label, isVisited = false }, ref) => {
+  ({ label, isVisited = false, initialPosition }, ref) => {
     return (
-      <Drag ref={ref}>
+      <Drag ref={ref} initialPosition={initialPosition}>
         <div
           className="vertice"
           style={{

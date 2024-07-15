@@ -46,6 +46,7 @@ const useGraph = ({
           label={vertice}
           isVisited={isVisited}
           ref={verticesRefs.current[index]}
+          // initialPosition={{ top: 100, left: 100 + index * 100 }}
         />
       );
     });

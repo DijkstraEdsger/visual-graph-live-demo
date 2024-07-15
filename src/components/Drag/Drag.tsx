@@ -3,10 +3,11 @@ import "./Drag.scss";
 
 type DraggableDivProps = {
   children: React.ReactNode;
+  initialPosition?: { top: number; left: number };
 };
 
 const Drag = forwardRef<HTMLDivElement, DraggableDivProps>(
-  ({ children }, ref) => {
+  ({ children, initialPosition }, ref) => {
     const divRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -71,6 +72,17 @@ const Drag = forwardRef<HTMLDivElement, DraggableDivProps>(
         document.onmousemove = null;
       };
     }, []);
+
+    const updateInitialPosition = () => {
+      if (divRef.current && initialPosition) {
+        divRef.current.style.top = `${initialPosition.top}px`;
+        divRef.current.style.left = `${initialPosition.left}px`;
+      }
+    };
+
+    useEffect(() => {
+      updateInitialPosition();
+    }, [initialPosition?.top, initialPosition?.left]);
 
     const updatedChildren = Children.map(children, (child) => {
       return cloneElement(child as React.ReactElement, {
