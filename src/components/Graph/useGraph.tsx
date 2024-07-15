@@ -33,80 +33,19 @@ const useGraph = ({
   };
 
   const updateVerticesElements = () => {
-    if (verticesElements.length === 0) {
-      if (traversalPath.length) {
-        const verticesEl = vertices.map((vertice) => {
-          const isVisited = traversalPath.includes(vertice);
-          return (
-            <Vertice
-              key={vertice}
-              label={vertice}
-              isVisited={isVisited}
-              ref={verticesRefs.current[vertices.indexOf(vertice)]}
-            />
-          );
-        });
+    const verticesEl = vertices.map((vertice, index) => {
+      const isVisited = traversalPath.includes(vertice);
+      return (
+        <Vertice
+          key={vertice}
+          label={vertice}
+          isVisited={isVisited}
+          ref={verticesRefs.current[index]}
+        />
+      );
+    });
 
-        setVerticesElements(verticesEl);
-      } else {
-        const verticesEl = vertices.map((vertice) => (
-          <Vertice
-            key={vertice}
-            label={vertice}
-            ref={verticesRefs.current[vertices.indexOf(vertice)]}
-          />
-        ));
-
-        setVerticesElements(verticesEl);
-      }
-    } else {
-      setVerticesElements((prev) => {
-        const newVertices = [...prev];
-        vertices.forEach((vertice, index) => {
-          if (!newVertices[index]) {
-            if (traversalPath.includes(vertice)) {
-              newVertices[index] = (
-                <Vertice
-                  key={vertice}
-                  label={vertice}
-                  isVisited
-                  ref={verticesRefs.current[index]}
-                />
-              );
-            } else {
-              newVertices[index] = (
-                <Vertice
-                  key={vertice}
-                  label={vertice}
-                  ref={verticesRefs.current[index]}
-                />
-              );
-            }
-          } else {
-            if (traversalPath.includes(vertice)) {
-              newVertices[index] = (
-                <Vertice
-                  key={vertice}
-                  label={vertice}
-                  isVisited
-                  ref={verticesRefs.current[index]}
-                />
-              );
-            } else {
-              newVertices[index] = (
-                <Vertice
-                  key={vertice}
-                  label={vertice}
-                  ref={verticesRefs.current[index]}
-                />
-              );
-            }
-          }
-        });
-
-        return newVertices;
-      });
-    }
+    setVerticesElements(verticesEl);
   };
 
   useEffect(() => {

@@ -14,9 +14,7 @@ function App() {
     [2, 3],
     [3, 1],
   ]);
-  const [traversalPath, setWayPoints] = React.useState<VerticeType[]>([
-    1, 2
-  ]);
+  const [traversalPath, setWayPoints] = React.useState<VerticeType[]>([1, 2]);
 
   useEffect(() => {
     // setTimeout(() => {
@@ -41,7 +39,7 @@ function App() {
 
   // useEffect(() => {
   //   setTimeout(() => {
-  //     setWayPoints([1, 2, 3]);
+  //     setWayPoints([1, 2,]);
   //   }, 6000);
   // }, []);
 
