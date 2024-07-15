@@ -57,6 +57,7 @@ function App() {
           2: { left: 300, top: 100 },
           3: { left: 200, top: 300 },
         }}
+        speed={2}
       />
     </GraphContainer>
   );

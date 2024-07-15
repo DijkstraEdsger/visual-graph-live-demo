@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { VerticeType } from "types/graph";
 
 const withAsyncData = (Component: React.FC<any>) => {
-  return ({ traversalPath, animatePath, ...props }: any) => {
+  return ({ traversalPath, animatePath, speed = 1, ...props }: any) => {
     const [wayPointsSecuential, setWayPointsSecuential] = useState<any>([]);
 
     useEffect(() => {
@@ -18,7 +17,7 @@ const withAsyncData = (Component: React.FC<any>) => {
           if (newWayPoints?.length === traversalPath?.length) {
             clearInterval(interval);
           }
-        }, 1000);
+        }, 1000 / speed);
       } else {
         setWayPointsSecuential(traversalPath);
       }
