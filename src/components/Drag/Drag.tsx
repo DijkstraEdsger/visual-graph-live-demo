@@ -1,9 +1,10 @@
 import { Children, cloneElement, forwardRef, useEffect, useRef } from "react";
 import "./Drag.scss";
+import { InitialPositionType } from "types/graph";
 
 type DraggableDivProps = {
   children: React.ReactNode;
-  initialPosition?: { top: number; left: number };
+  initialPosition?: InitialPositionType;
 };
 
 const Drag = forwardRef<HTMLDivElement, DraggableDivProps>(

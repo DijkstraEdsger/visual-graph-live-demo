@@ -1,19 +1,20 @@
 import Line from "components/Line/Line";
 import Vertice from "components/Vertice/Vertice";
 import { createRef, useEffect, useRef, useState } from "react";
-import { Edge, VerticeType } from "types/graph";
+import { Edge, InitialPositionsType, VerticeType } from "types/graph";
 
 type GraphProps = {
   vertices?: VerticeType[];
   edges?: Edge[];
   traversalPath?: VerticeType[];
-  animatePath?: boolean;
+  initialPositions?: InitialPositionsType;
 };
 
 const useGraph = ({
   vertices = [],
   edges = [],
   traversalPath = [],
+  initialPositions,
 }: GraphProps) => {
   const verticesRefs = useRef(vertices.map(() => createRef<HTMLDivElement>()));
   const [verticesElements, setVerticesElements] = useState<JSX.Element[]>([]);
@@ -46,7 +47,7 @@ const useGraph = ({
           label={vertice}
           isVisited={isVisited}
           ref={verticesRefs.current[index]}
-          // initialPosition={{ top: 100, left: 100 + index * 100 }}
+          initialPosition={initialPositions?.[vertice]}
         />
       );
     });

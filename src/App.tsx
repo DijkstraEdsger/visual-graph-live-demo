@@ -14,7 +14,9 @@ function App() {
     [2, 3],
     [3, 1],
   ]);
-  const [traversalPath, setWayPoints] = React.useState<VerticeType[]>([1, 2, 3]);
+  const [traversalPath, setWayPoints] = React.useState<VerticeType[]>([
+    1, 2, 3,
+  ]);
 
   useEffect(() => {
     // setTimeout(() => {
@@ -50,6 +52,11 @@ function App() {
         edges={edges}
         traversalPath={traversalPath}
         animatePath
+        initialPositions={{
+          1: { left: 100, top: 100 },
+          2: { left: 300, top: 100 },
+          3: { left: 200, top: 300 },
+        }}
       />
     </GraphContainer>
   );

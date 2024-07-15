@@ -1,11 +1,12 @@
 import React, { forwardRef } from "react";
 import "./Vertice.scss";
 import Drag from "components/Drag/Drag";
+import { InitialPositionType } from "types/graph";
 
 type VerticeProps = {
   label?: string | number;
   isVisited?: boolean;
-  initialPosition?: { top: number; left: number };
+  initialPosition?: InitialPositionType;
 };
 
 const Vertice = forwardRef<HTMLDivElement, VerticeProps>(

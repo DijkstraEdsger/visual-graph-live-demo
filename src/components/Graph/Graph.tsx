@@ -1,25 +1,25 @@
 import React from "react";
 import useGraph from "./useGraph";
-import { Edge, VerticeType } from "types/graph";
+import { Edge, InitialPositionsType, VerticeType } from "types/graph";
 
 type GraphProps = {
   vertices?: VerticeType[];
   edges?: Edge[];
   traversalPath?: VerticeType[];
-  animatePath?: boolean;
+  initialPositions?: InitialPositionsType;
 };
 
 const Graph: React.FC<GraphProps> = ({
   vertices = [],
   edges = [],
   traversalPath = [],
-  animatePath = false,
+  initialPositions,
 }: GraphProps) => {
   const { verticesElements, edgesElements } = useGraph({
     vertices,
     edges,
     traversalPath,
-    animatePath,
+    initialPositions,
   });
 
   return (
