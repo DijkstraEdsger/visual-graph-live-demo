@@ -4,6 +4,7 @@ import Graph from "components/Graph/Graph";
 import { Edge, VerticeType } from "types/graph";
 import { GraphContainer } from "contexts/graphContainerContext";
 import withAsyncData from "components/HOCs/withAsyncData";
+import MenuToolbar from "components/MenuToolbar/MenuToolbar";
 
 const GraphWithAsyncData = withAsyncData(Graph);
 
@@ -46,20 +47,23 @@ function App() {
   // }, []);
 
   return (
-    <GraphContainer>
-      <GraphWithAsyncData
-        vertices={vertices}
-        edges={edges}
-        traversalPath={traversalPath}
-        animatePath
-        initialPositions={{
-          1: { left: 100, top: 100 },
-          2: { left: 300, top: 100 },
-          3: { left: 200, top: 300 },
-        }}
-        speed={2}
-      />
-    </GraphContainer>
+    <>
+      {/* <MenuToolbar /> */}
+      <GraphContainer>
+        <GraphWithAsyncData
+          vertices={vertices}
+          edges={edges}
+          traversalPath={traversalPath}
+          animatePath
+          initialPositions={{
+            1: { left: 100, top: 100 },
+            2: { left: 300, top: 100 },
+            3: { left: 200, top: 300 },
+          }}
+          speed={2}
+        />
+      </GraphContainer>
+    </>
   );
 }
 
