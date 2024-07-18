@@ -48,7 +48,7 @@ function App() {
 
   return (
     <>
-      {/* <MenuToolbar /> */}
+      <MenuToolbar />
       <GraphContainer>
         <GraphWithAsyncData
           vertices={vertices}
