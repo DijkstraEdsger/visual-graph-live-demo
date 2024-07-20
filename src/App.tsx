@@ -46,9 +46,16 @@ function App() {
   //   }, 6000);
   // }, []);
 
+  const addVerticeHandle = () => {
+    setVertices([...vertices, vertices.length + 1]);
+  };
+
   return (
     <>
       <MenuToolbar />
+      <button type="button" onClick={addVerticeHandle}>
+        Add vertice
+      </button>
       <GraphContainer>
         <GraphWithAsyncData
           vertices={vertices}
