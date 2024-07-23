@@ -1,7 +1,8 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useEffect, useId, useState } from "react";
 import "./Vertice.scss";
 import Drag from "components/Drag/Drag";
 import { InitialPositionType } from "types/graph";
+import { ArrowRightIcon } from "@radix-ui/react-icons";
 
 type VerticeProps = {
   label?: string | number;
@@ -11,15 +12,49 @@ type VerticeProps = {
 
 const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
   ({ label, isVisited = false, initialPosition }, ref) => {
+    const id = useId();
+    const [isHintVisible, setIsHintVisible] = useState(false);
+
+    const mouseEnterHandler = (e: MouseEvent) => {
+      setIsHintVisible(true);
+    };
+
+    const mouseLeaveHandler = (e: MouseEvent) => {
+      setIsHintVisible(false);
+    };
+
+    useEffect(() => {
+      const containerEl = document.getElementById(id);
+
+      if (containerEl) {
+        containerEl.addEventListener("mouseenter", mouseEnterHandler);
+        containerEl.addEventListener("mouseleave", mouseLeaveHandler);
+      }
+
+      return () => {
+        containerEl?.removeEventListener("mouseenter", mouseEnterHandler);
+        containerEl?.removeEventListener("mouseleave", mouseLeaveHandler);
+      };
+    }, []);
+
     return (
       <Drag ref={ref} initialPosition={initialPosition}>
         <div
+          id={id}
           className="vertice"
           style={{
             backgroundColor: isVisited ? "green" : "#00bff",
           }}
         >
           <span>{label}</span>
+          <div
+            className="hint_edge"
+            style={{
+              visibility: isHintVisible ? "visible" : "hidden",
+            }}
+          >
+            <ArrowRightIcon stroke="#fff" />
+          </div>
         </div>
       </Drag>
     );
