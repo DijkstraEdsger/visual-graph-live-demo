@@ -5,6 +5,7 @@ import { Edge, VerticeType } from "types/graph";
 import { GraphContainer } from "contexts/graphContainerContext";
 import withAsyncData from "components/HOCs/withAsyncData";
 import MenuToolbar from "components/MenuToolbar/MenuToolbar";
+import DraggableLineComponent from "components/DraggableLineComponent/DraggableLineComponent";
 
 const GraphWithAsyncData = withAsyncData(Graph);
 
@@ -56,6 +57,8 @@ function App() {
       <button type="button" onClick={addVerticeHandle}>
         Add vertice
       </button>
+      <DraggableLineComponent />
+
       <GraphContainer>
         <GraphWithAsyncData
           vertices={vertices}

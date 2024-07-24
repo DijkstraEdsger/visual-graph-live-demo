@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useId, useState } from "react";
+import React, { forwardRef, useEffect, useId, useRef, useState } from "react";
 import "./Vertice.scss";
 import Drag from "components/Drag/Drag";
 import { InitialPositionType } from "types/graph";
@@ -13,6 +13,7 @@ type VerticeProps = {
 const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
   ({ label, isVisited = false, initialPosition }, ref) => {
     const id = useId();
+    const hintRef = useRef<HTMLDivElement>(null);
     const [isHintVisible, setIsHintVisible] = useState(false);
 
     const mouseEnterHandler = (e: MouseEvent) => {
@@ -48,6 +49,7 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
         >
           <span>{label}</span>
           <div
+            ref={hintRef}
             className="hint_edge"
             style={{
               visibility: isHintVisible ? "visible" : "hidden",
