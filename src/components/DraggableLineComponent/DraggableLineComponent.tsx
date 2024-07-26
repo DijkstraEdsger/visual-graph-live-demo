@@ -1,10 +1,12 @@
 import React, { useRef, useState } from "react";
+import { ArrowRightIcon } from "@radix-ui/react-icons";
 
 const DraggableLineComponent = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [lineStart, setLineStart] = useState({ x: 0, y: 0 });
   const [lineEnd, setLineEnd] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
+  const verticeRef1 = useRef<HTMLDivElement>(null);
 
   const handleMouseDown = (e: any) => {
     setIsDragging(true);
@@ -14,6 +16,24 @@ const DraggableLineComponent = () => {
     setLineStart({
       x: rect.left + rect.width / 2 - containerRect?.left!,
       y: rect.top + rect.height / 2 - containerRect?.top!,
+    });
+  };
+
+  const handleMouseDownV2 = (verticeRef: React.RefObject<HTMLDivElement>) => {
+    setIsDragging(true);
+    const rect = verticeRef.current?.getBoundingClientRect() as DOMRect;
+    const containerRect = containerRef.current?.getBoundingClientRect();
+
+    const x = rect.left + rect.width / 2 - containerRect?.left!;
+    const y = rect.top + rect.height / 2 - containerRect?.top!;
+
+    setLineStart({
+      x,
+      y,
+    });
+    setLineEnd({
+      x,
+      y,
     });
   };
 
@@ -29,25 +49,25 @@ const DraggableLineComponent = () => {
 
   const handleMouseUp = () => {
     setIsDragging(false);
+    setLineStart({ x: 0, y: 0 });
+    setLineEnd({ x: 0, y: 0 });
   };
 
   return (
     <div
       ref={containerRef}
-      onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
-      // onMouseLeave={handleMouseUp}
       style={{
         width: 500,
         height: 500,
-        backgroundColor: "red",
+        backgroundColor: "#cacaca",
         position: "relative",
-        // userSelect: "none",
         margin: "0 auto",
       }}
     >
       <div
+        ref={verticeRef1}
         style={{
           position: "absolute",
           width: 50,
@@ -58,7 +78,14 @@ const DraggableLineComponent = () => {
           zIndex: 1,
           borderRadius: "50%",
         }}
-      ></div>
+      >
+        <div
+          className="hint_edge"
+          onMouseDown={() => handleMouseDownV2(verticeRef1)}
+        >
+          <ArrowRightIcon stroke="#fff" />
+        </div>
+      </div>
       <div
         style={{
           position: "absolute",
