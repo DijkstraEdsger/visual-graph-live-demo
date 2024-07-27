@@ -14,6 +14,10 @@ const GraphContainerContext = React.createContext<{
     };
     handleMouseDown: (verticeRef: React.RefObject<HTMLDivElement>) => void;
   };
+  doubleClickPosition?: {
+    x: number;
+    y: number;
+  };
 }>({
   container: null,
 });
@@ -36,6 +40,10 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
   const [isDragging, setIsDragging] = useState(false);
   const [lineStart, setLineStart] = useState({ x: 0, y: 0 });
   const [lineEnd, setLineEnd] = useState({ x: 0, y: 0 });
+  const [doubleClickPosition, setDoubleClickPosition] = useState<{
+    x: number;
+    y: number;
+  }>({ x: 0, y: 0 });
 
   React.useEffect(() => {
     setContainer(graphContainerRef.current);
@@ -75,6 +83,15 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
     setLineEnd({ x: 0, y: 0 });
   };
 
+  const onDoubleClickHandler = (e: React.MouseEvent) => {
+    const containerRect = graphContainerRef.current?.getBoundingClientRect();
+
+    setDoubleClickPosition({
+      x: e.clientX - containerRect!.left,
+      y: e.clientY - containerRect!.top,
+    });
+  };
+
   return (
     <GraphContainerContext.Provider
       value={{
@@ -85,6 +102,7 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
           lineEnd,
           handleMouseDown,
         },
+        doubleClickPosition,
       }}
     >
       <div
@@ -92,6 +110,7 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
         className="graph_container"
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
+        onDoubleClick={onDoubleClickHandler}
       >
         {children}
       </div>

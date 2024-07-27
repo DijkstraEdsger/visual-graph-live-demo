@@ -4,12 +4,21 @@ import { useGraphContainer } from "contexts/graphContainerContext";
 import { createRef, useEffect, useRef, useState } from "react";
 import { Edge, InitialPositionsType, VerticeType } from "types/graph";
 
+const VERTICE_SIZE = 50;
+
 type GraphProps = {
   vertices?: VerticeType[];
   edges?: Edge[];
   traversalPath?: VerticeType[];
   initialPositions?: InitialPositionsType;
   onAddEdge?: (edge: Edge) => void;
+  onAddVertice?: (
+    vertice: VerticeType,
+    position: {
+      x: number;
+      y: number;
+    }
+  ) => void;
 };
 
 const useGraph = ({
@@ -18,12 +27,13 @@ const useGraph = ({
   traversalPath = [],
   initialPositions,
   onAddEdge = () => {},
+  onAddVertice = () => {},
 }: GraphProps) => {
   const verticesRefs = useRef(vertices.map(() => createRef<HTMLDivElement>()));
   const [verticesElements, setVerticesElements] = useState<JSX.Element[]>([]);
   const [edgesElements, setEdgesElements] = useState<JSX.Element[]>([]);
   const [newEdge, setNewEdge] = useState<Edge | null>(null);
-  const { edgeConection } = useGraphContainer();
+  const { edgeConection, doubleClickPosition } = useGraphContainer();
 
   useEffect(() => {
     if (vertices.length) {
@@ -49,6 +59,27 @@ const useGraph = ({
       onAddEdge(newEdge);
     }
   }, [newEdge]);
+
+  const generatenewVerticeLabel = () => {
+    const maxVertice = Math.max(...vertices.map((v) => Number(v)));
+    return maxVertice + 1;
+  };
+
+  const isValidVerticePosition = (position: { x: number; y: number }) => {
+    return position.x !== 0 && position.y !== 0;
+  };
+
+  useEffect(() => {
+    if (doubleClickPosition && isValidVerticePosition(doubleClickPosition)) {
+      const newVerticeLabel = generatenewVerticeLabel();
+      const updatedPosition = {
+        x: doubleClickPosition.x - VERTICE_SIZE / 2,
+        y: doubleClickPosition.y - VERTICE_SIZE / 2,
+      };
+
+      onAddVertice(newVerticeLabel, updatedPosition);
+    }
+  }, [doubleClickPosition]);
 
   const updateVerticesRefs = () => {
     verticesRefs.current = vertices.map(

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Graph from "components/Graph/Graph";
 import { Edge, VerticeType } from "types/graph";
@@ -19,6 +19,13 @@ function App() {
   const [traversalPath, setWayPoints] = React.useState<VerticeType[]>([
     1, 2, 3,
   ]);
+  const [positions, setPositions] = useState<{
+    [key: string]: { left: number; top: number };
+  }>({
+    1: { left: 100, top: 100 },
+    2: { left: 300, top: 100 },
+    3: { left: 200, top: 300 },
+  });
 
   useEffect(() => {
     // setTimeout(() => {
@@ -55,6 +62,20 @@ function App() {
     setEdges([...edges, edge]);
   };
 
+  const addVerticeHandler = (
+    vertice: VerticeType,
+    position: {
+      x: number;
+      y: number;
+    }
+  ) => {
+    setVertices([...vertices, vertice]);
+    setPositions({
+      ...positions,
+      [vertice]: { left: position.x, top: position.y },
+    });
+  };
+
   return (
     <>
       <MenuToolbar />
@@ -68,13 +89,10 @@ function App() {
           edges={edges}
           traversalPath={traversalPath}
           animatePath
-          initialPositions={{
-            1: { left: 100, top: 100 },
-            2: { left: 300, top: 100 },
-            3: { left: 200, top: 300 },
-          }}
+          initialPositions={positions}
           speed={2}
           onAddEdge={addEdgeHandler}
+          onAddVertice={addVerticeHandler}
         />
       </GraphContainer>
     </>
