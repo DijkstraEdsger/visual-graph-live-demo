@@ -40,7 +40,7 @@ const useGraph = ({
       updateVerticesRefs();
       updateVerticesElements();
     }
-  }, [vertices, traversalPath, edgeConection]);
+  }, [vertices, traversalPath, initialPositions, edgeConection]);
 
   const existsEdge = (edge: Edge) => {
     return edges.some(
