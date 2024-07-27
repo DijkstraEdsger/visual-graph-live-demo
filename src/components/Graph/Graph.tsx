@@ -7,6 +7,7 @@ type GraphProps = {
   edges?: Edge[];
   traversalPath?: VerticeType[];
   initialPositions?: InitialPositionsType;
+  onAddEdge?: (edge: Edge) => void;
 };
 
 const Graph: React.FC<GraphProps> = ({
@@ -14,12 +15,14 @@ const Graph: React.FC<GraphProps> = ({
   edges = [],
   traversalPath = [],
   initialPositions,
+  onAddEdge = () => {},
 }: GraphProps) => {
   const { verticesElements, edgesElements, edgeConection } = useGraph({
     vertices,
     edges,
     traversalPath,
     initialPositions,
+    onAddEdge,
   });
 
   return (

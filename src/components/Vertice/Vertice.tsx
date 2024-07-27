@@ -10,6 +10,7 @@ type VerticeProps = {
   initialPosition?: InitialPositionType;
   isAVerticeTryingToConnect?: boolean;
   onMouseDownEdgeHint?: (ref: any) => void;
+  onMouseUpEdgeHint?: (label: string | number) => void;
 };
 
 const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
@@ -20,6 +21,7 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
       initialPosition,
       isAVerticeTryingToConnect = false,
       onMouseDownEdgeHint = () => {},
+      onMouseUpEdgeHint = () => {},
     },
     ref
   ) => {
@@ -65,6 +67,14 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
       };
     }, []);
 
+    const onMouseUpEdgeHintHandler: React.MouseEventHandler<HTMLDivElement> = (
+      e
+    ) => {
+      if (isAVerticeTryingToConnect) {
+        onMouseUpEdgeHint(label || "");
+      }
+    };
+
     return (
       <Drag ref={ref} initialPosition={initialPosition}>
         <div
@@ -73,6 +83,7 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
           style={{
             backgroundColor: isVisited ? "green" : "#00bff",
           }}
+          onMouseUp={onMouseUpEdgeHintHandler}
         >
           <span>{label}</span>
           <div

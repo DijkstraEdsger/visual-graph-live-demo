@@ -9,6 +9,7 @@ type GraphProps = {
   edges?: Edge[];
   traversalPath?: VerticeType[];
   initialPositions?: InitialPositionsType;
+  onAddEdge?: (edge: Edge) => void;
 };
 
 const useGraph = ({
@@ -16,10 +17,12 @@ const useGraph = ({
   edges = [],
   traversalPath = [],
   initialPositions,
+  onAddEdge = () => {},
 }: GraphProps) => {
   const verticesRefs = useRef(vertices.map(() => createRef<HTMLDivElement>()));
   const [verticesElements, setVerticesElements] = useState<JSX.Element[]>([]);
   const [edgesElements, setEdgesElements] = useState<JSX.Element[]>([]);
+  const [newEdge, setNewEdge] = useState<Edge | null>(null);
   const { edgeConection } = useGraphContainer();
 
   useEffect(() => {
@@ -29,6 +32,24 @@ const useGraph = ({
     }
   }, [vertices, traversalPath, edgeConection]);
 
+  const existsEdge = (edge: Edge) => {
+    return edges.some(
+      (e) =>
+        (e[0] === edge[0] && e[1] === edge[1]) ||
+        (e[0] === edge[1] && e[1] === edge[0])
+    );
+  };
+
+  const isValidEdge = (edge: Edge) => {
+    return !existsEdge(edge);
+  };
+
+  useEffect(() => {
+    if (newEdge?.[0] && newEdge?.[1] && isValidEdge(newEdge)) {
+      onAddEdge(newEdge);
+    }
+  }, [newEdge]);
+
   const updateVerticesRefs = () => {
     verticesRefs.current = vertices.map(
       (_, i) => verticesRefs.current[i] ?? createRef<HTMLDivElement>()
@@ -37,6 +58,22 @@ const useGraph = ({
 
   const isVerticeVisited = (vertice: VerticeType) => {
     return traversalPath.includes(vertice);
+  };
+
+  const setNewConnectionInitialVertice = (
+    verticeRef: React.RefObject<HTMLDivElement>,
+    data: string | number
+  ) => {
+    setNewEdge([data, ""]);
+    edgeConection?.handleMouseDown(verticeRef);
+  };
+
+  const setNewConnectionSecondVertice = (
+    verticeRef: React.RefObject<HTMLDivElement>,
+    data: string | number
+  ) => {
+    setNewEdge([newEdge![0], data]);
+    edgeConection?.handleMouseDown(verticeRef);
   };
 
   const updateVerticesElements = () => {
@@ -50,8 +87,13 @@ const useGraph = ({
           isVisited={isVisited}
           ref={verticesRefs.current[index]}
           initialPosition={initialPositions?.[vertice]}
-          onMouseDownEdgeHint={edgeConection?.handleMouseDown}
+          onMouseDownEdgeHint={(ref) =>
+            setNewConnectionInitialVertice(ref, vertice)
+          }
           isAVerticeTryingToConnect={edgeConection?.isDragging}
+          onMouseUpEdgeHint={(data) => {
+            setNewConnectionSecondVertice(verticesRefs.current[index], data);
+          }}
         />
       );
     });

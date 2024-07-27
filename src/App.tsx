@@ -51,13 +51,16 @@ function App() {
     setVertices([...vertices, vertices.length + 1]);
   };
 
+  const addEdgeHandler = (edge: Edge) => {
+    setEdges([...edges, edge]);
+  };
+
   return (
     <>
       <MenuToolbar />
       <button type="button" onClick={addVerticeHandle}>
         Add vertice
       </button>
-      <DraggableLineComponent />
 
       <GraphContainer>
         <GraphWithAsyncData
@@ -71,6 +74,7 @@ function App() {
             3: { left: 200, top: 300 },
           }}
           speed={2}
+          onAddEdge={addEdgeHandler}
         />
       </GraphContainer>
     </>
