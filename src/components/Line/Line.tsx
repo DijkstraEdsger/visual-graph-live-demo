@@ -13,7 +13,7 @@ const Line: React.FC<LineProps> = ({
   isTraversed = false,
 }: LineProps) => {
   const lineRef = useRef<SVGLineElement>(null);
-  const containerEl = useGraphContainer();
+  const { container: containerEl } = useGraphContainer();
 
   useEffect(() => {
     const handleMouseMove = () => {
@@ -52,9 +52,12 @@ const Line: React.FC<LineProps> = ({
   return (
     <line
       ref={lineRef}
-      stroke="black"
+      stroke="#4a4a4a"
       className={isTraversed ? "is_traversed" : ""}
       strokeWidth="2"
+      style={{
+        transition: "stroke 0.3s ease-in-out",
+      }}
     />
   );
 };

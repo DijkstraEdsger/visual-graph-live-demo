@@ -7,6 +7,7 @@ type GraphProps = {
   edges?: Edge[];
   traversalPath?: VerticeType[];
   initialPositions?: InitialPositionsType;
+  onAddEdge?: (edge: Edge) => void;
 };
 
 const Graph: React.FC<GraphProps> = ({
@@ -14,12 +15,14 @@ const Graph: React.FC<GraphProps> = ({
   edges = [],
   traversalPath = [],
   initialPositions,
+  onAddEdge = () => {},
 }: GraphProps) => {
-  const { verticesElements, edgesElements } = useGraph({
+  const { verticesElements, edgesElements, edgeConection } = useGraph({
     vertices,
     edges,
     traversalPath,
     initialPositions,
+    onAddEdge,
   });
 
   return (
@@ -35,6 +38,13 @@ const Graph: React.FC<GraphProps> = ({
         }}
       >
         {edgesElements}
+        <line
+          x1={edgeConection?.lineStart.x}
+          y1={edgeConection?.lineStart.y}
+          x2={edgeConection?.lineEnd.x}
+          y2={edgeConection?.lineEnd.y}
+          stroke="black"
+        />
       </svg>
     </>
   );

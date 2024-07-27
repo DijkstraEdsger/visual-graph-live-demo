@@ -5,6 +5,7 @@ import { Edge, VerticeType } from "types/graph";
 import { GraphContainer } from "contexts/graphContainerContext";
 import withAsyncData from "components/HOCs/withAsyncData";
 import MenuToolbar from "components/MenuToolbar/MenuToolbar";
+import DraggableLineComponent from "components/DraggableLineComponent/DraggableLineComponent";
 
 const GraphWithAsyncData = withAsyncData(Graph);
 
@@ -50,12 +51,17 @@ function App() {
     setVertices([...vertices, vertices.length + 1]);
   };
 
+  const addEdgeHandler = (edge: Edge) => {
+    setEdges([...edges, edge]);
+  };
+
   return (
     <>
       <MenuToolbar />
       <button type="button" onClick={addVerticeHandle}>
         Add vertice
       </button>
+
       <GraphContainer>
         <GraphWithAsyncData
           vertices={vertices}
@@ -68,6 +74,7 @@ function App() {
             3: { left: 200, top: 300 },
           }}
           speed={2}
+          onAddEdge={addEdgeHandler}
         />
       </GraphContainer>
     </>
