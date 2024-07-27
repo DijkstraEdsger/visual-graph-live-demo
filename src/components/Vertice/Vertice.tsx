@@ -8,6 +8,7 @@ type VerticeProps = {
   label?: string | number;
   isVisited?: boolean;
   initialPosition?: InitialPositionType;
+  isAVerticeTryingToConnect?: boolean;
   onMouseDownEdgeHint?: (ref: any) => void;
 };
 
@@ -17,6 +18,7 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
       label,
       isVisited = false,
       initialPosition,
+      isAVerticeTryingToConnect = false,
       onMouseDownEdgeHint = () => {},
     },
     ref
@@ -67,7 +69,7 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
       <Drag ref={ref} initialPosition={initialPosition}>
         <div
           id={id}
-          className="vertice"
+          className={`vertice ${isAVerticeTryingToConnect ? "connecting" : ""}`}
           style={{
             backgroundColor: isVisited ? "green" : "#00bff",
           }}

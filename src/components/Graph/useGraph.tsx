@@ -27,7 +27,7 @@ const useGraph = ({
       updateVerticesRefs();
       updateVerticesElements();
     }
-  }, [vertices, traversalPath]);
+  }, [vertices, traversalPath, edgeConection]);
 
   const updateVerticesRefs = () => {
     verticesRefs.current = vertices.map(
@@ -51,6 +51,7 @@ const useGraph = ({
           ref={verticesRefs.current[index]}
           initialPosition={initialPositions?.[vertice]}
           onMouseDownEdgeHint={edgeConection?.handleMouseDown}
+          isAVerticeTryingToConnect={edgeConection?.isDragging}
         />
       );
     });

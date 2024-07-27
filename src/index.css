@@ -12,6 +12,21 @@ code {
     monospace;
 }
 
+.graph_container {
+  width: 70vw;
+  height: 70vh;
+  background-color: #f0f0f0;
+  position: relative;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  z-index: 1;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 .animated {
   border: 10px solid red;
   animation: changeStroke 2s ease forwards, drawLine 2s ease forwards;
@@ -55,6 +70,5 @@ code {
 }
 
 .is_traversed {
-  stroke: #84ee0d;
-  stroke-width: 5;
+  stroke: #ff9800;
 }

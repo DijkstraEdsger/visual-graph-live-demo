@@ -3,6 +3,7 @@ import React, { useState } from "react";
 const GraphContainerContext = React.createContext<{
   container: HTMLDivElement | null;
   edgeConection?: {
+    isDragging: boolean;
     lineStart: {
       x: number;
       y: number;
@@ -79,6 +80,7 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
       value={{
         container: container,
         edgeConection: {
+          isDragging,
           lineStart,
           lineEnd,
           handleMouseDown,
@@ -87,16 +89,7 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
     >
       <div
         ref={graphContainerRef}
-        style={{
-          width: "70vw",
-          height: "70vh",
-          position: "relative",
-          margin: "0 auto",
-          border: "1px solid black",
-          overflow: "hidden",
-          zIndex: 1,
-          userSelect: "none",
-        }}
+        className="graph_container"
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
       >
