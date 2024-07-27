@@ -76,11 +76,31 @@ function App() {
     });
   };
 
+  const downloadGraphAsTxt = () => {
+    // the txt file will contain the vertices, edges and positions of the vertices
+    // the format will be like a JSON object
+
+    const data = {
+      vertices,
+      edges,
+      positions,
+    };
+
+    const a = document.createElement("a");
+    const file = new Blob([JSON.stringify(data)], { type: "text/plain" });
+    a.href = URL.createObjectURL(file);
+    a.download = "graph.txt";
+    a.click();
+  };
+
   return (
     <>
       <MenuToolbar />
       <button type="button" onClick={addVerticeHandle}>
         Add vertice
+      </button>
+      <button type="button" onClick={downloadGraphAsTxt}>
+        Download graph as txt
       </button>
 
       <GraphContainer>
