@@ -8,10 +8,19 @@ type VerticeProps = {
   label?: string | number;
   isVisited?: boolean;
   initialPosition?: InitialPositionType;
+  onMouseDownEdgeHint?: (ref: any) => void;
 };
 
 const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
-  ({ label, isVisited = false, initialPosition }, ref) => {
+  (
+    {
+      label,
+      isVisited = false,
+      initialPosition,
+      onMouseDownEdgeHint = () => {},
+    },
+    ref
+  ) => {
     const id = useId();
     const hintRef = useRef<HTMLDivElement>(null);
     const [isHintVisible, setIsHintVisible] = useState(false);
@@ -24,6 +33,11 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
       setIsHintVisible(false);
     };
 
+    const onMouseDownEdgeHintHandler = (e: MouseEvent) => {
+      e.stopPropagation();
+      onMouseDownEdgeHint(ref);
+    };
+
     useEffect(() => {
       const containerEl = document.getElementById(id);
 
@@ -32,9 +46,20 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
         containerEl.addEventListener("mouseleave", mouseLeaveHandler);
       }
 
+      if (hintRef) {
+        hintRef.current?.addEventListener(
+          "mousedown",
+          onMouseDownEdgeHintHandler
+        );
+      }
+
       return () => {
         containerEl?.removeEventListener("mouseenter", mouseEnterHandler);
         containerEl?.removeEventListener("mouseleave", mouseLeaveHandler);
+        hintRef?.current?.removeEventListener(
+          "mousedown",
+          onMouseDownEdgeHintHandler
+        );
       };
     }, []);
 

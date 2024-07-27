@@ -1,5 +1,6 @@
 import Line from "components/Line/Line";
 import Vertice from "components/Vertice/Vertice";
+import { useGraphContainer } from "contexts/graphContainerContext";
 import { createRef, useEffect, useRef, useState } from "react";
 import { Edge, InitialPositionsType, VerticeType } from "types/graph";
 
@@ -19,6 +20,7 @@ const useGraph = ({
   const verticesRefs = useRef(vertices.map(() => createRef<HTMLDivElement>()));
   const [verticesElements, setVerticesElements] = useState<JSX.Element[]>([]);
   const [edgesElements, setEdgesElements] = useState<JSX.Element[]>([]);
+  const { edgeConection } = useGraphContainer();
 
   useEffect(() => {
     if (vertices.length) {
@@ -48,6 +50,7 @@ const useGraph = ({
           isVisited={isVisited}
           ref={verticesRefs.current[index]}
           initialPosition={initialPositions?.[vertice]}
+          onMouseDownEdgeHint={edgeConection?.handleMouseDown}
         />
       );
     });
@@ -96,6 +99,7 @@ const useGraph = ({
   return {
     verticesElements,
     edgesElements,
+    edgeConection,
   };
 };
 

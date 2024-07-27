@@ -15,7 +15,7 @@ const Graph: React.FC<GraphProps> = ({
   traversalPath = [],
   initialPositions,
 }: GraphProps) => {
-  const { verticesElements, edgesElements } = useGraph({
+  const { verticesElements, edgesElements, edgeConection } = useGraph({
     vertices,
     edges,
     traversalPath,
@@ -35,6 +35,13 @@ const Graph: React.FC<GraphProps> = ({
         }}
       >
         {edgesElements}
+        <line
+          x1={edgeConection?.lineStart.x}
+          y1={edgeConection?.lineStart.y}
+          x2={edgeConection?.lineEnd.x}
+          y2={edgeConection?.lineEnd.y}
+          stroke="black"
+        />
       </svg>
     </>
   );

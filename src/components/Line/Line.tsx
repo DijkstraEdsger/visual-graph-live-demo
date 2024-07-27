@@ -13,7 +13,7 @@ const Line: React.FC<LineProps> = ({
   isTraversed = false,
 }: LineProps) => {
   const lineRef = useRef<SVGLineElement>(null);
-  const containerEl = useGraphContainer();
+  const { container: containerEl } = useGraphContainer();
 
   useEffect(() => {
     const handleMouseMove = () => {
