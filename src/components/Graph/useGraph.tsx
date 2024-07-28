@@ -3,6 +3,7 @@ import Vertice from "components/Vertice/Vertice";
 import { useGraphContainer } from "contexts/graphContainerContext";
 import { cloneElement, createRef, useEffect, useRef, useState } from "react";
 import { Edge, InitialPositionsType, VerticeType } from "types/graph";
+import { useGraph as useGraphGlobalContext } from "contexts/graphContext";
 
 const VERTICE_SIZE = 50;
 
@@ -34,6 +35,7 @@ const useGraph = ({
   const [edgesElements, setEdgesElements] = useState<JSX.Element[]>([]);
   const [newEdge, setNewEdge] = useState<Edge | null>(null);
   const { edgeConection, doubleClickPosition } = useGraphContainer();
+  const { updatePositions } = useGraphGlobalContext();
 
   useEffect(() => {
     if (vertices.length) {
@@ -125,6 +127,7 @@ const useGraph = ({
           onMouseUpEdgeHint={(data) => {
             setNewConnectionSecondVertice(verticesRefs.current[index], data);
           }}
+          onChangePosition={(position) => updatePositions(vertice, position)}
         />
       );
     });

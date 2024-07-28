@@ -32,6 +32,7 @@ const GraphContext = createContext<{
   addEdgeHandler: (edge: Edge) => void;
   downloadGraphAsTxt: () => void;
   uploadGraph: () => void;
+  updatePositions: (vertice: VerticeType, position: Position) => void;
 }>({
   vertices: [],
   edges: [],
@@ -42,6 +43,7 @@ const GraphContext = createContext<{
   addEdgeHandler: () => {},
   downloadGraphAsTxt: () => {},
   uploadGraph: () => {},
+  updatePositions: () => {},
 });
 
 type GraphProviderProps = {
@@ -71,6 +73,13 @@ const GraphProvider: FC<GraphProviderProps> = ({
     }
   ) => {
     setVertices([...vertices, vertice]);
+    setPositions({
+      ...positions,
+      [vertice]: { left: position.x, top: position.y },
+    });
+  };
+
+  const updatePositions = (vertice: VerticeType, position: Position) => {
     setPositions({
       ...positions,
       [vertice]: { left: position.x, top: position.y },
@@ -124,6 +133,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
         addEdgeHandler,
         downloadGraphAsTxt,
         uploadGraph,
+        updatePositions,
       }}
     >
       {children}

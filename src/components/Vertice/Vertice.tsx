@@ -1,7 +1,7 @@
 import React, { forwardRef, useEffect, useId, useRef, useState } from "react";
 import "./Vertice.scss";
 import Drag from "components/Drag/Drag";
-import { InitialPositionType } from "types/graph";
+import { InitialPositionType, Position } from "types/graph";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 
 type VerticeProps = {
@@ -11,6 +11,7 @@ type VerticeProps = {
   isAVerticeTryingToConnect?: boolean;
   onMouseDownEdgeHint?: (ref: any) => void;
   onMouseUpEdgeHint?: (label: string | number) => void;
+  onChangePosition?: (position: Position) => void;
 };
 
 const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
@@ -22,6 +23,7 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
       isAVerticeTryingToConnect = false,
       onMouseDownEdgeHint = () => {},
       onMouseUpEdgeHint = () => {},
+      onChangePosition = () => {},
     },
     ref
   ) => {
@@ -76,7 +78,11 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
     };
 
     return (
-      <Drag ref={ref} initialPosition={initialPosition}>
+      <Drag
+        ref={ref}
+        initialPosition={initialPosition}
+        onChangePosition={onChangePosition}
+      >
         <div
           id={id}
           className={`vertice ${isAVerticeTryingToConnect ? "connecting" : ""}`}
