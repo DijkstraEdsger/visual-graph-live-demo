@@ -9,3 +9,8 @@ export type InitialPositionType = {
 export type InitialPositionsType = {
   [key: string]: InitialPositionType;
 };
+
+export type Position = {
+  x: number;
+  y: number;
+};
