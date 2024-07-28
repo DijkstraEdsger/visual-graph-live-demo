@@ -1,14 +1,15 @@
 import { Children, cloneElement, forwardRef, useEffect, useRef } from "react";
 import "./Drag.scss";
-import { InitialPositionType } from "types/graph";
+import { InitialPositionType, Position } from "types/graph";
 
 type DraggableDivProps = {
   children: React.ReactNode;
   initialPosition?: InitialPositionType;
+  onChangePosition?: (position: Position) => void;
 };
 
 const Drag = forwardRef<HTMLDivElement, DraggableDivProps>(
-  ({ children, initialPosition }, ref) => {
+  ({ children, initialPosition, onChangePosition = () => {} }, ref) => {
     const divRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -57,6 +58,13 @@ const Drag = forwardRef<HTMLDivElement, DraggableDivProps>(
       };
 
       const closeDragElement = () => {
+        if (divRef.current) {
+          onChangePosition({
+            x: +divRef.current.style.left.split("px")[0],
+            y: +divRef.current.style.top.split("px")[0],
+          });
+        }
+
         document.onmouseup = null;
         document.onmousemove = null;
       };
