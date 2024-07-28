@@ -1,7 +1,7 @@
 import Line from "components/Line/Line";
 import Vertice from "components/Vertice/Vertice";
 import { useGraphContainer } from "contexts/graphContainerContext";
-import { createRef, useEffect, useRef, useState } from "react";
+import { cloneElement, createRef, useEffect, useRef, useState } from "react";
 import { Edge, InitialPositionsType, VerticeType } from "types/graph";
 
 const VERTICE_SIZE = 50;
@@ -40,7 +40,7 @@ const useGraph = ({
       updateVerticesRefs();
       updateVerticesElements();
     }
-  }, [vertices, traversalPath, initialPositions, edgeConection]);
+  }, [vertices, edgeConection, initialPositions]);
 
   const existsEdge = (edge: Edge) => {
     return edges.some(
@@ -61,7 +61,7 @@ const useGraph = ({
   }, [newEdge]);
 
   const generatenewVerticeLabel = () => {
-    const maxVertice = Math.max(...vertices.map((v) => Number(v)));
+    const maxVertice = Math.max(...vertices.map((v) => Number(v)), 0);
     return maxVertice + 1;
   };
 
@@ -136,7 +136,7 @@ const useGraph = ({
     if (edges.length) {
       updateEdgesElements();
     }
-  }, [edges, traversalPath]);
+  }, [edges]);
 
   const isEdgeTraversed = (edge: Edge) => {
     const [vertice1, vertice2] = edge;
@@ -146,7 +146,9 @@ const useGraph = ({
     return (
       vertice1Index !== -1 &&
       vertice2Index !== -1 &&
-      vertice1Index + 1 === vertice2Index
+      (vertice1Index + 1 === vertice2Index ||
+        vertice2Index + 1 === vertice1Index ||
+        (vertice1Index === traversalPath.length - 1 && vertice2Index === 0))
     );
   };
 
@@ -169,6 +171,48 @@ const useGraph = ({
 
     setEdgesElements(edgesEl);
   };
+
+  const updateEdgesElementsWithTraversalPath = () => {
+    const edgesElIndexes: number[] = traversalPath.reduce(
+      (acc: number[], vertice, index) => {
+        const nextIndex = index + 1;
+        const nextVertice = traversalPath[nextIndex];
+
+        if (nextVertice) {
+          const edgeIndex = edges.findIndex(
+            (edge) =>
+              (edge[0] === vertice && edge[1] === nextVertice) ||
+              (edge[0] === nextVertice && edge[1] === vertice)
+          );
+
+          if (edgeIndex !== -1) {
+            acc.push(edgeIndex);
+          }
+        }
+
+        return acc;
+      },
+      []
+    );
+
+    const updatedEdgesElements = [...edgesElements];
+
+    edgesElIndexes.forEach((edgeIndex) => {
+      const edgeEl = updatedEdgesElements[edgeIndex];
+
+      updatedEdgesElements[edgeIndex] = cloneElement(edgeEl, {
+        isTraversed: true,
+      });
+    });
+
+    setEdgesElements(updatedEdgesElements);
+  };
+
+  useEffect(() => {
+    if (traversalPath.length > 1) {
+      updateEdgesElementsWithTraversalPath();
+    }
+  }, [traversalPath]);
 
   return {
     verticesElements,

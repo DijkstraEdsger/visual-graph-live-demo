@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 
 const withAsyncData = (Component: React.FC<any>) => {
-  return ({ traversalPath, animatePath, speed = 1, ...props }: any) => {
+  const WrappedComponent = ({
+    traversalPath,
+    animatePath,
+    speed = 1,
+    ...props
+  }: any) => {
     const [wayPointsSecuential, setWayPointsSecuential] = useState<any>([]);
 
     useEffect(() => {
@@ -27,6 +32,12 @@ const withAsyncData = (Component: React.FC<any>) => {
 
     return <Component {...props} traversalPath={wayPointsSecuential} />;
   };
+
+  WrappedComponent.displayName = `withAsyncData(${
+    Component.displayName || Component.name || "Component"
+  })`;
+
+  return WrappedComponent;
 };
 
 export default withAsyncData;

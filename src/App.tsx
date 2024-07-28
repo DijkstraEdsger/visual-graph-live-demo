@@ -9,49 +9,53 @@ import DraggableLineComponent from "components/DraggableLineComponent/DraggableL
 
 const GraphWithAsyncData = withAsyncData(Graph);
 
+const initialVertices = [1, 2, 3];
+const initialEdges: Edge[] = [
+  [1, 2],
+  [2, 3],
+  [3, 1],
+];
+const initialTraversalPath: VerticeType[] = [1, 2, 3, 4];
+const initialPositions = {
+  1: { left: 100, top: 100 },
+  2: { left: 300, top: 100 },
+  3: { left: 200, top: 300 },
+};
+
 function App() {
-  const [vertices, setVertices] = React.useState<VerticeType[]>([1, 2, 3]);
-  const [edges, setEdges] = React.useState<Edge[]>([
-    [1, 2],
-    [2, 3],
-    [3, 1],
-  ]);
-  const [traversalPath, setWayPoints] = React.useState<VerticeType[]>([
-    1, 2, 3,
-  ]);
+  const [vertices, setVertices] = React.useState<VerticeType[]>([]);
+  const [edges, setEdges] = React.useState<Edge[]>([]);
+  const [traversalPath, setWayPoints] = React.useState<VerticeType[]>([]);
   const [positions, setPositions] = useState<{
     [key: string]: { left: number; top: number };
-  }>({
-    1: { left: 100, top: 100 },
-    2: { left: 300, top: 100 },
-    3: { left: 200, top: 300 },
-  });
-
-  useEffect(() => {
-    // setTimeout(() => {
-    //   setEdges([
-    //     [1, 2],
-    //     [2, 3],
-    //     [3, 1],
-    //   ]);
-    // }, 5000);
-    // setTimeout(() => {
-    //   setVertices([1, 2, 3, 4]);
-    //   setEdges([
-    //     [1, 2],
-    //     [2, 3],
-    //     [3, 1],
-    //     [4, 1],
-    //     [4, 2],
-    //     [4, 3],
-    //   ]);
-    // }, 10000);
-  }, []);
+  }>();
+  const inputFileRef = React.useRef<HTMLInputElement>(null);
 
   // useEffect(() => {
   //   setTimeout(() => {
-  //     setWayPoints([1, 2,]);
-  //   }, 6000);
+  //     setVertices([1, 2, 3, 4]);
+  //     setEdges([
+  //       [1, 2],
+  //       [2, 3],
+  //       [3, 1],
+  //       [4, 1],
+  //       [4, 2],
+  //       [4, 3],
+  //     ]);
+  //     setPositions({
+  //       1: { left: 100, top: 100 },
+  //       2: { left: 300, top: 100 },
+  //       3: { left: 200, top: 300 },
+  //       4: { left: 400, top: 200 },
+  //     });
+  //     setWayPoints([1, 2, 3, 4]);
+  //   }, 5000);
+  // }, []);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setWayPoints([1, 2, 3, 4, 1, 3]);
+  //   }, 7000);
   // }, []);
 
   const addVerticeHandle = () => {
@@ -93,6 +97,23 @@ function App() {
     a.click();
   };
 
+  const uploadGraph = () => {
+    const file = inputFileRef.current?.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result as string;
+        const data = JSON.parse(result);
+        setVertices(data.vertices);
+        setEdges(data.edges);
+        setPositions(data.positions);
+      };
+      reader.readAsText(file);
+    }
+
+    inputFileRef.current!.value = "";
+  };
+
   return (
     <>
       <MenuToolbar />
@@ -102,6 +123,14 @@ function App() {
       <button type="button" onClick={downloadGraphAsTxt}>
         Download graph as txt
       </button>
+      <label htmlFor="graphFile">Upload Graph:</label>
+      <input
+        ref={inputFileRef}
+        type="file"
+        id="graphFile"
+        onChange={uploadGraph}
+        title="Upload Graph"
+      />
 
       <GraphContainer>
         <GraphWithAsyncData
@@ -110,7 +139,7 @@ function App() {
           traversalPath={traversalPath}
           animatePath
           initialPositions={positions}
-          speed={2}
+          speed={1}
           onAddEdge={addEdgeHandler}
           onAddVertice={addVerticeHandler}
         />
