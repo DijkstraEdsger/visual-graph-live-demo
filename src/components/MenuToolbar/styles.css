@@ -127,3 +127,7 @@ button {
 [data-disabled] > .RightSlot {
   color: var(--mauve-8);
 }
+
+.MenubarItem > .Icon {
+  margin-right: 5px;
+}

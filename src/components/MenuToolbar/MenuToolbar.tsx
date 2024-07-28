@@ -4,6 +4,8 @@ import {
   CheckIcon,
   ChevronRightIcon,
   DotFilledIcon,
+  DownloadIcon,
+  UploadIcon,
 } from "@radix-ui/react-icons";
 import "./styles.css";
 
@@ -35,6 +37,13 @@ const MenubarDemo = () => {
             </Menubar.Item>
             <Menubar.Item className="MenubarItem" disabled>
               New Incognito Window
+            </Menubar.Item>
+            <Menubar.Separator className="MenubarSeparator" />
+            <Menubar.Item className="MenubarItem">
+              <DownloadIcon className="Icon" /> Download Graph
+            </Menubar.Item>
+            <Menubar.Item className="MenubarItem">
+              <UploadIcon className="Icon" /> Upload Graph
             </Menubar.Item>
             <Menubar.Separator className="MenubarSeparator" />
             <Menubar.Sub>
