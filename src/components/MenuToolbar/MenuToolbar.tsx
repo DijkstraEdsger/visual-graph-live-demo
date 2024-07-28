@@ -4,8 +4,11 @@ import {
   CheckIcon,
   ChevronRightIcon,
   DotFilledIcon,
+  DownloadIcon,
+  UploadIcon,
 } from "@radix-ui/react-icons";
 import "./styles.css";
+import { useGraph } from "contexts/graphContext";
 
 const RADIO_ITEMS = ["Andy", "Benoît", "Luis"];
 const CHECK_ITEMS = ["Always Show Bookmarks Bar", "Always Show Full URLs"];
@@ -15,6 +18,7 @@ const MenubarDemo = () => {
     CHECK_ITEMS[1],
   ]);
   const [radioSelection, setRadioSelection] = React.useState(RADIO_ITEMS[2]);
+  const { inputFileRef, downloadGraphAsTxt } = useGraph();
 
   return (
     <Menubar.Root className="MenubarRoot">
@@ -35,6 +39,16 @@ const MenubarDemo = () => {
             </Menubar.Item>
             <Menubar.Item className="MenubarItem" disabled>
               New Incognito Window
+            </Menubar.Item>
+            <Menubar.Separator className="MenubarSeparator" />
+            <Menubar.Item className="MenubarItem" onClick={downloadGraphAsTxt}>
+              <DownloadIcon className="Icon" /> Download Graph
+            </Menubar.Item>
+            <Menubar.Item
+              className="MenubarItem"
+              onClick={() => inputFileRef.current?.click()}
+            >
+              <UploadIcon className="Icon" /> Upload Graph
             </Menubar.Item>
             <Menubar.Separator className="MenubarSeparator" />
             <Menubar.Sub>
