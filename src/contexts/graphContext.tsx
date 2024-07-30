@@ -80,10 +80,13 @@ const GraphProvider: FC<GraphProviderProps> = ({
   };
 
   const updatePositions = (vertice: VerticeType, position: Position) => {
-    setPositions({
-      ...positions,
-      [vertice]: { left: position.x, top: position.y },
-    });
+    setPositions((prevP) => ({
+      ...prevP,
+      [vertice]: {
+        left: position.x,
+        top: position.y,
+      },
+    }));
   };
 
   const downloadGraphAsTxt = () => {
