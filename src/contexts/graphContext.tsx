@@ -34,6 +34,7 @@ const GraphContext = createContext<{
   uploadGraph: () => void;
   updatePositions: (vertice: VerticeType, position: Position) => void;
   removeEdge?: (edge: Edge) => void;
+  removeVertice?: (vertice: VerticeType) => void;
 }>({
   vertices: [],
   edges: [],
@@ -46,6 +47,7 @@ const GraphContext = createContext<{
   uploadGraph: () => {},
   updatePositions: () => {},
   removeEdge: () => {},
+  removeVertice: () => {},
 });
 
 type GraphProviderProps = {
@@ -140,6 +142,21 @@ const GraphProvider: FC<GraphProviderProps> = ({
     }
   };
 
+  const removeVertice = (vertice: VerticeType) => {
+    const newVertices = vertices.filter((v) => v !== vertice);
+    setVertices(newVertices);
+
+    const newEdges = edges.filter((edge) => !edge.includes(vertice));
+    setEdges(newEdges);
+
+    const newPositions = { ...positions };
+    delete newPositions[vertice];
+    setPositions(newPositions);
+
+    const newTraversalPath = traversalPath.filter((v) => v !== vertice);
+    setWayPoints(newTraversalPath);
+  };
+
   return (
     <GraphContext.Provider
       value={{
@@ -154,6 +171,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
         uploadGraph,
         updatePositions,
         removeEdge,
+        removeVertice,
       }}
     >
       {children}

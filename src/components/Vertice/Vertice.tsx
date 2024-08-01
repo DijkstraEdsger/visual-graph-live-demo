@@ -12,6 +12,7 @@ type VerticeProps = {
   onMouseDownEdgeHint?: (ref: any) => void;
   onMouseUpEdgeHint?: (label: string | number) => void;
   onChangePosition?: (position: Position) => void;
+  onRemove?: () => void;
 };
 
 const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
@@ -24,6 +25,7 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
       onMouseDownEdgeHint = () => {},
       onMouseUpEdgeHint = () => {},
       onChangePosition = () => {},
+      onRemove = () => {},
     },
     ref
   ) => {
@@ -108,6 +110,7 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
             style={{
               visibility: isHintVisible ? "visible" : "hidden",
             }}
+            onClick={onRemove}
           >
             <Cross2Icon className="cross" />
           </div>
