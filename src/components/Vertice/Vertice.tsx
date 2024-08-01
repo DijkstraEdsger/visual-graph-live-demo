@@ -112,7 +112,7 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
             }}
             onClick={onRemove}
           >
-            <Cross2Icon className="cross" />
+            <Cross2Icon />
           </div>
         </div>
       </Drag>

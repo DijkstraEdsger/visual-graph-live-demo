@@ -121,7 +121,7 @@ const Line: React.FC<LineProps> = ({
         onMouseLeave={handleMouseLeave}
         onClick={onRemove}
       >
-        <circle cx="10" cy="10" r="10" fill="red" />
+        <circle cx="10" cy="10" r="10" fill="#e74c3c" />
         <line x1="5" y1="5" x2="15" y2="15" stroke="white" strokeWidth="2" />
         <line x1="15" y1="5" x2="5" y2="15" stroke="white" strokeWidth="2" />
       </g>
