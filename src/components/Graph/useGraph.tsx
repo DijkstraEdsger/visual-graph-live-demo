@@ -35,7 +35,7 @@ const useGraph = ({
   const [edgesElements, setEdgesElements] = useState<JSX.Element[]>([]);
   const [newEdge, setNewEdge] = useState<Edge | null>(null);
   const { edgeConection, doubleClickPosition } = useGraphContainer();
-  const { updatePositions } = useGraphGlobalContext();
+  const { updatePositions, removeEdge } = useGraphGlobalContext();
 
   useEffect(() => {
     if (vertices.length) {
@@ -136,7 +136,7 @@ const useGraph = ({
   };
 
   useEffect(() => {
-    if (edges.length) {
+    if (edges) {
       updateEdgesElements();
     }
   }, [edges]);
@@ -168,6 +168,7 @@ const useGraph = ({
           div1Ref={vertice1Ref}
           div2Ref={vertice2Ref}
           isTraversed={isTraversed}
+          onRemove={() => removeEdge?.(edge)}
         />
       );
     });

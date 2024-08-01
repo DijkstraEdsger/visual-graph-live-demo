@@ -33,6 +33,7 @@ const GraphContext = createContext<{
   downloadGraphAsTxt: () => void;
   uploadGraph: () => void;
   updatePositions: (vertice: VerticeType, position: Position) => void;
+  removeEdge?: (edge: Edge) => void;
 }>({
   vertices: [],
   edges: [],
@@ -44,6 +45,7 @@ const GraphContext = createContext<{
   downloadGraphAsTxt: () => {},
   uploadGraph: () => {},
   updatePositions: () => {},
+  removeEdge: () => {},
 });
 
 type GraphProviderProps = {
@@ -124,6 +126,20 @@ const GraphProvider: FC<GraphProviderProps> = ({
     inputFileRef.current!.value = "";
   };
 
+  const removeEdge = (edge: Edge) => {
+    const indexEdge = edges.findIndex(
+      (e) =>
+        (e[0] === edge[0] && e[1] === edge[1]) ||
+        (e[0] === edge[1] && e[1] === edge[0])
+    );
+
+    if (indexEdge !== -1) {
+      const newEdges = [...edges];
+      newEdges.splice(indexEdge, 1);
+      setEdges(newEdges);
+    }
+  };
+
   return (
     <GraphContext.Provider
       value={{
@@ -137,6 +153,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
         downloadGraphAsTxt,
         uploadGraph,
         updatePositions,
+        removeEdge,
       }}
     >
       {children}
