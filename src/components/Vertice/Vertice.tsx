@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect, useId, useRef, useState } from "react";
 import "./Vertice.scss";
 import Drag from "components/Drag/Drag";
 import { InitialPositionType, Position } from "types/graph";
-import { ArrowRightIcon } from "@radix-ui/react-icons";
+import { ArrowRightIcon, Cross2Icon } from "@radix-ui/react-icons";
 
 type VerticeProps = {
   label?: string | number;
@@ -12,6 +12,7 @@ type VerticeProps = {
   onMouseDownEdgeHint?: (ref: any) => void;
   onMouseUpEdgeHint?: (label: string | number) => void;
   onChangePosition?: (position: Position) => void;
+  onRemove?: () => void;
 };
 
 const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
@@ -24,11 +25,13 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
       onMouseDownEdgeHint = () => {},
       onMouseUpEdgeHint = () => {},
       onChangePosition = () => {},
+      onRemove = () => {},
     },
     ref
   ) => {
     const id = useId();
     const hintRef = useRef<HTMLDivElement>(null);
+    const removeRef = useRef<HTMLDivElement>(null);
     const [isHintVisible, setIsHintVisible] = useState(false);
 
     const mouseEnterHandler = (e: MouseEvent) => {
@@ -100,6 +103,16 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
             }}
           >
             <ArrowRightIcon stroke="#fff" />
+          </div>
+          <div
+            ref={removeRef}
+            className="remove_vertice"
+            style={{
+              visibility: isHintVisible ? "visible" : "hidden",
+            }}
+            onClick={onRemove}
+          >
+            <Cross2Icon className="cross" />
           </div>
         </div>
       </Drag>
