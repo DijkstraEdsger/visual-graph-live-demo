@@ -40,10 +40,16 @@ const useGraph = ({
 
   useEffect(() => {
     if (vertices) {
+      updateVerticesElements();
+    }
+  }, [edgeConection, initialPositions]);
+
+  useEffect(() => {
+    if (vertices) {
       updateVerticesRefs();
       updateVerticesElements();
     }
-  }, [vertices, edgeConection, initialPositions]);
+  }, [vertices]);
 
   const existsEdge = (edge: Edge) => {
     return edges.some(

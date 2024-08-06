@@ -1,4 +1,11 @@
-import React, { forwardRef, useEffect, useId, useRef, useState } from "react";
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from "react";
 import "./Vertice.scss";
 import Drag from "components/Drag/Drag";
 import { InitialPositionType, Position } from "types/graph";
@@ -42,10 +49,14 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
       setIsHintVisible(false);
     };
 
-    const onMouseDownEdgeHintHandler = (e: MouseEvent) => {
-      e.stopPropagation();
-      onMouseDownEdgeHint(ref);
-    };
+    const onMouseDownEdgeHintHandler = useCallback(
+      (e: MouseEvent) => {
+        e.stopPropagation();
+
+        onMouseDownEdgeHint(ref);
+      },
+      [onMouseDownEdgeHint, ref]
+    );
 
     useEffect(() => {
       const containerEl = document.getElementById(id);
@@ -70,7 +81,7 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
           onMouseDownEdgeHintHandler
         );
       };
-    }, []);
+    }, [ref, hintRef, id, onMouseDownEdgeHintHandler]);
 
     const onMouseUpEdgeHintHandler: React.MouseEventHandler<HTMLDivElement> = (
       e
