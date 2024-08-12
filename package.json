@@ -29,6 +29,14 @@
     "lint": "stylelint src/**/*.scss",
     "lint:fix": "stylelint src/**/*.scss --fix"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    ".scss": "yarn lint:fix"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -48,6 +56,8 @@
     ]
   },
   "devDependencies": {
+    "husky": "^9.1.4",
+    "lint-staged": "^15.2.8",
     "prettier": "^3.3.3",
     "stylelint": "16.8.1",
     "stylelint-config-prettier": "9.0.5",
