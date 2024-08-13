@@ -27,7 +27,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "stylelint src/**/*.scss",
-    "lint:fix": "stylelint src/**/*.scss --fix"
+    "lint:fix": "stylelint src/**/*.scss --fix",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
