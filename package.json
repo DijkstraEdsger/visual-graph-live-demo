@@ -30,8 +30,13 @@
     "lint": "stylelint src/**/*.scss",
     "lint:fix": "stylelint src/**/*.scss --fix"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
-    "*.scss": "yarn run stylelint src/**/*.scss --fix"
+    "*.scss": "yarn lint:fix"
   },
   "eslintConfig": {
     "extends": [
@@ -52,7 +57,7 @@
     ]
   },
   "devDependencies": {
-    "husky": "^9.1.4",
+    "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
     "prettier": "^2.0.5",
     "stylelint": "^13.6.1",
