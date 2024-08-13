@@ -1,11 +1,4 @@
 {
-  "extends": [
-    "stylelint-config-sass-guidelines",
-    "stylelint-config-prettier",
-    "stylelint-prettier/recommended"
-  ],
   "plugins": ["stylelint-prettier"],
-  "rules": {
-    "indentation": 2
-  }
+  "extends": ["stylelint-config-sass-guidelines", "stylelint-config-prettier", "stylelint-prettier/recommended"]
 }

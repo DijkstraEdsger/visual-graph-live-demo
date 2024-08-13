@@ -108,7 +108,7 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
           <span>{label}</span>
           <div
             ref={hintRef}
-            className="hint_edge"
+            className="hint-edge"
             style={{
               visibility: isHintVisible ? "visible" : "hidden",
             }}
@@ -117,7 +117,7 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
           </div>
           <div
             ref={removeRef}
-            className="remove_vertice"
+            className="remove-vertice"
             style={{
               visibility: isHintVisible ? "visible" : "hidden",
             }}

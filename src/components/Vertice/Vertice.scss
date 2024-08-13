@@ -1,48 +1,46 @@
 .vertice {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+  align-items: center;
   background: linear-gradient(135deg, #6e8efb, #a777e3);
   border: 2px solid #4a4a4a;
+  border-radius: 50%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  cursor: pointer;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
   font-size: 20px;
   font-weight: bold;
-  cursor: pointer;
+  height: 50px;
+  justify-content: center;
   transition: all 0.3s ease-in-out;
+  width: 50px;
 
   &:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     cursor: move;
+  }
 
-    &.connecting {
-      border-color: #ff9800;
-      box-shadow: 0 6px 12px rgba(255, 152, 0, 0.5);
-    }
+  &:hover.connecting {
+    border-color: #ff9800;
+    box-shadow: 0 6px 12px rgba(255, 152, 0, 0.5);
   }
 }
 
-.hint_edge {
-  position: absolute;
-  display: flex;
-  justify-content: center;
+.hint-edge {
   align-items: center;
-  top: 50%;
-  right: 0;
-  width: 20px;
-  height: 20px;
   background-color: #f39c12;
-  border-radius: 50%;
-  z-index: 1;
   border: 2px solid #ecf0f1;
+  border-radius: 50%;
   cursor: pointer;
-  transition:
-    background-color 0.3s ease-in-out,
-    transform 0.3s ease-in-out;
+  display: flex;
+  height: 20px;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  top: 50%;
   transform: translate(50%, -50%);
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  width: 20px;
+  z-index: 1;
 
   &:hover {
     background-color: #e67e22;
@@ -50,24 +48,22 @@
   }
 }
 
-.remove_vertice {
-  position: absolute;
-  display: flex;
-  justify-content: center;
+.remove-vertice {
   align-items: center;
-  top: 0;
-  left: 0;
-  width: 20px;
-  height: 20px;
   background-color: #e74c3c;
-  border-radius: 50%;
-  z-index: 1;
   border: 2px solid #ecf0f1;
+  border-radius: 50%;
   cursor: pointer;
-  transition:
-    background-color 0.3s ease-in-out,
-    transform 0.3s ease-in-out;
+  display: flex;
+  height: 20px;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 0;
   transform: translate(-50%, -50%);
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  width: 20px;
+  z-index: 1;
 
   &:hover {
     background-color: #c0392b;
