@@ -67,7 +67,7 @@ $blue-light: #b4d2f4;
 
 /* Font families */
 
-$playfair: "Playfair Display", serif; /* 1 */
+$playfair: "Roboto", sans-serif; /* 1 */
 $raleway: "Raleway", "HelveticaNeue", "Helvetica", sans-serif; /* 2 */
 
 /* Font sizes */
@@ -152,4 +152,5 @@ $shadows: (
 
 /* =====  End of Spacing  ====== */
 
-.body19 {}
+.body19 {
+}

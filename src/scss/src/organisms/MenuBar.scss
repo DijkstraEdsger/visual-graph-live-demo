@@ -1,0 +1,11 @@
+.menubar {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.menubar:focus {
+  // border: 1px solid #000;
+  outline: none;
+  // border: none;
+}

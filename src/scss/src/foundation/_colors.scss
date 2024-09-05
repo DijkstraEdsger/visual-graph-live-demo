@@ -27,3 +27,43 @@ $form-bg: var(--dse-form-bg, $white) !default;
 $form-error-color: var(--dse-form-error-color, $red) !default;
 $form-error-border: var(--dse-form-error-border, $red) !default;
 $form-border-focus-color: var(--dse-form-border-focus-color, $green) !default;
+
+/*=============================================
+=                 Menu Items                  =
+=============================================*/
+$menuitem-color: var(--dse-menuitem-color, $dark) !default;
+$menuitem-bg: var(--dse-menuitem-bg, $white) !default;
+$menuitem-bg-hover: var(--dse-menuitem-bg-hover, $white-dark) !default;
+$menuitem-color-hover: var(--dse-menuitem-color-hover, $dark) !default;
+$menuitem-border-color: var(--dse-menuitem-border-color, $white-dark) !default;
+$menuitem-color-disabled: var(--dse-menuitem-color-disabled, $gray) !default;
+
+/*=============================================
+=                 Menu Bar Trigger            =
+=============================================*/
+$menubartrigger-color: var(--dse-menubartrigger-color, $dark) !default;
+$menubartrigger-bg: var(--dse-menubartrigger-bg, $white) !default;
+$menubartrigger-bg-hover: var(
+  --dse-menubartrigger-bg-hover,
+  $white-dark
+) !default;
+$menubartrigger-color-hover: var(
+  --dse-menubartrigger-color-hover,
+  $dark
+) !default;
+
+/*=============================================
+=                 Menu Bar                    =
+=============================================*/
+$menubar-color: var(--dse-menubar-color, $dark) !default;
+$menubar-bg: var(--dse-menubar-bg, $white) !default;
+$menubar-border-color: var(--dse-menubar-border-color, $white-dark) !default;
+
+/*=============================================
+=                 Menu                        =
+=============================================*/
+$menu-color: var(--dse-menu-color, $dark) !default;
+$menu-bg: var(--dse-menu-bg, $white) !default;
+$menu-border-color: var(--dse-menu-border-color, $white-dark) !default;
+$menu-bg-hover: var(--dse-menu-bg-hover, $white-dark) !default;
+$menu-color-hover: var(--dse-menu-color-hover, $dark) !default;

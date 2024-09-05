@@ -15,6 +15,8 @@
   --dse-form-error-border: #{$red};
   --dse-form-border-focus-color: #{$green};
 
+  --dse-body-font-family: #{$playfair};
+
   --dse-body-font-size: #{$fs-base};
   --dse-body-font-weight: #{$fw-normal};
 
@@ -31,4 +33,26 @@
   --dse-h4-font-weight: #{$fw-normal};
   --dse-h5-font-weight: #{$fw-normal};
   --dse-h6-font-weight: #{$fw-light};
+
+  --dse-menuitem-color: #{$dark};
+  --dse-menuitem-bg: #{$white};
+  --dse-menuitem-bg-hover: #{$white-dark};
+  --dse-menuitem-color-hover: #{$dark};
+  --dse-menuitem-border-color: #{$white-dark};
+  --dse-menuitem-color-disabled: #{$gray};
+
+  --dse-menubartrigger-color: #{$dark};
+  --dse-menubartrigger-bg: #{$white};
+  --dse-menubartrigger-bg-hover: #{$white-dark};
+  --dse-menubartrigger-color-hover: #{$dark};
+
+  --dse-menubar-color: #{$dark};
+  --dse-menubar-bg: #{$white};
+  --dse-menubar-border-color: #{$white-dark};
+
+  --dse-menu-color: #{$dark};
+  --dse-menu-bg: #{$white};
+  --dse-menu-border-color: #{$white-dark};
+  --dse-menu-bg-hover: #{$white-dark};
+  --dse-menu-color-hover: #{$dark};
 }

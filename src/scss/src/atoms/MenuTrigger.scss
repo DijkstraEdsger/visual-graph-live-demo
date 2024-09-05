@@ -1,0 +1,22 @@
+@import "../foundation/all";
+
+.menu-trigger {
+  padding: 2px 8px;
+  cursor: pointer;
+  color: $menuitem-color;
+  background-color: $menuitem-bg;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-trigger:hover,
+.menu-trigger--higlighted {
+  background-color: $menuitem-bg-hover;
+  color: $menuitem-color-hover;
+}
+
+.menu-trigger:focus {
+  outline: none;
+  border: none;
+}

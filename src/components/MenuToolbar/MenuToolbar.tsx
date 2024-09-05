@@ -9,6 +9,13 @@ import {
 } from "@radix-ui/react-icons";
 import "./styles.css";
 import { useGraph } from "contexts/graphContext";
+import {
+  MenubarContent,
+  MenubarItem,
+  MenubarSeparator,
+} from "components/molecules";
+import MenubarTrigger from "components/atoms/MenubarTrigger";
+import Text from "components/atoms/Text";
 
 const RADIO_ITEMS = ["Andy", "Benoît", "Luis"];
 const CHECK_ITEMS = ["Always Show Bookmarks Bar", "Always Show Full URLs"];
@@ -23,34 +30,25 @@ const MenubarDemo = () => {
   return (
     <Menubar.Root className="MenubarRoot">
       <Menubar.Menu>
-        <Menubar.Trigger className="MenubarTrigger">File</Menubar.Trigger>
+        <MenubarTrigger>File</MenubarTrigger>
         <Menubar.Portal>
-          <Menubar.Content
-            className="MenubarContent"
-            align="start"
-            sideOffset={5}
-            alignOffset={-3}
-          >
-            <Menubar.Item className="MenubarItem">
-              New Tab <div className="RightSlot">⌘ T</div>
-            </Menubar.Item>
-            <Menubar.Item className="MenubarItem">
+          <MenubarContent align="start" sideOffset={5} alignOffset={-3}>
+            <MenubarItem>
+            <Text size="sm" >Humberto</Text> <div className="RightSlot">⌘ T</div>
+            </MenubarItem>
+            <MenubarItem>
               New Window <div className="RightSlot">⌘ N</div>
-            </Menubar.Item>
-            <Menubar.Item className="MenubarItem" disabled>
-              New Incognito Window
-            </Menubar.Item>
-            <Menubar.Separator className="MenubarSeparator" />
-            <Menubar.Item className="MenubarItem" onClick={downloadGraphAsTxt}>
+            </MenubarItem>
+            <MenubarItem disabled>New Incognito Window</MenubarItem>
+            <MenubarSeparator />
+            <MenubarItem onClick={downloadGraphAsTxt}>
               <DownloadIcon className="Icon" /> Download Graph
-            </Menubar.Item>
-            <Menubar.Item
-              className="MenubarItem"
-              onClick={() => inputFileRef.current?.click()}
-            >
+            </MenubarItem>
+            <MenubarItem onClick={downloadGraphAsTxt}>Test</MenubarItem>
+            <MenubarItem onClick={() => inputFileRef.current?.click()}>
               <UploadIcon className="Icon" /> Upload Graph
-            </Menubar.Item>
-            <Menubar.Separator className="MenubarSeparator" />
+            </MenubarItem>
+            <MenubarSeparator />
             <Menubar.Sub>
               <Menubar.SubTrigger className="MenubarSubTrigger">
                 Share
@@ -63,38 +61,31 @@ const MenubarDemo = () => {
                   className="MenubarSubContent"
                   alignOffset={-5}
                 >
-                  <Menubar.Item className="MenubarItem">
-                    Email Link
-                  </Menubar.Item>
-                  <Menubar.Item className="MenubarItem">Messages</Menubar.Item>
-                  <Menubar.Item className="MenubarItem">Notes</Menubar.Item>
+                  <MenubarItem>Email Link</MenubarItem>
+                  <MenubarItem>Messages</MenubarItem>
+                  <MenubarItem>Notes</MenubarItem>
                 </Menubar.SubContent>
               </Menubar.Portal>
             </Menubar.Sub>
-            <Menubar.Separator className="MenubarSeparator" />
-            <Menubar.Item className="MenubarItem">
+            <MenubarSeparator />
+            <MenubarItem>
               Print… <div className="RightSlot">⌘ P</div>
-            </Menubar.Item>
-          </Menubar.Content>
+            </MenubarItem>
+          </MenubarContent>
         </Menubar.Portal>
       </Menubar.Menu>
 
       <Menubar.Menu>
         <Menubar.Trigger className="MenubarTrigger">Edit</Menubar.Trigger>
         <Menubar.Portal>
-          <Menubar.Content
-            className="MenubarContent"
-            align="start"
-            sideOffset={5}
-            alignOffset={-3}
-          >
-            <Menubar.Item className="MenubarItem">
+          <MenubarContent align="start" sideOffset={5} alignOffset={-3}>
+            <MenubarItem>
               Undo <div className="RightSlot">⌘ Z</div>
-            </Menubar.Item>
-            <Menubar.Item className="MenubarItem">
+            </MenubarItem>
+            <MenubarItem>
               Redo <div className="RightSlot">⇧ ⌘ Z</div>
-            </Menubar.Item>
-            <Menubar.Separator className="MenubarSeparator" />
+            </MenubarItem>
+            <MenubarSeparator />
             <Menubar.Sub>
               <Menubar.SubTrigger className="MenubarSubTrigger">
                 Find
@@ -108,35 +99,26 @@ const MenubarDemo = () => {
                   className="MenubarSubContent"
                   alignOffset={-5}
                 >
-                  <Menubar.Item className="MenubarItem">
-                    Search the web…
-                  </Menubar.Item>
-                  <Menubar.Separator className="MenubarSeparator" />
-                  <Menubar.Item className="MenubarItem">Find…</Menubar.Item>
-                  <Menubar.Item className="MenubarItem">Find Next</Menubar.Item>
-                  <Menubar.Item className="MenubarItem">
-                    Find Previous
-                  </Menubar.Item>
+                  <MenubarItem>Search the web…</MenubarItem>
+                  <MenubarSeparator />
+                  <MenubarItem>Find…</MenubarItem>
+                  <MenubarItem>Find Next</MenubarItem>
+                  <MenubarItem>Find Previous</MenubarItem>
                 </Menubar.SubContent>
               </Menubar.Portal>
             </Menubar.Sub>
-            <Menubar.Separator className="MenubarSeparator" />
-            <Menubar.Item className="MenubarItem">Cut</Menubar.Item>
-            <Menubar.Item className="MenubarItem">Copy</Menubar.Item>
-            <Menubar.Item className="MenubarItem">Paste</Menubar.Item>
-          </Menubar.Content>
+            <MenubarSeparator />
+            <MenubarItem>Cut</MenubarItem>
+            <MenubarItem>Copy</MenubarItem>
+            <MenubarItem>Paste</MenubarItem>
+          </MenubarContent>
         </Menubar.Portal>
       </Menubar.Menu>
 
       <Menubar.Menu>
         <Menubar.Trigger className="MenubarTrigger">View</Menubar.Trigger>
         <Menubar.Portal>
-          <Menubar.Content
-            className="MenubarContent"
-            align="start"
-            sideOffset={5}
-            alignOffset={-14}
-          >
+          <MenubarContent align="start" sideOffset={5} alignOffset={-14}>
             {CHECK_ITEMS.map((item) => (
               <Menubar.CheckboxItem
                 className="MenubarCheckboxItem inset"
@@ -156,34 +138,25 @@ const MenubarDemo = () => {
                 {item}
               </Menubar.CheckboxItem>
             ))}
-            <Menubar.Separator className="MenubarSeparator" />
-            <Menubar.Item className="MenubarItem inset">
+            <MenubarSeparator />
+            <MenubarItem>
               Reload <div className="RightSlot">⌘ R</div>
-            </Menubar.Item>
-            <Menubar.Item className="MenubarItem inset" disabled>
+            </MenubarItem>
+            <MenubarItem disabled>
               Force Reload <div className="RightSlot">⇧ ⌘ R</div>
-            </Menubar.Item>
-            <Menubar.Separator className="MenubarSeparator" />
-            <Menubar.Item className="MenubarItem inset">
-              Toggle Fullscreen
-            </Menubar.Item>
-            <Menubar.Separator className="MenubarSeparator" />
-            <Menubar.Item className="MenubarItem inset">
-              Hide Sidebar
-            </Menubar.Item>
-          </Menubar.Content>
+            </MenubarItem>
+            <MenubarSeparator />
+            <MenubarItem>Toggle Fullscreen</MenubarItem>
+            <MenubarSeparator />
+            <MenubarItem>Hide Sidebar</MenubarItem>
+          </MenubarContent>
         </Menubar.Portal>
       </Menubar.Menu>
 
       <Menubar.Menu>
         <Menubar.Trigger className="MenubarTrigger">Profiles</Menubar.Trigger>
         <Menubar.Portal>
-          <Menubar.Content
-            className="MenubarContent"
-            align="start"
-            sideOffset={5}
-            alignOffset={-14}
-          >
+          <MenubarContent align="start" sideOffset={5} alignOffset={-14}>
             <Menubar.RadioGroup
               value={radioSelection}
               onValueChange={setRadioSelection}
@@ -200,14 +173,12 @@ const MenubarDemo = () => {
                   {item}
                 </Menubar.RadioItem>
               ))}
-              <Menubar.Separator className="MenubarSeparator" />
-              <Menubar.Item className="MenubarItem inset">Edit…</Menubar.Item>
-              <Menubar.Separator className="MenubarSeparator" />
-              <Menubar.Item className="MenubarItem inset">
-                Add Profile…
-              </Menubar.Item>
+              <MenubarSeparator />
+              <MenubarItem>Edit…</MenubarItem>
+              <MenubarSeparator />
+              <MenubarItem>Add Profile…</MenubarItem>
             </Menubar.RadioGroup>
-          </Menubar.Content>
+          </MenubarContent>
         </Menubar.Portal>
       </Menubar.Menu>
     </Menubar.Root>
