@@ -13,10 +13,11 @@ interface MenubarProps {
   menus?: TItem[];
 }
 
-const MenuBar: React.FC<MenubarProps> = ({ menus, ...props }) => {
+const MenuBar: React.FC<MenubarProps> = ({ menus = [], ...props }) => {
   const menuitemsRefs = React.useRef<HTMLDivElement[]>([]);
   const menubarRef = React.useRef<HTMLDivElement>(null);
   const [openIndex, setOpenIndex] = React.useState<number>(-1);
+  const [higlightedIndex, setHiglightedIndex] = React.useState<number>(-1);
 
   // click outside
   useEffect(() => {
@@ -40,7 +41,36 @@ const MenuBar: React.FC<MenubarProps> = ({ menus, ...props }) => {
 
   const onClickHandler = (item: TItem, index = -1) => {
     setOpenIndex(index);
-    item.onClick?.();
+    item?.onClick?.();
+  };
+
+  const onKeyDownHandler = (e: React.KeyboardEvent) => {
+    const key = e.key;
+
+    switch (key) {
+      case "ArrowRight":
+        if (higlightedIndex < menus?.length - 1) {
+          setHiglightedIndex(higlightedIndex + 1);
+        } else {
+          setHiglightedIndex(0);
+        }
+
+        break;
+      case "ArrowLeft":
+        if (higlightedIndex > 0) {
+          setHiglightedIndex(higlightedIndex - 1);
+        } else {
+          setHiglightedIndex(menus?.length - 1);
+        }
+
+        break;
+      case "Enter":
+        onClickHandler(menus[higlightedIndex], higlightedIndex);
+        break;
+
+      default:
+        break;
+    }
   };
 
   return (
@@ -50,6 +80,7 @@ const MenuBar: React.FC<MenubarProps> = ({ menus, ...props }) => {
       className="menubar"
       tabIndex={0}
       ref={menubarRef}
+      onKeyDown={onKeyDownHandler}
     >
       {menus?.map((item: TItem, index: number) => {
         return (
@@ -64,6 +95,7 @@ const MenuBar: React.FC<MenubarProps> = ({ menus, ...props }) => {
             }}
             onClick={() => onClickHandler(item, index)}
             open={openIndex === index}
+            isHighlighted={higlightedIndex === index}
           >
             {item.label}
           </MenuItem>
