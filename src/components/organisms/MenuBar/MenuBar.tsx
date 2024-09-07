@@ -9,66 +9,37 @@ type TItem = {
 };
 
 interface MenubarProps {
-  //   children: React.ReactNode;
   props?: React.HTMLProps<HTMLDivElement>;
   menus?: TItem[];
 }
 
 const MenuBar: React.FC<MenubarProps> = ({ menus, ...props }) => {
   const menuitemsRefs = React.useRef<HTMLDivElement[]>([]);
-  const [focusedIndex, setFocusedIndex] = React.useState<number>(-1);
-  const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
+  const menubarRef = React.useRef<HTMLDivElement>(null);
+  const [openIndex, setOpenIndex] = React.useState<number>(-1);
 
+  // click outside
   useEffect(() => {
-    if (focusedIndex >= 0) {
-      menuitemsRefs.current[focusedIndex].focus();
-      console.log('main menuitem focus');
-      
-    }
-
-    return () => {
-      if (focusedIndex >= 0) {
-        menuitemsRefs.current[focusedIndex].blur();
+    const handleClickOutside = (e: MouseEvent) => {
+      if (openIndex >= 0) {
+        if (
+          menubarRef.current &&
+          !menubarRef.current.contains(e.target as Node)
+        ) {
+          setOpenIndex(-1);
+        }
       }
     };
-  }, [focusedIndex]);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    const { key } = e;
+    window.addEventListener("click", handleClickOutside);
 
-    switch (key) {
-      case "ArrowRight":
-        console.log("ArrowRight");
-        
-        if (focusedIndex < menuitemsRefs.current.length - 1) {
-          setFocusedIndex(focusedIndex + 1);
-        } else {
-          setFocusedIndex(0);
-        }
-
-        break;
-      case "ArrowLeft":
-        if (focusedIndex > 0) {
-          setFocusedIndex(focusedIndex - 1);
-        } else {
-          setFocusedIndex(menuitemsRefs.current.length - 1);
-        }
-
-        break;
-      case "Enter":
-        if (menuitemsRefs.current[focusedIndex]) {
-          menuitemsRefs.current[focusedIndex].click();
-        }
-        break;
-
-      default:
-        break;
-    }
-  };
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, [openIndex]);
 
   const onClickHandler = (item: TItem, index = -1) => {
-    setFocusedIndex(index);
-    // setIsExpanded(!isExpanded);
+    setOpenIndex(index);
     item.onClick?.();
   };
 
@@ -78,7 +49,7 @@ const MenuBar: React.FC<MenubarProps> = ({ menus, ...props }) => {
       {...props}
       className="menubar"
       tabIndex={0}
-      onKeyDown={handleKeyDown}
+      ref={menubarRef}
     >
       {menus?.map((item: TItem, index: number) => {
         return (
@@ -86,14 +57,13 @@ const MenuBar: React.FC<MenubarProps> = ({ menus, ...props }) => {
             key={index}
             menuItems={item.items}
             isMainMenu
-            isHighlighted={focusedIndex === index}
             ref={(el: HTMLDivElement) => {
               if (el) {
                 menuitemsRefs.current[index] = el;
               }
             }}
             onClick={() => onClickHandler(item, index)}
-            // isMenubarExpanded={isExpanded}
+            open={openIndex === index}
           >
             {item.label}
           </MenuItem>

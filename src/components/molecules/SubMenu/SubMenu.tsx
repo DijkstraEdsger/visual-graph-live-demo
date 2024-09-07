@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect } from "react";
+import React, { forwardRef } from "react";
 import Menu from "../Menu";
 import Icon from "components/atoms/Icon";
 import MenuTrigger from "components/atoms/MenuTrigger";
@@ -18,6 +18,7 @@ interface ManuItemProps extends React.HTMLProps<HTMLDivElement> {
   menuItemTriggerRef?: React.RefObject<HTMLDivElement>;
   isHighlighted?: boolean;
   isMenubarExpanded?: boolean;
+  open?: boolean;
   onClick?: () => void;
   onMouseEnter?: () => void;
   onMouseLeave?: (event: React.MouseEvent) => void;
@@ -33,60 +34,22 @@ const MenuItem = forwardRef<any, ManuItemProps>(
       isMainMenu,
       isHighlighted,
       isMenubarExpanded,
+      open,
       onClose,
       onClick,
     },
     ref
   ) => {
-    const [open, setOpen] = React.useState(false);
-
-    useEffect(() => {
-      const handleEscape = (e: KeyboardEvent) => {
-        if (e.key === "Escape") {
-          setOpen(false);
-        }
-      };
-
-      window.addEventListener("keydown", handleEscape);
-
-      return () => {
-        window.removeEventListener("keydown", handleEscape);
-      };
-    }, []);
-
-    const handleOpen = () => {
-      setOpen(true);
-      onClick?.();
-    };
-
-    const onMouseLeaveHandler = (event: React.MouseEvent) => {
-      setOpen(false);
-      onClose?.();
-    };
-
-    const handleOnClose = () => {
-      // menuRef.current?.focus();
-      setOpen(false);
-      onClose?.();
-    };
-
-    const onMouseEnterHandler = (e: React.MouseEvent) => {
-      setOpen(true);
-    };
-
     return (
       <li
-        // ref={submenuContainerRef}
         role="none"
         style={{
           position: "relative",
         }}
         className="menuitem-container"
-        onMouseLeave={onMouseLeaveHandler}
       >
         <MenuTrigger
-          onClick={handleOpen}
-          onMouseEnter={onMouseEnterHandler}
+          onClick={onClick}
           aria-haspopup={menuItems && menuItems?.length > 0}
           aria-expanded={open}
           ref={ref}
@@ -98,12 +61,7 @@ const MenuItem = forwardRef<any, ManuItemProps>(
           )}
         </MenuTrigger>
 
-        <Menu
-          open={open && menuItems && menuItems?.length > 0}
-          isMainMenu={isMainMenu}
-          menuItems={menuItems}
-          onClose={handleOnClose}
-        />
+        <Menu open={open} isMainMenu={isMainMenu} menuItems={menuItems} />
       </li>
     );
   }

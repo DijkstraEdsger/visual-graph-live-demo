@@ -62,6 +62,20 @@ const Layout = () => {
             },
           ],
         },
+        {
+          label: "Cars",
+          onClick: () => console.log("Cars"),
+          items: [
+            {
+              label: "Subaru",
+              onClick: () => console.log("Subaru"),
+            },
+            {
+              label: "Toyota",
+              onClick: () => console.log("Toyota"),
+            },
+          ],
+        },
       ],
     },
     {
