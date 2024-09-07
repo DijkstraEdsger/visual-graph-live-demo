@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import SubMenu from "components/molecules/SubMenu";
 import "../../../scss/src/organisms/MenuBar.scss";
-import MenuTrigger from "components/atoms/MenuTrigger";
+import MenuItem from "components/molecules/SubMenu/SubMenu";
 
 type TItem = {
   label: string;
@@ -18,10 +17,13 @@ interface MenubarProps {
 const MenuBar: React.FC<MenubarProps> = ({ menus, ...props }) => {
   const menuitemsRefs = React.useRef<HTMLDivElement[]>([]);
   const [focusedIndex, setFocusedIndex] = React.useState<number>(-1);
+  const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
 
   useEffect(() => {
     if (focusedIndex >= 0) {
       menuitemsRefs.current[focusedIndex].focus();
+      console.log('main menuitem focus');
+      
     }
 
     return () => {
@@ -36,6 +38,8 @@ const MenuBar: React.FC<MenubarProps> = ({ menus, ...props }) => {
 
     switch (key) {
       case "ArrowRight":
+        console.log("ArrowRight");
+        
         if (focusedIndex < menuitemsRefs.current.length - 1) {
           setFocusedIndex(focusedIndex + 1);
         } else {
@@ -62,6 +66,12 @@ const MenuBar: React.FC<MenubarProps> = ({ menus, ...props }) => {
     }
   };
 
+  const onClickHandler = (item: TItem, index = -1) => {
+    setFocusedIndex(index);
+    // setIsExpanded(!isExpanded);
+    item.onClick?.();
+  };
+
   return (
     <div
       role="menubar"
@@ -71,37 +81,22 @@ const MenuBar: React.FC<MenubarProps> = ({ menus, ...props }) => {
       onKeyDown={handleKeyDown}
     >
       {menus?.map((item: TItem, index: number) => {
-        if (item.items?.length) {
-          return (
-            <SubMenu
-              key={index}
-              triggerLabel={item.label}
-              menuItems={item.items}
-              isMainMenu
-              isHighlighted={focusedIndex === index}
-              ref={(el: HTMLDivElement) => {
-                if (el) {
-                  menuitemsRefs.current[index] = el;
-                }
-              }}
-            />
-          );
-        }
-
         return (
-          <MenuTrigger
+          <MenuItem
             key={index}
-            onClick={item.onClick}
+            menuItems={item.items}
+            isMainMenu
             isHighlighted={focusedIndex === index}
-            ref={(el) => {
+            ref={(el: HTMLDivElement) => {
               if (el) {
                 menuitemsRefs.current[index] = el;
               }
             }}
-            // className={focusedIndex === index ? "focused" : ""}
+            onClick={() => onClickHandler(item, index)}
+            // isMenubarExpanded={isExpanded}
           >
             {item.label}
-          </MenuTrigger>
+          </MenuItem>
         );
       })}
     </div>
