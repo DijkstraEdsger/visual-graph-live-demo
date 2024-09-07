@@ -24,6 +24,7 @@ interface ManuItemProps extends React.HTMLProps<HTMLDivElement> {
   onMouseLeave?: (event: React.MouseEvent) => void;
   onKeyDown?: (event: React.KeyboardEvent) => void;
   onClose?: () => void;
+  onKeyDownArrowLeft?: () => void;
 }
 
 const MenuItem = forwardRef<any, ManuItemProps>(
@@ -37,6 +38,7 @@ const MenuItem = forwardRef<any, ManuItemProps>(
       open,
       onClose,
       onClick,
+      onKeyDownArrowLeft,
     },
     ref
   ) => {
@@ -61,7 +63,12 @@ const MenuItem = forwardRef<any, ManuItemProps>(
           )}
         </MenuTrigger>
 
-        <Menu open={open} isMainMenu={isMainMenu} menuItems={menuItems} />
+        <Menu
+          open={open}
+          isMainMenu={isMainMenu}
+          menuItems={menuItems}
+          onKeyDownArrowLeft={onKeyDownArrowLeft}
+        />
       </li>
     );
   }

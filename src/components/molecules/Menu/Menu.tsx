@@ -14,14 +14,26 @@ interface MenuProps extends React.HTMLProps<HTMLUListElement> {
   isMainMenu?: boolean;
   menuItems?: TItem[];
   onClose?: () => void;
+  onKeyDownArrowLeft?: () => void;
 }
 
 const Menu = forwardRef<HTMLUListElement, MenuProps>(
-  ({ children, open, isMainMenu, menuItems = [], onClose, ...props }, ref) => {
+  (
+    {
+      children,
+      open,
+      isMainMenu,
+      menuItems = [],
+      onClose,
+      onKeyDownArrowLeft,
+      ...props
+    },
+    ref
+  ) => {
     const menuitemsRefs = React.useRef<HTMLDivElement[]>([]);
     const menuRef = React.useRef<HTMLUListElement>(null);
-    const [focusedIndex, setFocusedIndex] = React.useState<number>(-1);
     const [openIndex, setOpenIndex] = React.useState<number>(-1);
+    const [higlightedIndex, setHiglightedIndex] = React.useState<number>(-1);
 
     useEffect(() => {
       const handleClickOutside = (e: MouseEvent) => {
@@ -96,9 +108,51 @@ const Menu = forwardRef<HTMLUListElement, MenuProps>(
     }
 
     const handleOnClick = (item: TItem, index: number) => {
-      setFocusedIndex(index);
       setOpenIndex(index);
       item.onClick?.();
+    };
+
+    const onKeyDownHandler = (e: React.KeyboardEvent) => {
+      const key = e.key;
+      e.stopPropagation();
+
+      switch (key) {
+        case "ArrowDown":
+          if (higlightedIndex < menuItems?.length - 1) {
+            setHiglightedIndex(higlightedIndex + 1);
+          } else {
+            setHiglightedIndex(0);
+          }
+          break;
+        case "ArrowUp":
+          if (higlightedIndex > 0) {
+            setHiglightedIndex(higlightedIndex - 1);
+          } else {
+            setHiglightedIndex(menuItems?.length - 1);
+          }
+          break;
+        case "Enter":
+          handleOnClick(menuItems[higlightedIndex], higlightedIndex);
+          break;
+        case "ArrowRight":
+          if (menuItems[higlightedIndex].items) {
+            handleOnClick(menuItems[higlightedIndex], higlightedIndex);
+          }
+          break;
+        case "ArrowLeft":
+          if (onKeyDownArrowLeft) {
+            onKeyDownArrowLeft();
+          }
+          break;
+        default:
+          break;
+      }
+    };
+
+    const onKeyDownArrowLeftHandler = () => {
+      // close opened submenu
+      setOpenIndex(-1);
+      menuRef.current?.focus();
     };
 
     return (
@@ -108,13 +162,14 @@ const Menu = forwardRef<HTMLUListElement, MenuProps>(
         className={`menu ${isMainMenu ? "main-menu" : "sub-menu"}`}
         tabIndex={0}
         ref={menuRef}
+        onKeyDown={onKeyDownHandler}
       >
         {menuItems?.map((item: TItem, index: number) => {
           return (
             <MenuItem
               key={index}
               menuItems={item.items || []}
-              isHighlighted={focusedIndex === index}
+              isHighlighted={higlightedIndex === index}
               ref={(el: HTMLDivElement) => {
                 if (el) {
                   menuitemsRefs.current[index] = el;
@@ -122,6 +177,7 @@ const Menu = forwardRef<HTMLUListElement, MenuProps>(
               }}
               onClick={() => handleOnClick(item, index)}
               open={openIndex === index}
+              onKeyDownArrowLeft={onKeyDownArrowLeftHandler}
             >
               {item.label}
             </MenuItem>
