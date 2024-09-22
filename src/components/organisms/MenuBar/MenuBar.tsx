@@ -39,8 +39,19 @@ const MenuBar: React.FC<MenubarProps> = ({ menus = [], ...props }) => {
     };
   }, [openIndex]);
 
+  useEffect(() => {
+    if (
+      openIndex >= 0 &&
+      higlightedIndex >= 0 &&
+      higlightedIndex !== openIndex
+    ) {
+      onClickHandler(menus[higlightedIndex], higlightedIndex);
+    }
+  }, [higlightedIndex, openIndex, menus]);
+
   const onClickHandler = (item: TItem, index = -1) => {
     setOpenIndex(index);
+    setHiglightedIndex(index);
     item?.onClick?.();
   };
 

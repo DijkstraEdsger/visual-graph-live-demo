@@ -114,10 +114,11 @@ const Menu = forwardRef<HTMLUListElement, MenuProps>(
 
     const onKeyDownHandler = (e: React.KeyboardEvent) => {
       const key = e.key;
-      e.stopPropagation();
 
       switch (key) {
         case "ArrowDown":
+          e.stopPropagation();
+
           if (higlightedIndex < menuItems?.length - 1) {
             setHiglightedIndex(higlightedIndex + 1);
           } else {
@@ -125,6 +126,8 @@ const Menu = forwardRef<HTMLUListElement, MenuProps>(
           }
           break;
         case "ArrowUp":
+          e.stopPropagation();
+
           if (higlightedIndex > 0) {
             setHiglightedIndex(higlightedIndex - 1);
           } else {
@@ -132,17 +135,21 @@ const Menu = forwardRef<HTMLUListElement, MenuProps>(
           }
           break;
         case "Enter":
+          e.stopPropagation();
           handleOnClick(menuItems[higlightedIndex], higlightedIndex);
           break;
         case "ArrowRight":
-          if (menuItems[higlightedIndex].items) {
+          if (menuItems[higlightedIndex]?.items) {
+            e.stopPropagation();
             handleOnClick(menuItems[higlightedIndex], higlightedIndex);
           }
           break;
         case "ArrowLeft":
           if (onKeyDownArrowLeft) {
-            onKeyDownArrowLeft();
+            e.stopPropagation();
+            onKeyDownArrowLeft?.();
           }
+
           break;
         default:
           break;
