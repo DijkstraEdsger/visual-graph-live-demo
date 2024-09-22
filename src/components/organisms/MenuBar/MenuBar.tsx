@@ -27,6 +27,7 @@ const MenuBar: React.FC<MenubarProps> = ({ menus = [], ...props }) => {
           !menubarRef.current.contains(e.target as Node)
         ) {
           setOpenIndex(-1);
+          setHiglightedIndex(-1);
         }
       }
     };

@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -24,21 +30,6 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-}
-
-.graph_container {
-  width: 70vw;
-  height: 70vh;
-  background-color: #f0f0f0;
-  position: relative;
-  margin: 30px auto;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  z-index: 1;
-  -webkit-user-select: none;
-  user-select: none;
 }
 
 .animated {
@@ -85,4 +76,8 @@ code {
 
 .is_traversed {
   stroke: #ff9800;
+}
+
+.main {
+  padding: 40px;
 }

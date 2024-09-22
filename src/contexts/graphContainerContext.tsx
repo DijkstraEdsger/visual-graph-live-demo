@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import classes from "./classes.module.scss";
 
 const GraphContainerContext = React.createContext<{
   container: HTMLDivElement | null;
@@ -107,7 +108,7 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
     >
       <div
         ref={graphContainerRef}
-        className="graph_container"
+        className={classes.graph_container}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onDoubleClick={onDoubleClickHandler}
