@@ -14,7 +14,6 @@ interface MenubarProps {
 }
 
 const MenuBar: React.FC<MenubarProps> = ({ menus = [], ...props }) => {
-  const menuitemsRefs = React.useRef<HTMLDivElement[]>([]);
   const menubarRef = React.useRef<HTMLDivElement>(null);
   const [openIndex, setOpenIndex] = React.useState<number>(-1);
   const [higlightedIndex, setHiglightedIndex] = React.useState<number>(-1);
@@ -99,11 +98,6 @@ const MenuBar: React.FC<MenubarProps> = ({ menus = [], ...props }) => {
             key={index}
             menuItems={item.items}
             isMainMenu
-            ref={(el: HTMLDivElement) => {
-              if (el) {
-                menuitemsRefs.current[index] = el;
-              }
-            }}
             onClick={() => onClickHandler(item, index)}
             open={openIndex === index}
             isHighlighted={higlightedIndex === index}

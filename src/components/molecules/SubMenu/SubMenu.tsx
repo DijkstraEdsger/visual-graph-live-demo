@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React from "react";
 import Menu from "../Menu";
 import Icon from "components/atoms/Icon";
 import MenuTrigger from "components/atoms/MenuTrigger";
@@ -10,7 +10,7 @@ type TItem = {
   items?: TItem[];
 };
 
-interface ManuItemProps extends React.HTMLProps<HTMLDivElement> {
+interface MenuItemProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactNode;
   triggerIcon?: React.ReactNode;
   menuItems?: TItem[];
@@ -27,51 +27,54 @@ interface ManuItemProps extends React.HTMLProps<HTMLDivElement> {
   onKeyDownArrowLeft?: () => void;
 }
 
-const MenuItem = forwardRef<any, ManuItemProps>(
-  (
-    {
-      children,
-      menuItems,
-      isMainMenu,
-      isHighlighted,
-      isMenubarExpanded,
-      open,
-      onClose,
-      onClick,
-      onKeyDownArrowLeft,
-    },
-    ref
-  ) => {
-    return (
-      <li
-        role="none"
-        style={{
-          position: "relative",
-        }}
-        className="menuitem-container"
-      >
-        <MenuTrigger
-          onClick={onClick}
-          aria-haspopup={menuItems && menuItems?.length > 0}
-          aria-expanded={open}
-          ref={ref}
-          isHighlighted={isHighlighted}
-        >
-          {children}
-          {!isMainMenu && menuItems && menuItems?.length > 0 && (
-            <Icon name="right-arrow" />
-          )}
-        </MenuTrigger>
+const MenuItem: React.FC<MenuItemProps> = ({
+  children,
+  menuItems,
+  isMainMenu,
+  isHighlighted,
+  isMenubarExpanded,
+  open,
+  onClose,
+  onClick,
+  onKeyDownArrowLeft,
+}) => {
+  const triggerRef = React.useRef<HTMLDivElement>(null);
 
+  if (!menuItems?.length && open) {
+    triggerRef?.current?.focus();
+  }
+
+  return (
+    <li
+      role="none"
+      style={{
+        position: "relative",
+      }}
+      className="menuitem-container"
+    >
+      <MenuTrigger
+        onClick={onClick}
+        aria-haspopup={menuItems && menuItems?.length > 0}
+        aria-expanded={open}
+        ref={triggerRef}
+        isHighlighted={isHighlighted}
+      >
+        {children}
+        {!isMainMenu && menuItems && menuItems?.length > 0 && (
+          <Icon name="right-arrow" />
+        )}
+      </MenuTrigger>
+
+      {menuItems && (
         <Menu
           open={open}
           isMainMenu={isMainMenu}
           menuItems={menuItems}
           onKeyDownArrowLeft={onKeyDownArrowLeft}
         />
-      </li>
-    );
-  }
-);
+      )}
+    </li>
+  );
+};
 
 export default MenuItem;
