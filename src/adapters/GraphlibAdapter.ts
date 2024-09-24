@@ -53,4 +53,12 @@ export default class GraphlibAdapter implements IGraphAdapter {
       weight: this.graph.edge(edge),
     }));
   }
+
+  removeNode(node: NodeId): void {
+    this.graph.removeNode(node.toString());
+  }
+
+  removeEdge(edge: IEdge): void {
+    this.graph.removeEdge(edge.source.toString(), edge.target.toString());
+  }
 }

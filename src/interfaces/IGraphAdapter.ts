@@ -7,4 +7,6 @@ export interface IGraphAdapter {
   runDijkstra(source: NodeId): Record<NodeId, IShortestPath>;
   getNodes(): INode[];
   getEdges(): IEdge[];
+  removeNode(node: NodeId): void;
+  removeEdge(edge: IEdge): void;
 }
