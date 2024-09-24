@@ -73,6 +73,84 @@ const useHeaderVM = () => {
       ],
     },
     {
+      label: "Algorithms",
+      items: [
+        {
+          label: "Shortest Path Algorithms",
+          items: [
+            {
+              label: "Dijkstra's Algorithm",
+              onClick: () => console.log("Dijkstra's Algorithm"),
+            },
+            {
+              label: "Bellman-Ford Algorithm",
+              onClick: () => console.log("Bellman-Ford Algorithm"),
+            },
+            {
+              label: "Floyd-Warshall Algorithm",
+              onClick: () => console.log("Floyd-Warshall Algorithm"),
+            },
+            {
+              label: "A* Algorithm",
+              onClick: () => console.log("A* Algorithm"),
+            },
+          ],
+        },
+        {
+          label: "Minimum Spanning Tree Algorithms",
+          items: [
+            {
+              label: "Kruskal's Algorithm",
+              onClick: () => console.log("Kruskal's Algorithm"),
+            },
+            {
+              label: "Prim's Algorithm",
+              onClick: () => console.log("Prim's Algorithm"),
+            },
+          ],
+        },
+        {
+          label: "Graph Traversal Algorithms",
+          items: [
+            {
+              label: "Depth First Search",
+              onClick: () => console.log("Depth First Search"),
+            },
+            {
+              label: "Breadth First Search",
+              onClick: () => console.log("Breadth First Search"),
+            },
+          ],
+        },
+        {
+          label: "Network Flow Algorithms",
+          items: [
+            {
+              label: "Ford-Fulkerson Algorithm",
+              onClick: () => console.log("Ford-Fulkerson Algorithm"),
+            },
+            {
+              label: "Edmonds-Karp Algorithm",
+              onClick: () => console.log("Edmonds-Karp Algorithm"),
+            },
+          ],
+        },
+        {
+          label: "Matching Algorithms",
+          items: [
+            {
+              label: "Bipartite Matching",
+              onClick: () => console.log("Bipartite Matching"),
+            },
+            {
+              label: "Maximum Flow and Minimum Cut",
+              onClick: () => console.log("Maximum Flow and Minimum Cut"),
+            },
+          ],
+        },
+      ],
+    },
+    {
       label: "Edit",
       items: [
         {
