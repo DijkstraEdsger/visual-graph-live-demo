@@ -8,6 +8,7 @@ import GraphPage from "pages/graph/Graph";
 import "./scss/src/global.scss";
 import { IGraphAdapter } from "interfaces/IGraphAdapter";
 import GraphlibAdapter from "adapters/GraphlibAdapter";
+import { IShortestPath, NodeId } from "types/graph";
 
 interface Node {
   id: string;
@@ -35,10 +36,9 @@ interface CustomGraphVisualizationProps {
 
 function App() {
   const [graphAdapter, setGraphAdapter] = useState<IGraphAdapter | null>(null);
-  const [shortestPaths, setShortestPaths] = useState<Record<
-    string,
-    { distance: number; predecessor: string | null }
-  > | null>(null);
+  const [shortestPaths, setShortestPaths] = useState<
+    Record<NodeId, IShortestPath>
+  >({});
 
   useEffect(() => {
     const adapter = new GraphlibAdapter(); // or new GraphologyAdapter()
@@ -49,11 +49,11 @@ function App() {
     adapter.addNode({ id: "C", label: "C" });
     adapter.addNode({ id: "D", label: "D" });
 
-    adapter.addEdge("A", "B", 1);
-    adapter.addEdge("A", "C", 4);
-    adapter.addEdge("B", "C", 2);
-    adapter.addEdge("B", "D", 5);
-    adapter.addEdge("C", "D", 1);
+    adapter.addEdge({ source: "A", target: "B", weight: 1 });
+    adapter.addEdge({ source: "A", target: "C", weight: 4 });
+    adapter.addEdge({ source: "B", target: "D", weight: 5 });
+    adapter.addEdge({ source: "C", target: "D", weight: 1 });
+    adapter.addEdge({ source: "B", target: "C", weight: 2 });
 
     setGraphAdapter(adapter);
 

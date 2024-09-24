@@ -1,6 +1,7 @@
 import { Graph } from "@dagrejs/graphlib";
 import dijkstra from "@dagrejs/graphlib/lib/alg/dijkstra";
 import { IGraphAdapter } from "interfaces/IGraphAdapter";
+import { IEdge, INode, IShortestPath, NodeId } from "types/graph";
 
 export default class GraphlibAdapter implements IGraphAdapter {
   private graph: Graph;
@@ -13,18 +14,19 @@ export default class GraphlibAdapter implements IGraphAdapter {
     this.graph = new Graph();
   }
 
-  addNode(node: { id: string; label: string }): void {
-    this.graph.setNode(node.id, node);
+  addNode(node: INode): void {
+    const id = node.id.toString();
+    this.graph.setNode(id, node);
   }
 
-  addEdge(source: string, target: string, weight: number): void {
-    this.graph.setEdge(source, target, weight);
+  addEdge(edge: IEdge): void {
+    const source = edge.source.toString();
+    const target = edge.target.toString();
+    this.graph.setEdge(source, target, edge.weight);
   }
 
-  runDijkstra(
-    source: string
-  ): Record<string, { distance: number; predecessor: string | null }> {
-    const result = dijkstra(this.graph, source);
+  runDijkstra(source: NodeId): Record<NodeId, IShortestPath> {
+    const result = dijkstra(this.graph, source.toString());
     const formattedResult: Record<
       string,
       { distance: number; predecessor: string | null }
@@ -40,11 +42,11 @@ export default class GraphlibAdapter implements IGraphAdapter {
     return formattedResult;
   }
 
-  getNodes(): Array<{ id: string; label: string }> {
+  getNodes(): Array<INode> {
     return this.graph.nodes().map((node) => this.graph.node(node));
   }
 
-  getEdges(): Array<{ source: string; target: string; weight: number }> {
+  getEdges(): Array<IEdge> {
     return this.graph.edges().map((edge) => ({
       source: edge.v,
       target: edge.w,

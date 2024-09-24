@@ -1,5 +1,21 @@
-export type VerticeType = number | string;
-export type Edge = [VerticeType, VerticeType];
+export type NodeId = number | string;
+
+export interface INode {
+  id: NodeId;
+  label: string;
+}
+
+export interface IEdge {
+  source: NodeId;
+  target: NodeId;
+  weight: number;
+  directed?: boolean;
+}
+
+export interface IShortestPath {
+  distance: number;
+  predecessor: NodeId | null;
+}
 
 export type InitialPositionType = {
   top: number;

@@ -1,15 +1,15 @@
 import React from "react";
 import useGraph from "./useGraph";
-import { Edge, InitialPositionsType, VerticeType } from "types/graph";
+import { IEdge, InitialPositionsType, INode, NodeId } from "types/graph";
 
 type GraphProps = {
-  vertices?: VerticeType[];
-  edges?: Edge[];
-  traversalPath?: VerticeType[];
+  vertices?: INode[];
+  edges?: IEdge[];
+  traversalPath?: NodeId[];
   initialPositions?: InitialPositionsType;
-  onAddEdge?: (edge: Edge) => void;
+  onAddEdge?: (edge: IEdge) => void;
   onAddVertice?: (
-    vertice: VerticeType,
+    vertice: INode,
     position: {
       x: number;
       y: number;

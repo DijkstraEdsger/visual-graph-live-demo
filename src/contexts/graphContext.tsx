@@ -7,15 +7,19 @@ import {
   useRef,
   useState,
 } from "react";
-import { Edge, Position, VerticeType } from "types/graph";
+import { IEdge, INode, NodeId, Position } from "types/graph";
 
-const initialVertices = [1, 2, 3];
-const initialEdges: Edge[] = [
-  [1, 2],
-  [2, 3],
-  [3, 1],
+const initialVertices: INode[] = [
+  { id: "1", label: "1" },
+  { id: "2", label: "2" },
+  { id: "3", label: "3" },
 ];
-const initialTraversalPath: VerticeType[] = [1, 2, 3, 4];
+const initialEdges: IEdge[] = [
+  { source: "1", target: "2", weight: 1 },
+  { source: "1", target: "3", weight: 1 },
+  { source: "2", target: "3", weight: 1 },
+];
+const initialTraversalPath: NodeId[] = [1, 2, 3, 4];
 const initialPositions = {
   1: { left: 100, top: 100 },
   2: { left: 300, top: 100 },
@@ -23,18 +27,18 @@ const initialPositions = {
 };
 
 const GraphContext = createContext<{
-  vertices: VerticeType[];
-  edges: Edge[];
-  traversalPath: VerticeType[];
+  vertices: INode[];
+  edges: IEdge[];
+  traversalPath: NodeId[];
   positions: { [key: string]: { left: number; top: number } };
   inputFileRef: RefObject<HTMLInputElement>;
-  addVerticeHandler: (vertice: VerticeType, position: Position) => void;
-  addEdgeHandler: (edge: Edge) => void;
+  addVerticeHandler: (vertice: INode, position: Position) => void;
+  addEdgeHandler: (edge: IEdge) => void;
   downloadGraphAsTxt: () => void;
   uploadGraph: () => void;
-  updatePositions: (vertice: VerticeType, position: Position) => void;
-  removeEdge?: (edge: Edge) => void;
-  removeVertice?: (vertice: VerticeType) => void;
+  updatePositions: (vertice: INode, position: Position) => void;
+  removeEdge?: (edge: IEdge) => void;
+  removeVertice?: (vertice: INode) => void;
 }>({
   vertices: [],
   edges: [],
@@ -57,20 +61,20 @@ type GraphProviderProps = {
 const GraphProvider: FC<GraphProviderProps> = ({
   children,
 }: GraphProviderProps) => {
-  const [vertices, setVertices] = useState<VerticeType[]>([]);
-  const [edges, setEdges] = useState<Edge[]>([]);
-  const [traversalPath, setWayPoints] = useState<VerticeType[]>([]);
+  const [vertices, setVertices] = useState<INode[]>([]);
+  const [edges, setEdges] = useState<IEdge[]>([]);
+  const [traversalPath, setWayPoints] = useState<NodeId[]>([]);
   const [positions, setPositions] = useState<{
     [key: string]: { left: number; top: number };
   }>({});
   const inputFileRef = useRef<HTMLInputElement>(null);
 
-  const addEdgeHandler = (edge: Edge) => {
+  const addEdgeHandler = (edge: IEdge) => {
     setEdges([...edges, edge]);
   };
 
   const addVerticeHandler = (
-    vertice: VerticeType,
+    vertice: INode,
     position: {
       x: number;
       y: number;
@@ -79,14 +83,14 @@ const GraphProvider: FC<GraphProviderProps> = ({
     setVertices([...vertices, vertice]);
     setPositions({
       ...positions,
-      [vertice]: { left: position.x, top: position.y },
+      [vertice.id]: { left: position.x, top: position.y },
     });
   };
 
-  const updatePositions = (vertice: VerticeType, position: Position) => {
+  const updatePositions = (vertice: INode, position: Position) => {
     setPositions((prevP) => ({
       ...prevP,
-      [vertice]: {
+      [vertice.id]: {
         left: position.x,
         top: position.y,
       },
@@ -128,11 +132,11 @@ const GraphProvider: FC<GraphProviderProps> = ({
     inputFileRef.current!.value = "";
   };
 
-  const removeEdge = (edge: Edge) => {
+  const removeEdge = (edge: IEdge) => {
     const indexEdge = edges.findIndex(
       (e) =>
-        (e[0] === edge[0] && e[1] === edge[1]) ||
-        (e[0] === edge[1] && e[1] === edge[0])
+        (e.source === edge.source && e.target === edge.target) ||
+        (e.source === edge.target && e.target === edge.source)
     );
 
     if (indexEdge !== -1) {
@@ -142,18 +146,20 @@ const GraphProvider: FC<GraphProviderProps> = ({
     }
   };
 
-  const removeVertice = (vertice: VerticeType) => {
-    const newVertices = vertices.filter((v) => v !== vertice);
+  const removeVertice = (vertice: INode) => {
+    const newVertices = vertices.filter((v) => v.id !== vertice.id);
     setVertices(newVertices);
 
-    const newEdges = edges.filter((edge) => !edge.includes(vertice));
+    const newEdges = edges.filter(
+      (e) => e.source !== vertice.id && e.target !== vertice.id
+    );
     setEdges(newEdges);
 
     const newPositions = { ...positions };
-    delete newPositions[vertice];
+    delete newPositions[vertice.id];
     setPositions(newPositions);
 
-    const newTraversalPath = traversalPath.filter((v) => v !== vertice);
+    const newTraversalPath = traversalPath.filter((v) => v !== vertice.id);
     setWayPoints(newTraversalPath);
   };
 

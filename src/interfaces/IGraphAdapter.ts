@@ -1,10 +1,10 @@
+import { IEdge, INode, IShortestPath, NodeId } from "types/graph";
+
 export interface IGraphAdapter {
   createGraph(): void;
-  addNode(node: { id: string; label: string }): void;
-  addEdge(source: string, target: string, weight: number): void;
-  runDijkstra(
-    source: string
-  ): Record<string, { distance: number; predecessor: string | null }>;
-  getNodes(): Array<{ id: string; label: string }>;
-  getEdges(): Array<{ source: string; target: string; weight: number }>;
+  addNode(node: INode): void;
+  addEdge(edge: IEdge): void;
+  runDijkstra(source: NodeId): Record<NodeId, IShortestPath>;
+  getNodes(): INode[];
+  getEdges(): IEdge[];
 }
