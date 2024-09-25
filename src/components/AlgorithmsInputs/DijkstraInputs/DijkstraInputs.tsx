@@ -2,9 +2,13 @@ import React from "react";
 
 interface DijkstraInputsProps {
   onRunDijkstra: (startNode: string, endNode: string) => void;
+  onCleanPath?: () => void;
 }
 
-const DijkstraInputs: React.FC<DijkstraInputsProps> = ({ onRunDijkstra }) => {
+const DijkstraInputs: React.FC<DijkstraInputsProps> = ({
+  onRunDijkstra,
+  onCleanPath,
+}) => {
   const [startNode, setStartNode] = React.useState("");
   const [endNode, setEndNode] = React.useState("");
 
@@ -25,6 +29,9 @@ const DijkstraInputs: React.FC<DijkstraInputsProps> = ({ onRunDijkstra }) => {
       />
       <button type="button" onClick={() => onRunDijkstra(startNode, endNode)}>
         Run Dijkstra
+      </button>
+      <button type="button" onClick={onCleanPath}>
+        Clean path
       </button>
     </div>
   );

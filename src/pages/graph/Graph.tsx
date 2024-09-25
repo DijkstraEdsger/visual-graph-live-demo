@@ -17,6 +17,7 @@ const GraphPage = () => {
     algorithms,
     addEdgeHandler,
     addVerticeHandler,
+    cleanPath,
   } = useGraph();
 
   return (
@@ -38,6 +39,7 @@ const GraphPage = () => {
           onRunDijkstra={(startNode, endNode) =>
             algorithms?.dijkstra(startNode, endNode)
           }
+          onCleanPath={cleanPath}
         />
       )}
     </>

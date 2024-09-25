@@ -239,9 +239,21 @@ const useGraph = ({
     setEdgesElements(updatedEdgesElements);
   };
 
+  const updateEdgesAndVerticesElementsWithTraversalPath = () => {
+    updateEdgesElementsWithTraversalPath();
+    updateVerticesElements();
+  };
+
+  const updateEdgesAndVerticesElements = () => {
+    updateEdgesElements();
+    updateVerticesElements();
+  };
+
   useEffect(() => {
     if (traversalPath.length > 1) {
-      updateEdgesElementsWithTraversalPath();
+      updateEdgesAndVerticesElementsWithTraversalPath();
+    } else {
+      updateEdgesAndVerticesElements();
     }
   }, [traversalPath]);
 

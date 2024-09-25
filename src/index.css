@@ -76,6 +76,7 @@ code {
 
 .is_traversed {
   stroke: #ff9800;
+  stroke-width: 4px;
 }
 
 .main {

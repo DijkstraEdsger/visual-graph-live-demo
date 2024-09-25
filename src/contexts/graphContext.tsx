@@ -48,6 +48,7 @@ const GraphContext = createContext<{
   removeEdge?: (edge: IEdge) => void;
   removeVertice?: (vertice: INode) => void;
   setActiveAlgorithmHandler?: (algorithm: string) => void;
+  cleanPath?: () => void;
 }>({
   vertices: [],
   edges: [],
@@ -200,6 +201,10 @@ const GraphProvider: FC<GraphProviderProps> = ({
     setActiveAlgorithm(algorithm);
   };
 
+  const cleanPath = () => {
+    setWayPoints([]);
+  };
+
   return (
     <GraphContext.Provider
       value={{
@@ -220,6 +225,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
         removeEdge,
         removeVertice,
         setActiveAlgorithmHandler,
+        cleanPath,
       }}
     >
       {children}
