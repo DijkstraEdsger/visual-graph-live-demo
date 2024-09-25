@@ -30,3 +30,9 @@ export type Position = {
   x: number;
   y: number;
 };
+
+export enum ActiveAlgorithm {
+  DIJKSTRA = "DIJKSTRA",
+  BFS = "BFS",
+  DFS = "DFS",
+}

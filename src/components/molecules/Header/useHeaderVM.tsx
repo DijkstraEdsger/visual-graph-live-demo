@@ -1,3 +1,6 @@
+import { useGraph } from "contexts/graphContext";
+import { ActiveAlgorithm } from "types/graph";
+
 type TItem = {
   label: string;
   onClick?: () => void;
@@ -5,6 +8,8 @@ type TItem = {
 };
 
 const useHeaderVM = () => {
+  const { inputFileRef, downloadGraphAsTxt, setActiveAlgorithmHandler } =
+    useGraph();
   const menus: TItem[] = [
     {
       label: "File",
@@ -80,7 +85,8 @@ const useHeaderVM = () => {
           items: [
             {
               label: "Dijkstra's Algorithm",
-              onClick: () => console.log("Dijkstra's Algorithm"),
+              onClick: () =>
+                setActiveAlgorithmHandler?.(ActiveAlgorithm.DIJKSTRA),
             },
             {
               label: "Bellman-Ford Algorithm",

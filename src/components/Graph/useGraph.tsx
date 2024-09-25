@@ -71,7 +71,7 @@ const useGraph = ({
 
   const generateNewVerticeLabel = () => {
     const maxVertice = Math.max(...vertices.map((v) => Number(v.id)), 0);
-    return maxVertice + 1;
+    return (maxVertice + 1).toString();
   };
 
   const isValidVerticePosition = (position: { x: number; y: number }) => {
