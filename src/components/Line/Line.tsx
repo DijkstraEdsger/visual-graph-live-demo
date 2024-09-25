@@ -103,7 +103,7 @@ const Line: React.FC<LineProps> = ({
         className={isTraversed ? "is_traversed" : ""}
         strokeWidth="2"
         style={{
-          transition: "stroke 0.3s ease-in-out",
+          transition: "all 0.3s ease-in-out",
           cursor: "cell",
         }}
         onMouseEnter={handleMouseEnter}

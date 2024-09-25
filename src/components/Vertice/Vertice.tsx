@@ -99,10 +99,9 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
       >
         <div
           id={id}
-          className={`vertice ${isAVerticeTryingToConnect ? "connecting" : ""}`}
-          style={{
-            backgroundColor: isVisited ? "green" : "#00bff",
-          }}
+          className={`vertice ${
+            isAVerticeTryingToConnect ? "connecting" : ""
+          } ${isVisited ? "vertice--visited" : ""}`}
           onMouseUp={onMouseUpEdgeHintHandler}
         >
           <span>{label}</span>

@@ -61,4 +61,25 @@ export default class GraphlibAdapter implements IGraphAdapter {
   removeEdge(edge: IEdge): void {
     this.graph.removeEdge(edge.source.toString(), edge.target.toString());
   }
+
+  buildPath(
+    dijkstraResult: Record<NodeId, IShortestPath>,
+    source: string,
+    target: string
+  ): string[] {
+    const path: string[] = [];
+    let current: string | null = target;
+
+    while (current !== null) {
+      path.push(current);
+      if (current === source) break;
+      current = dijkstraResult[current].predecessor?.toString() ?? null;
+    }
+
+    if (current === null) {
+      throw new Error(`No path found from ${source} to ${target}`);
+    }
+
+    return path.reverse();
+  }
 }

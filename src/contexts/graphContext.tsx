@@ -36,6 +36,10 @@ const GraphContext = createContext<{
   traversalPath: NodeId[];
   positions: { [key: string]: { left: number; top: number } };
   inputFileRef: RefObject<HTMLInputElement>;
+  algorithms?: {
+    dijkstra: (source: NodeId, target: NodeId) => void;
+  };
+  activeAlgorithm?: string | null;
   addVerticeHandler: (vertice: INode, position: Position) => void;
   addEdgeHandler: (edge: IEdge) => void;
   downloadGraphAsTxt: () => void;
@@ -43,6 +47,8 @@ const GraphContext = createContext<{
   updatePositions: (vertice: INode, position: Position) => void;
   removeEdge?: (edge: IEdge) => void;
   removeVertice?: (vertice: INode) => void;
+  setActiveAlgorithmHandler?: (algorithm: string) => void;
+  cleanPath?: () => void;
 }>({
   vertices: [],
   edges: [],
@@ -76,30 +82,14 @@ const GraphProvider: FC<GraphProviderProps> = ({
   const [shortestPaths, setShortestPaths] = useState<
     Record<NodeId, IShortestPath>
   >({});
+  const [activeAlgorithm, setActiveAlgorithm] = useState<string | null>(null);
 
   const adapter = useMemo(() => {
     return new GraphlibAdapter();
   }, []);
 
   useEffect(() => {
-    // const adapter = new GraphlibAdapter(); // or new GraphologyAdapter()
     adapter.createGraph();
-
-    // adapter.addNode({ id: "A", label: "A" });
-    // adapter.addNode({ id: "B", label: "B" });
-    // adapter.addNode({ id: "C", label: "C" });
-    // adapter.addNode({ id: "D", label: "D" });
-
-    // adapter.addEdge({ source: "A", target: "B", weight: 1 });
-    // adapter.addEdge({ source: "A", target: "C", weight: 4 });
-    // adapter.addEdge({ source: "B", target: "D", weight: 5 });
-    // adapter.addEdge({ source: "C", target: "D", weight: 1 });
-    // adapter.addEdge({ source: "B", target: "C", weight: 2 });
-
-    // setGraphAdapter(adapter);
-
-    // const paths = adapter.runDijkstra("A");
-    // setShortestPaths(paths);
   }, [adapter]);
 
   const addEdgeHandler = (edge: IEdge) => {
@@ -200,6 +190,21 @@ const GraphProvider: FC<GraphProviderProps> = ({
     setWayPoints(newTraversalPath);
   };
 
+  const runDijkstraHandler = (source: NodeId, target: NodeId) => {
+    const paths = adapter.runDijkstra(source);
+    setShortestPaths(paths);
+    const path = adapter.buildPath(paths, source.toString(), target.toString());
+    setWayPoints(path);
+  };
+
+  const setActiveAlgorithmHandler = (algorithm: string) => {
+    setActiveAlgorithm(algorithm);
+  };
+
+  const cleanPath = () => {
+    setWayPoints([]);
+  };
+
   return (
     <GraphContext.Provider
       value={{
@@ -208,6 +213,10 @@ const GraphProvider: FC<GraphProviderProps> = ({
         traversalPath,
         positions,
         inputFileRef,
+        activeAlgorithm,
+        algorithms: {
+          dijkstra: runDijkstraHandler,
+        },
         addVerticeHandler,
         addEdgeHandler,
         downloadGraphAsTxt,
@@ -215,6 +224,8 @@ const GraphProvider: FC<GraphProviderProps> = ({
         updatePositions,
         removeEdge,
         removeVertice,
+        setActiveAlgorithmHandler,
+        cleanPath,
       }}
     >
       {children}
