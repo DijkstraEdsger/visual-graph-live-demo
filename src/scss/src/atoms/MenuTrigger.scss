@@ -1,13 +1,14 @@
 @import "../foundation/all";
 
 .menu-trigger {
-  padding: 2px 8px;
+  padding: 4px 10px;
   cursor: pointer;
   color: $menuitem-color;
   background-color: $menuitem-bg;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 4px;
 }
 
 .menu-trigger:hover,
