@@ -1,10 +1,12 @@
 import { useGraph } from "contexts/graphContext";
 import { ActiveAlgorithm } from "types/graph";
+import Icon from "components/atoms/Icon";
 
 type TItem = {
   label: string;
   onClick?: () => void;
   items?: TItem[];
+  icon?: React.ReactNode;
 };
 
 const useHeaderVM = () => {
@@ -17,63 +19,21 @@ const useHeaderVM = () => {
         {
           label: "New",
           onClick: () => console.log("New"),
+          icon: <Icon name="new-document" size="16px" />,
         },
         {
           label: "Open",
-          onClick: () => console.log("Open"),
+          onClick: () => inputFileRef.current?.click(),
+          icon: <Icon name="open" size="16px" />,
         },
         {
-          label: "Save",
-          onClick: () => console.log("Save"),
-        },
-        {
-          label: "Save As",
-          onClick: () => console.log("Save As"),
+          label: "Download",
+          onClick: downloadGraphAsTxt,
+          icon: <Icon name="download" size="16px" />,
         },
         {
           label: "Close",
           onClick: () => console.log("Close"),
-        },
-        {
-          label: "Submenu",
-          items: [
-            {
-              label: "Submenu 1",
-              onClick: () => console.log("Submenu 1"),
-            },
-            {
-              label: "Submenu 2",
-              onClick: () => console.log("Submenu 2"),
-            },
-            {
-              label: "Submenu 3",
-              onClick: () => console.log("Submenu 3"),
-              items: [
-                {
-                  label: "Submenu 3.1",
-                  onClick: () => console.log("Submenu 3.1"),
-                },
-                {
-                  label: "Submenu 3.2",
-                  onClick: () => console.log("Submenu 3.2"),
-                },
-              ],
-            },
-          ],
-        },
-        {
-          label: "Cars",
-          onClick: () => console.log("Cars"),
-          items: [
-            {
-              label: "Subaru",
-              onClick: () => console.log("Subaru"),
-            },
-            {
-              label: "Toyota",
-              onClick: () => console.log("Toyota"),
-            },
-          ],
         },
       ],
     },
@@ -81,42 +41,45 @@ const useHeaderVM = () => {
       label: "Algorithms",
       items: [
         {
-          label: "Shortest Path Algorithms",
+          label: "Shortest Path",
+          icon: <Icon name="shortest-path" size="16px" />,
           items: [
             {
-              label: "Dijkstra's Algorithm",
+              label: "Dijkstra",
               onClick: () =>
                 setActiveAlgorithmHandler?.(ActiveAlgorithm.DIJKSTRA),
             },
             {
-              label: "Bellman-Ford Algorithm",
+              label: "Bellman-Ford",
               onClick: () => console.log("Bellman-Ford Algorithm"),
             },
             {
-              label: "Floyd-Warshall Algorithm",
+              label: "Floyd-Warshall",
               onClick: () => console.log("Floyd-Warshall Algorithm"),
             },
             {
-              label: "A* Algorithm",
+              label: "A*",
               onClick: () => console.log("A* Algorithm"),
             },
           ],
         },
         {
-          label: "Minimum Spanning Tree Algorithms",
+          label: "Minimum Spanning Tree",
+          icon: <Icon name="minimum-spanning-tree" size="16px" />,
           items: [
             {
-              label: "Kruskal's Algorithm",
+              label: "Kruskal",
               onClick: () => console.log("Kruskal's Algorithm"),
             },
             {
-              label: "Prim's Algorithm",
+              label: "Prim",
               onClick: () => console.log("Prim's Algorithm"),
             },
           ],
         },
         {
-          label: "Graph Traversal Algorithms",
+          label: "Graph Traversal",
+          icon: <Icon name="graph-traversal" size="16px" />,
           items: [
             {
               label: "Depth First Search",
@@ -129,20 +92,22 @@ const useHeaderVM = () => {
           ],
         },
         {
-          label: "Network Flow Algorithms",
+          label: "Network Flow",
+          icon: <Icon name="network-flow" size="16px" />,
           items: [
             {
-              label: "Ford-Fulkerson Algorithm",
+              label: "Ford-Fulkerson",
               onClick: () => console.log("Ford-Fulkerson Algorithm"),
             },
             {
-              label: "Edmonds-Karp Algorithm",
+              label: "Edmonds-Karp",
               onClick: () => console.log("Edmonds-Karp Algorithm"),
             },
           ],
         },
         {
-          label: "Matching Algorithms",
+          label: "Matching",
+          icon: <Icon name="matching" size="16px" />,
           items: [
             {
               label: "Bipartite Matching",
@@ -162,22 +127,12 @@ const useHeaderVM = () => {
         {
           label: "Undo",
           onClick: () => console.log("Undo"),
+          icon: <Icon name="undo" size="16px" />,
         },
         {
           label: "Redo",
           onClick: () => console.log("Redo"),
-        },
-        {
-          label: "Cut",
-          onClick: () => console.log("Cut"),
-        },
-        {
-          label: "Copy",
-          onClick: () => console.log("Copy"),
-        },
-        {
-          label: "Paste",
-          onClick: () => console.log("Paste"),
+          icon: <Icon name="redo" size="16px" />,
         },
       ],
     },
@@ -209,7 +164,16 @@ const useHeaderVM = () => {
     },
     {
       label: "Settings",
-      onClick: () => console.log("Settings"),
+      items: [
+        {
+          label: "Change Theme",
+          onClick: () => console.log("Change Theme"),
+        },
+        {
+          label: "Change Language",
+          onClick: () => console.log("Change Language"),
+        },
+      ],
     },
   ];
 

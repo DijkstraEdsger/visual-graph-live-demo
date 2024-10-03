@@ -12,7 +12,7 @@ type TItem = {
 
 interface MenuItemProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactNode;
-  triggerIcon?: React.ReactNode;
+  icon?: React.ReactNode;
   menuItems?: TItem[];
   isMainMenu?: boolean;
   menuItemTriggerRef?: React.RefObject<HTMLDivElement>;
@@ -29,6 +29,7 @@ interface MenuItemProps extends React.HTMLProps<HTMLDivElement> {
 
 const MenuItem: React.FC<MenuItemProps> = ({
   children,
+  icon,
   menuItems,
   isMainMenu,
   isHighlighted,
@@ -59,7 +60,17 @@ const MenuItem: React.FC<MenuItemProps> = ({
         ref={triggerRef}
         isHighlighted={isHighlighted}
       >
-        {children}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            columnGap: 8,
+          }}
+        >
+          {icon}
+          {children}
+        </div>
         {!isMainMenu && menuItems && menuItems?.length > 0 && (
           <Icon name="right-arrow" />
         )}
