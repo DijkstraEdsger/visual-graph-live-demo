@@ -34,47 +34,6 @@ const useHeaderVM = () => {
           label: "Close",
           onClick: () => console.log("Close"),
         },
-        {
-          label: "Submenu",
-          items: [
-            {
-              label: "Submenu 1",
-              onClick: () => console.log("Submenu 1"),
-            },
-            {
-              label: "Submenu 2",
-              onClick: () => console.log("Submenu 2"),
-            },
-            {
-              label: "Submenu 3",
-              onClick: () => console.log("Submenu 3"),
-              items: [
-                {
-                  label: "Submenu 3.1",
-                  onClick: () => console.log("Submenu 3.1"),
-                },
-                {
-                  label: "Submenu 3.2",
-                  onClick: () => console.log("Submenu 3.2"),
-                },
-              ],
-            },
-          ],
-        },
-        {
-          label: "Cars",
-          onClick: () => console.log("Cars"),
-          items: [
-            {
-              label: "Subaru",
-              onClick: () => console.log("Subaru"),
-            },
-            {
-              label: "Toyota",
-              onClick: () => console.log("Toyota"),
-            },
-          ],
-        },
       ],
     },
     {
@@ -167,18 +126,6 @@ const useHeaderVM = () => {
           label: "Redo",
           onClick: () => console.log("Redo"),
         },
-        {
-          label: "Cut",
-          onClick: () => console.log("Cut"),
-        },
-        {
-          label: "Copy",
-          onClick: () => console.log("Copy"),
-        },
-        {
-          label: "Paste",
-          onClick: () => console.log("Paste"),
-        },
       ],
     },
     {
@@ -209,7 +156,16 @@ const useHeaderVM = () => {
     },
     {
       label: "Settings",
-      onClick: () => console.log("Settings"),
+      items: [
+        {
+          label: "Change Theme",
+          onClick: () => console.log("Change Theme"),
+        },
+        {
+          label: "Change Language",
+          onClick: () => console.log("Change Language"),
+        },
+      ],
     },
   ];
 
