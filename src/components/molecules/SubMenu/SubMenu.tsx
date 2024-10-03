@@ -72,7 +72,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
           {children}
         </div>
         {!isMainMenu && menuItems && menuItems?.length > 0 && (
-          <Icon name="right-arrow" />
+          <Icon name="right-arrow" size="20px" />
         )}
       </MenuTrigger>
 
