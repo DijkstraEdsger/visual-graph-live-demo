@@ -1,7 +1,7 @@
 @import "../foundation/all";
 
 .menu-trigger {
-  padding: 4px 10px;
+  padding: 6px 10px 6px 12px;
   cursor: pointer;
   color: $menuitem-color;
   background-color: $menuitem-bg;
@@ -10,6 +10,7 @@
   align-items: center;
   border-radius: 4px;
   font-size: 14px;
+  line-height: 20px;
 }
 
 .menu-trigger:hover,
