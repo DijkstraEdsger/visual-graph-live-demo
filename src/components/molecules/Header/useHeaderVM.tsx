@@ -1,10 +1,12 @@
 import { useGraph } from "contexts/graphContext";
 import { ActiveAlgorithm } from "types/graph";
+import Icon from "components/atoms/Icon";
 
 type TItem = {
   label: string;
   onClick?: () => void;
   items?: TItem[];
+  icon?: React.ReactNode;
 };
 
 const useHeaderVM = () => {
@@ -17,14 +19,17 @@ const useHeaderVM = () => {
         {
           label: "New",
           onClick: () => console.log("New"),
+          icon: <Icon name="new-document" size="16px" />
         },
         {
           label: "Open",
           onClick: () => inputFileRef.current?.click(),
+          icon: <Icon name="open" size="16px" />
         },
         {
           label: "Download",
           onClick: downloadGraphAsTxt,
+          icon: <Icon name="download" size="16px" />,
         },
         {
           label: "Close",
@@ -117,10 +122,12 @@ const useHeaderVM = () => {
         {
           label: "Undo",
           onClick: () => console.log("Undo"),
+          icon: <Icon name="undo" size="16px" />
         },
         {
           label: "Redo",
           onClick: () => console.log("Redo"),
+          icon: <Icon name="redo" size="16px" />
         },
       ],
     },

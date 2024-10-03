@@ -6,6 +6,7 @@ type TItem = {
   label: string;
   onClick?: () => void;
   items?: TItem[];
+  icon?: React.ReactNode;
 };
 
 interface MenuProps extends React.HTMLProps<HTMLUListElement> {
@@ -178,6 +179,7 @@ const Menu: React.FC<MenuProps> = (
             onClick={() => handleOnClick(item, index)}
             open={openIndex === index}
             onKeyDownArrowLeft={onKeyDownArrowLeftHandler}
+            icon={item.icon}
           >
             {item.label}
           </MenuItem>

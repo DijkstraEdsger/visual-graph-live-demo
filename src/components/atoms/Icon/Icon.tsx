@@ -8,6 +8,9 @@ import { ReactComponent as DownArrowIcon } from "assets/icons/arrow-down.svg";
 import { ReactComponent as NewDocumentIcon } from "assets/icons/new-document.svg";
 import { ReactComponent as DeleteIcon } from "assets/icons/delete.svg";
 import { ReactComponent as InfoIcon } from "assets/icons/info.svg";
+import { ReactComponent as OpenIcon } from "assets/icons/open.svg";
+import { ReactComponent as UndoIcon } from "assets/icons/undo.svg";
+import { ReactComponent as RedoIcon } from "assets/icons/redo.svg";
 
 interface IconProps {
   name: string;
@@ -30,12 +33,24 @@ const icons: {
   "new-document": NewDocumentIcon,
   delete: DeleteIcon,
   info: InfoIcon,
+  open: OpenIcon,
+  undo: UndoIcon,
+  redo: RedoIcon,
 };
 
 const Icon: React.FC<IconProps> = ({ name, size = "sm", style, ...props }) => {
   const SvgIcon = icons[name];
 
-  return SvgIcon ? <SvgIcon style={style} {...props} /> : null;
+  return SvgIcon ? (
+    <SvgIcon
+      style={{
+        width: size,
+        height: size,
+        ...style,
+      }}
+      {...props}
+    />
+  ) : null;
 };
 
 export default Icon;
