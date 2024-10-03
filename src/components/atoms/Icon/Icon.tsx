@@ -11,6 +11,11 @@ import { ReactComponent as InfoIcon } from "assets/icons/info.svg";
 import { ReactComponent as OpenIcon } from "assets/icons/open.svg";
 import { ReactComponent as UndoIcon } from "assets/icons/undo.svg";
 import { ReactComponent as RedoIcon } from "assets/icons/redo.svg";
+import { ReactComponent as ShortestPathIcon } from "assets/icons/shortest-path.svg";
+import { ReactComponent as MinimumSpanningTreeIcon } from "assets/icons/minimum-spanning-tree.svg";
+import { ReactComponent as GraphTraversalIcon } from "assets/icons/graph-traversal.svg";
+import { ReactComponent as NetworkFlowIcon } from "assets/icons/network-flow.svg";
+import { ReactComponent as MatchingIcon } from "assets/icons/matching.svg";
 
 interface IconProps {
   name: string;
@@ -36,6 +41,11 @@ const icons: {
   open: OpenIcon,
   undo: UndoIcon,
   redo: RedoIcon,
+  "shortest-path": ShortestPathIcon,
+  "minimum-spanning-tree": MinimumSpanningTreeIcon,
+  "graph-traversal": GraphTraversalIcon,
+  "network-flow": NetworkFlowIcon,
+  matching: MatchingIcon,
 };
 
 const Icon: React.FC<IconProps> = ({ name, size = "sm", style, ...props }) => {

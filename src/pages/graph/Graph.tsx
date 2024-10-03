@@ -29,7 +29,7 @@ const GraphPage = () => {
           traversalPath={traversalPath}
           animatePath
           initialPositions={positions}
-          speed={1}
+          speed={2}
           onAddEdge={addEdgeHandler}
           onAddVertice={addVerticeHandler}
         />

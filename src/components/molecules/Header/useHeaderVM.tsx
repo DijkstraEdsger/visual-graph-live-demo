@@ -19,12 +19,12 @@ const useHeaderVM = () => {
         {
           label: "New",
           onClick: () => console.log("New"),
-          icon: <Icon name="new-document" size="16px" />
+          icon: <Icon name="new-document" size="16px" />,
         },
         {
           label: "Open",
           onClick: () => inputFileRef.current?.click(),
-          icon: <Icon name="open" size="16px" />
+          icon: <Icon name="open" size="16px" />,
         },
         {
           label: "Download",
@@ -41,42 +41,45 @@ const useHeaderVM = () => {
       label: "Algorithms",
       items: [
         {
-          label: "Shortest Path Algorithms",
+          label: "Shortest Path",
+          icon: <Icon name="shortest-path" size="16px" />,
           items: [
             {
-              label: "Dijkstra's Algorithm",
+              label: "Dijkstra",
               onClick: () =>
                 setActiveAlgorithmHandler?.(ActiveAlgorithm.DIJKSTRA),
             },
             {
-              label: "Bellman-Ford Algorithm",
+              label: "Bellman-Ford",
               onClick: () => console.log("Bellman-Ford Algorithm"),
             },
             {
-              label: "Floyd-Warshall Algorithm",
+              label: "Floyd-Warshall",
               onClick: () => console.log("Floyd-Warshall Algorithm"),
             },
             {
-              label: "A* Algorithm",
+              label: "A*",
               onClick: () => console.log("A* Algorithm"),
             },
           ],
         },
         {
-          label: "Minimum Spanning Tree Algorithms",
+          label: "Minimum Spanning Tree",
+          icon: <Icon name="minimum-spanning-tree" size="16px" />,
           items: [
             {
-              label: "Kruskal's Algorithm",
+              label: "Kruskal",
               onClick: () => console.log("Kruskal's Algorithm"),
             },
             {
-              label: "Prim's Algorithm",
+              label: "Prim",
               onClick: () => console.log("Prim's Algorithm"),
             },
           ],
         },
         {
-          label: "Graph Traversal Algorithms",
+          label: "Graph Traversal",
+          icon: <Icon name="graph-traversal" size="16px" />,
           items: [
             {
               label: "Depth First Search",
@@ -89,20 +92,22 @@ const useHeaderVM = () => {
           ],
         },
         {
-          label: "Network Flow Algorithms",
+          label: "Network Flow",
+          icon: <Icon name="network-flow" size="16px" />,
           items: [
             {
-              label: "Ford-Fulkerson Algorithm",
+              label: "Ford-Fulkerson",
               onClick: () => console.log("Ford-Fulkerson Algorithm"),
             },
             {
-              label: "Edmonds-Karp Algorithm",
+              label: "Edmonds-Karp",
               onClick: () => console.log("Edmonds-Karp Algorithm"),
             },
           ],
         },
         {
-          label: "Matching Algorithms",
+          label: "Matching",
+          icon: <Icon name="matching" size="16px" />,
           items: [
             {
               label: "Bipartite Matching",
@@ -122,12 +127,12 @@ const useHeaderVM = () => {
         {
           label: "Undo",
           onClick: () => console.log("Undo"),
-          icon: <Icon name="undo" size="16px" />
+          icon: <Icon name="undo" size="16px" />,
         },
         {
           label: "Redo",
           onClick: () => console.log("Redo"),
-          icon: <Icon name="redo" size="16px" />
+          icon: <Icon name="redo" size="16px" />,
         },
       ],
     },
