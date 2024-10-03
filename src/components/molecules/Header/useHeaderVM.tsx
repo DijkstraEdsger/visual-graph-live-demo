@@ -20,15 +20,11 @@ const useHeaderVM = () => {
         },
         {
           label: "Open",
-          onClick: () => console.log("Open"),
+          onClick: () => inputFileRef.current?.click(),
         },
         {
-          label: "Save",
-          onClick: () => console.log("Save"),
-        },
-        {
-          label: "Save As",
-          onClick: () => console.log("Save As"),
+          label: "Download",
+          onClick: downloadGraphAsTxt,
         },
         {
           label: "Close",
