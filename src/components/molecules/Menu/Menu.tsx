@@ -107,8 +107,17 @@ const Menu: React.FC<MenuProps> = (
   }
 
   const handleOnClick = (item: TItem, index: number) => {
-    setOpenIndex(index);
-    item.onClick?.();
+    const isAction = !item.items?.length;
+
+    if (isAction) {
+      onClose?.();
+      onKeyDownArrowLeft?.();
+    } else {
+      setOpenIndex(index);
+    }
+
+    setHiglightedIndex(index);
+    item?.onClick?.();
   };
 
   const onKeyDownHandler = (e: React.KeyboardEvent) => {
