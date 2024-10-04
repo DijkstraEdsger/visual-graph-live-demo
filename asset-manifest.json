@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/visual-graph-live-demo/static/css/main.5b293935.css",
+    "main.js": "/visual-graph-live-demo/static/js/main.7d12aec9.js",
+    "static/js/453.c53f7119.chunk.js": "/visual-graph-live-demo/static/js/453.c53f7119.chunk.js",
+    "static/media/graph-traversal.svg": "/visual-graph-live-demo/static/media/graph-traversal.95e5e80e5d4239376cc0e775025b9d76.svg",
+    "static/media/matching.svg": "/visual-graph-live-demo/static/media/matching.dd3dc74f39f30b9b8621c908ca066db2.svg",
+    "static/media/network-flow.svg": "/visual-graph-live-demo/static/media/network-flow.287292bf9f7d4f5707aa00040426f891.svg",
+    "index.html": "/visual-graph-live-demo/index.html",
+    "static/media/minimum-spanning-tree.svg": "/visual-graph-live-demo/static/media/minimum-spanning-tree.8f45e7b0883e6b9e0a69ca909c2ca165.svg",
+    "static/media/shortest-path.svg": "/visual-graph-live-demo/static/media/shortest-path.71a9dc2c9467216cb4c544aeaaa25629.svg",
+    "static/media/info.svg": "/visual-graph-live-demo/static/media/info.e61b140871ce922179c2dfe0f5e9a92a.svg",
+    "static/media/delete.svg": "/visual-graph-live-demo/static/media/delete.0eadd057425b3937d2901f7bd00a5118.svg",
+    "static/media/new-document.svg": "/visual-graph-live-demo/static/media/new-document.d91bc9430e8b1022d57ccb48fe20c195.svg",
+    "static/media/upload.svg": "/visual-graph-live-demo/static/media/upload.5a836be8aadf340157b1531efacc6654.svg",
+    "static/media/download.svg": "/visual-graph-live-demo/static/media/download.e4dd8ff38fb3c539996677e36dc3d2e0.svg",
+    "static/media/open.svg": "/visual-graph-live-demo/static/media/open.35492250c4986b4a8ca098f06216ec95.svg",
+    "static/media/redo.svg": "/visual-graph-live-demo/static/media/redo.e6beb01903ebbc51d2b4dd09efae9419.svg",
+    "static/media/undo.svg": "/visual-graph-live-demo/static/media/undo.e9d924297fa9ec3dd085da3c58d76f4e.svg",
+    "static/media/arrow-right.svg": "/visual-graph-live-demo/static/media/arrow-right.09b0c25f15f0d9019b7bf45245d78623.svg",
+    "static/media/arrow-down.svg": "/visual-graph-live-demo/static/media/arrow-down.c5fa9d4b6e60d00bdc8689b1c0ea86d2.svg",
+    "static/media/arrow-left.svg": "/visual-graph-live-demo/static/media/arrow-left.6ffea0b1f54b4d575608d4d77a1749ea.svg",
+    "static/media/arrow-up.svg": "/visual-graph-live-demo/static/media/arrow-up.616d8766e6f17aef782e134592e5b2f2.svg",
+    "main.5b293935.css.map": "/visual-graph-live-demo/static/css/main.5b293935.css.map",
+    "main.7d12aec9.js.map": "/visual-graph-live-demo/static/js/main.7d12aec9.js.map",
+    "453.c53f7119.chunk.js.map": "/visual-graph-live-demo/static/js/453.c53f7119.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5b293935.css",
+    "static/js/main.7d12aec9.js"
+  ]
+}
