@@ -80,5 +80,6 @@ code {
 }
 
 .main {
-  padding: 40px;
+  padding-top: var(--size-height-header);
+  height: calc(100vh - var(--size-height-header));
 }

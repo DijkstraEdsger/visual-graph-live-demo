@@ -4,6 +4,7 @@ import withAsyncData from "components/HOCs/withAsyncData";
 import { GraphContainer } from "contexts/graphContainerContext";
 import { useGraph } from "contexts/graphContext";
 import { ActiveAlgorithm } from "types/graph";
+import classes from "./classes.module.scss";
 
 const GraphWithAsyncData = withAsyncData(Graph);
 
@@ -21,28 +22,35 @@ const GraphPage = () => {
   } = useGraph();
 
   return (
-    <>
-      <GraphContainer>
-        <GraphWithAsyncData
-          vertices={vertices}
-          edges={edges}
-          traversalPath={traversalPath}
-          animatePath
-          initialPositions={positions}
-          speed={2}
-          onAddEdge={addEdgeHandler}
-          onAddVertice={addVerticeHandler}
-        />
-      </GraphContainer>
-      {activeAlgorithm === ActiveAlgorithm.DIJKSTRA && (
-        <DijkstraInputs
-          onRunDijkstra={(startNode, endNode) =>
-            algorithms?.dijkstra(startNode, endNode)
-          }
-          onCleanPath={cleanPath}
-        />
-      )}
-    </>
+    <div className={classes["page-container"]}>
+      <div className={classes["parameters-section"]}>
+        <header className={classes["header-parameters"]}>
+          {activeAlgorithm}
+        </header>
+        {activeAlgorithm === ActiveAlgorithm.DIJKSTRA && (
+          <DijkstraInputs
+            onRunDijkstra={(startNode, endNode) =>
+              algorithms?.dijkstra(startNode, endNode)
+            }
+            onCleanPath={cleanPath}
+          />
+        )}
+      </div>
+      <div className={classes["graph-section"]}>
+        <GraphContainer>
+          <GraphWithAsyncData
+            vertices={vertices}
+            edges={edges}
+            traversalPath={traversalPath}
+            animatePath
+            initialPositions={positions}
+            speed={2}
+            onAddEdge={addEdgeHandler}
+            onAddVertice={addVerticeHandler}
+          />
+        </GraphContainer>
+      </div>
+    </div>
   );
 };
 
