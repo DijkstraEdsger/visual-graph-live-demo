@@ -102,6 +102,7 @@ const MenuBar: React.FC<MenubarProps> = ({ menus = [], ...props }) => {
             onClick={() => onClickHandler(item, index)}
             open={openIndex === index}
             isHighlighted={higlightedIndex === index}
+            onClose={() => setOpenIndex(-1)}
           >
             {item.label}
           </MenuItem>

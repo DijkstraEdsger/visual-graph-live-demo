@@ -82,6 +82,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
           isMainMenu={isMainMenu}
           menuItems={menuItems}
           onKeyDownArrowLeft={onKeyDownArrowLeft}
+          onClose={onClose}
         />
       )}
     </li>
