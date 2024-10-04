@@ -1,4 +1,6 @@
 import React from "react";
+import TextField from "components/TextField/TextField";
+import Button from "components/Button/Button";
 
 interface DijkstraInputsProps {
   onRunDijkstra: (startNode: string, endNode: string) => void;
@@ -7,32 +9,45 @@ interface DijkstraInputsProps {
 
 const DijkstraInputs: React.FC<DijkstraInputsProps> = ({
   onRunDijkstra,
-  onCleanPath,
+  onCleanPath = () => {},
 }) => {
   const [startNode, setStartNode] = React.useState("");
   const [endNode, setEndNode] = React.useState("");
 
+  const handleStartNodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setStartNode(e.target.value);
+  };
+
+  const handleEndNodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEndNode(e.target.value);
+  };
+
   return (
     <div>
-      <h1>Dijkstra Inputs</h1>
-      <input
-        type="text"
+      <TextField
         placeholder="Enter starting node"
-        onChange={(e) => setStartNode(e.target.value)}
+        onChange={handleStartNodeChange}
         value={startNode}
-      />
-      <input
+        label="Starting Node"
         type="text"
-        placeholder="Enter ending node"
-        onChange={(e) => setEndNode(e.target.value)}
-        value={endNode}
+        name="startNode"
+        id="startNode"
       />
-      <button type="button" onClick={() => onRunDijkstra(startNode, endNode)}>
+      <TextField
+        placeholder="Enter ending node"
+        onChange={handleEndNodeChange}
+        value={endNode}
+        label="Ending Node"
+        type="text"
+        name="endNode"
+        id="endNode"
+      />
+
+      <br />
+      <Button onClick={() => onRunDijkstra(startNode, endNode)}>
         Run Dijkstra
-      </button>
-      <button type="button" onClick={onCleanPath}>
-        Clean path
-      </button>
+      </Button>
+      <Button onClick={onCleanPath}>Clean Path</Button>
     </div>
   );
 };

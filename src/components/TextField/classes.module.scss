@@ -1,0 +1,39 @@
+.textfield__input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #fff;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.textfield__input:focus {
+  border-color: #66afe9;
+  box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+  outline: none;
+}
+
+.textfield__input--error {
+  border-color: red;
+}
+
+.textfield__label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.textfield__helper-text {
+  color: #666;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.textfield__helper-text--error {
+  color: red;
+}
