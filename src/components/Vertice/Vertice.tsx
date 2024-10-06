@@ -45,12 +45,29 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
       setIsHintVisible(true);
     };
 
+    const touchStartHandler = (e: TouchEvent) => {
+      setIsHintVisible(true);
+    };
+
     const mouseLeaveHandler = (e: MouseEvent) => {
+      setIsHintVisible(false);
+    };
+
+    const touchEndHandler = (e: TouchEvent) => {
       setIsHintVisible(false);
     };
 
     const onMouseDownEdgeHintHandler = useCallback(
       (e: MouseEvent) => {
+        e.stopPropagation();
+
+        onMouseDownEdgeHint(ref);
+      },
+      [onMouseDownEdgeHint, ref]
+    );
+
+    const onTouchStartEdgeHintHandler = useCallback(
+      (e: TouchEvent) => {
         e.stopPropagation();
 
         onMouseDownEdgeHint(ref);
@@ -64,12 +81,18 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
       if (containerEl) {
         containerEl.addEventListener("mouseenter", mouseEnterHandler);
         containerEl.addEventListener("mouseleave", mouseLeaveHandler);
+        containerEl.addEventListener("touchstart", touchStartHandler);
+        // containerEl.addEventListener("touchend", touchEndHandler);
       }
 
       if (hintRef) {
         hintRef.current?.addEventListener(
           "mousedown",
           onMouseDownEdgeHintHandler
+        );
+        hintRef.current?.addEventListener(
+          "touchstart",
+          onTouchStartEdgeHintHandler
         );
       }
 
@@ -80,8 +103,18 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
           "mousedown",
           onMouseDownEdgeHintHandler
         );
+        hintRef?.current?.removeEventListener(
+          "touchstart",
+          onTouchStartEdgeHintHandler
+        );
       };
-    }, [ref, hintRef, id, onMouseDownEdgeHintHandler]);
+    }, [
+      ref,
+      hintRef,
+      id,
+      onMouseDownEdgeHintHandler,
+      onTouchStartEdgeHintHandler,
+    ]);
 
     const onMouseUpEdgeHintHandler: React.MouseEventHandler<HTMLDivElement> = (
       e
