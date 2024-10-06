@@ -112,6 +112,7 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onDoubleClick={onDoubleClickHandler}
+        title="Double click to add a new vertice"
       >
         {children}
       </div>

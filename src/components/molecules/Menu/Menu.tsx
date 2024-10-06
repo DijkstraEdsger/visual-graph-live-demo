@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import "../../../scss/src/molecules/Menu.scss";
 import MenuItem from "../SubMenu/SubMenu";
 
@@ -171,9 +172,10 @@ const Menu: React.FC<MenuProps> = (
   };
 
   return (
-    <ul
+    <motion.ul
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
       role="menu"
-      {...props}
       className={`menu ${isMainMenu ? "main-menu" : "sub-menu"}`}
       tabIndex={0}
       ref={menuRef}
@@ -194,7 +196,7 @@ const Menu: React.FC<MenuProps> = (
           </MenuItem>
         );
       })}
-    </ul>
+    </motion.ul>
   );
 };
 
