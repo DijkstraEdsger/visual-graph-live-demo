@@ -28,6 +28,39 @@ const Drag = forwardRef<HTMLDivElement, DraggableDivProps>(
         document.onmousemove = elementDrag;
       };
 
+      const dragMouseDownTouch = (e: TouchEvent) => {
+        e.preventDefault();
+        pos3 = e.touches[0].clientX;
+        pos4 = e.touches[0].clientY;
+        document.ontouchend = closeDragElement;
+        document.ontouchmove = elementDragTouch;
+      };
+
+      const elementDragTouch = (e: TouchEvent) => {
+        e.preventDefault();
+        pos1 = pos3 - e.touches[0].clientX;
+        pos2 = pos4 - e.touches[0].clientY;
+        pos3 = e.touches[0].clientX;
+        pos4 = e.touches[0].clientY;
+        const parent = div?.parentElement;
+
+        if (div && parent) {
+          let newTop = div.offsetTop - pos2;
+          let newLeft = div.offsetLeft - pos1;
+
+          const minX = 0;
+          const maxX = parent.offsetWidth - div.offsetWidth;
+          const minY = 0;
+          const maxY = parent.offsetHeight - div.offsetHeight;
+
+          newTop = Math.max(Math.min(newTop, maxY), minY);
+          newLeft = Math.max(Math.min(newLeft, maxX), minX);
+
+          div.style.top = `${newTop}px`;
+          div.style.left = `${newLeft}px`;
+        }
+      };
+
       const elementDrag = (e: MouseEvent) => {
         e.preventDefault();
         // Calculate the new cursor position:
@@ -67,18 +100,24 @@ const Drag = forwardRef<HTMLDivElement, DraggableDivProps>(
 
         document.onmouseup = null;
         document.onmousemove = null;
+        document.ontouchend = null;
+        document.ontouchmove = null;
       };
 
       if (div) {
         div.onmousedown = dragMouseDown;
+        div.ontouchstart = dragMouseDownTouch;
       }
 
       return () => {
         if (div) {
           div.onmousedown = null;
+          div.ontouchstart = null;
         }
         document.onmouseup = null;
         document.onmousemove = null;
+        document.ontouchend = null;
+        document.ontouchmove = null;
       };
     }, []);
 
