@@ -1,4 +1,5 @@
 import { Children, cloneElement, forwardRef, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import "./Drag.scss";
 import { InitialPositionType, Position } from "types/graph";
 
@@ -139,9 +140,14 @@ const Drag = forwardRef<HTMLDivElement, DraggableDivProps>(
     });
 
     return (
-      <div className="drag" ref={divRef}>
+      <motion.div
+        initial={{ scale: 0.5 }}
+        animate={{ scale: 1 }}
+        className="drag"
+        ref={divRef}
+      >
         {updatedChildren}
-      </div>
+      </motion.div>
     );
   }
 );

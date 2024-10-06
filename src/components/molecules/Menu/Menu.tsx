@@ -172,33 +172,31 @@ const Menu: React.FC<MenuProps> = (
   };
 
   return (
-    <AnimatePresence>
-      <motion.ul
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        role="menu"
-        className={`menu ${isMainMenu ? "main-menu" : "sub-menu"}`}
-        tabIndex={0}
-        ref={menuRef}
-        onKeyDown={onKeyDownHandler}
-      >
-        {menuItems?.map((item: TItem, index: number) => {
-          return (
-            <MenuItem
-              key={index}
-              menuItems={item.items}
-              isHighlighted={higlightedIndex === index}
-              onClick={() => handleOnClick(item, index)}
-              open={openIndex === index}
-              onKeyDownArrowLeft={onKeyDownArrowLeftHandler}
-              icon={item.icon}
-            >
-              {item.label}
-            </MenuItem>
-          );
-        })}
-      </motion.ul>
-    </AnimatePresence>
+    <motion.ul
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      role="menu"
+      className={`menu ${isMainMenu ? "main-menu" : "sub-menu"}`}
+      tabIndex={0}
+      ref={menuRef}
+      onKeyDown={onKeyDownHandler}
+    >
+      {menuItems?.map((item: TItem, index: number) => {
+        return (
+          <MenuItem
+            key={index}
+            menuItems={item.items}
+            isHighlighted={higlightedIndex === index}
+            onClick={() => handleOnClick(item, index)}
+            open={openIndex === index}
+            onKeyDownArrowLeft={onKeyDownArrowLeftHandler}
+            icon={item.icon}
+          >
+            {item.label}
+          </MenuItem>
+        );
+      })}
+    </motion.ul>
   );
 };
 
