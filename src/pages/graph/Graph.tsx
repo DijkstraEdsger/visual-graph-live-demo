@@ -5,6 +5,7 @@ import { GraphContainer } from "contexts/graphContainerContext";
 import { useGraph } from "contexts/graphContext";
 import { ActiveAlgorithm } from "types/graph";
 import classes from "./classes.module.scss";
+import Switch from "components/Switch/Switch";
 
 const GraphWithAsyncData = withAsyncData(Graph);
 
@@ -16,6 +17,8 @@ const GraphPage = () => {
     positions,
     activeAlgorithm,
     algorithms,
+    isDirected,
+    setIsDirectedHandler,
     addEdgeHandler,
     addVerticeHandler,
     cleanPath,
@@ -37,6 +40,12 @@ const GraphPage = () => {
         )}
       </div>
       <div className={classes["graph-section"]}>
+        <Switch
+          checked={isDirected || false}
+          onChange={(checked) => setIsDirectedHandler(checked)}
+        >
+          Directed
+        </Switch>
         <GraphContainer>
           <GraphWithAsyncData
             vertices={vertices}
@@ -47,6 +56,7 @@ const GraphPage = () => {
             speed={2}
             onAddEdge={addEdgeHandler}
             onAddVertice={addVerticeHandler}
+            isDirected={isDirected}
           />
         </GraphContainer>
       </div>

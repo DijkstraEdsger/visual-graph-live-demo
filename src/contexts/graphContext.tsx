@@ -40,6 +40,8 @@ const GraphContext = createContext<{
     dijkstra: (source: NodeId, target: NodeId) => void;
   };
   activeAlgorithm?: string | null;
+  isDirected?: boolean;
+  setIsDirectedHandler: (isDirected: boolean) => void;
   addVerticeHandler: (vertice: INode, position: Position) => void;
   addEdgeHandler: (edge: IEdge) => void;
   downloadGraphAsTxt: () => void;
@@ -55,6 +57,8 @@ const GraphContext = createContext<{
   traversalPath: [],
   positions: {},
   inputFileRef: { current: null },
+  isDirected: false,
+  setIsDirectedHandler: () => {},
   addVerticeHandler: () => {},
   addEdgeHandler: () => {},
   downloadGraphAsTxt: () => {},
@@ -83,6 +87,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
     Record<NodeId, IShortestPath>
   >({});
   const [activeAlgorithm, setActiveAlgorithm] = useState<string | null>(null);
+  const [isDirected, setIsDirected] = useState<boolean>(false);
 
   const adapter = useMemo(() => {
     return new GraphlibAdapter();
@@ -91,6 +96,10 @@ const GraphProvider: FC<GraphProviderProps> = ({
   useEffect(() => {
     adapter.createGraph();
   }, [adapter]);
+
+  const setIsDirectedHandler = (isDirected: boolean) => {
+    setIsDirected(isDirected);
+  };
 
   const addEdgeHandler = (edge: IEdge) => {
     setEdges([...edges, edge]);
@@ -217,6 +226,8 @@ const GraphProvider: FC<GraphProviderProps> = ({
         algorithms: {
           dijkstra: runDijkstraHandler,
         },
+        isDirected: isDirected,
+        setIsDirectedHandler,
         addVerticeHandler,
         addEdgeHandler,
         downloadGraphAsTxt,

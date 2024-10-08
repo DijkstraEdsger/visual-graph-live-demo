@@ -7,6 +7,7 @@ type GraphProps = {
   edges?: IEdge[];
   traversalPath?: NodeId[];
   initialPositions?: InitialPositionsType;
+  isDirected?: boolean;
   onAddEdge?: (edge: IEdge) => void;
   onAddVertice?: (
     vertice: INode,
@@ -22,6 +23,7 @@ const Graph: React.FC<GraphProps> = ({
   edges = [],
   traversalPath = [],
   initialPositions,
+  isDirected = false,
   onAddEdge = () => {},
   onAddVertice = () => {},
 }: GraphProps) => {
@@ -46,6 +48,20 @@ const Graph: React.FC<GraphProps> = ({
           height: "100%",
         }}
       >
+        {isDirected && (
+          <defs>
+            <marker
+              id="arrowhead"
+              markerWidth="10"
+              markerHeight="7"
+              refX="10"
+              refY="3.5"
+              orient="auto"
+            >
+              <polygon points="0 0, 10 3.5, 0 7" fill="black" />
+            </marker>
+          </defs>
+        )}
         {edgesElements}
         <line
           x1={edgeConection?.lineStart.x}
@@ -53,6 +69,8 @@ const Graph: React.FC<GraphProps> = ({
           x2={edgeConection?.lineEnd.x}
           y2={edgeConection?.lineEnd.y}
           stroke="black"
+          markerEnd="url(#arrowhead)"
+          strokeWidth="2"
         />
       </svg>
     </>
