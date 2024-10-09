@@ -48,7 +48,7 @@ const DijkstraInputs: React.FC<DijkstraInputsProps> = ({
         onClick={() => onRunDijkstra(startNode, endNode)}
         disabled={!startNode || !endNode}
       >
-        Run Dijkstra
+        Run
       </Button>
       <Button onClick={onCleanPath}>Clean Path</Button>
     </div>

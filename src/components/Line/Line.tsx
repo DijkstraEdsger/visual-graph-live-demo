@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useId } from "react";
 import { useGraphContainer } from "contexts/graphContainerContext";
 
 const CIRCLE_DIAMETER = 50;
@@ -22,6 +22,7 @@ const Line: React.FC<LineProps> = ({
   const borderLineRef = useRef<SVGLineElement>(null);
   const crossRef = useRef<SVGCircleElement>(null);
   const { container: containerEl } = useGraphContainer();
+  const arrowHeadId = useId();
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -125,12 +126,32 @@ const Line: React.FC<LineProps> = ({
           cursor: "cell",
         }}
       />
+      <defs>
+        <marker
+          id={arrowHeadId}
+          markerWidth="10"
+          markerHeight="7"
+          refX="10"
+          refY="3.5"
+          orient="auto"
+          strokeWidth={2}
+        >
+          <polygon
+            points="0 0, 10 3.5, 0 7"
+            fill={`${isTraversed ? "#ff9800" : "black"}`}
+            style={{
+              transition: "all 0.3s ease-in-out",
+              cursor: "cell",
+            }}
+          />
+        </marker>
+      </defs>
       <line
         ref={lineRef}
         stroke="#4a4a4a"
         className={isTraversed ? "is_traversed" : ""}
         strokeWidth="2"
-        markerEnd={isDirected ? "url(#arrowhead)" : undefined}
+        markerEnd={isDirected ? `url(#${arrowHeadId})` : undefined}
         style={{
           transition: "all 0.3s ease-in-out",
           cursor: "cell",
