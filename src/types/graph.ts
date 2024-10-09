@@ -36,3 +36,9 @@ export enum ActiveAlgorithm {
   BFS = "BFS",
   DFS = "DFS",
 }
+
+export interface IGraphFile {
+  vertices: INode[];
+  edges: IEdge[];
+  positions: InitialPositionsType;
+}
