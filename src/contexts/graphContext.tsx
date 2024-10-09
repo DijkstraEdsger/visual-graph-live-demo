@@ -11,7 +11,14 @@ import {
   useRef,
   useState,
 } from "react";
-import { IEdge, INode, IShortestPath, NodeId, Position } from "types/graph";
+import {
+  IEdge,
+  IGraphFile,
+  INode,
+  IShortestPath,
+  NodeId,
+  Position,
+} from "types/graph";
 
 const initialVertices: INode[] = [
   { id: "1", label: "1" },
@@ -148,6 +155,18 @@ const GraphProvider: FC<GraphProviderProps> = ({
     a.click();
   };
 
+  const createGraphFromData = (data: IGraphFile) => {
+    const { vertices, edges } = data;
+
+    vertices.forEach((v) => {
+      adapter.addNode(v);
+    });
+
+    edges.forEach((e) => {
+      adapter.addEdge(e);
+    });
+  };
+
   const uploadGraph = () => {
     const file = inputFileRef.current?.files?.[0];
 
@@ -155,10 +174,11 @@ const GraphProvider: FC<GraphProviderProps> = ({
       const reader = new FileReader();
       reader.onload = (e) => {
         const result = e.target?.result as string;
-        const data = JSON.parse(result);
+        const data: IGraphFile = JSON.parse(result);
         setVertices(data.vertices);
         setEdges(data.edges);
         setPositions(data.positions);
+        createGraphFromData(data);
       };
       reader.readAsText(file);
     }
