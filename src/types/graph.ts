@@ -33,6 +33,7 @@ export type Position = {
 
 export enum ActiveAlgorithm {
   DIJKSTRA = "DIJKSTRA",
+  BELLMAN_FORD = "BELLMAN FORD",
   BFS = "BFS",
   DFS = "DFS",
 }

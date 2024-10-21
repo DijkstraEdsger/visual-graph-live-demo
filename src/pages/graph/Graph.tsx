@@ -6,6 +6,7 @@ import { useGraph } from "contexts/graphContext";
 import { ActiveAlgorithm } from "types/graph";
 import classes from "./classes.module.scss";
 import Switch from "components/Switch/Switch";
+import BellmanFordInputs from "components/AlgorithmsInputs/BellmanFordInputs/BellmanFordInputs";
 
 const GraphWithAsyncData = withAsyncData(Graph);
 
@@ -34,6 +35,14 @@ const GraphPage = () => {
           <DijkstraInputs
             onRunDijkstra={(startNode, endNode) =>
               algorithms?.dijkstra(startNode, endNode)
+            }
+            onCleanPath={cleanPath}
+          />
+        )}
+        {activeAlgorithm === ActiveAlgorithm.BELLMAN_FORD && (
+          <BellmanFordInputs
+            onRun={(startNode, endNode) =>
+              algorithms?.bellmanFord(startNode, endNode)
             }
             onCleanPath={cleanPath}
           />

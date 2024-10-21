@@ -19,6 +19,7 @@ interface MenuItemProps extends React.HTMLProps<HTMLDivElement> {
   isHighlighted?: boolean;
   isMenubarExpanded?: boolean;
   open?: boolean;
+  disabled?: boolean;
   onClick?: () => void;
   onMouseEnter?: () => void;
   onMouseLeave?: (event: React.MouseEvent) => void;
@@ -35,6 +36,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
   isHighlighted,
   isMenubarExpanded,
   open,
+  disabled = false,
   onClose,
   onClick,
   onKeyDownArrowLeft,
@@ -59,6 +61,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
         aria-expanded={open}
         ref={triggerRef}
         isHighlighted={isHighlighted}
+        disabled={disabled}
       >
         <div
           style={{

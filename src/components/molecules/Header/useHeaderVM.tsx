@@ -7,6 +7,7 @@ type TItem = {
   onClick?: () => void;
   items?: TItem[];
   icon?: React.ReactNode;
+  disabled?: boolean;
 };
 
 const useHeaderVM = () => {
@@ -51,14 +52,18 @@ const useHeaderVM = () => {
             },
             {
               label: "Bellman-Ford",
-              onClick: () => console.log("Bellman-Ford Algorithm"),
+              disabled: true,
+              onClick: () =>
+                setActiveAlgorithmHandler?.(ActiveAlgorithm.BELLMAN_FORD),
             },
             {
               label: "Floyd-Warshall",
+              disabled: true,
               onClick: () => console.log("Floyd-Warshall Algorithm"),
             },
             {
               label: "A*",
+              disabled: true,
               onClick: () => console.log("A* Algorithm"),
             },
           ],

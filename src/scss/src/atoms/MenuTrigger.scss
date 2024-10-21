@@ -23,3 +23,13 @@
   outline: none;
   border: none;
 }
+
+.menu-trigger--disabled {
+  cursor: not-allowed;
+  color: $menuitem-color-disabled;
+}
+
+.menu-trigger--disabled:hover {
+  background-color: $menuitem-bg;
+  color: $menuitem-color-disabled;
+}
