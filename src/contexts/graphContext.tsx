@@ -45,6 +45,7 @@ const GraphContext = createContext<{
   inputFileRef: RefObject<HTMLInputElement>;
   algorithms?: {
     dijkstra: (source: NodeId, target: NodeId) => void;
+    bellmanFord: (source: NodeId, target: NodeId) => void;
   };
   activeAlgorithm?: string | null;
   isDirected?: boolean;
@@ -226,6 +227,13 @@ const GraphProvider: FC<GraphProviderProps> = ({
     setWayPoints(path);
   };
 
+  const runBellmanFordHandler = (source: NodeId, target: NodeId) => {
+    const paths = adapter.runBellmanFord(source);
+    setShortestPaths(paths);
+    const path = adapter.buildPath(paths, source.toString(), target.toString());
+    setWayPoints(path);
+  };
+
   const setActiveAlgorithmHandler = (algorithm: string) => {
     setActiveAlgorithm(algorithm);
   };
@@ -245,6 +253,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
         activeAlgorithm,
         algorithms: {
           dijkstra: runDijkstraHandler,
+          bellmanFord: runBellmanFordHandler,
         },
         isDirected: isDirected,
         setIsDirectedHandler,

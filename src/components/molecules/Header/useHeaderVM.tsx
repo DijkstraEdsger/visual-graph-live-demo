@@ -51,7 +51,8 @@ const useHeaderVM = () => {
             },
             {
               label: "Bellman-Ford",
-              onClick: () => console.log("Bellman-Ford Algorithm"),
+              onClick: () =>
+                setActiveAlgorithmHandler?.(ActiveAlgorithm.BELLMAN_FORD),
             },
             {
               label: "Floyd-Warshall",

@@ -42,6 +42,23 @@ export default class GraphlibAdapter implements IGraphAdapter {
     return formattedResult;
   }
 
+  runBellmanFord(source: NodeId): Record<NodeId, IShortestPath> {
+    const result = dijkstra(this.graph, source.toString());
+    const formattedResult: Record<
+      string,
+      { distance: number; predecessor: string | null }
+    > = {};
+
+    for (const node in result) {
+      formattedResult[node] = {
+        distance: result[node].distance,
+        predecessor: result[node].predecessor ?? null,
+      };
+    }
+
+    return formattedResult;
+  }
+
   getNodes(): Array<INode> {
     return this.graph.nodes().map((node) => this.graph.node(node));
   }
