@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import "../../../scss/src/molecules/Menu.scss";
 import MenuItem from "../SubMenu/SubMenu";
 
@@ -8,6 +8,7 @@ type TItem = {
   onClick?: () => void;
   items?: TItem[];
   icon?: React.ReactNode;
+  disabled?: boolean;
 };
 
 interface MenuProps extends React.HTMLProps<HTMLUListElement> {
@@ -191,6 +192,7 @@ const Menu: React.FC<MenuProps> = (
             open={openIndex === index}
             onKeyDownArrowLeft={onKeyDownArrowLeftHandler}
             icon={item.icon}
+            disabled={item.disabled}
           >
             {item.label}
           </MenuItem>

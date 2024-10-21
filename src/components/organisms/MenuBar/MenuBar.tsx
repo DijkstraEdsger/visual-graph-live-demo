@@ -6,6 +6,7 @@ type TItem = {
   label: string;
   onClick?: () => void;
   items?: TItem[];
+  disabled?: boolean;
 };
 
 interface MenubarProps {
@@ -103,6 +104,7 @@ const MenuBar: React.FC<MenubarProps> = ({ menus = [], ...props }) => {
             open={openIndex === index}
             isHighlighted={higlightedIndex === index}
             onClose={() => setOpenIndex(-1)}
+            disabled={item.disabled}
           >
             {item.label}
           </MenuItem>
