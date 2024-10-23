@@ -1,17 +1,26 @@
 import { Graph } from "@dagrejs/graphlib";
 import dijkstra from "@dagrejs/graphlib/lib/alg/dijkstra";
+import prim from "@dagrejs/graphlib/lib/alg/prim";
 import { IGraphAdapter } from "interfaces/IGraphAdapter";
 import { IEdge, INode, IShortestPath, NodeId } from "types/graph";
 
 export default class GraphlibAdapter implements IGraphAdapter {
   private graph: Graph;
 
-  constructor() {
-    this.graph = new Graph();
+  constructor(isDirected = false, nodes: INode[] = [], edges: IEdge[] = []) {
+    this.graph = new Graph({ directed: isDirected });
+    nodes.forEach((node) => this.addNode(node));
+    edges.forEach((edge) => this.addEdge(edge));
   }
 
-  createGraph(): void {
-    this.graph = new Graph();
+  createGraph(
+    isDirected = false,
+    nodes: INode[] = [],
+    edges: IEdge[] = []
+  ): void {
+    this.graph = new Graph({ directed: isDirected });
+    nodes.forEach((node) => this.addNode(node));
+    edges.forEach((edge) => this.addEdge(edge));
   }
 
   addNode(node: INode): void {
@@ -57,6 +66,22 @@ export default class GraphlibAdapter implements IGraphAdapter {
     }
 
     return formattedResult;
+  }
+
+  private weightFunc = (edge: { v: string; w: string }) =>
+    this.graph.edge(edge);
+
+  runPrim(): { nodes: NodeId[]; edges: IEdge[] } {
+    const mst = prim(this.graph, this.weightFunc);
+
+    const nodes = mst.nodes().map((node: string) => parseInt(node));
+    const edges = mst.edges().map((edge: any) => ({
+      source: edge.v,
+      target: edge.w,
+      weight: mst.edge(edge),
+    }));
+
+    return { nodes, edges };
   }
 
   getNodes(): Array<INode> {

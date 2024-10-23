@@ -138,7 +138,7 @@ const Line: React.FC<LineProps> = ({
         >
           <polygon
             points="0 0, 10 3.5, 0 7"
-            fill={`${isTraversed ? "#ff9800" : "black"}`}
+            fill={`${isTraversed ? "#32CD32" : "black"}`}
             style={{
               transition: "all 0.3s ease-in-out",
               cursor: "cell",

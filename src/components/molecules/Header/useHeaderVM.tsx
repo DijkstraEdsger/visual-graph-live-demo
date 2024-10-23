@@ -74,11 +74,12 @@ const useHeaderVM = () => {
           items: [
             {
               label: "Kruskal",
+              disabled: true,
               onClick: () => console.log("Kruskal's Algorithm"),
             },
             {
               label: "Prim",
-              onClick: () => console.log("Prim's Algorithm"),
+              onClick: () => setActiveAlgorithmHandler?.(ActiveAlgorithm.PRIM),
             },
           ],
         },
@@ -88,10 +89,12 @@ const useHeaderVM = () => {
           items: [
             {
               label: "Depth First Search",
+              disabled: true,
               onClick: () => console.log("Depth First Search"),
             },
             {
               label: "Breadth First Search",
+              disabled: true,
               onClick: () => console.log("Breadth First Search"),
             },
           ],
@@ -102,10 +105,12 @@ const useHeaderVM = () => {
           items: [
             {
               label: "Ford-Fulkerson",
+              disabled: true,
               onClick: () => console.log("Ford-Fulkerson Algorithm"),
             },
             {
               label: "Edmonds-Karp",
+              disabled: true,
               onClick: () => console.log("Edmonds-Karp Algorithm"),
             },
           ],
@@ -116,10 +121,12 @@ const useHeaderVM = () => {
           items: [
             {
               label: "Bipartite Matching",
+              disabled: true,
               onClick: () => console.log("Bipartite Matching"),
             },
             {
               label: "Maximum Flow and Minimum Cut",
+              disabled: true,
               onClick: () => console.log("Maximum Flow and Minimum Cut"),
             },
           ],

@@ -11,6 +11,8 @@ type GraphProps = {
   vertices?: INode[];
   edges?: IEdge[];
   traversalPath?: NodeId[];
+  highlightedEdges?: IEdge[];
+  highlightedVertices?: NodeId[];
   initialPositions?: InitialPositionsType;
   onAddEdge?: (edge: IEdge) => void;
   onAddVertice?: (
@@ -26,6 +28,8 @@ const useGraph = ({
   vertices = [],
   edges = [],
   traversalPath = [],
+  highlightedEdges = [],
+  highlightedVertices = [],
   initialPositions,
   onAddEdge = () => {},
   onAddVertice = () => {},
@@ -50,6 +54,51 @@ const useGraph = ({
       updateVerticesElements();
     }
   }, [vertices]);
+
+  useEffect(() => {
+    if (highlightedEdges.length > 1) {
+      updateEdgesElementsWithHiglightedEdges();
+    } else {
+      updateEdgesElements();
+    }
+  }, [highlightedEdges]);
+
+  useEffect(() => {
+    if (highlightedVertices.length) {
+      updateVerticesElements();
+    }
+  }, [highlightedVertices]);
+
+  const updateEdgesElementsWithHiglightedEdges = () => {
+    const edgesElIndexes: number[] = highlightedEdges.reduce(
+      (acc: number[], edge) => {
+        const edgeIndex = edges.findIndex(
+          (e) =>
+            (e.source === edge.source && e.target === edge.target) ||
+            (e.source === edge.target && e.target === edge.source)
+        );
+
+        if (edgeIndex !== -1) {
+          acc.push(edgeIndex);
+        }
+
+        return acc;
+      },
+      []
+    );
+
+    const updatedEdgesElements = [...edgesElements];
+
+    edgesElIndexes.forEach((edgeIndex) => {
+      const edgeEl = updatedEdgesElements[edgeIndex];
+
+      updatedEdgesElements[edgeIndex] = cloneElement(edgeEl, {
+        isTraversed: true,
+      });
+    });
+
+    setEdgesElements(updatedEdgesElements);
+  };
 
   const existsEdge = (edge: IEdge) => {
     return edges.some(
@@ -135,12 +184,13 @@ const useGraph = ({
   const updateVerticesElements = () => {
     const verticesEl = vertices.map((vertice, index) => {
       const isVisited = isVerticeVisited(vertice);
+      const isHighlighted = highlightedVertices.includes(+vertice.id);
 
       return (
         <Vertice
           key={vertice.id}
           label={vertice.id}
-          isVisited={isVisited}
+          isVisited={isVisited || isHighlighted}
           ref={verticesRefs.current[index]}
           initialPosition={initialPositions?.[vertice.id]}
           onMouseDownEdgeHint={(ref) =>

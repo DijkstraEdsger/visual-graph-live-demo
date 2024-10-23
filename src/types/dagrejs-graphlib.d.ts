@@ -15,3 +15,5 @@ declare module "@dagrejs/graphlib/lib/alg/dijkstra" {
 
   export = dijkstra;
 }
+
+declare module "@dagrejs/graphlib/lib/alg/prim";

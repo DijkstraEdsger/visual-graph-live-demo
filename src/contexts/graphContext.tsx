@@ -41,11 +41,14 @@ const GraphContext = createContext<{
   vertices: INode[];
   edges: IEdge[];
   traversalPath: NodeId[];
+  highlightedEdges?: IEdge[];
+  highlightedVertices?: NodeId[];
   positions: { [key: string]: { left: number; top: number } };
   inputFileRef: RefObject<HTMLInputElement>;
   algorithms?: {
     dijkstra: (source: NodeId, target: NodeId) => void;
     bellmanFord: (source: NodeId, target: NodeId) => void;
+    prim: () => any;
   };
   activeAlgorithm?: string | null;
   isDirected?: boolean;
@@ -59,6 +62,7 @@ const GraphContext = createContext<{
   removeVertice?: (vertice: INode) => void;
   setActiveAlgorithmHandler?: (algorithm: string) => void;
   cleanPath?: () => void;
+  cleanHighlighted?: () => void;
 }>({
   vertices: [],
   edges: [],
@@ -86,6 +90,8 @@ const GraphProvider: FC<GraphProviderProps> = ({
   const [vertices, setVertices] = useState<INode[]>([]);
   const [edges, setEdges] = useState<IEdge[]>([]);
   const [traversalPath, setWayPoints] = useState<NodeId[]>([]);
+  const [highlightedEdges, setHighlightedEdges] = useState<IEdge[]>([]);
+  const [highlightedVertices, setHighlightedVertices] = useState<NodeId[]>([]);
   const [positions, setPositions] = useState<{
     [key: string]: { left: number; top: number };
   }>({});
@@ -98,12 +104,8 @@ const GraphProvider: FC<GraphProviderProps> = ({
   const [isDirected, setIsDirected] = useState<boolean>(false);
 
   const adapter = useMemo(() => {
-    return new GraphlibAdapter();
-  }, []);
-
-  useEffect(() => {
-    adapter.createGraph();
-  }, [adapter]);
+    return new GraphlibAdapter(isDirected, vertices, edges);
+  }, [isDirected]);
 
   const setIsDirectedHandler = (isDirected: boolean) => {
     setIsDirected(isDirected);
@@ -147,6 +149,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
       vertices,
       edges,
       positions,
+      isDirected,
     };
 
     const a = document.createElement("a");
@@ -157,15 +160,8 @@ const GraphProvider: FC<GraphProviderProps> = ({
   };
 
   const createGraphFromData = (data: IGraphFile) => {
-    const { vertices, edges } = data;
-
-    vertices.forEach((v) => {
-      adapter.addNode(v);
-    });
-
-    edges.forEach((e) => {
-      adapter.addEdge(e);
-    });
+    const { vertices, edges, isDirected } = data;
+    adapter.createGraph(isDirected, vertices, edges);
   };
 
   const uploadGraph = () => {
@@ -179,6 +175,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
         setVertices(data.vertices);
         setEdges(data.edges);
         setPositions(data.positions);
+        setIsDirected(data.isDirected ?? false);
         createGraphFromData(data);
       };
       reader.readAsText(file);
@@ -227,6 +224,12 @@ const GraphProvider: FC<GraphProviderProps> = ({
     setWayPoints(path);
   };
 
+  const runPrimHandler = () => {
+    const { nodes, edges } = adapter.runPrim();
+    setHighlightedEdges(edges);
+    setHighlightedVertices(nodes);
+  };
+
   const runBellmanFordHandler = (source: NodeId, target: NodeId) => {
     const paths = adapter.runBellmanFord(source);
     setShortestPaths(paths);
@@ -242,18 +245,26 @@ const GraphProvider: FC<GraphProviderProps> = ({
     setWayPoints([]);
   };
 
+  const cleanHighlighted = () => {
+    setHighlightedEdges([]);
+    setHighlightedVertices([]);
+  };
+
   return (
     <GraphContext.Provider
       value={{
         vertices,
         edges,
         traversalPath,
+        highlightedEdges,
+        highlightedVertices,
         positions,
         inputFileRef,
         activeAlgorithm,
         algorithms: {
           dijkstra: runDijkstraHandler,
           bellmanFord: runBellmanFordHandler,
+          prim: runPrimHandler,
         },
         isDirected: isDirected,
         setIsDirectedHandler,
@@ -266,6 +277,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
         removeVertice,
         setActiveAlgorithmHandler,
         cleanPath,
+        cleanHighlighted,
       }}
     >
       {children}

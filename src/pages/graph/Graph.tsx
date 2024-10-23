@@ -7,6 +7,7 @@ import { ActiveAlgorithm } from "types/graph";
 import classes from "./classes.module.scss";
 import Switch from "components/Switch/Switch";
 import BellmanFordInputs from "components/AlgorithmsInputs/BellmanFordInputs/BellmanFordInputs";
+import Prim from "components/AlgorithmsInputs/Prim/Prim";
 
 const GraphWithAsyncData = withAsyncData(Graph);
 
@@ -15,6 +16,8 @@ const GraphPage = () => {
     vertices,
     edges,
     traversalPath,
+    highlightedEdges,
+    highlightedVertices,
     positions,
     activeAlgorithm,
     algorithms,
@@ -23,6 +26,7 @@ const GraphPage = () => {
     addEdgeHandler,
     addVerticeHandler,
     cleanPath,
+    cleanHighlighted,
   } = useGraph();
 
   return (
@@ -47,6 +51,9 @@ const GraphPage = () => {
             onCleanPath={cleanPath}
           />
         )}
+        {activeAlgorithm === ActiveAlgorithm.PRIM && (
+          <Prim onRun={() => algorithms?.prim()} onClean={cleanHighlighted} />
+        )}
       </div>
       <div className={classes["graph-section"]}>
         <Switch
@@ -60,6 +67,8 @@ const GraphPage = () => {
             vertices={vertices}
             edges={edges}
             traversalPath={traversalPath}
+            highlightedEdges={highlightedEdges}
+            highlightedVertices={highlightedVertices}
             animatePath
             initialPositions={positions}
             speed={2}
