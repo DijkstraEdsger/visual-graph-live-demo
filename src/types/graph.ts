@@ -36,10 +36,12 @@ export enum ActiveAlgorithm {
   BELLMAN_FORD = "BELLMAN FORD",
   BFS = "BFS",
   DFS = "DFS",
+  PRIM = "PRIM",
 }
 
 export interface IGraphFile {
   vertices: INode[];
   edges: IEdge[];
   positions: InitialPositionsType;
+  isDirected?: boolean;
 }

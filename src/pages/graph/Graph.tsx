@@ -7,6 +7,7 @@ import { ActiveAlgorithm } from "types/graph";
 import classes from "./classes.module.scss";
 import Switch from "components/Switch/Switch";
 import BellmanFordInputs from "components/AlgorithmsInputs/BellmanFordInputs/BellmanFordInputs";
+import Prim from "components/AlgorithmsInputs/Prim/Prim";
 
 const GraphWithAsyncData = withAsyncData(Graph);
 
@@ -46,6 +47,9 @@ const GraphPage = () => {
             }
             onCleanPath={cleanPath}
           />
+        )}
+        {activeAlgorithm === ActiveAlgorithm.PRIM && (
+          <Prim onRun={() => algorithms?.prim()} onClean={cleanPath} />
         )}
       </div>
       <div className={classes["graph-section"]}>

@@ -46,6 +46,7 @@ const GraphContext = createContext<{
   algorithms?: {
     dijkstra: (source: NodeId, target: NodeId) => void;
     bellmanFord: (source: NodeId, target: NodeId) => void;
+    prim: () => any;
   };
   activeAlgorithm?: string | null;
   isDirected?: boolean;
@@ -98,12 +99,8 @@ const GraphProvider: FC<GraphProviderProps> = ({
   const [isDirected, setIsDirected] = useState<boolean>(false);
 
   const adapter = useMemo(() => {
-    return new GraphlibAdapter();
-  }, []);
-
-  useEffect(() => {
-    adapter.createGraph();
-  }, [adapter]);
+    return new GraphlibAdapter(isDirected, vertices, edges);
+  }, [isDirected]);
 
   const setIsDirectedHandler = (isDirected: boolean) => {
     setIsDirected(isDirected);
@@ -147,6 +144,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
       vertices,
       edges,
       positions,
+      isDirected,
     };
 
     const a = document.createElement("a");
@@ -157,15 +155,8 @@ const GraphProvider: FC<GraphProviderProps> = ({
   };
 
   const createGraphFromData = (data: IGraphFile) => {
-    const { vertices, edges } = data;
-
-    vertices.forEach((v) => {
-      adapter.addNode(v);
-    });
-
-    edges.forEach((e) => {
-      adapter.addEdge(e);
-    });
+    const { vertices, edges, isDirected } = data;
+    adapter.createGraph(isDirected, vertices, edges);
   };
 
   const uploadGraph = () => {
@@ -179,6 +170,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
         setVertices(data.vertices);
         setEdges(data.edges);
         setPositions(data.positions);
+        setIsDirected(data.isDirected ?? false);
         createGraphFromData(data);
       };
       reader.readAsText(file);
@@ -227,6 +219,10 @@ const GraphProvider: FC<GraphProviderProps> = ({
     setWayPoints(path);
   };
 
+  const runPrimHandler = () => {
+    const mst = adapter.runPrim();
+  };
+
   const runBellmanFordHandler = (source: NodeId, target: NodeId) => {
     const paths = adapter.runBellmanFord(source);
     setShortestPaths(paths);
@@ -254,6 +250,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
         algorithms: {
           dijkstra: runDijkstraHandler,
           bellmanFord: runBellmanFordHandler,
+          prim: runPrimHandler,
         },
         isDirected: isDirected,
         setIsDirectedHandler,

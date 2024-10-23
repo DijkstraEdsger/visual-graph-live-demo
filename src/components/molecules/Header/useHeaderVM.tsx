@@ -78,7 +78,7 @@ const useHeaderVM = () => {
             },
             {
               label: "Prim",
-              onClick: () => console.log("Prim's Algorithm"),
+              onClick: () => setActiveAlgorithmHandler?.(ActiveAlgorithm.PRIM),
             },
           ],
         },
