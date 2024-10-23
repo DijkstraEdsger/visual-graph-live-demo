@@ -41,6 +41,8 @@ const GraphContext = createContext<{
   vertices: INode[];
   edges: IEdge[];
   traversalPath: NodeId[];
+  highlightedEdges?: IEdge[];
+  highlightedVertices?: NodeId[];
   positions: { [key: string]: { left: number; top: number } };
   inputFileRef: RefObject<HTMLInputElement>;
   algorithms?: {
@@ -60,6 +62,7 @@ const GraphContext = createContext<{
   removeVertice?: (vertice: INode) => void;
   setActiveAlgorithmHandler?: (algorithm: string) => void;
   cleanPath?: () => void;
+  cleanHighlighted?: () => void;
 }>({
   vertices: [],
   edges: [],
@@ -87,6 +90,8 @@ const GraphProvider: FC<GraphProviderProps> = ({
   const [vertices, setVertices] = useState<INode[]>([]);
   const [edges, setEdges] = useState<IEdge[]>([]);
   const [traversalPath, setWayPoints] = useState<NodeId[]>([]);
+  const [highlightedEdges, setHighlightedEdges] = useState<IEdge[]>([]);
+  const [highlightedVertices, setHighlightedVertices] = useState<NodeId[]>([]);
   const [positions, setPositions] = useState<{
     [key: string]: { left: number; top: number };
   }>({});
@@ -220,7 +225,9 @@ const GraphProvider: FC<GraphProviderProps> = ({
   };
 
   const runPrimHandler = () => {
-    const mst = adapter.runPrim();
+    const { nodes, edges } = adapter.runPrim();
+    setHighlightedEdges(edges);
+    setHighlightedVertices(nodes);
   };
 
   const runBellmanFordHandler = (source: NodeId, target: NodeId) => {
@@ -238,12 +245,19 @@ const GraphProvider: FC<GraphProviderProps> = ({
     setWayPoints([]);
   };
 
+  const cleanHighlighted = () => {
+    setHighlightedEdges([]);
+    setHighlightedVertices([]);
+  };
+
   return (
     <GraphContext.Provider
       value={{
         vertices,
         edges,
         traversalPath,
+        highlightedEdges,
+        highlightedVertices,
         positions,
         inputFileRef,
         activeAlgorithm,
@@ -263,6 +277,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
         removeVertice,
         setActiveAlgorithmHandler,
         cleanPath,
+        cleanHighlighted,
       }}
     >
       {children}

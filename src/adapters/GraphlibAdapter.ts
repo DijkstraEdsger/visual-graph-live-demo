@@ -71,8 +71,17 @@ export default class GraphlibAdapter implements IGraphAdapter {
   private weightFunc = (edge: { v: string; w: string }) =>
     this.graph.edge(edge);
 
-  runPrim(): any {
-    return prim(this.graph, this.weightFunc);
+  runPrim(): { nodes: NodeId[]; edges: IEdge[] } {
+    const mst = prim(this.graph, this.weightFunc);
+
+    const nodes = mst.nodes().map((node: string) => parseInt(node));
+    const edges = mst.edges().map((edge: any) => ({
+      source: edge.v,
+      target: edge.w,
+      weight: mst.edge(edge),
+    }));
+
+    return { nodes, edges };
   }
 
   getNodes(): Array<INode> {

@@ -16,6 +16,8 @@ const GraphPage = () => {
     vertices,
     edges,
     traversalPath,
+    highlightedEdges,
+    highlightedVertices,
     positions,
     activeAlgorithm,
     algorithms,
@@ -24,6 +26,7 @@ const GraphPage = () => {
     addEdgeHandler,
     addVerticeHandler,
     cleanPath,
+    cleanHighlighted,
   } = useGraph();
 
   return (
@@ -49,7 +52,7 @@ const GraphPage = () => {
           />
         )}
         {activeAlgorithm === ActiveAlgorithm.PRIM && (
-          <Prim onRun={() => algorithms?.prim()} onClean={cleanPath} />
+          <Prim onRun={() => algorithms?.prim()} onClean={cleanHighlighted} />
         )}
       </div>
       <div className={classes["graph-section"]}>
@@ -64,6 +67,8 @@ const GraphPage = () => {
             vertices={vertices}
             edges={edges}
             traversalPath={traversalPath}
+            highlightedEdges={highlightedEdges}
+            highlightedVertices={highlightedVertices}
             animatePath
             initialPositions={positions}
             speed={2}

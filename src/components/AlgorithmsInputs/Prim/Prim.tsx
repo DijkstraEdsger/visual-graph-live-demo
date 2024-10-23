@@ -10,7 +10,7 @@ const Prim: React.FC<PrimProps> = ({ onRun, onClean = () => {} }) => {
   return (
     <div>
       <Button onClick={onRun}>Run</Button>
-      <Button onClick={onClean}>Clean Path</Button>
+      <Button onClick={onClean}>Clean</Button>
     </div>
   );
 };
