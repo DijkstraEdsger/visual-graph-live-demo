@@ -21,6 +21,7 @@ interface MenuItemProps extends React.HTMLProps<HTMLDivElement> {
   open?: boolean;
   disabled?: boolean;
   onClick?: () => void;
+  onMouseOver?: () => void;
   onMouseEnter?: () => void;
   onMouseLeave?: (event: React.MouseEvent) => void;
   onKeyDown?: (event: React.KeyboardEvent) => void;
@@ -39,6 +40,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
   disabled = false,
   onClose,
   onClick,
+  onMouseOver,
   onKeyDownArrowLeft,
 }) => {
   const triggerRef = React.useRef<HTMLDivElement>(null);
@@ -57,6 +59,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
     >
       <MenuTrigger
         onClick={onClick}
+        onMouseOver={onMouseOver}
         aria-haspopup={menuItems && menuItems?.length > 0}
         aria-expanded={open}
         ref={triggerRef}

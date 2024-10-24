@@ -122,6 +122,11 @@ const Menu: React.FC<MenuProps> = (
     item?.onClick?.();
   };
 
+  const handleOnMouseOver = (index: number) => {
+    setOpenIndex(index);
+    setHiglightedIndex(index);
+  };
+
   const onKeyDownHandler = (e: React.KeyboardEvent) => {
     const key = e.key;
 
@@ -189,6 +194,7 @@ const Menu: React.FC<MenuProps> = (
             menuItems={item.items}
             isHighlighted={higlightedIndex === index}
             onClick={() => handleOnClick(item, index)}
+            onMouseOver={() => handleOnMouseOver(index)}
             open={openIndex === index}
             onKeyDownArrowLeft={onKeyDownArrowLeftHandler}
             icon={item.icon}
