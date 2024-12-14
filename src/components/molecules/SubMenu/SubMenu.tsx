@@ -82,7 +82,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
         )}
       </MenuTrigger>
 
-      {menuItems && (
+      {menuItems && open && (
         <Menu
           open={open}
           isMainMenu={isMainMenu}
