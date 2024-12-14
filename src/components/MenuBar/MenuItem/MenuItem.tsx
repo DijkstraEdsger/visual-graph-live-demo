@@ -1,8 +1,8 @@
 import React from "react";
 import Menu from "../Menu";
-import Icon from "components/atoms/Icon";
 import classes from "./classes.module.scss";
 import MenuTrigger from "../MenuTrigger";
+import Icon from "components/Icon";
 
 type TItem = {
   label: string;

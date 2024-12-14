@@ -1,6 +1,6 @@
+import Icon from "components/Icon";
 import { useGraph } from "contexts/graphContext";
 import { ActiveAlgorithm } from "types/graph";
-import Icon from "components/atoms/Icon";
 
 type TItem = {
   label: string;
