@@ -1,8 +1,6 @@
-@use "/src/scss/src/foundation/variables" as variables;
-
 .menu {
   transition: opacity 0.218s;
-  background: var(--dse-menu-bg, variables.$white);
+  background: var(--dse-menu-bg);
   cursor: default;
   margin: 0;
   outline: none;

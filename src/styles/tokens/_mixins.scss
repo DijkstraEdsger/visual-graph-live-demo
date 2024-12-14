@@ -1,13 +1,10 @@
-/*=============================================
-=            Mixins                           =
-=============================================*/
+@use "./breakpoints";
 
-/**
- *
- * Helpful reusable function-like things that will be used to implement
- * styles for components.
- *
- */
+// @mixin tablet {
+//   @media (min-width: breakpoints.$breakpoint-tablet) {
+//     @content;
+//   }
+// }
 
 @mixin tablet {
   @media (min-width: map-get($breakpoints, "md")) {
