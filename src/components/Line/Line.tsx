@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useId } from "react";
 import { useGraphContainer } from "contexts/graphContainerContext";
+import classes from "./classes.module.scss";
 
 const CIRCLE_DIAMETER = 50;
 
@@ -149,7 +150,7 @@ const Line: React.FC<LineProps> = ({
       <line
         ref={lineRef}
         stroke="#4a4a4a"
-        className={isTraversed ? "is_traversed" : ""}
+        className={isTraversed ? classes.is_traversed : ""}
         strokeWidth="2"
         markerEnd={isDirected ? `url(#${arrowHeadId})` : undefined}
         style={{

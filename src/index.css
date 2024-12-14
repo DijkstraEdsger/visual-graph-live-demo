@@ -74,11 +74,6 @@ code {
   animation: lightingEffect 0.5s ease-in-out forwards;
 }
 
-.is_traversed {
-  stroke: #32cd32;
-  stroke-width: 3px;
-}
-
 .main {
   padding-top: var(--size-height-header);
   height: calc(100vh - var(--size-height-header));
