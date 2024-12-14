@@ -85,6 +85,13 @@ const MenuBar: React.FC<MenubarProps> = ({ menus = [], ...props }) => {
     }
   };
 
+  const handleOnMouseOver = (index: number) => {
+    if (openIndex !== -1) {
+      setOpenIndex(index);
+      setHiglightedIndex(index);
+    }
+  };
+
   return (
     <div
       role="menubar"
@@ -105,6 +112,7 @@ const MenuBar: React.FC<MenubarProps> = ({ menus = [], ...props }) => {
             isHighlighted={higlightedIndex === index}
             onClose={() => setOpenIndex(-1)}
             disabled={item.disabled}
+            onMouseOver={() => handleOnMouseOver(index)}
           >
             {item.label}
           </MenuItem>
