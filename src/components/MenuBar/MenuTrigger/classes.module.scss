@@ -1,8 +1,8 @@
 .menu-trigger {
   padding: 6px 10px 6px 12px;
   cursor: pointer;
-  color: var(--dse-menuitem-color);
-  background-color: var(--dse-menuitem-bg);
+  color: var(--menuitem-color);
+  background-color: var(--menuitem-bg);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,8 +13,8 @@
 
 .menu-trigger:hover,
 .menu-trigger--higlighted {
-  background-color: var(--dse-menuitem-bg-hover);
-  color: var(--dse-menuitem-color-hover);
+  background-color: var(--menuitem-bg-hover);
+  color: var(--menuitem-color-hover);
 }
 
 .menu-trigger:focus {
@@ -24,10 +24,10 @@
 
 .menu-trigger--disabled {
   cursor: not-allowed;
-  color: var(--dse-menuitem-color-disabled);
+  color: var(--menuitem-color-disabled);
 }
 
 .menu-trigger--disabled:hover {
-  background-color: var(--dse-menuitem-bg);
-  color: var(--dse-menuitem-color-disabled);
+  background-color: var(--menuitem-bg);
+  color: var(--menuitem-color-disabled);
 }

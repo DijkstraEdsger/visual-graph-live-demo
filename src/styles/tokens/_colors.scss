@@ -24,6 +24,6 @@ $blue-light: #b4d2f4;
 /*=============================================
 =            Global text colors               =
 =============================================*/
-$body-text-color: var(--dse-body-text-color, $dark) !default;
-$body-bg-color: var(--dse-body-bg-color, $white) !default;
+$body-text-color: var(--body-text-color, $dark) !default;
+$body-bg-color: var(--body-bg-color, $white) !default;
 

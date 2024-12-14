@@ -5,37 +5,38 @@
 @use "../tokens/typography" as font;
 
 :root {
-  --dse-body-text-color: #{colors.$dark};
-  --dse-body-bg-color: #{colors.$white};
+  --body-text-color: #{colors.$dark};
+  --body-bg-color: #{colors.$white};
+  --body-font-family: #{font.$body-font-family};
 
-  --dse-btn-primary-color: #{colors.$white};
-  --dse-btn-primary-bg: #{colors.$green};
-  --dse-btn-primary-bg-hover: #{colors.$green-light};
+  --btn-primary-color: #{colors.$white};
+  --btn-primary-bg: #{colors.$green};
+  --btn-primary-bg-hover: #{colors.$green-light};
 
-  --dse-btn-secondary-color: #{colors.$white};
-  --dse-btn-secondary-bg: #{colors.$dark};
+  --btn-secondary-color: #{colors.$white};
+  --btn-secondary-bg: #{colors.$dark};
 
-  --dse-menuitem-color: #{colors.$dark};
-  --dse-menuitem-bg: #{colors.$white};
-  --dse-menuitem-bg-hover: #{colors.$white-dark};
-  --dse-menuitem-color-hover: #{colors.$dark};
-  --dse-menuitem-border-color: #{colors.$white-dark};
-  --dse-menuitem-color-disabled: #{colors.$gray};
+  --menuitem-color: #{colors.$dark};
+  --menuitem-bg: #{colors.$white};
+  --menuitem-bg-hover: #{colors.$white-dark};
+  --menuitem-color-hover: #{colors.$dark};
+  --menuitem-border-color: #{colors.$white-dark};
+  --menuitem-color-disabled: #{colors.$gray};
 
-  --dse-menubartrigger-color: #{colors.$dark};
-  --dse-menubartrigger-bg: #{colors.$white};
-  --dse-menubartrigger-bg-hover: #{colors.$white-dark};
-  --dse-menubartrigger-color-hover: #{colors.$dark};
+  --menubartrigger-color: #{colors.$dark};
+  --menubartrigger-bg: #{colors.$white};
+  --menubartrigger-bg-hover: #{colors.$white-dark};
+  --menubartrigger-color-hover: #{colors.$dark};
 
-  --dse-menubar-color: #{colors.$dark};
-  --dse-menubar-bg: #{colors.$white};
-  --dse-menubar-border-color: #{colors.$white-dark};
+  --menubar-color: #{colors.$dark};
+  --menubar-bg: #{colors.$white};
+  --menubar-border-color: #{colors.$white-dark};
 
-  --dse-menu-color: #{colors.$dark};
-  --dse-menu-bg: #{colors.$white};
-  --dse-menu-border-color: #{colors.$white-dark};
-  --dse-menu-bg-hover: #{colors.$white-dark};
-  --dse-menu-color-hover: #{colors.$dark};
+  --menu-color: #{colors.$dark};
+  --menu-bg: #{colors.$white};
+  --menu-border-color: #{colors.$white-dark};
+  --menu-bg-hover: #{colors.$white-dark};
+  --menu-color-hover: #{colors.$dark};
 
   --size-height-header: 36px;
 }
