@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
-import "../../../scss/src/molecules/Menu.scss";
-import MenuItem from "../SubMenu/SubMenu";
+import classes from "./classes.module.scss";
+import MenuItem from "../MenuItem";
 
 type TItem = {
   label: string;
@@ -182,7 +182,9 @@ const Menu: React.FC<MenuProps> = (
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       role="menu"
-      className={`menu ${isMainMenu ? "main-menu" : "sub-menu"}`}
+      className={`${classes.menu} ${
+        isMainMenu ? classes["main-menu"] : classes["sub-menu"]
+      }`}
       tabIndex={0}
       ref={menuRef}
       onKeyDown={onKeyDownHandler}

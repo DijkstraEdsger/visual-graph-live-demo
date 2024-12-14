@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import "../../../scss/src/organisms/MenuBar.scss";
-import MenuItem from "components/molecules/SubMenu/SubMenu";
+import classes from "./classes.module.scss";
+import MenuItem from "./MenuItem";
 
 type TItem = {
   label: string;
@@ -96,7 +96,7 @@ const MenuBar: React.FC<MenubarProps> = ({ menus = [], ...props }) => {
     <div
       role="menubar"
       {...props}
-      className="menubar"
+      className={classes.menubar}
       tabIndex={0}
       ref={menubarRef}
       onKeyDown={onKeyDownHandler}

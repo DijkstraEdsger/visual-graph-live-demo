@@ -1,8 +1,7 @@
 import { Outlet } from "react-router-dom";
-import MenuToolbar from "components/MenuToolbar/MenuToolbar";
 import Text from "components/atoms/Text";
 import Icon from "components/atoms/Icon";
-import Header from "components/molecules/Header/Header";
+import Header from "components/Header";
 
 const Layout = () => {
   return (

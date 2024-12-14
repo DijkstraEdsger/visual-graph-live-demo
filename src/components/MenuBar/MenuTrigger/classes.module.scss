@@ -1,0 +1,35 @@
+@use "/src/scss/src/foundation/variables" as variables;
+
+.menu-trigger {
+  padding: 6px 10px 6px 12px;
+  cursor: pointer;
+  color: var(--dse-menuitem-color, variables.$dark);
+  background-color: var(--dse-menuitem-bg, variables.$white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.menu-trigger:hover,
+.menu-trigger--higlighted {
+  background-color: var(--dse-menuitem-bg-hover, variables.$white-dark);
+  color: var(--dse-menuitem-color-hover, variables.$dark);
+}
+
+.menu-trigger:focus {
+  outline: none;
+  border: none;
+}
+
+.menu-trigger--disabled {
+  cursor: not-allowed;
+  color: var(--dse-menuitem-color-disabled, variables.$gray);
+}
+
+.menu-trigger--disabled:hover {
+  background-color: var(--dse-menuitem-bg, variables.$white);
+  color: var(--dse-menuitem-color-disabled, variables.$gray);
+}

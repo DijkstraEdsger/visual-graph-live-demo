@@ -1,7 +1,7 @@
 import React from "react";
-import MenuBar from "components/organisms/MenuBar";
 import useHeaderVM from "./useHeaderVM";
 import classes from "./classes.module.scss";
+import MenuBar from "components/MenuBar";
 
 const Header: React.FC = () => {
   const { menus } = useHeaderVM();

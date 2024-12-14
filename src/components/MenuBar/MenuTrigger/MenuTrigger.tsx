@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import "../../../scss/src/atoms/MenuTrigger.scss";
+import classes from "./classes.module.scss";
 
 interface MenuTriggerProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactNode;
@@ -14,9 +14,9 @@ const MenuTrigger = forwardRef<HTMLDivElement, MenuTriggerProps>(
       <div
         ref={ref}
         role="menuitem"
-        className={`menu-trigger ${
-          isHighlighted ? "menu-trigger--higlighted" : ""
-        } ${disabled ? "menu-trigger--disabled" : ""}`}
+        className={`${classes["menu-trigger"]} ${
+          isHighlighted ? classes["menu-trigger--higlighted"] : ""
+        } ${disabled ? classes["menu-trigger--disabled"] : ""}`}
         onClick={onClick}
         tabIndex={0}
         aria-disabled={disabled}

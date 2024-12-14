@@ -1,8 +1,8 @@
 import React from "react";
 import Menu from "../Menu";
 import Icon from "components/atoms/Icon";
-import MenuTrigger from "components/atoms/MenuTrigger";
-import "../../../scss/src/atoms/MenuItem.scss";
+import classes from "./classes.module.scss";
+import MenuTrigger from "../MenuTrigger";
 
 type TItem = {
   label: string;
@@ -55,7 +55,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
       style={{
         position: "relative",
       }}
-      className="menuitem-container"
+      className={classes["menuitem-container"]}
     >
       <MenuTrigger
         onClick={onClick}
