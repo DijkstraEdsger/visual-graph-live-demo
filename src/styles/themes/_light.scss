@@ -1,0 +1,84 @@
+@use "../tokens/colors" as colors;
+@use "../tokens/components/header" as header;
+@use "../tokens/components/button" as button;
+@use "../tokens/components/menubar" as menubar;
+@use "../tokens/components/switch" as switch;
+@use "../tokens/size";
+@use "../tokens/typography" as font;
+
+:root {
+  --body-font-family: #{font.$body-font-family};
+
+  // Button
+  --color-background-button-primary-default: #{button.$color-background-button-primary-default-light};
+  --color-background-button-primary-hover: #{button.$color-background-button-primary-hover-light};
+  --color-background-button-primary-active: #{button.$color-background-button-primary-active-light};
+  --color-background-button-primary-disabled: #{button.$color-background-button-primary-disabled-light};
+  --color-border-button-primary-default: #{button.$color-border-button-primary-default-light};
+  --color-border-button-primary-hover: #{button.$color-border-button-primary-hover-light};
+  --color-border-button-primary-active: #{button.$color-border-button-primary-active-light};
+  --color-font-button-primary-default: #{button.$color-font-button-primary-default-light};
+  --color-font-button-primary-hover: #{button.$color-font-button-primary-hover-light};
+  --color-font-button-primary-active: #{button.$color-font-button-primary-active-light};
+  --color-background-button-secondary-default: #{button.$color-background-button-secondary-default-light};
+  --color-background-button-secondary-hover: #{button.$color-background-button-secondary-hover-light};
+  --color-background-button-secondary-active: #{button.$color-background-button-secondary-active-light};
+  --color-border-button-secondary-default: #{button.$color-border-button-secondary-default-light};
+  --color-border-button-secondary-hover: #{button.$color-border-button-secondary-hover-light};
+  --color-border-button-secondary-active: #{button.$color-border-button-secondary-active-light};
+  --color-font-button-secondary-default: #{button.$color-font-button-secondary-default-light};
+  --color-font-button-secondary-hover: #{button.$color-font-button-secondary-hover-light};
+  --color-font-button-secondary-active: #{button.$color-font-button-secondary-active-light};
+
+  --size-border-button: #{button.$size-border-button};
+  --size-border-radius-button: #{button.$size-border-radius-button};
+  --size-padding-button: #{button.$size-padding-button};
+  --size-padding-button-mobile: #{button.$size-padding-button-mobile};
+  --size-font-button: #{button.$size-font-button};
+  --size-font-button-mobile: #{button.$size-font-button-mobile};
+  --size-width-button: #{button.$size-width-button};
+  --size-width-button-mobile: #{button.$size-width-button-mobile};
+  --size-max-width-button: #{button.$size-max-width-button};
+  --size-max-width-button-mobile: #{button.$size-max-width-button-mobile};
+  --font-weight-button: #{button.$font-weight-button};
+
+  --time-transition-button: #{button.$time-transition-button};
+
+  // MenubarTrigger
+
+  --color-background-menutrigger-default: #{menubar.$color-background-menutrigger-default-light};
+  --color-background-menutrigger-hover: #{menubar.$color-background-menutrigger-hover-light};
+  --color-background-menutrigger-disabled-hover: #{menubar.$color-background-menutrigger-disabled-hover-light};
+  --color-font-menutrigger-default: #{menubar.$color-font-menutrigger-default-light};
+  --color-font-menutrigger-hover: #{menubar.$color-font-menutrigger-hover-light};
+  --color-font-menutrigger-disabled: #{menubar.$color-font-menutrigger-disabled-light};
+  --color-font-menutrigger-disabled-hover: #{menubar.$color-font-menutrigger-disabled-hover-light};
+  --size-padding-menutrigger: #{menubar.$size-padding-menutrigger};
+  --size-border-radius-menutrigger: #{menubar.$size-border-radius-menutrigger};
+  --size-font-menutrigger: #{menubar.$size-font-menutrigger};
+  --size-border-menutrigger-focus: #{menubar.$size-border-menutrigger-focus};
+
+  // Menubar
+
+  --menubar-color: #{colors.$dark};
+  --menubar-bg: #{colors.$white};
+  --menubar-border-color: #{colors.$white-dark};
+
+  // Menu
+
+  --color-background-menu: #{menubar.$color-background-menu-light};
+  --size-padding-menu: #{menubar.$size-padding-menu};
+  --size-border-menu: #{menubar.$size-border-menu};
+  --size-border-radius-menu: #{menubar.$size-border-radius-menu};
+  --time-transition-menu: #{menubar.$time-transition-menu};
+  --z-index-menu: #{menubar.$z-index-menu};
+
+  // Switch
+
+  --color-background-switch-default: #{switch.$color-background-switch-default-light};
+  --color-background-switch-checked: #{switch.$color-background-switch-checked-light};
+  --color-background-switch-thumb-default: #{switch.$color-background-switch-thumb-default-light};
+  --color-font-switch: #{switch.$color-font-switch-light};
+
+  --size-height-header: 36px;
+}

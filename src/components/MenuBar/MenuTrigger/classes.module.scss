@@ -1,0 +1,33 @@
+.menu-trigger {
+  padding: var(--size-padding-menutrigger);
+  cursor: pointer;
+  color: var(--color-font-menutrigger-default);
+  background-color: var(--color-background-menutrigger-default);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: var(--size-border-radius-menutrigger);
+  font-size: var(--size-font-menutrigger);
+  line-height: 20px;
+}
+
+.menu-trigger:hover,
+.menu-trigger--higlighted {
+  background-color: var(--color-background-menutrigger-hover);
+  color: var(--color-font-menutrigger-hover);
+}
+
+.menu-trigger:focus {
+  outline: none;
+  border: var(--size-border-menutrigger-focus);
+}
+
+.menu-trigger--disabled {
+  cursor: not-allowed;
+  color: var(--color-font-menutrigger-disabled);
+}
+
+.menu-trigger--disabled:hover {
+  background-color: var(--color-background-menutrigger-disabled-hover);
+  color: var(--color-font-menutrigger-disabled-hover);
+}

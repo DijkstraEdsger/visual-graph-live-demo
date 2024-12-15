@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import "./Vertice.scss";
+import classes from "./classes.module.scss";
 import Drag from "components/Drag/Drag";
 import { InitialPositionType, Position } from "types/graph";
 import { ArrowRightIcon, Cross2Icon } from "@radix-ui/react-icons";
@@ -132,15 +132,15 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
       >
         <div
           id={id}
-          className={`vertice ${
-            isAVerticeTryingToConnect ? "connecting" : ""
-          } ${isVisited ? "vertice--visited" : ""}`}
+          className={`${classes.vertice} ${
+            isAVerticeTryingToConnect ? classes.connecting : ""
+          } ${isVisited ? classes["vertice--visited"] : ""}`}
           onMouseUp={onMouseUpEdgeHintHandler}
         >
           <span>{label}</span>
           <div
             ref={hintRef}
-            className="hint-edge"
+            className={classes["hint-edge"]}
             style={{
               visibility: isHintVisible ? "visible" : "hidden",
             }}
@@ -149,7 +149,7 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
           </div>
           <div
             ref={removeRef}
-            className="remove-vertice"
+            className={classes["remove-vertice"]}
             style={{
               visibility: isHintVisible ? "visible" : "hidden",
             }}

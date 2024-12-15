@@ -1,0 +1,41 @@
+/*=============================================
+=                 Menu Trigger            =
+=============================================*/
+
+$color-background-menutrigger-default-light: #ffffff;
+$color-background-menutrigger-default-dark: #1b1d1e;
+$color-background-menutrigger-hover-light: #f1f2f3;
+$color-background-menutrigger-hover-dark: #2f3031;
+$color-background-menutrigger-disabled-hover-light: #ffffff;
+$color-background-menutrigger-disabled-hover-dark: #ffffff;
+$color-font-menutrigger-default-light: #1d1f22;
+$color-font-menutrigger-default-dark: #ffffff;
+$color-font-menutrigger-hover-light: #1d1f22;
+$color-font-menutrigger-hover-dark: #ffffff;
+$color-font-menutrigger-disabled-light: #a3a5ad;
+$color-font-menutrigger-disabled-dark: #a3a5adff;
+$color-font-menutrigger-disabled-hover-light: #a3a5ad;
+$color-font-menutrigger-disabled-hover-dark: #a3a5adff;
+$size-padding-menutrigger: 6px 10px 6px 12px;
+$size-border-radius-menutrigger: 4px;
+$size-font-menutrigger: 14px;
+$size-border-menutrigger-focus: 0px;
+
+/*=============================================
+=                 Menu Bar                    =
+=============================================*/
+$menubar-color: #1d1f22;
+$menubar-bg: #ffffff;
+$menubar-border-color: #f1f2f3;
+
+/*=============================================
+=                 Menu                        =
+=============================================*/
+
+$color-background-menu-light: #ffffff;
+$color-background-menu-dark: #1b1d1e;
+$size-padding-menu: 6px 0;
+$size-border-menu: 1px;
+$size-border-radius-menu: 4px;
+$time-transition-menu: 200ms;
+$z-index-menu: 1000;

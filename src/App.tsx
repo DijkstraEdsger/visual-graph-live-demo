@@ -5,7 +5,7 @@ import { GraphProvider } from "contexts/graphContext";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "components/Layout/Layout";
 import GraphPage from "pages/graph/Graph";
-import "./scss/src/global.scss";
+import "./styles/main.scss";
 
 interface Node {
   id: string;

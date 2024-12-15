@@ -1,0 +1,25 @@
+.menu {
+  transition: opacity var(--time-transition-menu);
+  background: var(--color-background-menu);
+  cursor: default;
+  outline: none;
+  padding: var(--size-padding-menu);
+  position: absolute;
+  border: var(--size-border-menu) solid transparent;
+  border-radius: var(--size-border-radius-menu);
+  box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35),
+    0px 10px 20px -15px rgba(22, 23, 24, 0.2);
+  z-index: var(--z-index-menu);
+}
+
+.main-menu {
+  top: 100%;
+  left: 0;
+  min-width: 280px;
+}
+
+.sub-menu {
+  top: 0;
+  left: 100%;
+  min-width: 280px;
+}
