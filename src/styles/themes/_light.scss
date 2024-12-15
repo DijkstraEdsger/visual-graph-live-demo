@@ -1,6 +1,7 @@
 @use "../tokens/colors" as colors;
 @use "../tokens/components/header" as header;
 @use "../tokens/components/button" as button;
+@use "../tokens/components/menubar" as menubar;
 @use "../tokens/size";
 @use "../tokens/typography" as font;
 
@@ -42,7 +43,7 @@
 
   --time-transition-button: #{button.$time-transition-button};
 
-  // Menu
+  // MenuItem
 
   --menuitem-color: #{colors.$dark};
   --menuitem-bg: #{colors.$white};
@@ -51,20 +52,27 @@
   --menuitem-border-color: #{colors.$white-dark};
   --menuitem-color-disabled: #{colors.$gray};
 
+  // MenubarTrigger
+
   --menubartrigger-color: #{colors.$dark};
   --menubartrigger-bg: #{colors.$white};
   --menubartrigger-bg-hover: #{colors.$white-dark};
   --menubartrigger-color-hover: #{colors.$dark};
 
+  // Menubar
+
   --menubar-color: #{colors.$dark};
   --menubar-bg: #{colors.$white};
   --menubar-border-color: #{colors.$white-dark};
 
-  --menu-color: #{colors.$dark};
-  --menu-bg: #{colors.$white};
-  --menu-border-color: #{colors.$white-dark};
-  --menu-bg-hover: #{colors.$white-dark};
-  --menu-color-hover: #{colors.$dark};
+  // Menu
+
+  --color-background-menu: #{menubar.$color-background-menu-light};
+  --size-padding-menu: #{menubar.$size-padding-menu};
+  --size-border-menu: #{menubar.$size-border-menu};
+  --size-border-radius-menu: #{menubar.$size-border-radius-menu};
+  --time-transition-menu: #{menubar.$time-transition-menu};
+  --z-index-menu: #{menubar.$z-index-menu};
 
   --size-height-header: 36px;
 }

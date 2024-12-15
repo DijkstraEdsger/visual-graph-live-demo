@@ -26,8 +26,11 @@ $menubar-border-color: #f1f2f3;
 /*=============================================
 =                 Menu                        =
 =============================================*/
-$menu-color: #1d1f22;
-$menu-bg: #ffffff;
-$menu-border-color: #f1f2f3;
-$menu-bg-hover: #f1f2f3;
-$menu-color-hover: #1d1f22;
+
+$color-background-menu-light: #ffffff;
+$color-background-menu-dark: #1b1d1e;
+$size-padding-menu: 6px 0;
+$size-border-menu: 1px;
+$size-border-radius-menu: 4px;
+$time-transition-menu: 200ms;
+$z-index-menu: 1000;
