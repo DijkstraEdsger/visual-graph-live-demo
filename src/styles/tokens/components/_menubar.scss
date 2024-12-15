@@ -3,15 +3,17 @@
 =============================================*/
 
 $color-background-menutrigger-default-light: #ffffff;
-$color-background-menutrigger-default-dark: #1b1d1e;
+$color-background-menutrigger-default-dark: #1c1c1e;
 $color-background-menutrigger-hover-light: #f1f2f3;
-$color-background-menutrigger-hover-dark: #2f3031;
+$color-background-menutrigger-hover-dark: #3a3a3c;
+$color-background-menutrigger-disabled-light: #ffffff;
+$color-background-menutrigger-disabled-dark: #1c1c1e;
 $color-background-menutrigger-disabled-hover-light: #ffffff;
-$color-background-menutrigger-disabled-hover-dark: #ffffff;
+$color-background-menutrigger-disabled-hover-dark: #1c1c1e;
 $color-font-menutrigger-default-light: #1d1f22;
-$color-font-menutrigger-default-dark: #ffffff;
+$color-font-menutrigger-default-dark: #e4e4e4;
 $color-font-menutrigger-hover-light: #1d1f22;
-$color-font-menutrigger-hover-dark: #ffffff;
+$color-font-menutrigger-hover-dark: #e4e4e4;
 $color-font-menutrigger-disabled-light: #a3a5ad;
 $color-font-menutrigger-disabled-dark: #a3a5adff;
 $color-font-menutrigger-disabled-hover-light: #a3a5ad;
@@ -33,9 +35,13 @@ $menubar-border-color: #f1f2f3;
 =============================================*/
 
 $color-background-menu-light: #ffffff;
-$color-background-menu-dark: #1b1d1e;
+$color-background-menu-dark: #1c1c1e;
 $size-padding-menu: 6px 0;
 $size-border-menu: 1px;
 $size-border-radius-menu: 4px;
+$box-shadow-menu-light: 0px 10px 38px -10px rgba(22, 23, 24, 0.35),
+  0px 10px 20px -15px rgba(22, 23, 24, 0.2);
+$box-shadow-menu-dark: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
 $time-transition-menu: 200ms;
 $z-index-menu: 1000;

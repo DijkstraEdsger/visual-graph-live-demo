@@ -24,5 +24,6 @@
 
 .button:disabled {
   background-color: var(--color-background-button-primary-disabled);
-  cursor: not-allowed;
+  color: var(--color-font-button-primary-disabled);
+  cursor: default;
 }

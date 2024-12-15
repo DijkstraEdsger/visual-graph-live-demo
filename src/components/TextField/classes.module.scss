@@ -3,16 +3,17 @@
   padding: 8px;
   margin-bottom: 10px;
   box-sizing: border-box;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border-text-field-default);
   border-radius: 4px;
   font-size: 14px;
-  background-color: #fff;
+  background-color: var(--color-background-text-field);
+  color: var(--color-font-text-field);
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .textfield__input:focus {
-  border-color: #66afe9;
-  box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+  border-color: var(--color-border-text-field-focus);
+  box-shadow: var(--box-shadow-text-field-focus);
   outline: none;
 }
 
@@ -25,7 +26,7 @@
   font-size: 14px;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #333;
+  color: var(--color-font-label);
 }
 
 .textfield__helper-text {

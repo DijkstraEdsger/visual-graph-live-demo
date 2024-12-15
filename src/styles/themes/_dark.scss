@@ -1,6 +1,108 @@
 @use "../tokens/colors";
 @use "../tokens/components/header" as header;
+@use "../tokens/components/parameters-section" as parametersSection;
+@use "../tokens/components/main-section" as mainSection;
+@use "../tokens/components/graph-container" as graphContainer;
 @use "../tokens/components/button" as button;
+@use "../tokens/components/text-field" as textField;
+@use "../tokens/components/vertice" as vertice;
+@use "../tokens/components/menubar" as menubar;
+@use "../tokens/components/switch" as switch;
 
 [data-theme="dark"] {
+  // Button
+  --color-background-button-primary-default: #{button.$color-background-button-primary-default-dark};
+  --color-background-button-primary-hover: #{button.$color-background-button-primary-hover-dark};
+  --color-background-button-primary-active: #{button.$color-background-button-primary-active-dark};
+  --color-background-button-primary-disabled: #{button.$color-background-button-primary-disabled-dark};
+  --color-border-button-primary-default: #{button.$color-border-button-primary-default-dark};
+  --color-border-button-primary-hover: #{button.$color-border-button-primary-hover-dark};
+  --color-border-button-primary-active: #{button.$color-border-button-primary-active-dark};
+  --color-font-button-primary-default: #{button.$color-font-button-primary-default-dark};
+  --color-font-button-primary-disabled: #{button.$color-font-button-primary-disabled-dark};
+  --color-font-button-primary-hover: #{button.$color-font-button-primary-hover-dark};
+  --color-font-button-primary-active: #{button.$color-font-button-primary-active-dark};
+  --color-background-button-secondary-default: #{button.$color-background-button-secondary-default-dark};
+  --color-background-button-secondary-hover: #{button.$color-background-button-secondary-hover-dark};
+  --color-background-button-secondary-active: #{button.$color-background-button-secondary-active-dark};
+  --color-border-button-secondary-default: #{button.$color-border-button-secondary-default-dark};
+  --color-border-button-secondary-hover: #{button.$color-border-button-secondary-hover-dark};
+  --color-border-button-secondary-active: #{button.$color-border-button-secondary-active-dark};
+  --color-font-button-secondary-default: #{button.$color-font-button-secondary-default-dark};
+  --color-font-button-secondary-hover: #{button.$color-font-button-secondary-hover-dark};
+  --color-font-button-secondary-active: #{button.$color-font-button-secondary-active-dark};
+
+  // MenubarTrigger
+
+  --color-background-menutrigger-default: #{menubar.$color-background-menutrigger-default-dark};
+  --color-background-menutrigger-hover: #{menubar.$color-background-menutrigger-hover-dark};
+  --color-background-menutrigger-disabled: #{menubar.$color-background-menutrigger-disabled-dark};
+  --color-background-menutrigger-disabled-hover: #{menubar.$color-background-menutrigger-disabled-hover-dark};
+  --color-font-menutrigger-default: #{menubar.$color-font-menutrigger-default-dark};
+  --color-font-menutrigger-hover: #{menubar.$color-font-menutrigger-hover-dark};
+  --color-font-menutrigger-disabled: #{menubar.$color-font-menutrigger-disabled-dark};
+  --color-font-menutrigger-disabled-hover: #{menubar.$color-font-menutrigger-disabled-hover-dark};
+
+  // Menu
+
+  --color-background-menu: #{menubar.$color-background-menu-dark};
+  --box-shadow-menu: #{menubar.$box-shadow-menu-dark};
+
+  // Switch
+
+  --color-background-switch-default: #{switch.$color-background-switch-default-dark};
+  --color-background-switch-checked: #{switch.$color-background-switch-checked-dark};
+  --color-background-switch-thumb-default: #{switch.$color-background-switch-thumb-default-dark};
+  --color-font-switch: #{switch.$color-font-switch-dark};
+
+  // Header
+
+  --color-background-header: #{header.$color-background-header-dark};
+  --box-shadow-header: #{header.$box-shadow-header-dark};
+
+  // Parameters section
+
+  --color-background-parameters-section: #{parametersSection.$color-background-parameters-section-dark};
+  --color-border-parameters-section: #{parametersSection.$color-border-parameters-section-dark};
+  --color-border-parameters-section-header: #{parametersSection.$color-border-parameters-section-header-dark};
+
+  // Main section
+
+  --color-background-main-section: #{mainSection.$color-background-main-section-dark};
+
+  // Graph container
+
+  --color-background-graph-container: #{graphContainer.$color-background-graph-container-dark};
+  --color-border-graph-container: #{graphContainer.$color-border-graph-container-dark};
+  --box-shadow-graph-container: #{graphContainer.$box-shadow-graph-container-dark};
+
+  // TextField
+
+  --color-background-text-field: #{textField.$color-background-text-field-dark};
+  --color-border-text-field-default: #{textField.$color-border-text-field-default-dark};
+  --color-border-text-field-focus: #{textField.$color-border-text-field-focus-dark};
+  --color-font-text-field: #{textField.$color-font-text-field-dark};
+  --box-shadow-text-field-focus: #{textField.$box-shadow-text-field-focus-dark};
+
+  // Label
+
+  --color-font-label: #e4e4e4;
+
+  // Vertice
+
+  --color-background-vertice-default: #{vertice.$color-background-vertice-default-dark};
+  --color-background-vertice-visited: #{vertice.$color-background-vertice-visited-dark};
+  --color-border-vertice-default: #{vertice.$color-border-vertice-default-dark};
+  --color-font-vertice: #{vertice.$color-font-vertice-dark};
+  --box-shadow-vertice-default: #{vertice.$box-shadow-vertice-default-dark};
+  --box-shadow-vertice-hover: #{vertice.$box-shadow-vertice-hover-dark};
+
+  --color-background-vertice-hint-connect-default: #{vertice.$color-background-vertice-hint-connect-default-dark};
+  --color-background-vertice-hint-connect-hover: #{vertice.$color-background-vertice-hint-connect-hover-dark};
+  --color-border-vertice-hint-connect-default: #{vertice.$color-border-vertice-hint-connect-default-dark};
+
+  // Line (edge)
+
+  --color-stroke-line-edge-default: #4a4a4a;
+  --color-stroke-line-edge-traversed: #32cd32;
 }

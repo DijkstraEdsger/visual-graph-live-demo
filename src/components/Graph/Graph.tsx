@@ -64,7 +64,7 @@ const Graph: React.FC<GraphProps> = ({
               refY="3.5"
               orient="auto"
             >
-              <polygon points="0 0, 10 3.5, 0 7" fill="black" />
+              <polygon points="0 0, 10 3.5, 0 7" fill="var(--color-stroke-line-edge-default)" />
             </marker>
           </defs>
         )}
@@ -74,7 +74,7 @@ const Graph: React.FC<GraphProps> = ({
           y1={edgeConection?.lineStart.y}
           x2={edgeConection?.lineEnd.x}
           y2={edgeConection?.lineEnd.y}
-          stroke="black"
+          stroke="var(--color-stroke-line-edge-default)"
           markerEnd="url(#arrowhead)"
           strokeWidth="2"
         />

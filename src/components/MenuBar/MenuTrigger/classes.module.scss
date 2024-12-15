@@ -23,8 +23,10 @@
 }
 
 .menu-trigger--disabled {
-  cursor: not-allowed;
+  cursor: default;
+  background-color: var(--color-background-menutrigger-disabled);
   color: var(--color-font-menutrigger-disabled);
+  opacity: 0.4;
 }
 
 .menu-trigger--disabled:hover {
