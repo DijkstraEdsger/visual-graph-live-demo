@@ -9,6 +9,7 @@
   border-radius: var(--size-border-radius-menutrigger);
   font-size: var(--size-font-menutrigger);
   line-height: 20px;
+  transition: background-color 0.3s;
 }
 
 .menu-trigger:hover,
