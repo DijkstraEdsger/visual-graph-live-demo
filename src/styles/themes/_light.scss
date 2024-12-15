@@ -43,21 +43,19 @@
 
   --time-transition-button: #{button.$time-transition-button};
 
-  // MenuItem
-
-  --menuitem-color: #{colors.$dark};
-  --menuitem-bg: #{colors.$white};
-  --menuitem-bg-hover: #{colors.$white-dark};
-  --menuitem-color-hover: #{colors.$dark};
-  --menuitem-border-color: #{colors.$white-dark};
-  --menuitem-color-disabled: #{colors.$gray};
-
   // MenubarTrigger
 
-  --menubartrigger-color: #{colors.$dark};
-  --menubartrigger-bg: #{colors.$white};
-  --menubartrigger-bg-hover: #{colors.$white-dark};
-  --menubartrigger-color-hover: #{colors.$dark};
+  --color-background-menutrigger-default: #{menubar.$color-background-menutrigger-default-light};
+  --color-background-menutrigger-hover: #{menubar.$color-background-menutrigger-hover-light};
+  --color-background-menutrigger-disabled-hover: #{menubar.$color-background-menutrigger-disabled-hover-light};
+  --color-font-menutrigger-default: #{menubar.$color-font-menutrigger-default-light};
+  --color-font-menutrigger-hover: #{menubar.$color-font-menutrigger-hover-light};
+  --color-font-menutrigger-disabled: #{menubar.$color-font-menutrigger-disabled-light};
+  --color-font-menutrigger-disabled-hover: #{menubar.$color-font-menutrigger-disabled-hover-light};
+  --size-padding-menutrigger: #{menubar.$size-padding-menutrigger};
+  --size-border-radius-menutrigger: #{menubar.$size-border-radius-menutrigger};
+  --size-font-menutrigger: #{menubar.$size-font-menutrigger};
+  --size-border-menutrigger-focus: #{menubar.$size-border-menutrigger-focus};
 
   // Menubar
 

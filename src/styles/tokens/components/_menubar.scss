@@ -1,20 +1,25 @@
 /*=============================================
-=                 Menu Items                  =
+=                 Menu Trigger            =
 =============================================*/
-$menuitem-color: #1d1f22;
-$menuitem-bg: #ffffff;
-$menuitem-bg-hover: #f1f2f3;
-$menuitem-color-hover: #1d1f22;
-$menuitem-border-color: #f1f2f3;
-$menuitem-color-disabled: #a3a5ad;
 
-/*=============================================
-=                 Menu Bar Trigger            =
-=============================================*/
-$menubartrigger-color: #1d1f22;
-$menubartrigger-bg: #ffffff;
-$menubartrigger-bg-hover: #f1f2f3;
-$menubartrigger-color-hover: #1d1f22;
+$color-background-menutrigger-default-light: #ffffff;
+$color-background-menutrigger-default-dark: #1b1d1e;
+$color-background-menutrigger-hover-light: #f1f2f3;
+$color-background-menutrigger-hover-dark: #2f3031;
+$color-background-menutrigger-disabled-hover-light: #ffffff;
+$color-background-menutrigger-disabled-hover-dark: #ffffff;
+$color-font-menutrigger-default-light: #1d1f22;
+$color-font-menutrigger-default-dark: #ffffff;
+$color-font-menutrigger-hover-light: #1d1f22;
+$color-font-menutrigger-hover-dark: #ffffff;
+$color-font-menutrigger-disabled-light: #a3a5ad;
+$color-font-menutrigger-disabled-dark: #a3a5adff;
+$color-font-menutrigger-disabled-hover-light: #a3a5ad;
+$color-font-menutrigger-disabled-hover-dark: #a3a5adff;
+$size-padding-menutrigger: 6px 10px 6px 12px;
+$size-border-radius-menutrigger: 4px;
+$size-font-menutrigger: 14px;
+$size-border-menutrigger-focus: 0px;
 
 /*=============================================
 =                 Menu Bar                    =
