@@ -10,7 +10,7 @@
   height: 0;
 
   &:checked + .switch__slider {
-    background-color: #007bff;
+    background-color: var(--color-background-switch-checked);
   }
 
   &:checked + .switch__slider:before {
@@ -22,7 +22,7 @@
   position: relative;
   width: 40px;
   height: 20px;
-  background-color: #ccc;
+  background-color: var(--color-background-switch-default);
   transition: 0.4s;
   border-radius: 20px;
   margin-right: 10px;
@@ -34,7 +34,7 @@
     width: 16px;
     left: 2px;
     bottom: 2px;
-    background-color: white;
+    background-color: var(--color-background-switch-thumb-default);
     transition: 0.4s;
     border-radius: 50%;
   }
@@ -42,5 +42,5 @@
 
 .switch__label {
   font-size: 14px;
-  color: #333;
+  color: var(--color-font-switch);
 }

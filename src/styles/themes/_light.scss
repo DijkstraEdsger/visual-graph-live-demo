@@ -2,6 +2,7 @@
 @use "../tokens/components/header" as header;
 @use "../tokens/components/button" as button;
 @use "../tokens/components/menubar" as menubar;
+@use "../tokens/components/switch" as switch;
 @use "../tokens/size";
 @use "../tokens/typography" as font;
 
@@ -71,6 +72,13 @@
   --size-border-radius-menu: #{menubar.$size-border-radius-menu};
   --time-transition-menu: #{menubar.$time-transition-menu};
   --z-index-menu: #{menubar.$z-index-menu};
+
+  // Switch
+
+  --color-background-switch-default: #{switch.$color-background-switch-default-light};
+  --color-background-switch-checked: #{switch.$color-background-switch-checked-light};
+  --color-background-switch-thumb-default: #{switch.$color-background-switch-thumb-default-light};
+  --color-font-switch: #{switch.$color-font-switch-light};
 
   --size-height-header: 36px;
 }
