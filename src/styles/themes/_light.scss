@@ -5,16 +5,44 @@
 @use "../tokens/typography" as font;
 
 :root {
-  --body-text-color: #{colors.$dark};
-  --body-bg-color: #{colors.$white};
   --body-font-family: #{font.$body-font-family};
 
-  --btn-primary-color: #{colors.$white};
-  --btn-primary-bg: #{colors.$green};
-  --btn-primary-bg-hover: #{colors.$green-light};
+  // Button
+  --color-background-button-primary-default: #{button.$color-background-button-primary-default-light};
+  --color-background-button-primary-hover: #{button.$color-background-button-primary-hover-light};
+  --color-background-button-primary-active: #{button.$color-background-button-primary-active-light};
+  --color-background-button-primary-disabled: #{button.$color-background-button-primary-disabled-light};
+  --color-border-button-primary-default: #{button.$color-border-button-primary-default-light};
+  --color-border-button-primary-hover: #{button.$color-border-button-primary-hover-light};
+  --color-border-button-primary-active: #{button.$color-border-button-primary-active-light};
+  --color-font-button-primary-default: #{button.$color-font-button-primary-default-light};
+  --color-font-button-primary-hover: #{button.$color-font-button-primary-hover-light};
+  --color-font-button-primary-active: #{button.$color-font-button-primary-active-light};
+  --color-background-button-secondary-default: #{button.$color-background-button-secondary-default-light};
+  --color-background-button-secondary-hover: #{button.$color-background-button-secondary-hover-light};
+  --color-background-button-secondary-active: #{button.$color-background-button-secondary-active-light};
+  --color-border-button-secondary-default: #{button.$color-border-button-secondary-default-light};
+  --color-border-button-secondary-hover: #{button.$color-border-button-secondary-hover-light};
+  --color-border-button-secondary-active: #{button.$color-border-button-secondary-active-light};
+  --color-font-button-secondary-default: #{button.$color-font-button-secondary-default-light};
+  --color-font-button-secondary-hover: #{button.$color-font-button-secondary-hover-light};
+  --color-font-button-secondary-active: #{button.$color-font-button-secondary-active-light};
 
-  --btn-secondary-color: #{colors.$white};
-  --btn-secondary-bg: #{colors.$dark};
+  --size-border-button: #{button.$size-border-button};
+  --size-border-radius-button: #{button.$size-border-radius-button};
+  --size-padding-button: #{button.$size-padding-button};
+  --size-padding-button-mobile: #{button.$size-padding-button-mobile};
+  --size-font-button: #{button.$size-font-button};
+  --size-font-button-mobile: #{button.$size-font-button-mobile};
+  --size-width-button: #{button.$size-width-button};
+  --size-width-button-mobile: #{button.$size-width-button-mobile};
+  --size-max-width-button: #{button.$size-max-width-button};
+  --size-max-width-button-mobile: #{button.$size-max-width-button-mobile};
+  --font-weight-button: #{button.$font-weight-button};
+
+  --time-transition-button: #{button.$time-transition-button};
+
+  // Menu
 
   --menuitem-color: #{colors.$dark};
   --menuitem-bg: #{colors.$white};

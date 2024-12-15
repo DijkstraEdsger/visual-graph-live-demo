@@ -1,6 +1,7 @@
 import React from "react";
 import TextField from "components/TextField/TextField";
 import Button from "components/Button/Button";
+import classes from "./classes.module.scss";
 
 interface DijkstraInputsProps {
   onRunDijkstra: (startNode: string, endNode: string) => void;
@@ -23,7 +24,7 @@ const DijkstraInputs: React.FC<DijkstraInputsProps> = ({
   };
 
   return (
-    <div>
+    <div className={classes.dijkstra}>
       <TextField
         placeholder="Enter starting node"
         onChange={handleStartNodeChange}
@@ -43,14 +44,15 @@ const DijkstraInputs: React.FC<DijkstraInputsProps> = ({
         id="endNode"
       />
 
-      <br />
-      <Button
-        onClick={() => onRunDijkstra(startNode, endNode)}
-        disabled={!startNode || !endNode}
-      >
-        Run
-      </Button>
-      <Button onClick={onCleanPath}>Clean Path</Button>
+      <div className={classes.dijkstra__buttons}>
+        <Button
+          onClick={() => onRunDijkstra(startNode, endNode)}
+          disabled={!startNode || !endNode}
+        >
+          Run
+        </Button>
+        <Button onClick={onCleanPath}>Clean Path</Button>
+      </div>
     </div>
   );
 };
