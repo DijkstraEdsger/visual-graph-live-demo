@@ -7,7 +7,7 @@ import {
 } from "react";
 
 const initTheme = (): Theme =>
-  (localStorage.getItem("mode") ?? "light") as Theme;
+  (localStorage.getItem("theme") ?? "light") as Theme;
 
 type Theme = "light" | "dark";
 
@@ -28,7 +28,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   useEffect(() => {
     const body = document.body;
     body.setAttribute("data-theme", theme);
-    localStorage.setItem("mode", theme);
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
   const toggleTheme = () => {
