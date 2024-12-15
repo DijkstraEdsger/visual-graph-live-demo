@@ -35,10 +35,6 @@ const useHeaderVM = () => {
           onClick: downloadGraphAsTxt,
           icon: <Icon name="download" size="16px" />,
         },
-        {
-          label: "Close",
-          onClick: () => console.log("Close"),
-        },
       ],
     },
     {
@@ -151,28 +147,29 @@ const useHeaderVM = () => {
         },
       ],
     },
-    {
-      label: "View",
-      items: [
-        {
-          label: "Zoom In",
-          onClick: () => console.log("Zoom In"),
-        },
-        {
-          label: "Zoom Out",
-          onClick: () => console.log("Zoom Out"),
-        },
-        {
-          label: "Full Screen",
-          onClick: () => console.log("Full Screen"),
-        },
-      ],
-    },
+    // {
+    //   label: "View",
+    //   items: [
+    //     {
+    //       label: "Zoom In",
+    //       onClick: () => console.log("Zoom In"),
+    //     },
+    //     {
+    //       label: "Zoom Out",
+    //       onClick: () => console.log("Zoom Out"),
+    //     },
+    //     {
+    //       label: "Full Screen",
+    //       onClick: () => console.log("Full Screen"),
+    //     },
+    //   ],
+    // },
     {
       label: "Help",
       items: [
         {
           label: "About",
+          disabled: true,
           onClick: () => console.log("About"),
         },
       ],
@@ -184,10 +181,10 @@ const useHeaderVM = () => {
           label: `Change to ${theme === "light" ? "Dark" : "Light"} mode`,
           onClick: toggleTheme,
         },
-        {
-          label: "Change Language",
-          onClick: () => console.log("Change Language"),
-        },
+        // {
+        //   label: "Change Language",
+        //   onClick: () => console.log("Change Language"),
+        // },
       ],
     },
   ];
