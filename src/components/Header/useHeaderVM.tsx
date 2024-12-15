@@ -1,5 +1,6 @@
 import Icon from "components/Icon";
 import { useGraph } from "contexts/graphContext";
+import { useThemeContext } from "contexts/themeContext";
 import { ActiveAlgorithm } from "types/graph";
 
 type TItem = {
@@ -13,6 +14,8 @@ type TItem = {
 const useHeaderVM = () => {
   const { inputFileRef, downloadGraphAsTxt, setActiveAlgorithmHandler } =
     useGraph();
+  const { theme, toggleTheme } = useThemeContext();
+
   const menus: TItem[] = [
     {
       label: "File",
@@ -178,8 +181,8 @@ const useHeaderVM = () => {
       label: "Settings",
       items: [
         {
-          label: "Change Theme",
-          onClick: () => console.log("Change Theme"),
+          label: `Change to ${theme === "light" ? "Dark" : "Light"} mode`,
+          onClick: toggleTheme,
         },
         {
           label: "Change Language",

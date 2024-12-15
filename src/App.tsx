@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "components/Layout/Layout";
 import GraphPage from "pages/graph/Graph";
 import "./styles/main.scss";
+import { ThemeProvider } from "contexts/themeContext";
 
 interface Node {
   id: string;
@@ -33,15 +34,17 @@ interface CustomGraphVisualizationProps {
 
 function App() {
   return (
-    <GraphProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<GraphPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </GraphProvider>
+    <ThemeProvider>
+      <GraphProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<GraphPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </GraphProvider>
+    </ThemeProvider>
   );
 }
 

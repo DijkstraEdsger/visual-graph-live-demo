@@ -1,12 +1,12 @@
 .graph_container {
   width: 95%;
   height: 90%;
-  background-color: #f0f0f0;
+  background-color: var(--color-background-graph-container);
   position: relative;
   margin: 20px auto;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border-graph-container);
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--box-shadow-graph-container);
   overflow: hidden;
   z-index: 1;
   -webkit-user-select: none;

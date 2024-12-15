@@ -139,7 +139,7 @@ const Line: React.FC<LineProps> = ({
         >
           <polygon
             points="0 0, 10 3.5, 0 7"
-            fill={`${isTraversed ? "#32CD32" : "black"}`}
+            fill={`${isTraversed ? "#32CD32" : "var(--color-stroke-line-edge-default)"}`}
             style={{
               transition: "all 0.3s ease-in-out",
               cursor: "cell",
@@ -149,7 +149,7 @@ const Line: React.FC<LineProps> = ({
       </defs>
       <line
         ref={lineRef}
-        stroke="#4a4a4a"
+        stroke="var(--color-stroke-line-edge-default)"
         className={isTraversed ? classes.is_traversed : ""}
         strokeWidth="2"
         markerEnd={isDirected ? `url(#${arrowHeadId})` : undefined}

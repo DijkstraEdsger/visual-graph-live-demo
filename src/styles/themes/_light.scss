@@ -1,6 +1,11 @@
 @use "../tokens/colors" as colors;
 @use "../tokens/components/header" as header;
+@use "../tokens/components/parameters-section" as parametersSection;
+@use "../tokens/components/main-section" as mainSection;
+@use "../tokens/components/graph-container" as graphContainer;
 @use "../tokens/components/button" as button;
+@use "../tokens/components/text-field" as textField;
+@use "../tokens/components/vertice" as vertice;
 @use "../tokens/components/menubar" as menubar;
 @use "../tokens/components/switch" as switch;
 @use "../tokens/size";
@@ -18,6 +23,7 @@
   --color-border-button-primary-hover: #{button.$color-border-button-primary-hover-light};
   --color-border-button-primary-active: #{button.$color-border-button-primary-active-light};
   --color-font-button-primary-default: #{button.$color-font-button-primary-default-light};
+  --color-font-button-primary-disabled: #{button.$color-font-button-primary-disabled-light};
   --color-font-button-primary-hover: #{button.$color-font-button-primary-hover-light};
   --color-font-button-primary-active: #{button.$color-font-button-primary-active-light};
   --color-background-button-secondary-default: #{button.$color-background-button-secondary-default-light};
@@ -48,6 +54,7 @@
 
   --color-background-menutrigger-default: #{menubar.$color-background-menutrigger-default-light};
   --color-background-menutrigger-hover: #{menubar.$color-background-menutrigger-hover-light};
+  --color-background-menutrigger-disabled: #{menubar.$color-background-menutrigger-disabled-light};
   --color-background-menutrigger-disabled-hover: #{menubar.$color-background-menutrigger-disabled-hover-light};
   --color-font-menutrigger-default: #{menubar.$color-font-menutrigger-default-light};
   --color-font-menutrigger-hover: #{menubar.$color-font-menutrigger-hover-light};
@@ -70,6 +77,7 @@
   --size-padding-menu: #{menubar.$size-padding-menu};
   --size-border-menu: #{menubar.$size-border-menu};
   --size-border-radius-menu: #{menubar.$size-border-radius-menu};
+  --box-shadow-menu: #{menubar.$box-shadow-menu-light};
   --time-transition-menu: #{menubar.$time-transition-menu};
   --z-index-menu: #{menubar.$z-index-menu};
 
@@ -79,6 +87,62 @@
   --color-background-switch-checked: #{switch.$color-background-switch-checked-light};
   --color-background-switch-thumb-default: #{switch.$color-background-switch-thumb-default-light};
   --color-font-switch: #{switch.$color-font-switch-light};
+
+  // Header
+
+  --color-background-header: #{header.$color-background-header-light};
+  --box-shadow-header: #{header.$box-shadow-header-light};
+
+  // Parameters section
+
+  --color-background-parameters-section: #{parametersSection.$color-background-parameters-section-light};
+  --color-border-parameters-section: #{parametersSection.$color-border-parameters-section-light};
+  --color-border-parameters-section-header: #{parametersSection.$color-border-parameters-section-header-light};
+
+  // Main section
+
+  --color-background-main-section: #{mainSection.$color-background-main-section-light};
+
+  // Graph container
+
+  --color-background-graph-container: #{graphContainer.$color-background-graph-container-light};
+  --color-border-graph-container: #{graphContainer.$color-border-graph-container-light};
+  --box-shadow-graph-container: #{graphContainer.$box-shadow-graph-container-light};
+
+  // TextField
+
+  --color-background-text-field: #{textField.$color-background-text-field-light};
+  --color-border-text-field-default: #{textField.$color-border-text-field-default-light};
+  --color-border-text-field-focus: #{textField.$color-border-text-field-focus-light};
+  --color-font-text-field: #{textField.$color-font-text-field-light};
+  --box-shadow-text-field-focus: #{textField.$box-shadow-text-field-focus-light};
+
+  // Label
+
+  --color-font-label: #333333;
+
+  // Vertice
+
+  --color-background-vertice-default: #{vertice.$color-background-vertice-default-light};
+  --color-background-vertice-visited: #{vertice.$color-background-vertice-visited-light};
+  --color-border-vertice-default: #{vertice.$color-border-vertice-default-light};
+  --color-font-vertice: #{vertice.$color-font-vertice-light};
+  --box-shadow-vertice-default: #{vertice.$box-shadow-vertice-default-light};
+  --box-shadow-vertice-hover: #{vertice.$box-shadow-vertice-hover-light};
+
+  --color-background-vertice-hint-connect-default: #{vertice.$color-background-vertice-hint-connect-default-light};
+  --color-background-vertice-hint-connect-hover: #{vertice.$color-background-vertice-hint-connect-hover-light};
+  --color-border-vertice-hint-connect-default: #{vertice.$color-border-vertice-hint-connect-default-light};
+
+  // Line (edge)
+
+  --color-stroke-line-edge-default: #4a4a4a;
+  --color-stroke-line-edge-traversed: #32cd32;
+
+  // ThemeButton
+
+  --color-background-theme-button: #ffffff;
+  --color-background-theme-button-hover: #f1f2f3;
 
   --size-height-header: 36px;
 }

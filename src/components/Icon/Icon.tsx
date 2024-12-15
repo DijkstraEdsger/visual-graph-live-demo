@@ -16,6 +16,8 @@ import { ReactComponent as MinimumSpanningTreeIcon } from "assets/icons/minimum-
 import { ReactComponent as GraphTraversalIcon } from "assets/icons/graph-traversal.svg";
 import { ReactComponent as NetworkFlowIcon } from "assets/icons/network-flow.svg";
 import { ReactComponent as MatchingIcon } from "assets/icons/matching.svg";
+import { ReactComponent as SunIcon } from "assets/icons/sun.svg";
+import { ReactComponent as MoonIcon } from "assets/icons/moon.svg";
 
 interface IconProps {
   name: string;
@@ -46,6 +48,8 @@ const icons: {
   "graph-traversal": GraphTraversalIcon,
   "network-flow": NetworkFlowIcon,
   matching: MatchingIcon,
+  sun: SunIcon,
+  moon: MoonIcon,
 };
 
 const Icon: React.FC<IconProps> = ({ name, size = "sm", style, ...props }) => {
