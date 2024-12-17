@@ -1,8 +1,14 @@
 export type NodeId = number | string;
 
+export type InitialPositionType = {
+  top: number;
+  left: number;
+};
+
 export interface INode {
   id: NodeId;
   label: string;
+  position: InitialPositionType;
 }
 
 export interface IEdge {
@@ -16,11 +22,6 @@ export interface IShortestPath {
   distance: number;
   predecessor: NodeId | null;
 }
-
-export type InitialPositionType = {
-  top: number;
-  left: number;
-};
 
 export type InitialPositionsType = {
   [key: string]: InitialPositionType;

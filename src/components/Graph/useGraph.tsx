@@ -16,11 +16,11 @@ type GraphProps = {
   initialPositions?: InitialPositionsType;
   onAddEdge?: (edge: IEdge) => void;
   onAddVertice?: (
-    vertice: INode,
-    position: {
-      x: number;
-      y: number;
-    }
+    vertice: INode
+    // position: {
+    //   x: number;
+    //   y: number;
+    // }
   ) => void;
 };
 
@@ -46,7 +46,8 @@ const useGraph = ({
     if (vertices) {
       updateVerticesElements();
     }
-  }, [edgeConection, initialPositions]);
+    // }, [edgeConection, initialPositions]);
+  }, [edgeConection]);
 
   useEffect(() => {
     if (vertices) {
@@ -138,9 +139,10 @@ const useGraph = ({
       const newVertice: INode = {
         id: newVerticeLabel,
         label: String(newVerticeLabel),
+        position: { left: updatedPosition.x, top: updatedPosition.y },
       };
 
-      onAddVertice(newVertice, updatedPosition);
+      onAddVertice(newVertice);
     }
   }, [doubleClickPosition]);
 
@@ -192,7 +194,8 @@ const useGraph = ({
           label={vertice.id}
           isVisited={isVisited || isHighlighted}
           ref={verticesRefs.current[index]}
-          initialPosition={initialPositions?.[vertice.id]}
+          // initialPosition={initialPositions?.[vertice.id]}
+          initialPosition={vertice.position}
           onMouseDownEdgeHint={(ref) =>
             setNewConnectionInitialVertice(ref, vertice.id)
           }

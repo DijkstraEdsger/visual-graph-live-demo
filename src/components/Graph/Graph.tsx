@@ -12,11 +12,11 @@ type GraphProps = {
   isDirected?: boolean;
   onAddEdge?: (edge: IEdge) => void;
   onAddVertice?: (
-    vertice: INode,
-    position: {
-      x: number;
-      y: number;
-    }
+    vertice: INode
+    // position: {
+    //   x: number;
+    //   y: number;
+    // }
   ) => void;
 };
 
@@ -64,7 +64,10 @@ const Graph: React.FC<GraphProps> = ({
               refY="3.5"
               orient="auto"
             >
-              <polygon points="0 0, 10 3.5, 0 7" fill="var(--color-stroke-line-edge-default)" />
+              <polygon
+                points="0 0, 10 3.5, 0 7"
+                fill="var(--color-stroke-line-edge-default)"
+              />
             </marker>
           </defs>
         )}

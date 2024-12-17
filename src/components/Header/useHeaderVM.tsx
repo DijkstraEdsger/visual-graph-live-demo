@@ -12,7 +12,7 @@ type TItem = {
 };
 
 const useHeaderVM = () => {
-  const { inputFileRef, downloadGraphAsTxt, setActiveAlgorithmHandler } =
+  const { inputFileRef, downloadGraphAsTxt, setActiveAlgorithmHandler, undo } =
     useGraph();
   const { theme, toggleTheme } = useThemeContext();
 
@@ -137,7 +137,7 @@ const useHeaderVM = () => {
       items: [
         {
           label: "Undo",
-          onClick: () => console.log("Undo"),
+          onClick: undo,
           icon: <Icon name="undo" size="16px" />,
         },
         {
