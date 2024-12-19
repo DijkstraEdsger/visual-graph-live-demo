@@ -2,7 +2,7 @@ import Line from "components/Line/Line";
 import Vertice from "components/Vertice/Vertice";
 import { useGraphContainer } from "contexts/graphContainerContext";
 import { cloneElement, createRef, useEffect, useRef, useState } from "react";
-import { IEdge, InitialPositionsType, INode, NodeId } from "types/graph";
+import { IEdge, INode, NodeId } from "types/graph";
 import { useGraph as useGraphGlobalContext } from "contexts/graphContext";
 
 const VERTICE_SIZE = 50;
@@ -13,15 +13,8 @@ type GraphProps = {
   traversalPath?: NodeId[];
   highlightedEdges?: IEdge[];
   highlightedVertices?: NodeId[];
-  initialPositions?: InitialPositionsType;
   onAddEdge?: (edge: IEdge) => void;
-  onAddVertice?: (
-    vertice: INode
-    // position: {
-    //   x: number;
-    //   y: number;
-    // }
-  ) => void;
+  onAddVertice?: (vertice: INode) => void;
 };
 
 const useGraph = ({
@@ -30,7 +23,6 @@ const useGraph = ({
   traversalPath = [],
   highlightedEdges = [],
   highlightedVertices = [],
-  initialPositions,
   onAddEdge = () => {},
   onAddVertice = () => {},
 }: GraphProps) => {
@@ -46,7 +38,6 @@ const useGraph = ({
     if (vertices) {
       updateVerticesElements();
     }
-    // }, [edgeConection, initialPositions]);
   }, [edgeConection]);
 
   useEffect(() => {
@@ -194,7 +185,6 @@ const useGraph = ({
           label={vertice.id}
           isVisited={isVisited || isHighlighted}
           ref={verticesRefs.current[index]}
-          // initialPosition={initialPositions?.[vertice.id]}
           initialPosition={vertice.position}
           onMouseDownEdgeHint={(ref) =>
             setNewConnectionInitialVertice(ref, vertice.id)
