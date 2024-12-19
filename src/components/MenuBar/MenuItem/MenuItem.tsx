@@ -1,11 +1,11 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import Menu from "../Menu";
 import classes from "./classes.module.scss";
 import MenuTrigger from "../MenuTrigger";
 import Icon from "components/Icon";
 
 type TItem = {
-  label: string;
+  label: string | ReactNode;
   onClick?: () => void;
   items?: TItem[];
 };
@@ -70,8 +70,8 @@ const MenuItem: React.FC<MenuItemProps> = ({
           style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-between",
             columnGap: 8,
+            width: "-webkit-fill-available",
           }}
         >
           {icon}

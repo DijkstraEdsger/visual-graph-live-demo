@@ -1,10 +1,12 @@
+import { ReactNode } from "react";
 import Icon from "components/Icon";
 import { useGraph } from "contexts/graphContext";
 import { useThemeContext } from "contexts/themeContext";
 import { ActiveAlgorithm } from "types/graph";
+import classes from "./classes.module.scss";
 
 type TItem = {
-  label: string;
+  label: string | ReactNode;
   onClick?: () => void;
   items?: TItem[];
   icon?: React.ReactNode;
@@ -42,6 +44,46 @@ const useHeaderVM = () => {
         },
       ],
     },
+    {
+      label: "Edit",
+      items: [
+        {
+          label: (
+            <div className={classes.edit_menu_item}>
+              Undo<span className={classes.edit_menu_item__keys}>Ctrl+Z</span>
+            </div>
+          ),
+          onClick: undo,
+          icon: <Icon name="undo" size="16px" />,
+        },
+        {
+          label: (
+            <div className={classes.edit_menu_item}>
+              Redo<span className={classes.edit_menu_item__keys}>Ctrl+Y</span>
+            </div>
+          ),
+          onClick: redo,
+          icon: <Icon name="redo" size="16px" />,
+        },
+      ],
+    },
+    // {
+    //   label: "View",
+    //   items: [
+    //     {
+    //       label: "Zoom In",
+    //       onClick: () => console.log("Zoom In"),
+    //     },
+    //     {
+    //       label: "Zoom Out",
+    //       onClick: () => console.log("Zoom Out"),
+    //     },
+    //     {
+    //       label: "Full Screen",
+    //       onClick: () => console.log("Full Screen"),
+    //     },
+    //   ],
+    // },
     {
       label: "Algorithms",
       items: [
@@ -137,38 +179,6 @@ const useHeaderVM = () => {
         },
       ],
     },
-    {
-      label: "Edit",
-      items: [
-        {
-          label: "Undo",
-          onClick: undo,
-          icon: <Icon name="undo" size="16px" />,
-        },
-        {
-          label: "Redo",
-          onClick: redo,
-          icon: <Icon name="redo" size="16px" />,
-        },
-      ],
-    },
-    // {
-    //   label: "View",
-    //   items: [
-    //     {
-    //       label: "Zoom In",
-    //       onClick: () => console.log("Zoom In"),
-    //     },
-    //     {
-    //       label: "Zoom Out",
-    //       onClick: () => console.log("Zoom Out"),
-    //     },
-    //     {
-    //       label: "Full Screen",
-    //       onClick: () => console.log("Full Screen"),
-    //     },
-    //   ],
-    // },
     {
       label: "Help",
       items: [
