@@ -8,6 +8,7 @@ import classes from "./classes.module.scss";
 import Switch from "components/Switch/Switch";
 import BellmanFordInputs from "components/AlgorithmsInputs/BellmanFordInputs/BellmanFordInputs";
 import Prim from "components/AlgorithmsInputs/Prim/Prim";
+import { useEffect } from "react";
 
 const GraphWithAsyncData = withAsyncData(Graph);
 
@@ -26,7 +27,27 @@ const GraphPage = () => {
     addVerticeHandler,
     cleanPath,
     cleanHighlighted,
+    undo,
+    redo,
   } = useGraph();
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if ((event.ctrlKey || event.metaKey) && event.key === "z") {
+        undo?.();
+      }
+
+      if ((event.ctrlKey || event.metaKey) && event.key === "y") {
+        redo?.();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [undo, redo]);
 
   return (
     <div className={classes["page-container"]}>
