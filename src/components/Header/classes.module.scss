@@ -13,3 +13,14 @@
   height: 36px;
   transition: background-color 0.3s;
 }
+
+.edit_menu_item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  &__keys {
+    color: #80868b;
+    font-weight: 500;
+  }
+}

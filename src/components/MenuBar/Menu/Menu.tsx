@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { ReactNode, useEffect } from "react";
 import { motion } from "framer-motion";
 import classes from "./classes.module.scss";
 import MenuItem from "../MenuItem";
 
 type TItem = {
-  label: string;
+  label: string | ReactNode;
   onClick?: () => void;
   items?: TItem[];
   icon?: React.ReactNode;
