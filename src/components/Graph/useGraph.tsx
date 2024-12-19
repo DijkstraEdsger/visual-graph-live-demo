@@ -2,7 +2,7 @@ import Line from "components/Line/Line";
 import Vertice from "components/Vertice/Vertice";
 import { useGraphContainer } from "contexts/graphContainerContext";
 import { cloneElement, createRef, useEffect, useRef, useState } from "react";
-import { IEdge, InitialPositionsType, INode, NodeId } from "types/graph";
+import { IEdge, INode, NodeId } from "types/graph";
 import { useGraph as useGraphGlobalContext } from "contexts/graphContext";
 
 const VERTICE_SIZE = 50;
@@ -13,15 +13,8 @@ type GraphProps = {
   traversalPath?: NodeId[];
   highlightedEdges?: IEdge[];
   highlightedVertices?: NodeId[];
-  initialPositions?: InitialPositionsType;
   onAddEdge?: (edge: IEdge) => void;
-  onAddVertice?: (
-    vertice: INode,
-    position: {
-      x: number;
-      y: number;
-    }
-  ) => void;
+  onAddVertice?: (vertice: INode) => void;
 };
 
 const useGraph = ({
@@ -30,7 +23,6 @@ const useGraph = ({
   traversalPath = [],
   highlightedEdges = [],
   highlightedVertices = [],
-  initialPositions,
   onAddEdge = () => {},
   onAddVertice = () => {},
 }: GraphProps) => {
@@ -46,7 +38,7 @@ const useGraph = ({
     if (vertices) {
       updateVerticesElements();
     }
-  }, [edgeConection, initialPositions]);
+  }, [edgeConection]);
 
   useEffect(() => {
     if (vertices) {
@@ -138,9 +130,10 @@ const useGraph = ({
       const newVertice: INode = {
         id: newVerticeLabel,
         label: String(newVerticeLabel),
+        position: { left: updatedPosition.x, top: updatedPosition.y },
       };
 
-      onAddVertice(newVertice, updatedPosition);
+      onAddVertice(newVertice);
     }
   }, [doubleClickPosition]);
 
@@ -192,7 +185,7 @@ const useGraph = ({
           label={vertice.id}
           isVisited={isVisited || isHighlighted}
           ref={verticesRefs.current[index]}
-          initialPosition={initialPositions?.[vertice.id]}
+          initialPosition={vertice.position}
           onMouseDownEdgeHint={(ref) =>
             setNewConnectionInitialVertice(ref, vertice.id)
           }
@@ -200,7 +193,7 @@ const useGraph = ({
           onMouseUpEdgeHint={(data) => {
             setNewConnectionSecondVertice(verticesRefs.current[index], data);
           }}
-          onChangePosition={(position) => updatePositions(vertice, position)}
+          onChangePosition={(position) => updatePositions?.(vertice, position)}
           onRemove={() => removeVertice?.(vertice)}
         />
       );
@@ -213,7 +206,7 @@ const useGraph = ({
     if (edges) {
       updateEdgesElements();
     }
-  }, [edges]);
+  }, [edges, verticesElements]);
 
   const isEdgeTraversed = (edge: IEdge) => {
     const { source, target } = edge;
@@ -239,6 +232,13 @@ const useGraph = ({
         verticesRefs.current[vertices.findIndex((v) => v.id === vertice2)];
       const isTraversed = isEdgeTraversed(edge);
 
+      const div1Rect = vertice1Ref.current?.getBoundingClientRect();
+      const div2Rect = vertice2Ref.current?.getBoundingClientRect();
+      const div1X = div1Rect?.x;
+      const div1Y = div1Rect?.y;
+      const div2X = div2Rect?.x;
+      const div2Y = div2Rect?.y;
+
       return (
         <Line
           key={`${vertice1}-${vertice2}`}
@@ -247,6 +247,10 @@ const useGraph = ({
           isTraversed={isTraversed}
           onRemove={() => removeEdge?.(edge)}
           isDirected={isDirected}
+          div1X={div1X}
+          div1Y={div1Y}
+          div2X={div2X}
+          div2Y={div2Y}
         />
       );
     });

@@ -12,8 +12,13 @@ type TItem = {
 };
 
 const useHeaderVM = () => {
-  const { inputFileRef, downloadGraphAsTxt, setActiveAlgorithmHandler } =
-    useGraph();
+  const {
+    inputFileRef,
+    downloadGraphAsTxt,
+    setActiveAlgorithmHandler,
+    undo,
+    redo,
+  } = useGraph();
   const { theme, toggleTheme } = useThemeContext();
 
   const menus: TItem[] = [
@@ -137,12 +142,12 @@ const useHeaderVM = () => {
       items: [
         {
           label: "Undo",
-          onClick: () => console.log("Undo"),
+          onClick: undo,
           icon: <Icon name="undo" size="16px" />,
         },
         {
           label: "Redo",
-          onClick: () => console.log("Redo"),
+          onClick: redo,
           icon: <Icon name="redo" size="16px" />,
         },
       ],

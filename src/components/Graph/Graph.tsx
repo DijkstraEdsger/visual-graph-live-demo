@@ -1,6 +1,6 @@
 import React from "react";
 import useGraph from "./useGraph";
-import { IEdge, InitialPositionsType, INode, NodeId } from "types/graph";
+import { IEdge, INode, NodeId } from "types/graph";
 
 type GraphProps = {
   vertices?: INode[];
@@ -8,16 +8,9 @@ type GraphProps = {
   traversalPath?: NodeId[];
   highlightedEdges?: IEdge[];
   highlightedVertices?: NodeId[];
-  initialPositions?: InitialPositionsType;
   isDirected?: boolean;
   onAddEdge?: (edge: IEdge) => void;
-  onAddVertice?: (
-    vertice: INode,
-    position: {
-      x: number;
-      y: number;
-    }
-  ) => void;
+  onAddVertice?: (vertice: INode) => void;
 };
 
 const Graph: React.FC<GraphProps> = ({
@@ -26,7 +19,6 @@ const Graph: React.FC<GraphProps> = ({
   traversalPath = [],
   highlightedEdges = [],
   highlightedVertices = [],
-  initialPositions,
   isDirected = false,
   onAddEdge = () => {},
   onAddVertice = () => {},
@@ -37,7 +29,6 @@ const Graph: React.FC<GraphProps> = ({
     traversalPath,
     highlightedEdges,
     highlightedVertices,
-    initialPositions,
     onAddEdge,
     onAddVertice,
   });
@@ -64,7 +55,10 @@ const Graph: React.FC<GraphProps> = ({
               refY="3.5"
               orient="auto"
             >
-              <polygon points="0 0, 10 3.5, 0 7" fill="var(--color-stroke-line-edge-default)" />
+              <polygon
+                points="0 0, 10 3.5, 0 7"
+                fill="var(--color-stroke-line-edge-default)"
+              />
             </marker>
           </defs>
         )}
