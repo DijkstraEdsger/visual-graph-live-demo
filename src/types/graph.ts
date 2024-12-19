@@ -43,6 +43,5 @@ export enum ActiveAlgorithm {
 export interface IGraphFile {
   vertices: INode[];
   edges: IEdge[];
-  positions: InitialPositionsType;
   isDirected?: boolean;
 }

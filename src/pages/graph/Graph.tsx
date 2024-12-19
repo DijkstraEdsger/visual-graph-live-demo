@@ -18,7 +18,6 @@ const GraphPage = () => {
     traversalPath,
     highlightedEdges,
     highlightedVertices,
-    positions,
     activeAlgorithm,
     algorithms,
     isDirected,
@@ -70,7 +69,6 @@ const GraphPage = () => {
             highlightedEdges={highlightedEdges}
             highlightedVertices={highlightedVertices}
             animatePath
-            initialPositions={positions}
             speed={2}
             onAddEdge={addEdgeHandler}
             onAddVertice={addVerticeHandler}

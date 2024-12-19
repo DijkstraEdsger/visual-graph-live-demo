@@ -203,7 +203,7 @@ const useGraph = ({
           onMouseUpEdgeHint={(data) => {
             setNewConnectionSecondVertice(verticesRefs.current[index], data);
           }}
-          onChangePosition={(position) => updatePositions(vertice, position)}
+          onChangePosition={(position) => updatePositions?.(vertice, position)}
           onRemove={() => removeVertice?.(vertice)}
         />
       );
@@ -216,7 +216,7 @@ const useGraph = ({
     if (edges) {
       updateEdgesElements();
     }
-  }, [edges]);
+  }, [edges, verticesElements]);
 
   const isEdgeTraversed = (edge: IEdge) => {
     const { source, target } = edge;
@@ -242,6 +242,13 @@ const useGraph = ({
         verticesRefs.current[vertices.findIndex((v) => v.id === vertice2)];
       const isTraversed = isEdgeTraversed(edge);
 
+      const div1Rect = vertice1Ref.current?.getBoundingClientRect();
+      const div2Rect = vertice2Ref.current?.getBoundingClientRect();
+      const div1X = div1Rect?.x;
+      const div1Y = div1Rect?.y;
+      const div2X = div2Rect?.x;
+      const div2Y = div2Rect?.y;
+
       return (
         <Line
           key={`${vertice1}-${vertice2}`}
@@ -250,6 +257,10 @@ const useGraph = ({
           isTraversed={isTraversed}
           onRemove={() => removeEdge?.(edge)}
           isDirected={isDirected}
+          div1X={div1X}
+          div1Y={div1Y}
+          div2X={div2X}
+          div2Y={div2Y}
         />
       );
     });

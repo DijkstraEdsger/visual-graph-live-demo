@@ -9,6 +9,10 @@ type LineProps = {
   div2Ref: React.RefObject<HTMLDivElement> | null;
   isTraversed?: boolean;
   isDirected?: boolean;
+  div1X?: number;
+  div1Y?: number;
+  div2X?: number;
+  div2Y?: number;
   onRemove?: () => void;
 };
 
@@ -17,6 +21,10 @@ const Line: React.FC<LineProps> = ({
   div2Ref,
   isTraversed = false,
   isDirected = false,
+  div1X,
+  div1Y,
+  div2X,
+  div2Y,
   onRemove = () => {},
 }: LineProps) => {
   const lineRef = useRef<SVGLineElement>(null);
@@ -85,7 +93,7 @@ const Line: React.FC<LineProps> = ({
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [div1Ref, div2Ref, containerEl]);
+  }, [div1Ref, div2Ref, containerEl, div1X, div1Y, div2X, div2Y]);
 
   const handleMouseEnter = () => {
     if (crossRef.current) {
@@ -139,7 +147,9 @@ const Line: React.FC<LineProps> = ({
         >
           <polygon
             points="0 0, 10 3.5, 0 7"
-            fill={`${isTraversed ? "#32CD32" : "var(--color-stroke-line-edge-default)"}`}
+            fill={`${
+              isTraversed ? "#32CD32" : "var(--color-stroke-line-edge-default)"
+            }`}
             style={{
               transition: "all 0.3s ease-in-out",
               cursor: "cell",

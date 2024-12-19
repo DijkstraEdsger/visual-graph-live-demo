@@ -8,6 +8,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useReducer,
   useRef,
   useState,
 } from "react";
@@ -20,29 +21,8 @@ import {
   Position,
 } from "types/graph";
 
-// const initialVertices: INode[] = [
-//   { id: "1", label: "1" },
-//   { id: "2", label: "2" },
-//   { id: "3", label: "3" },
-// ];
-const initialEdges: IEdge[] = [
-  { source: "1", target: "2", weight: 1 },
-  { source: "1", target: "3", weight: 1 },
-  { source: "2", target: "3", weight: 1 },
-];
-const initialTraversalPath: NodeId[] = [1, 2, 3, 4];
-const initialPositions = {
-  1: { left: 100, top: 100 },
-  2: { left: 300, top: 100 },
-  3: { left: 200, top: 300 },
-};
-
 type TimeStampHistoryItem = {
-  vertices: INode[];
-  edges: IEdge[];
-  positions?: {
-    [key: string]: { left: number; top: number };
-  };
+  graph: GraphState;
 };
 
 type Undo = TimeStampHistoryItem[];
@@ -54,13 +34,141 @@ type HistoryStack = {
   redo: Redo;
 };
 
+type GraphState = {
+  vertices: INode[];
+  edges: IEdge[];
+  isDirected?: boolean;
+};
+
+const initialState: GraphState = {
+  vertices: [],
+  edges: [],
+  isDirected: false,
+};
+
+enum ActionType {
+  ADD_VERTICE = "vertice/add",
+  DELETE_VERTICE = "vertice/delete",
+  UPDATE_VERTICE_POSITION = "vertice/updatePosition",
+  ADD_EDGE = "edge/add",
+  DELETE_EDGE = "edge/delete",
+  UPDATE_IS_DIRECTED = "isDirected/update",
+  SET_STATE = "state/set",
+}
+
+type UpdatePositionType = {
+  verticeId: NodeId;
+  position: Position;
+};
+
+type ActionPayload =
+  | INode
+  | IEdge
+  | boolean
+  | NodeId
+  | UpdatePositionType
+  | GraphState;
+
+type Action = {
+  type: ActionType;
+  payload: ActionPayload;
+};
+
+const reducer: React.Reducer<GraphState, Action> = (
+  state,
+  action
+): GraphState => {
+  switch (action.type) {
+    case ActionType.ADD_VERTICE:
+      const newVertice = action.payload as INode;
+
+      return {
+        ...state,
+        vertices: [...structuredClone(state.vertices), newVertice],
+      };
+
+    case ActionType.DELETE_VERTICE:
+      const verticeId = action.payload as NodeId;
+      const filteredVertices = structuredClone(state.vertices).filter(
+        (vertice: INode) => vertice.id !== verticeId
+      );
+
+      const filteredEdges = structuredClone(state.edges).filter(
+        (e: IEdge) => e.source !== verticeId && e.target !== verticeId
+      );
+
+      return {
+        ...state,
+        vertices: [...filteredVertices],
+        edges: [...filteredEdges],
+      };
+    case ActionType.UPDATE_VERTICE_POSITION:
+      const { verticeId: id, position }: UpdatePositionType =
+        action.payload as UpdatePositionType;
+
+      const verticesCopy = [...structuredClone(state.vertices)];
+
+      const findVerticeIndex = verticesCopy.findIndex(
+        (v: INode) => v.id === id
+      );
+
+      if (findVerticeIndex !== -1) {
+        verticesCopy[findVerticeIndex].position = {
+          left: position.x,
+          top: position.y,
+        };
+      }
+
+      return {
+        ...state,
+        vertices: [...verticesCopy],
+      };
+    case ActionType.ADD_EDGE:
+      const newEdge: IEdge = action.payload as IEdge;
+
+      return {
+        ...state,
+        edges: [...structuredClone(state.edges), newEdge],
+      };
+    case ActionType.DELETE_EDGE:
+      const edge: IEdge = action.payload as IEdge;
+
+      const indexEdge = state.edges.findIndex(
+        (e) =>
+          (e.source === edge.source && e.target === edge.target) ||
+          (e.source === edge.target && e.target === edge.source)
+      );
+
+      const edgesCopy = [...structuredClone(state.edges)];
+
+      if (indexEdge !== -1) {
+        edgesCopy.splice(indexEdge, 1);
+      }
+
+      return {
+        ...state,
+        edges: [...edgesCopy],
+      };
+    case ActionType.UPDATE_IS_DIRECTED:
+      return {
+        ...state,
+        isDirected: action.payload as boolean,
+      };
+    case ActionType.SET_STATE:
+      const newState: GraphState = action.payload as GraphState;
+
+      return {
+        ...newState,
+      };
+  }
+};
+
 const GraphContext = createContext<{
   vertices: INode[];
   edges: IEdge[];
   traversalPath: NodeId[];
   highlightedEdges?: IEdge[];
   highlightedVertices?: NodeId[];
-  positions: { [key: string]: { left: number; top: number } };
   inputFileRef: RefObject<HTMLInputElement>;
   algorithms?: {
     dijkstra: (source: NodeId, target: NodeId) => void;
@@ -70,7 +178,6 @@ const GraphContext = createContext<{
   activeAlgorithm?: string | null;
   isDirected?: boolean;
   setIsDirectedHandler: (isDirected: boolean) => void;
-  // addVerticeHandler: (vertice: INode, position: Position) => void;
   addVerticeHandler: (vertice: INode) => void;
   addEdgeHandler: (edge: IEdge) => void;
   downloadGraphAsTxt: () => void;
@@ -82,11 +189,11 @@ const GraphContext = createContext<{
   cleanPath?: () => void;
   cleanHighlighted?: () => void;
   undo?: () => void;
+  redo?: () => void;
 }>({
   vertices: [],
   edges: [],
   traversalPath: [],
-  positions: {},
   inputFileRef: { current: null },
   isDirected: false,
   setIsDirectedHandler: () => {},
@@ -98,6 +205,7 @@ const GraphContext = createContext<{
   removeEdge: () => {},
   removeVertice: () => {},
   undo: () => {},
+  redo: () => {},
 });
 
 type GraphProviderProps = {
@@ -107,54 +215,47 @@ type GraphProviderProps = {
 const GraphProvider: FC<GraphProviderProps> = ({
   children,
 }: GraphProviderProps) => {
-  const [vertices, setVertices] = useState<INode[]>([]);
-  const [edges, setEdges] = useState<IEdge[]>([]);
   const [traversalPath, setWayPoints] = useState<NodeId[]>([]);
   const [highlightedEdges, setHighlightedEdges] = useState<IEdge[]>([]);
   const [highlightedVertices, setHighlightedVertices] = useState<NodeId[]>([]);
-  const [positions, setPositions] = useState<{
-    [key: string]: { left: number; top: number };
-  }>({});
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [graphAdapter, setGraphAdapter] = useState<IGraphAdapter | null>(null);
   const [shortestPaths, setShortestPaths] = useState<
     Record<NodeId, IShortestPath>
   >({});
   const [activeAlgorithm, setActiveAlgorithm] = useState<string | null>(null);
-  const [isDirected, setIsDirected] = useState<boolean>(false);
   const historyStack = useRef<HistoryStack>({
-    undo: [
-      // {
-      //   vertices: [],
-      //   edges: [],
-      // },
-    ],
-    redo: [
-      // {
-      //   vertices: [],
-      //   edges: [],
-      // },
-    ],
+    undo: [],
+    redo: [],
   });
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const updateHistoryStack = ({
     prevVertices,
     prevEdges,
+    prevIsDirected,
   }: {
     prevVertices?: INode[];
     prevEdges?: IEdge[];
+    prevIsDirected?: boolean;
   }) => {
     const undoLength = historyStack.current.undo.length;
 
     historyStack.current.undo.push({
-      vertices: prevVertices
-        ? [...prevVertices]
-        : historyStack.current.undo[undoLength - 1]?.vertices ?? [],
-      edges: prevEdges
-        ? [...prevEdges]
-        : historyStack.current.undo[undoLength - 1]?.edges ?? [],
-      // positions: structuredClone(positions),
+      graph: {
+        vertices: prevVertices
+          ? [...prevVertices]
+          : historyStack.current.undo[undoLength - 1]?.graph?.vertices ?? [],
+        edges: prevEdges
+          ? [...prevEdges]
+          : historyStack.current.undo[undoLength - 1]?.graph?.edges ?? [],
+        isDirected:
+          prevIsDirected !== undefined
+            ? prevIsDirected
+            : !!historyStack.current.undo[undoLength - 1]?.graph?.isDirected,
+      },
     });
+
     historyStack.current.redo = [];
   };
 
@@ -163,90 +264,86 @@ const GraphProvider: FC<GraphProviderProps> = ({
       const previousState = historyStack.current.undo.pop();
 
       historyStack.current.redo.push({
-        vertices: [...vertices],
-        edges: [...edges],
-        positions: structuredClone(positions),
+        graph: {
+          vertices: [...structuredClone(state.vertices)],
+          edges: [...structuredClone(state.edges)],
+          isDirected: state.isDirected,
+        },
       });
-      setVertices(previousState?.vertices ?? []);
-      setEdges(previousState?.edges ?? []);
-      setPositions(structuredClone(previousState?.positions ?? {}));
+
+      const newState: GraphState = structuredClone(
+        previousState?.graph
+      ) as GraphState;
+
+      dispatch({ type: ActionType.SET_STATE, payload: newState });
     }
   };
 
-  // const redo = () => {
-  //   if (historyStack.current.redo.length > 0) {
-  //     const nextState = historyStack.current.redo.pop();
-  //     historyStack.current.undo.push(state);
-  //     setState(nextState);
-  //   }
-  // };
+  const redo = () => {
+    if (historyStack.current.redo.length > 0) {
+      const nextState = historyStack.current.redo.pop();
+
+      historyStack.current.undo.push({
+        graph: {
+          vertices: [...structuredClone(state.vertices)],
+          edges: [...structuredClone(state.edges)],
+          isDirected: state.isDirected,
+        },
+      });
+
+      const newState: GraphState = structuredClone(
+        nextState?.graph
+      ) as GraphState;
+
+      dispatch({ type: ActionType.SET_STATE, payload: newState });
+    }
+  };
 
   const adapter = useMemo(() => {
+    const { vertices, edges, isDirected } = state;
     return new GraphlibAdapter(isDirected, vertices, edges);
-  }, [isDirected]);
+  }, [state.isDirected]);
 
   const setIsDirectedHandler = (isDirected: boolean) => {
-    setIsDirected(isDirected);
+    dispatch({ type: ActionType.UPDATE_IS_DIRECTED, payload: isDirected });
   };
 
   const addEdgeHandler = (edge: IEdge) => {
-    // Undo tracking begin
-
-    updateHistoryStack({ prevVertices: [...vertices], prevEdges: edges });
-
-    // Undo tracking end
-    setEdges([...edges, edge]);
+    dispatch({ type: ActionType.ADD_EDGE, payload: edge });
     adapter.addEdge(edge);
   };
 
-  const addVerticeHandler = (
-    vertice: INode
-    // position: {
-    //   x: number;
-    //   y: number;
-    // }
-  ) => {
-    // Undo tracking begin
+  const addVerticeHandler = (vertice: INode) => {
+    dispatch({ type: ActionType.ADD_VERTICE, payload: vertice });
 
-    updateHistoryStack({ prevVertices: [...vertices], prevEdges: edges });
-
-    // Undo tracking end
-
-    setVertices([...vertices, { ...vertice }]);
-    // setPositions({
-    //   ...positions,
-    //   [vertice.id]: { left: position.x, top: position.y },
-    // });
     adapter.addNode(vertice);
   };
 
-  const updatePositions = (vertice: INode, position: Position) => {
-    // setPositions((prevP) => ({
-    //   ...prevP,
-    //   [vertice.id]: {
-    //     left: position.x,
-    //     top: position.y,
-    //   },
-    // }));
-    setVertices((prevV) => {
+  useEffect(() => {
+    const undoSize = historyStack.current.undo.length;
+
+    return () => {
       // Undo tracking begin
 
-      updateHistoryStack({ prevVertices: [...prevV], prevEdges: edges });
-
-      // Undo tracking end
-      const verticesCopy = structuredClone(prevV);
-      const findVerticeIndex = verticesCopy.findIndex(
-        (v: INode) => v.id === vertice.id
-      );
-
-      if (findVerticeIndex !== -1) {
-        verticesCopy[findVerticeIndex].position = {
-          left: position.x,
-          top: position.y,
-        };
+      if (undoSize === historyStack.current.undo.length) {
+        updateHistoryStack({
+          prevVertices: [...state.vertices],
+          prevEdges: [...state.edges],
+          prevIsDirected: state.isDirected,
+        });
       }
 
-      return verticesCopy;
+      // Undo tracking end
+    };
+  }, [state]);
+
+  const updatePositions = (vertice: INode, position: Position) => {
+    dispatch({
+      type: ActionType.UPDATE_VERTICE_POSITION,
+      payload: {
+        verticeId: vertice.id,
+        position,
+      },
     });
   };
 
@@ -255,10 +352,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
     // the format will be like a JSON object
 
     const data = {
-      vertices,
-      edges,
-      positions,
-      isDirected,
+      ...state,
     };
 
     const a = document.createElement("a");
@@ -281,10 +375,12 @@ const GraphProvider: FC<GraphProviderProps> = ({
       reader.onload = (e) => {
         const result = e.target?.result as string;
         const data: IGraphFile = JSON.parse(result);
-        setVertices(data.vertices);
-        setEdges(data.edges);
-        setPositions(data.positions);
-        setIsDirected(data.isDirected ?? false);
+        const newState: GraphState = {
+          vertices: data.vertices,
+          edges: data.edges,
+          isDirected: data.isDirected,
+        };
+        dispatch({ type: ActionType.SET_STATE, payload: newState });
         createGraphFromData(data);
       };
       reader.readAsText(file);
@@ -294,44 +390,14 @@ const GraphProvider: FC<GraphProviderProps> = ({
   };
 
   const removeEdge = (edge: IEdge) => {
-    // Undo tracking begin
-
-    updateHistoryStack({ prevVertices: [...vertices], prevEdges: [...edges] });
-
-    // Undo tracking end
-
-    const indexEdge = edges.findIndex(
-      (e) =>
-        (e.source === edge.source && e.target === edge.target) ||
-        (e.source === edge.target && e.target === edge.source)
-    );
-
-    if (indexEdge !== -1) {
-      const newEdges = [...edges];
-      newEdges.splice(indexEdge, 1);
-      setEdges(newEdges);
-      adapter.removeEdge(edge);
-    }
+    dispatch({ type: ActionType.DELETE_EDGE, payload: edge });
+    adapter.removeEdge(edge);
   };
 
   const removeVertice = (vertice: INode) => {
-    // Undo tracking begin
-
-    updateHistoryStack({ prevVertices: [...vertices], prevEdges: [...edges] });
-
-    // Undo tracking end
-    const newVertices = vertices.filter((v) => v.id !== vertice.id);
-    setVertices(newVertices);
     adapter.removeNode(vertice.id);
 
-    const newEdges = edges.filter(
-      (e) => e.source !== vertice.id && e.target !== vertice.id
-    );
-    setEdges(newEdges);
-
-    // const newPositions = { ...positions };
-    // delete newPositions[vertice.id];
-    // setPositions(newPositions);
+    dispatch({ type: ActionType.DELETE_VERTICE, payload: vertice.id });
 
     const newTraversalPath = traversalPath.filter((v) => v !== vertice.id);
     setWayPoints(newTraversalPath);
@@ -373,12 +439,11 @@ const GraphProvider: FC<GraphProviderProps> = ({
   return (
     <GraphContext.Provider
       value={{
-        vertices,
-        edges,
+        vertices: state.vertices,
+        edges: state.edges,
         traversalPath,
         highlightedEdges,
         highlightedVertices,
-        positions,
         inputFileRef,
         activeAlgorithm,
         algorithms: {
@@ -386,7 +451,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
           bellmanFord: runBellmanFordHandler,
           prim: runPrimHandler,
         },
-        isDirected: isDirected,
+        isDirected: state.isDirected,
         setIsDirectedHandler,
         addVerticeHandler,
         addEdgeHandler,
@@ -399,6 +464,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
         cleanPath,
         cleanHighlighted,
         undo,
+        redo,
       }}
     >
       {children}
