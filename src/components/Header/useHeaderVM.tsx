@@ -30,6 +30,10 @@ const useHeaderVM = () => {
     dispatch({ type: UIActionType.UI_OPEN_SAVE_DOCUMENT_MODAL });
   };
 
+  const openOpenDocumentModalHandler = () => {
+    dispatch({ type: UIActionType.UI_OPEN_OPEN_DOCUMENT_MODAL });
+  };
+
   const menus: TItem[] = [
     {
       label: "File",
@@ -41,7 +45,7 @@ const useHeaderVM = () => {
         },
         {
           label: "Open",
-          onClick: () => inputFileRef.current?.click(),
+          onClick: openOpenDocumentModalHandler,
           icon: <Icon name="open" size="16px" />,
         },
         {
@@ -53,6 +57,11 @@ const useHeaderVM = () => {
           label: "Download",
           onClick: downloadGraphAsTxt,
           icon: <Icon name="download" size="16px" />,
+        },
+        {
+          label: "Upload",
+          onClick: () => inputFileRef.current?.click(),
+          icon: <Icon name="open" size="16px" />,
         },
       ],
     },

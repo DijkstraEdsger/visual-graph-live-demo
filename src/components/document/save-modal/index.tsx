@@ -30,9 +30,9 @@ const SaveDocumentModal: React.FC = () => {
     }
   }, [saveDocumentModal?.isOpen]);
 
-  if (!saveDocumentModal?.isOpen) {
-    return null;
-  }
+  // if (!saveDocumentModal?.isOpen) {
+  //   return null;
+  // }
 
   const changeNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -48,7 +48,11 @@ const SaveDocumentModal: React.FC = () => {
   };
 
   return (
-    <Modal title="Save" isOpen onClose={cancelHandler}>
+    <Modal
+      title="Save"
+      isOpen={saveDocumentModal?.isOpen}
+      onClose={cancelHandler}
+    >
       <TextField
         placeholder="Enter document name"
         onChange={changeNameHandler}

@@ -191,6 +191,7 @@ const GraphContext = createContext<{
   cleanHighlighted?: () => void;
   undo?: () => void;
   redo?: () => void;
+  openGraph?: (data: GraphState) => void;
 }>({
   graph: {
     vertices: [],
@@ -395,6 +396,16 @@ const GraphProvider: FC<GraphProviderProps> = ({
     inputFileRef.current!.value = "";
   };
 
+  const openGraph = (data: GraphState) => {
+    const newState: GraphState = {
+      vertices: data.vertices,
+      edges: data.edges,
+      isDirected: data.isDirected,
+    };
+    dispatch({ type: ActionType.SET_STATE, payload: newState });
+    createGraphFromData(data);
+  };
+
   const removeEdge = (edge: IEdge) => {
     dispatch({ type: ActionType.DELETE_EDGE, payload: edge });
     adapter.removeEdge(edge);
@@ -472,6 +483,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
         cleanHighlighted,
         undo,
         redo,
+        openGraph,
       }}
     >
       {children}

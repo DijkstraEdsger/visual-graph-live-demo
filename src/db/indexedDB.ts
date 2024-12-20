@@ -100,7 +100,7 @@ export const getAllGraphs = async () => {
     const request = store.getAll();
 
     request.onsuccess = () => {
-      resolve(request.result.map((item: any) => item.data));
+      resolve(request.result.map((item: any) => item));
     };
 
     request.onerror = () => {

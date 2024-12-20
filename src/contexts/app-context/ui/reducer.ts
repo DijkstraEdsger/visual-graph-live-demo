@@ -16,6 +16,20 @@ export const uiReducer = (state: UIState, action: UIAction): UIState => {
           isOpen: false,
         },
       };
+    case UIActionType.UI_OPEN_OPEN_DOCUMENT_MODAL:
+      return {
+        ...state,
+        openDocumentModal: {
+          isOpen: true,
+        },
+      };
+    case UIActionType.UI_CLOSE_OPEN_DOCUMENT_MODAL:
+      return {
+        ...state,
+        openDocumentModal: {
+          isOpen: false,
+        },
+      };
 
     default:
       return state;

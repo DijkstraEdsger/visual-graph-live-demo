@@ -10,6 +10,7 @@ import BellmanFordInputs from "components/AlgorithmsInputs/BellmanFordInputs/Bel
 import Prim from "components/AlgorithmsInputs/Prim/Prim";
 import { useEffect } from "react";
 import SaveDocumentModal from "components/document/save-modal";
+import OpenDocument from "components/document/open-modal";
 
 const GraphWithAsyncData = withAsyncData(Graph);
 
@@ -99,6 +100,7 @@ const GraphPage = () => {
         </GraphContainer>
       </div>
       <SaveDocumentModal />
+      <OpenDocument />
     </div>
   );
 };

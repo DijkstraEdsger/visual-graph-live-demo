@@ -5,7 +5,7 @@ import {
 import { getAllGraphs, getGraph, renameGraph } from "db/indexedDB";
 import { useEffect } from "react";
 
-export const useDelete = () => {
+export const useGet = () => {
   const state = useGraphDocumentState();
   const dispatch = useGraphDocumentDispatch();
 
