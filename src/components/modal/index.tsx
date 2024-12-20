@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import classes from "./classes.module.scss";
 import Icon from "components/Icon";
 
@@ -24,23 +25,21 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
 
-  useEffect(() => {
-    if (isOpen && modalRef.current) {
-      modalRef.current.focus();
-    }
-  }, [isOpen]);
-
   if (!isOpen) return null;
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
       className={classes["modal-overlay"]}
       onClick={onClose}
     >
-      <div
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         className={classes["modal-content"]}
         ref={modalRef}
         tabIndex={-1}
@@ -57,8 +56,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
           </button>
         </div>
         <div className={classes["modal-body"]}>{children}</div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

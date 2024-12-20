@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 import Modal from "components/modal";
 import TextField from "components/TextField/TextField";
 import classes from "./classes.module.scss";
@@ -18,6 +18,17 @@ const SaveDocumentModal: React.FC = () => {
   } = useAppState();
   const dispatch = useAppDispatch();
   const { pending, addNewGraphDocument } = useAdd();
+  const inputTextRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputTextRef.current && saveDocumentModal?.isOpen) {
+      inputTextRef.current.focus();
+    }
+
+    if (!saveDocumentModal?.isOpen) {
+      setName("");
+    }
+  }, [saveDocumentModal?.isOpen]);
 
   if (!saveDocumentModal?.isOpen) {
     return null;
@@ -46,6 +57,7 @@ const SaveDocumentModal: React.FC = () => {
         type="text"
         name="name"
         id={id}
+        ref={inputTextRef}
       />
       <div className={classes.actions}>
         <Button
