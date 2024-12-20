@@ -24,16 +24,16 @@ const openIndexedDB = () => {
 };
 
 const sleep = (ms: number) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(1);
-      }, ms);
-    });
-  };
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(1);
+    }, ms);
+  });
+};
 
 export const addGraph = async (graphName: string, graphData: any) => {
   const db = await openIndexedDB();
-  await sleep(2000);
+  //   await sleep(2000);
   return new Promise<void>((resolve, reject) => {
     const transaction = db.transaction([storeName], "readwrite");
     const store = transaction.objectStore(storeName);

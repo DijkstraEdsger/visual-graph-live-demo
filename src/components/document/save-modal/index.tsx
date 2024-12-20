@@ -7,18 +7,17 @@ import {
   useAppDispatch,
   useAppState,
 } from "contexts/app-context/root/provider";
-import { useGraph } from "contexts/graphContext";
 import { UIActionType } from "contexts/app-context/ui/types";
+import { useAdd } from "hooks/graph-document/useAdd";
 
 const SaveDocumentModal: React.FC = () => {
   const [name, setName] = useState("");
-  const [pending, setPending] = useState(false);
   const id = useId();
   const {
     ui: { saveDocumentModal },
   } = useAppState();
-  const { addGraphDocument } = useGraph();
   const dispatch = useAppDispatch();
+  const { pending, addNewGraphDocument } = useAdd();
 
   if (!saveDocumentModal?.isOpen) {
     return null;
@@ -29,9 +28,7 @@ const SaveDocumentModal: React.FC = () => {
   };
 
   const confirmHandler = async () => {
-    setPending(true);
-    await addGraphDocument?.(name);
-    setPending(false);
+    await addNewGraphDocument?.(name);
     dispatch({ type: UIActionType.UI_CLOSE_SAVE_DOCUMENT_MODAL });
   };
 

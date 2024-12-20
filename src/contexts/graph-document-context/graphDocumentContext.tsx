@@ -1,8 +1,13 @@
 import React, { createContext, useContext, useReducer, ReactNode } from "react";
+import { IEdge, INode } from "types/graph";
 
 interface Graph {
   name: string;
-  data: any;
+  data: {
+    vertices: INode[];
+    edges: IEdge[];
+    isDirected?: boolean;
+  };
 }
 
 interface GraphState {

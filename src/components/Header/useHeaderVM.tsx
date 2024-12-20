@@ -22,7 +22,6 @@ const useHeaderVM = () => {
     setActiveAlgorithmHandler,
     undo,
     redo,
-    // addGraphDocument,
   } = useGraph();
   const { theme, toggleTheme } = useThemeContext();
   const dispatch = useAppDispatch();

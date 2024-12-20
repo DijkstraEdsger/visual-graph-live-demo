@@ -1,5 +1,4 @@
 import GraphlibAdapter from "adapters/GraphlibAdapter";
-import { useAdd } from "hooks/graph-document/useAdd";
 import { IGraphAdapter } from "interfaces/IGraphAdapter";
 import {
   createContext,
@@ -165,6 +164,7 @@ const reducer: React.Reducer<GraphState, Action> = (
 };
 
 const GraphContext = createContext<{
+  graph: GraphState;
   vertices: INode[];
   edges: IEdge[];
   traversalPath: NodeId[];
@@ -191,8 +191,12 @@ const GraphContext = createContext<{
   cleanHighlighted?: () => void;
   undo?: () => void;
   redo?: () => void;
-  addGraphDocument?: (documentName: string) => Promise<void>;
 }>({
+  graph: {
+    vertices: [],
+    edges: [],
+    isDirected: false,
+  },
   vertices: [],
   edges: [],
   traversalPath: [],
@@ -231,7 +235,6 @@ const GraphProvider: FC<GraphProviderProps> = ({
     redo: [],
   });
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { addNewGraphDocument } = useAdd();
 
   const updateHistoryStack = ({
     prevVertices,
@@ -439,13 +442,10 @@ const GraphProvider: FC<GraphProviderProps> = ({
     setHighlightedVertices([]);
   };
 
-  const addGraphDocument = (documentName: string) => {
-    return addNewGraphDocument(documentName, state);
-  };
-
   return (
     <GraphContext.Provider
       value={{
+        graph: state,
         vertices: state.vertices,
         edges: state.edges,
         traversalPath,
@@ -472,7 +472,6 @@ const GraphProvider: FC<GraphProviderProps> = ({
         cleanHighlighted,
         undo,
         redo,
-        addGraphDocument,
       }}
     >
       {children}
