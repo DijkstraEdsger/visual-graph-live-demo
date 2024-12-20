@@ -4,6 +4,8 @@ import { useGraph } from "contexts/graphContext";
 import { useThemeContext } from "contexts/themeContext";
 import { ActiveAlgorithm } from "types/graph";
 import classes from "./classes.module.scss";
+import { useAppDispatch } from "contexts/app-context/root/provider";
+import { UIActionType } from "contexts/app-context/ui/types";
 
 type TItem = {
   label: string | ReactNode;
@@ -20,9 +22,14 @@ const useHeaderVM = () => {
     setActiveAlgorithmHandler,
     undo,
     redo,
-    addGraphDocument,
+    // addGraphDocument,
   } = useGraph();
   const { theme, toggleTheme } = useThemeContext();
+  const dispatch = useAppDispatch();
+
+  const openSaveDocumentModalHandler = () => {
+    dispatch({ type: UIActionType.UI_OPEN_SAVE_DOCUMENT_MODAL });
+  };
 
   const menus: TItem[] = [
     {
@@ -40,7 +47,7 @@ const useHeaderVM = () => {
         },
         {
           label: "Save",
-          onClick: addGraphDocument,
+          onClick: openSaveDocumentModalHandler,
           icon: <Icon name="save-document" size="16px" />,
         },
         {

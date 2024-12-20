@@ -191,7 +191,7 @@ const GraphContext = createContext<{
   cleanHighlighted?: () => void;
   undo?: () => void;
   redo?: () => void;
-  addGraphDocument?: () => void;
+  addGraphDocument?: (documentName: string) => void;
 }>({
   vertices: [],
   edges: [],
@@ -440,8 +440,8 @@ const GraphProvider: FC<GraphProviderProps> = ({
     setHighlightedVertices([]);
   };
 
-  const addGraphDocument = () => {
-    addNewGraphDocument("ggg", state);
+  const addGraphDocument = (documentName: string) => {
+    addNewGraphDocument(documentName, state);
   };
 
   return (

@@ -1,0 +1,12 @@
+.actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 16px;
+  width: 100%;
+}
+
+.actions__save,
+.actions__cancel {
+  max-width: 152px;
+}

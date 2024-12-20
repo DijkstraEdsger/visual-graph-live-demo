@@ -8,6 +8,7 @@
 @use "../tokens/components/vertice" as vertice;
 @use "../tokens/components/menubar" as menubar;
 @use "../tokens/components/switch" as switch;
+@use "../tokens/components/modal" as modal;
 
 [data-theme="dark"] {
   // Button
@@ -110,4 +111,10 @@
 
   --color-background-theme-button: #1c1c1e;
   --color-background-theme-button-hover: #3a3a3c;
+
+  // Modal
+
+  --color-background-modal: #{modal.$color-background-modal-dark};
+  --color-font-modal-title: #{modal.$color-font-modal-title-dark};
+  --color-background-modal-close-hover: #{modal.$color-background-modal-close-hover-dark};
 }
