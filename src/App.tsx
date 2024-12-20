@@ -7,6 +7,7 @@ import Layout from "components/Layout/Layout";
 import GraphPage from "pages/graph/Graph";
 import "./styles/main.scss";
 import { ThemeProvider } from "contexts/themeContext";
+import { GraphDocumentProvider } from "contexts/graph-document-context";
 
 interface Node {
   id: string;
@@ -35,15 +36,17 @@ interface CustomGraphVisualizationProps {
 function App() {
   return (
     <ThemeProvider>
-      <GraphProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<GraphPage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </GraphProvider>
+      <GraphDocumentProvider>
+        <GraphProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<GraphPage />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </GraphProvider>
+      </GraphDocumentProvider>
     </ThemeProvider>
   );
 }

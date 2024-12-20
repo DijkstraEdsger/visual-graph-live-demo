@@ -20,6 +20,7 @@ const useHeaderVM = () => {
     setActiveAlgorithmHandler,
     undo,
     redo,
+    addGraphDocument,
   } = useGraph();
   const { theme, toggleTheme } = useThemeContext();
 
@@ -36,6 +37,11 @@ const useHeaderVM = () => {
           label: "Open",
           onClick: () => inputFileRef.current?.click(),
           icon: <Icon name="open" size="16px" />,
+        },
+        {
+          label: "Save",
+          onClick: addGraphDocument,
+          icon: <Icon name="save-document" size="16px" />,
         },
         {
           label: "Download",

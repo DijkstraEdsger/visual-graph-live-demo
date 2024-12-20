@@ -1,4 +1,5 @@
 import GraphlibAdapter from "adapters/GraphlibAdapter";
+import { useAdd } from "hooks/graph-document/useAdd";
 import { IGraphAdapter } from "interfaces/IGraphAdapter";
 import {
   createContext,
@@ -190,6 +191,7 @@ const GraphContext = createContext<{
   cleanHighlighted?: () => void;
   undo?: () => void;
   redo?: () => void;
+  addGraphDocument?: () => void;
 }>({
   vertices: [],
   edges: [],
@@ -206,6 +208,7 @@ const GraphContext = createContext<{
   removeVertice: () => {},
   undo: () => {},
   redo: () => {},
+  addGraphDocument: () => {},
 });
 
 type GraphProviderProps = {
@@ -229,6 +232,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
     redo: [],
   });
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { addNewGraphDocument } = useAdd();
 
   const updateHistoryStack = ({
     prevVertices,
@@ -436,6 +440,10 @@ const GraphProvider: FC<GraphProviderProps> = ({
     setHighlightedVertices([]);
   };
 
+  const addGraphDocument = () => {
+    addNewGraphDocument("ggg", state);
+  };
+
   return (
     <GraphContext.Provider
       value={{
@@ -465,6 +473,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
         cleanHighlighted,
         undo,
         redo,
+        addGraphDocument,
       }}
     >
       {children}
