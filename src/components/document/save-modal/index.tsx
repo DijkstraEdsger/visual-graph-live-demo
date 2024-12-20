@@ -12,6 +12,7 @@ import { UIActionType } from "contexts/app-context/ui/types";
 
 const SaveDocumentModal: React.FC = () => {
   const [name, setName] = useState("");
+  const [pending, setPending] = useState(false);
   const id = useId();
   const {
     ui: { saveDocumentModal },
@@ -27,8 +28,11 @@ const SaveDocumentModal: React.FC = () => {
     setName(e.target.value);
   };
 
-  const confirmHandler = () => {
-    addGraphDocument?.(name);
+  const confirmHandler = async () => {
+    setPending(true);
+    await addGraphDocument?.(name);
+    setPending(false);
+    dispatch({ type: UIActionType.UI_CLOSE_SAVE_DOCUMENT_MODAL });
   };
 
   const cancelHandler = () => {
@@ -49,10 +53,10 @@ const SaveDocumentModal: React.FC = () => {
       <div className={classes.actions}>
         <Button
           onClick={confirmHandler}
-          disabled={!name}
+          disabled={!name || pending}
           className={classes.actions__save}
         >
-          Save
+          {pending ? "Saving..." : "Save"}
         </Button>
         <Button onClick={cancelHandler} className={classes.actions__cancel}>
           Cancel

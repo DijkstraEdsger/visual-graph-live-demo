@@ -191,7 +191,7 @@ const GraphContext = createContext<{
   cleanHighlighted?: () => void;
   undo?: () => void;
   redo?: () => void;
-  addGraphDocument?: (documentName: string) => void;
+  addGraphDocument?: (documentName: string) => Promise<void>;
 }>({
   vertices: [],
   edges: [],
@@ -208,7 +208,6 @@ const GraphContext = createContext<{
   removeVertice: () => {},
   undo: () => {},
   redo: () => {},
-  addGraphDocument: () => {},
 });
 
 type GraphProviderProps = {
@@ -441,7 +440,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
   };
 
   const addGraphDocument = (documentName: string) => {
-    addNewGraphDocument(documentName, state);
+    return addNewGraphDocument(documentName, state);
   };
 
   return (
