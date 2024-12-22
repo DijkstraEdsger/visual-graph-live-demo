@@ -15,6 +15,7 @@ export interface DocumentGraph {
 interface GraphState {
   graphs: DocumentGraph[];
   openedDocument: DocumentGraph | null;
+  isDocumentModified: boolean;
 }
 
 interface OpenGraphAction {
@@ -47,17 +48,24 @@ interface SetGraphsAction {
   payload: DocumentGraph[];
 }
 
+interface SetIsDocumentModifiedAction {
+  type: "SET_IS_DOCUMENT_MODIFIED";
+  payload: boolean;
+}
+
 type GraphAction =
   | AddGraphAction
   | DeleteGraphAction
   | RenameGraphAction
   | SetGraphsAction
   | OpenGraphAction
-  | UpdateGraphAction;
+  | UpdateGraphAction
+  | SetIsDocumentModifiedAction;
 
 export const initialState: GraphState = {
   graphs: [],
   openedDocument: null,
+  isDocumentModified: false,
 };
 
 const GraphDocumentContext = createContext<{
@@ -77,6 +85,7 @@ const graphDocumentReducer = (
       return {
         ...state,
         openedDocument: action.payload,
+        isDocumentModified: false,
       };
     case "ADD_GRAPH":
       return {
@@ -98,6 +107,7 @@ const graphDocumentReducer = (
         ...state,
         graphs: documentsCopy,
         openedDocument: structuredClone(action.payload),
+        isDocumentModified: false,
       };
     case "DELETE_GRAPH":
       return {
@@ -115,6 +125,11 @@ const graphDocumentReducer = (
       };
     case "SET_GRAPHS":
       return { ...state, graphs: action.payload };
+    case "SET_IS_DOCUMENT_MODIFIED":
+      return {
+        ...state,
+        isDocumentModified: action.payload,
+      };
     default:
       return state;
   }

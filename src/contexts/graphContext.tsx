@@ -20,6 +20,7 @@ import {
   NodeId,
   Position,
 } from "types/graph";
+import { useGraphDocumentDispatch } from "./graph-document-context";
 
 type TimeStampHistoryItem = {
   graph: GraphState;
@@ -236,6 +237,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
     redo: [],
   });
   const [state, dispatch] = useReducer(reducer, initialState);
+  const documentDispatch = useGraphDocumentDispatch();
 
   const updateHistoryStack = ({
     prevVertices,
@@ -313,15 +315,18 @@ const GraphProvider: FC<GraphProviderProps> = ({
 
   const setIsDirectedHandler = (isDirected: boolean) => {
     dispatch({ type: ActionType.UPDATE_IS_DIRECTED, payload: isDirected });
+    documentDispatch({ type: "SET_IS_DOCUMENT_MODIFIED", payload: true });
   };
 
   const addEdgeHandler = (edge: IEdge) => {
     dispatch({ type: ActionType.ADD_EDGE, payload: edge });
+    documentDispatch({ type: "SET_IS_DOCUMENT_MODIFIED", payload: true });
     adapter.addEdge(edge);
   };
 
   const addVerticeHandler = (vertice: INode) => {
     dispatch({ type: ActionType.ADD_VERTICE, payload: vertice });
+    documentDispatch({ type: "SET_IS_DOCUMENT_MODIFIED", payload: true });
 
     adapter.addNode(vertice);
   };
@@ -352,6 +357,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
         position,
       },
     });
+    documentDispatch({ type: "SET_IS_DOCUMENT_MODIFIED", payload: true });
   };
 
   const downloadGraphAsTxt = () => {
@@ -388,6 +394,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
           isDirected: data.isDirected,
         };
         dispatch({ type: ActionType.SET_STATE, payload: newState });
+        documentDispatch({ type: "SET_IS_DOCUMENT_MODIFIED", payload: true });
         createGraphFromData(data);
       };
       reader.readAsText(file);
@@ -408,6 +415,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
 
   const removeEdge = (edge: IEdge) => {
     dispatch({ type: ActionType.DELETE_EDGE, payload: edge });
+    documentDispatch({ type: "SET_IS_DOCUMENT_MODIFIED", payload: true });
     adapter.removeEdge(edge);
   };
 
@@ -415,6 +423,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
     adapter.removeNode(vertice.id);
 
     dispatch({ type: ActionType.DELETE_VERTICE, payload: vertice.id });
+    documentDispatch({ type: "SET_IS_DOCUMENT_MODIFIED", payload: true });
 
     const newTraversalPath = traversalPath.filter((v) => v !== vertice.id);
     setWayPoints(newTraversalPath);
