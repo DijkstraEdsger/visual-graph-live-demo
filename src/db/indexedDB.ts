@@ -1,3 +1,5 @@
+import { DocumentGraph } from "contexts/graph-document-context";
+
 const dbName = "graphDatabase";
 const storeName = "graphs";
 
@@ -37,11 +39,12 @@ export const addGraph = async (graphName: string, graphData: any) => {
   return new Promise<void>((resolve, reject) => {
     const transaction = db.transaction([storeName], "readwrite");
     const store = transaction.objectStore(storeName);
+    const createdDate = new Date().toISOString();
     const request = store.put({
       name: graphName,
       data: graphData,
-      createdDate: new Date().toISOString(),
-      modifiedDate: new Date().toISOString(),
+      createdDate: createdDate,
+      modifiedDate: createdDate,
     });
 
     request.onsuccess = () => {
@@ -57,34 +60,67 @@ export const addGraph = async (graphName: string, graphData: any) => {
 export const updateGraph = async (graphName: string, graphData: any) => {
   const db = await openIndexedDB();
 
-  return new Promise<void>((resolve, reject) => {
-    const transaction = db.transaction([storeName], "readwrite");
-    const store = transaction.objectStore(storeName);
-    const request = store.put({
-      name: graphName,
-      data: graphData,
-      modifiedDate: new Date().toISOString(),
-    });
+  return new Promise<DocumentGraph>(async (resolve, reject) => {
+    // Start a read transaction to get the existing item
+    const readTransaction = db.transaction([storeName], "readonly");
+    const readStore = readTransaction.objectStore(storeName);
+    const getRequest = readStore.get(graphName);
 
-    request.onsuccess = () => {
-      resolve();
+    getRequest.onsuccess = () => {
+      const existingGraph = getRequest.result;
+
+      if (existingGraph) {
+        // Use the existing createdDate if it exists
+        const createdDate = existingGraph.createdDate;
+
+        // Start a write transaction to update the item
+        const writeTransaction = db.transaction([storeName], "readwrite");
+        const writeStore = writeTransaction.objectStore(storeName);
+        const updateRequest = writeStore.put({
+          name: graphName,
+          data: graphData,
+          createdDate: createdDate,
+          modifiedDate: new Date().toISOString(),
+        });
+
+        updateRequest.onsuccess = async () => {
+          // Retrieve the updated document
+          const updatedTransaction = db.transaction([storeName], "readonly");
+          const updatedStore = updatedTransaction.objectStore(storeName);
+          const updatedGetRequest = updatedStore.get(graphName);
+
+          updatedGetRequest.onsuccess = () => {
+            resolve(updatedGetRequest.result);
+          };
+
+          updatedGetRequest.onerror = () => {
+            reject(updatedGetRequest.error);
+          };
+        };
+
+        updateRequest.onerror = () => {
+          reject(updateRequest.error);
+        };
+      } else {
+        reject(new Error(`Graph with name ${graphName} not found.`));
+      }
     };
 
-    request.onerror = () => {
-      reject(request.error);
+    getRequest.onerror = () => {
+      reject(getRequest.error);
     };
   });
 };
 
 export const getGraph = async (graphName: string) => {
   const db = await openIndexedDB();
-  return new Promise<any>((resolve, reject) => {
+  return new Promise<DocumentGraph>((resolve, reject) => {
     const transaction = db.transaction([storeName], "readonly");
     const store = transaction.objectStore(storeName);
     const request = store.get(graphName);
 
     request.onsuccess = () => {
-      resolve(request.result?.data);
+      resolve(request.result);
     };
 
     request.onerror = () => {

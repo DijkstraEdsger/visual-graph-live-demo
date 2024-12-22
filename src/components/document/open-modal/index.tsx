@@ -9,7 +9,6 @@ import { useGraphDocumentState } from "contexts/graph-document-context";
 import { useGet } from "hooks/graph-document/useGet";
 import React, { useEffect, useState } from "react";
 import classes from "./classes.module.scss";
-import { useGraph } from "contexts/graphContext";
 import GraphDocumentList from "../document-list";
 
 const OpenDocument: React.FC = () => {
@@ -19,7 +18,6 @@ const OpenDocument: React.FC = () => {
   const dispatch = useAppDispatch();
   const state = useGraphDocumentState();
   const { getGraphDocument } = useGet();
-  const { openGraph } = useGraph();
   const [selectedDocument, setSelectedDocument] = useState<string | null>(null);
 
   const handleSelectDocument = (graphName: string) => {
@@ -32,8 +30,7 @@ const OpenDocument: React.FC = () => {
 
   const handleOpenDocument = async () => {
     if (selectedDocument) {
-      const graph = await getGraphDocument(selectedDocument);
-      openGraph?.(graph);
+      await getGraphDocument(selectedDocument);
       dispatch({ type: UIActionType.UI_CLOSE_OPEN_DOCUMENT_MODAL });
     }
   };

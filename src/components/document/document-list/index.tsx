@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { Graph } from "contexts/graph-document-context";
+import type { DocumentGraph } from "contexts/graph-document-context";
 import { AgGridReact } from "ag-grid-react";
 import {
   AllCommunityModule,
@@ -36,7 +36,7 @@ interface IRow {
 }
 
 interface GraphDocumentListProps {
-  documents: Graph[];
+  documents: DocumentGraph[];
   onDocumentSelected?: (name: string) => void;
   onDocumentDoubleClick?: () => void;
 }
@@ -70,10 +70,12 @@ const GraphDocumentList: React.FC<GraphDocumentListProps> = ({
     },
     {
       field: "vertices",
+      cellClass: classes.document_list__cell,
       maxWidth: 90,
     },
     {
       field: "edges",
+      cellClass: classes.document_list__cell,
       maxWidth: 80,
     },
   ]);
@@ -111,6 +113,7 @@ const GraphDocumentList: React.FC<GraphDocumentListProps> = ({
           onDocumentDoubleClick?.();
         }}
         rowClass={classes.document_list__row}
+        noRowsOverlayComponent={() => <span>No documents to show</span>}
       />
     </div>
   );

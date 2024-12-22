@@ -30,10 +30,6 @@ const SaveDocumentModal: React.FC = () => {
     }
   }, [saveDocumentModal?.isOpen]);
 
-  // if (!saveDocumentModal?.isOpen) {
-  //   return null;
-  // }
-
   const changeNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };

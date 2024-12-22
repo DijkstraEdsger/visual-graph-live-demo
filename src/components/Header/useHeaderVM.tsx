@@ -6,6 +6,8 @@ import { ActiveAlgorithm } from "types/graph";
 import classes from "./classes.module.scss";
 import { useAppDispatch } from "contexts/app-context/root/provider";
 import { UIActionType } from "contexts/app-context/ui/types";
+import { useGraphDocumentState } from "contexts/graph-document-context";
+import { useUpdate } from "hooks/graph-document/useUpdate";
 
 type TItem = {
   label: string | ReactNode;
@@ -25,9 +27,15 @@ const useHeaderVM = () => {
   } = useGraph();
   const { theme, toggleTheme } = useThemeContext();
   const dispatch = useAppDispatch();
+  const { openedDocument } = useGraphDocumentState();
+  const { updateGraphDocument } = useUpdate();
 
   const openSaveDocumentModalHandler = () => {
-    dispatch({ type: UIActionType.UI_OPEN_SAVE_DOCUMENT_MODAL });
+    if (openedDocument) {
+      updateGraphDocument();
+    } else {
+      dispatch({ type: UIActionType.UI_OPEN_SAVE_DOCUMENT_MODAL });
+    }
   };
 
   const openOpenDocumentModalHandler = () => {

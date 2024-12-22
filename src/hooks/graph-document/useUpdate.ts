@@ -11,6 +11,7 @@ export const useUpdate = () => {
   const dispatch = useGraphDocumentDispatch();
   const [pending, setPending] = useState(false);
   const { graph } = useGraph();
+  const { openedDocument } = useGraphDocumentState();
 
   useEffect(() => {
     const fetchGraphs = async () => {
@@ -21,11 +22,15 @@ export const useUpdate = () => {
     fetchGraphs();
   }, [dispatch]);
 
-  const updateGraphDocument = async (name: string) => {
+  const updateGraphDocument = async () => {
+    const documentName = openedDocument?.name ?? "";
     setPending(true);
-    await updateGraph(name, graph);
+    const updatedDocument = await updateGraph(documentName, graph);
     setPending(false);
-    dispatch({ type: "ADD_GRAPH", payload: { name, data: graph } });
+    dispatch({
+      type: "UPDATE_GRAPH",
+      payload: updatedDocument,
+    });
   };
 
   return {

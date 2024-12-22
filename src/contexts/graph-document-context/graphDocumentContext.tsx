@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useReducer, ReactNode } from "react";
 import { IEdge, INode } from "types/graph";
 
-export interface Graph {
+export interface DocumentGraph {
   name: string;
   data: {
     vertices: INode[];
@@ -13,12 +13,23 @@ export interface Graph {
 }
 
 interface GraphState {
-  graphs: Graph[];
+  graphs: DocumentGraph[];
+  openedDocument: DocumentGraph | null;
+}
+
+interface OpenGraphAction {
+  type: "OPEN_GRAPH";
+  payload: DocumentGraph;
 }
 
 interface AddGraphAction {
   type: "ADD_GRAPH";
-  payload: Graph;
+  payload: DocumentGraph;
+}
+
+interface UpdateGraphAction {
+  type: "UPDATE_GRAPH";
+  payload: DocumentGraph;
 }
 
 interface DeleteGraphAction {
@@ -33,17 +44,20 @@ interface RenameGraphAction {
 
 interface SetGraphsAction {
   type: "SET_GRAPHS";
-  payload: Graph[];
+  payload: DocumentGraph[];
 }
 
 type GraphAction =
   | AddGraphAction
   | DeleteGraphAction
   | RenameGraphAction
-  | SetGraphsAction;
+  | SetGraphsAction
+  | OpenGraphAction
+  | UpdateGraphAction;
 
 export const initialState: GraphState = {
   graphs: [],
+  openedDocument: null,
 };
 
 const GraphDocumentContext = createContext<{
@@ -59,8 +73,32 @@ const graphDocumentReducer = (
   action: GraphAction
 ): GraphState => {
   switch (action.type) {
+    case "OPEN_GRAPH":
+      return {
+        ...state,
+        openedDocument: action.payload,
+      };
     case "ADD_GRAPH":
-      return { ...state, graphs: [...state.graphs, action.payload] };
+      return {
+        ...state,
+        graphs: [...state.graphs, action.payload],
+      };
+    case "UPDATE_GRAPH":
+      const documentsCopy = [...structuredClone(state.graphs)];
+
+      const findDocumentIndex = state.graphs?.findIndex(
+        (document) => document.name === state.openedDocument?.name
+      );
+
+      if (findDocumentIndex > -1) {
+        documentsCopy[findDocumentIndex] = structuredClone(action.payload);
+      }
+
+      return {
+        ...state,
+        graphs: documentsCopy,
+        openedDocument: structuredClone(action.payload),
+      };
     case "DELETE_GRAPH":
       return {
         ...state,
