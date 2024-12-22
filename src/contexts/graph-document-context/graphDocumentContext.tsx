@@ -1,13 +1,15 @@
 import React, { createContext, useContext, useReducer, ReactNode } from "react";
 import { IEdge, INode } from "types/graph";
 
-interface Graph {
+export interface Graph {
   name: string;
   data: {
     vertices: INode[];
     edges: IEdge[];
     isDirected?: boolean;
   };
+  createdDate?: string;
+  modifiedDate?: string;
 }
 
 interface GraphState {
@@ -40,7 +42,7 @@ type GraphAction =
   | RenameGraphAction
   | SetGraphsAction;
 
-const initialState: GraphState = {
+export const initialState: GraphState = {
   graphs: [],
 };
 

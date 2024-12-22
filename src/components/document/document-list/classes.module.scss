@@ -1,0 +1,13 @@
+.document_list {
+  height: 400px;
+}
+
+.document_list__row[aria-selected="true"] {
+  color: var(--color-font-document-list-item-selected);
+}
+
+.document_list__cell {
+  &:focus {
+    border: none !important;
+  }
+}

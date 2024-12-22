@@ -37,7 +37,34 @@ export const addGraph = async (graphName: string, graphData: any) => {
   return new Promise<void>((resolve, reject) => {
     const transaction = db.transaction([storeName], "readwrite");
     const store = transaction.objectStore(storeName);
-    const request = store.put({ name: graphName, data: graphData });
+    const request = store.put({
+      name: graphName,
+      data: graphData,
+      createdDate: new Date().toISOString(),
+      modifiedDate: new Date().toISOString(),
+    });
+
+    request.onsuccess = () => {
+      resolve();
+    };
+
+    request.onerror = () => {
+      reject(request.error);
+    };
+  });
+};
+
+export const updateGraph = async (graphName: string, graphData: any) => {
+  const db = await openIndexedDB();
+
+  return new Promise<void>((resolve, reject) => {
+    const transaction = db.transaction([storeName], "readwrite");
+    const store = transaction.objectStore(storeName);
+    const request = store.put({
+      name: graphName,
+      data: graphData,
+      modifiedDate: new Date().toISOString(),
+    });
 
     request.onsuccess = () => {
       resolve();

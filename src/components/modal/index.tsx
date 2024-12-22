@@ -8,9 +8,16 @@ interface ModalProps {
   onClose: () => void;
   title: string;
   children: React.ReactNode;
+  maxWidth?: number;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  title,
+  children,
+  maxWidth,
+}) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -44,6 +51,9 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
         ref={modalRef}
         tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
+        style={{
+          maxWidth,
+        }}
       >
         <div className={classes["modal-header"]}>
           <h2 id="modal-title">{title}</h2>

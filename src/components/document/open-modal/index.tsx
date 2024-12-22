@@ -10,6 +10,7 @@ import { useGet } from "hooks/graph-document/useGet";
 import React, { useEffect, useState } from "react";
 import classes from "./classes.module.scss";
 import { useGraph } from "contexts/graphContext";
+import GraphDocumentList from "../document-list";
 
 const OpenDocument: React.FC = () => {
   const {
@@ -47,52 +48,15 @@ const OpenDocument: React.FC = () => {
     <Modal
       isOpen={openDocumentModal?.isOpen}
       onClose={cancelHandler}
-      title="Open Document"
+      title="Open a file"
+      maxWidth={700}
     >
-      {/* <ul>
-        {state.graphs.map((graph) => (
-          <li key={graph.name}>
-            <button
-              type="button"
-              onClick={() => handleSelectDocument(graph.name)}
-            >
-              {graph.name}
-            </button>
-          </li>
-        ))}
-      </ul> */}
-      {/* <ul className={classes["document-list"]}>
-        {state.graphs.map((graph) => (
-          <li key={graph.name} className={classes["document-list-item"]}>
-            <button
-              type="button"
-              className={classes["document-list-item-button"]}
-              onClick={() => handleSelectDocument(graph.name)}
-            >
-              {graph.name}
-            </button>
-          </li>
-        ))}
-      </ul> */}
-      <ul className={classes["document-list"]}>
-        {state.graphs.map((graph) => (
-          <li
-            key={graph.name}
-            className={`${classes["document-list-item"]} ${
-              selectedDocument === graph.name ? classes.selected : ""
-            }`}
-          >
-            <button
-              type="button"
-              className={classes["document-list-item-button"]}
-              onClick={() => handleSelectDocument(graph.name)}
-              onDoubleClick={handleOpenDocument}
-            >
-              {graph.name}
-            </button>
-          </li>
-        ))}
-      </ul>
+      <GraphDocumentList
+        documents={state.graphs}
+        onDocumentSelected={handleSelectDocument}
+        onDocumentDoubleClick={handleOpenDocument}
+      />
+
       <div className={classes.actions}>
         <Button
           onClick={() => handleOpenDocument()}

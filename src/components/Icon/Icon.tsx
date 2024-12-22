@@ -20,6 +20,7 @@ import { ReactComponent as SunIcon } from "assets/icons/sun.svg";
 import { ReactComponent as MoonIcon } from "assets/icons/moon.svg";
 import { ReactComponent as CloseIcon } from "assets/icons/close.svg";
 import { ReactComponent as SaveIcon } from "assets/icons/save-document.svg";
+import { ReactComponent as FileIcon } from "assets/icons/file.svg";
 
 interface IconProps {
   name: string;
@@ -54,6 +55,7 @@ const icons: {
   moon: MoonIcon,
   "save-document": SaveIcon,
   close: CloseIcon,
+  file: FileIcon,
 };
 
 const Icon: React.FC<IconProps> = ({ name, size = "sm", style, ...props }) => {
