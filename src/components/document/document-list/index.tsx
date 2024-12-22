@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import type { DocumentGraph } from "contexts/graph-document-context";
 import { AgGridReact } from "ag-grid-react";
 import {
@@ -46,6 +46,26 @@ const GraphDocumentList: React.FC<GraphDocumentListProps> = ({
   onDocumentSelected,
   onDocumentDoubleClick,
 }) => {
+  const [rowData, setRowData] = useState<IRow[]>(
+    documents.map((document) => ({
+      ...document,
+      modifiedDate: dateToLocalString(document.modifiedDate),
+      vertices: document.data.vertices.length,
+      edges: document.data.edges.length,
+    }))
+  );
+
+  useEffect(() => {
+    setRowData(
+      documents.map((document) => ({
+        ...document,
+        modifiedDate: dateToLocalString(document.modifiedDate),
+        vertices: document.data.vertices.length,
+        edges: document.data.edges.length,
+      }))
+    );
+  }, [documents]);
+
   const [colDefs, setColDefs] = useState<ColDef<IRow>[]>([
     {
       field: "name",
@@ -92,12 +112,7 @@ const GraphDocumentList: React.FC<GraphDocumentListProps> = ({
   return (
     <div className={classes.document_list}>
       <AgGridReact
-        rowData={documents.map((document) => ({
-          ...document,
-          modifiedDate: dateToLocalString(document.modifiedDate),
-          vertices: document.data.vertices.length,
-          edges: document.data.edges.length,
-        }))}
+        rowData={rowData}
         columnDefs={colDefs}
         rowSelection={rowSelection}
         defaultColDef={defaultColDef}
