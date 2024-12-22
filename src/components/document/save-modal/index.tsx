@@ -9,6 +9,7 @@ import {
 } from "contexts/app-context/root/provider";
 import { UIActionType } from "contexts/app-context/ui/types";
 import { useAdd } from "hooks/graph-document/useAdd";
+import { useExists } from "hooks/graph-document/useExists";
 
 const SaveDocumentModal: React.FC = () => {
   const [name, setName] = useState("");
@@ -19,6 +20,8 @@ const SaveDocumentModal: React.FC = () => {
   const dispatch = useAppDispatch();
   const { pending, addNewGraphDocument } = useAdd();
   const inputTextRef = useRef<HTMLInputElement>(null);
+  const { existsGraphDocument } = useExists();
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (inputTextRef.current && saveDocumentModal?.isOpen) {
@@ -27,6 +30,7 @@ const SaveDocumentModal: React.FC = () => {
 
     if (!saveDocumentModal?.isOpen) {
       setName("");
+      setErrorMessage("");
     }
   }, [saveDocumentModal?.isOpen]);
 
@@ -35,8 +39,16 @@ const SaveDocumentModal: React.FC = () => {
   };
 
   const confirmHandler = async () => {
-    await addNewGraphDocument?.(name);
-    dispatch({ type: UIActionType.UI_CLOSE_SAVE_DOCUMENT_MODAL });
+    const exists = await existsGraphDocument(name);
+
+    if (exists) {
+      setErrorMessage(
+        "A document with this name already exists. Please choose a different name."
+      );
+    } else {
+      await addNewGraphDocument?.(name);
+      dispatch({ type: UIActionType.UI_CLOSE_SAVE_DOCUMENT_MODAL });
+    }
   };
 
   const cancelHandler = () => {
@@ -58,6 +70,8 @@ const SaveDocumentModal: React.FC = () => {
         name="name"
         id={id}
         ref={inputTextRef}
+        isInvalid={!!errorMessage}
+        helperText={errorMessage}
       />
       <div className={classes.actions}>
         <Button onClick={cancelHandler} className={classes.actions__cancel}>

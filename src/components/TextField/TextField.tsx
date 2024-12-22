@@ -35,11 +35,9 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         </label>
         <input
           type={type}
-          className={
-            isInvalid
-              ? classes["textfield__input--error"]
-              : classes.textfield__input
-          }
+          className={`${classes.textfield__input} ${
+            isInvalid ? classes["textfield__input--error"] : ""
+          }`}
           placeholder={placeholder}
           onChange={onChange}
           value={value}
@@ -49,11 +47,9 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         />
         {helperText && (
           <p
-            className={
-              isInvalid
-                ? classes["textfield__helper-text--error"]
-                : classes["textfield__helper-text"]
-            }
+            className={`${classes["textfield__helper-text"]} ${
+              isInvalid ? classes["textfield__helper-text--error"] : ""
+            }`}
           >
             {helperText}
           </p>

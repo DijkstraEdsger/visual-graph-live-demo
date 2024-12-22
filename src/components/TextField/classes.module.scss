@@ -1,7 +1,6 @@
 .textfield__input {
   width: 100%;
   padding: 8px;
-  margin-bottom: 10px;
   box-sizing: border-box;
   border: 1px solid var(--color-border-text-field-default);
   border-radius: 4px;
@@ -17,8 +16,13 @@
   outline: none;
 }
 
-.textfield__input--error {
-  border-color: red;
+.textfield__input--error,
+.textfield__input--error:focus {
+  border-color: #f44336;
+}
+
+.textfield__input--error:focus {
+  box-shadow: 0 0 5px #f44336;
 }
 
 .textfield__label {
@@ -36,5 +40,5 @@
 }
 
 .textfield__helper-text--error {
-  color: red;
+  color: #f44336;
 }
