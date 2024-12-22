@@ -4,7 +4,7 @@ import {
   useGraphDocumentDispatch,
   useGraphDocumentState,
 } from "contexts/graph-document-context";
-import { getAllGraphs, getGraph } from "db/indexedDB";
+import { getGraph } from "db/indexedDB";
 import { useGraph } from "contexts/graphContext";
 
 export const useGet = () => {
@@ -12,15 +12,6 @@ export const useGet = () => {
   const dispatch = useGraphDocumentDispatch();
   const [loading, setLoading] = useState(false);
   const { openGraph } = useGraph();
-
-  useEffect(() => {
-    const fetchGraphs = async () => {
-      const graphs = await getAllGraphs();
-      dispatch({ type: "SET_GRAPHS", payload: graphs });
-    };
-
-    fetchGraphs();
-  }, [dispatch]);
 
   const getGraphDocument = async (name: string) => {
     setLoading(true);

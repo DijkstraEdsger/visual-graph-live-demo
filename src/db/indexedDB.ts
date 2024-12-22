@@ -157,7 +157,7 @@ export const renameGraph = async (oldName: string, newName: string) => {
 
 export const getAllGraphs = async () => {
   const db = await openIndexedDB();
-  return new Promise<any[]>((resolve, reject) => {
+  return new Promise<DocumentGraph[]>((resolve, reject) => {
     const transaction = db.transaction([storeName], "readonly");
     const store = transaction.objectStore(storeName);
     const request = store.getAll();

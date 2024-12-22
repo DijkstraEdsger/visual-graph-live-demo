@@ -46,15 +46,6 @@ const GraphDocumentList: React.FC<GraphDocumentListProps> = ({
   onDocumentSelected,
   onDocumentDoubleClick,
 }) => {
-  const [rowData, setRowData] = useState<IRow[]>(
-    documents.map((document) => ({
-      ...document,
-      modifiedDate: dateToLocalString(document.modifiedDate),
-      vertices: document.data.vertices.length,
-      edges: document.data.edges.length,
-    }))
-  );
-
   const [colDefs, setColDefs] = useState<ColDef<IRow>[]>([
     {
       field: "name",
@@ -101,7 +92,12 @@ const GraphDocumentList: React.FC<GraphDocumentListProps> = ({
   return (
     <div className={classes.document_list}>
       <AgGridReact
-        rowData={rowData}
+        rowData={documents.map((document) => ({
+          ...document,
+          modifiedDate: dateToLocalString(document.modifiedDate),
+          vertices: document.data.vertices.length,
+          edges: document.data.edges.length,
+        }))}
         columnDefs={colDefs}
         rowSelection={rowSelection}
         defaultColDef={defaultColDef}

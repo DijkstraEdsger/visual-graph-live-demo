@@ -7,9 +7,10 @@ import {
 import { UIActionType } from "contexts/app-context/ui/types";
 import { useGraphDocumentState } from "contexts/graph-document-context";
 import { useGet } from "hooks/graph-document/useGet";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import classes from "./classes.module.scss";
 import GraphDocumentList from "../document-list";
+import { useGetAll } from "hooks/graph-document/useGetAll";
 
 const OpenDocument: React.FC = () => {
   const {
@@ -18,6 +19,7 @@ const OpenDocument: React.FC = () => {
   const dispatch = useAppDispatch();
   const state = useGraphDocumentState();
   const { getGraphDocument } = useGet();
+  const { loading, getAllGraphDocuments } = useGetAll();
   const [selectedDocument, setSelectedDocument] = useState<string | null>(null);
 
   const handleSelectDocument = (graphName: string) => {
@@ -38,6 +40,8 @@ const OpenDocument: React.FC = () => {
   useEffect(() => {
     if (!openDocumentModal?.isOpen) {
       setSelectedDocument(null);
+    } else {
+      getAllGraphDocuments();
     }
   }, [openDocumentModal?.isOpen]);
 
@@ -70,4 +74,4 @@ const OpenDocument: React.FC = () => {
   );
 };
 
-export default OpenDocument;
+export default memo(OpenDocument);
