@@ -14,9 +14,9 @@ export const useAdd = () => {
 
   const addNewGraphDocument = async (name: string) => {
     setPending(true);
-    await addGraph(name, graph);
+    const addedDocument = await addGraph(name, graph);
     setPending(false);
-    dispatch({ type: "ADD_GRAPH", payload: { name, data: graph } });
+    dispatch({ type: "OPEN_GRAPH", payload: { ...addedDocument } });
   };
 
   return {

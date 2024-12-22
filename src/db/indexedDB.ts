@@ -36,7 +36,7 @@ const sleep = (ms: number) => {
 export const addGraph = async (graphName: string, graphData: any) => {
   const db = await openIndexedDB();
   //   await sleep(2000);
-  return new Promise<void>((resolve, reject) => {
+  return new Promise<DocumentGraph>((resolve, reject) => {
     const transaction = db.transaction([storeName], "readwrite");
     const store = transaction.objectStore(storeName);
     const createdDate = new Date().toISOString();
@@ -48,7 +48,18 @@ export const addGraph = async (graphName: string, graphData: any) => {
     });
 
     request.onsuccess = () => {
-      resolve();
+      // Retrieve the added document
+      const readTransaction = db.transaction([storeName], "readonly");
+      const readStore = readTransaction.objectStore(storeName);
+      const getRequest = readStore.get(graphName);
+
+      getRequest.onsuccess = () => {
+        resolve(getRequest.result);
+      };
+
+      getRequest.onerror = () => {
+        reject(getRequest.error);
+      };
     };
 
     request.onerror = () => {
