@@ -64,15 +64,15 @@ const SaveDocumentModal: React.FC = () => {
         ref={inputTextRef}
       />
       <div className={classes.actions}>
+        <Button onClick={cancelHandler} className={classes.actions__cancel}>
+          Cancel
+        </Button>
         <Button
           onClick={confirmHandler}
           disabled={!name || pending}
           className={classes.actions__save}
         >
           {pending ? "Saving..." : "Save"}
-        </Button>
-        <Button onClick={cancelHandler} className={classes.actions__cancel}>
-          Cancel
         </Button>
       </div>
     </Modal>

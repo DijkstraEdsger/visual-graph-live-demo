@@ -58,15 +58,15 @@ const OpenDocument: React.FC = () => {
       />
 
       <div className={classes.actions}>
+        <Button onClick={cancelHandler} className={classes.actions__cancel}>
+          Cancel
+        </Button>
         <Button
           onClick={() => handleOpenDocument()}
           disabled={!selectedDocument}
           className={classes.actions__save}
         >
           Open
-        </Button>
-        <Button onClick={cancelHandler} className={classes.actions__cancel}>
-          Cancel
         </Button>
       </div>
     </Modal>
