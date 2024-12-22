@@ -61,7 +61,7 @@ const useHeaderVM = () => {
         {
           label: "Upload",
           onClick: () => inputFileRef.current?.click(),
-          icon: <Icon name="open" size="16px" />,
+          icon: <Icon name="upload" size="16px" />,
         },
       ],
     },
