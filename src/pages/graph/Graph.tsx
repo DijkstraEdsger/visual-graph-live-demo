@@ -11,6 +11,7 @@ import Prim from "components/AlgorithmsInputs/Prim/Prim";
 import { useEffect } from "react";
 import SaveDocumentModal from "components/document/save-modal";
 import OpenDocument from "components/document/open-modal";
+import SaveConfirmExistsModal from "components/document/save-confirm-exists";
 
 const GraphWithAsyncData = withAsyncData(Graph);
 
@@ -100,6 +101,7 @@ const GraphPage = () => {
         </GraphContainer>
       </div>
       <SaveDocumentModal />
+      <SaveConfirmExistsModal />
       <OpenDocument />
     </div>
   );

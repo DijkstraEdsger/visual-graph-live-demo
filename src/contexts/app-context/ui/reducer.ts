@@ -30,6 +30,26 @@ export const uiReducer = (state: UIState, action: UIAction): UIState => {
           isOpen: false,
         },
       };
+    case UIActionType.UI_OPEN_CONFIRM_SAVE_MODAL:
+      return {
+        ...state,
+        confirmSaveModal: {
+          isOpen: true,
+          data: {
+            name: action.payload,
+          },
+        },
+      };
+    case UIActionType.UI_CLOSE_CONFIRM_SAVE_MODAL:
+      return {
+        ...state,
+        confirmSaveModal: {
+          isOpen: false,
+          data: {
+            name: null,
+          },
+        },
+      };
 
     default:
       return state;

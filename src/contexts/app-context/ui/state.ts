@@ -7,4 +7,10 @@ export const initialState: UIState = {
   openDocumentModal: {
     isOpen: false,
   },
+  confirmSaveModal: {
+    isOpen: false,
+    data: {
+      name: null,
+    },
+  },
 };

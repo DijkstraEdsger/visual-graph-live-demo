@@ -9,6 +9,7 @@ interface ModalProps {
   title: string;
   children: React.ReactNode;
   maxWidth?: number;
+  disableFocused?: boolean;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -17,6 +18,7 @@ const Modal: React.FC<ModalProps> = ({
   title,
   children,
   maxWidth,
+  disableFocused = false,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -31,6 +33,12 @@ const Modal: React.FC<ModalProps> = ({
 
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
+
+  useEffect(() => {
+    if (isOpen && modalRef.current && !disableFocused) {
+      modalRef.current.focus();
+    }
+  }, [isOpen, disableFocused]);
 
   if (!isOpen) return null;
 

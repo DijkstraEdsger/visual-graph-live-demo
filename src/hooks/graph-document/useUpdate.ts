@@ -13,8 +13,8 @@ export const useUpdate = () => {
   const { graph } = useGraph();
   const { openedDocument } = useGraphDocumentState();
 
-  const updateGraphDocument = async () => {
-    const documentName = openedDocument?.name ?? "";
+  const updateGraphDocument = async (name?: string) => {
+    const documentName = name ?? openedDocument?.name ?? "";
     setPending(true);
     const updatedDocument = await updateGraph(documentName, graph);
     setPending(false);

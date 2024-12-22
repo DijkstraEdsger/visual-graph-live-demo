@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import classes from "./classes.module.scss";
 
 interface ButtonProps {
@@ -9,23 +9,20 @@ interface ButtonProps {
   className?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({
-  onClick,
-  children,
-  type = "button",
-  disabled,
-  className,
-}) => {
-  return (
-    <button
-      type={type}
-      onClick={onClick}
-      className={`${classes.button} ${className}`}
-      disabled={disabled}
-    >
-      {children}
-    </button>
-  );
-};
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ onClick, children, type = "button", disabled, className }, ref) => {
+    return (
+      <button
+        type={type}
+        onClick={onClick}
+        className={`${classes.button} ${className}`}
+        disabled={disabled}
+        ref={ref}
+      >
+        {children}
+      </button>
+    );
+  }
+);
 
 export default Button;
