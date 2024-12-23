@@ -13,4 +13,7 @@ export const initialState: UIState = {
       name: null,
     },
   },
+  wantToSaveModal: {
+    isOpen: false,
+  },
 };

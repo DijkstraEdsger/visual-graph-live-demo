@@ -16,11 +16,12 @@ interface GraphState {
   graphs: DocumentGraph[];
   openedDocument: DocumentGraph | null;
   isDocumentModified: boolean;
+  isNewDocumentPending: boolean;
 }
 
 interface OpenGraphAction {
   type: "OPEN_GRAPH";
-  payload: DocumentGraph;
+  payload?: DocumentGraph | null;
 }
 
 interface AddGraphAction {
@@ -30,7 +31,7 @@ interface AddGraphAction {
 
 interface UpdateGraphAction {
   type: "UPDATE_GRAPH";
-  payload: DocumentGraph;
+  payload?: DocumentGraph | null;
 }
 
 interface DeleteGraphAction {
@@ -53,6 +54,11 @@ interface SetIsDocumentModifiedAction {
   payload: boolean;
 }
 
+interface SetIsNewDocumentPendingAction {
+  type: "SET_IS_NEW_DOCUMENT_PENDING";
+  payload: boolean;
+}
+
 type GraphAction =
   | AddGraphAction
   | DeleteGraphAction
@@ -60,12 +66,14 @@ type GraphAction =
   | SetGraphsAction
   | OpenGraphAction
   | UpdateGraphAction
-  | SetIsDocumentModifiedAction;
+  | SetIsDocumentModifiedAction
+  | SetIsNewDocumentPendingAction;
 
 export const initialState: GraphState = {
   graphs: [],
   openedDocument: null,
   isDocumentModified: false,
+  isNewDocumentPending: false,
 };
 
 const GraphDocumentContext = createContext<{
@@ -84,7 +92,7 @@ const graphDocumentReducer = (
     case "OPEN_GRAPH":
       return {
         ...state,
-        openedDocument: action.payload,
+        openedDocument: action.payload ? structuredClone(action.payload) : null,
         isDocumentModified: false,
       };
     case "ADD_GRAPH":
@@ -93,20 +101,20 @@ const graphDocumentReducer = (
         graphs: [...state.graphs, action.payload],
       };
     case "UPDATE_GRAPH":
-      const documentsCopy = [...structuredClone(state.graphs)];
+      // const documentsCopy = [...structuredClone(state.graphs)];
 
-      const findDocumentIndex = state.graphs?.findIndex(
-        (document) => document.name === state.openedDocument?.name
-      );
+      // const findDocumentIndex = state.graphs?.findIndex(
+      //   (document) => document.name === state.openedDocument?.name
+      // );
 
-      if (findDocumentIndex > -1) {
-        documentsCopy[findDocumentIndex] = structuredClone(action.payload);
-      }
+      // if (findDocumentIndex > -1) {
+      //   documentsCopy[findDocumentIndex] = structuredClone(action.payload);
+      // }
 
       return {
         ...state,
-        graphs: documentsCopy,
-        openedDocument: structuredClone(action.payload),
+        // graphs: documentsCopy,
+        openedDocument: action.payload ? structuredClone(action.payload) : null,
         isDocumentModified: false,
       };
     case "DELETE_GRAPH":
@@ -129,6 +137,11 @@ const graphDocumentReducer = (
       return {
         ...state,
         isDocumentModified: action.payload,
+      };
+    case "SET_IS_NEW_DOCUMENT_PENDING":
+      return {
+        ...state,
+        isNewDocumentPending: action.payload,
       };
     default:
       return state;

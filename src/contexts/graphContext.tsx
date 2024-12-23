@@ -20,7 +20,12 @@ import {
   NodeId,
   Position,
 } from "types/graph";
-import { useGraphDocumentDispatch } from "./graph-document-context";
+import {
+  useGraphDocumentDispatch,
+  useGraphDocumentState,
+} from "./graph-document-context";
+import { useAppDispatch } from "./app-context/root/provider";
+import { UIActionType } from "./app-context/ui/types";
 
 type TimeStampHistoryItem = {
   graph: GraphState;
@@ -55,6 +60,7 @@ enum ActionType {
   DELETE_EDGE = "edge/delete",
   UPDATE_IS_DIRECTED = "isDirected/update",
   SET_STATE = "state/set",
+  CLEAN_STATE = "state/clean",
 }
 
 type UpdatePositionType = {
@@ -72,7 +78,7 @@ type ActionPayload =
 
 type Action = {
   type: ActionType;
-  payload: ActionPayload;
+  payload?: ActionPayload;
 };
 
 const reducer: React.Reducer<GraphState, Action> = (
@@ -161,6 +167,12 @@ const reducer: React.Reducer<GraphState, Action> = (
       return {
         ...newState,
       };
+    case ActionType.CLEAN_STATE:
+      return {
+        edges: [],
+        vertices: [],
+        isDirected: false,
+      };
   }
 };
 
@@ -193,6 +205,7 @@ const GraphContext = createContext<{
   undo?: () => void;
   redo?: () => void;
   openGraph?: (data: GraphState) => void;
+  cleanGraph?: () => void;
 }>({
   graph: {
     vertices: [],
@@ -238,6 +251,8 @@ const GraphProvider: FC<GraphProviderProps> = ({
   });
   const [state, dispatch] = useReducer(reducer, initialState);
   const documentDispatch = useGraphDocumentDispatch();
+  // const { isDocumentModified } = useGraphDocumentState();
+  // const appDispatch = useAppDispatch();
 
   const updateHistoryStack = ({
     prevVertices,
@@ -462,6 +477,15 @@ const GraphProvider: FC<GraphProviderProps> = ({
     setHighlightedVertices([]);
   };
 
+  const cleanGraphHandler = () => {
+    dispatch({ type: ActionType.CLEAN_STATE });
+    // if (isDocumentModified) {
+    //   appDispatch({ type: UIActionType.UI_OPEN_WANT_TO_SAVE_MODAL });
+    // } else {
+    //   dispatch({ type: ActionType.CLEAN_STATE });
+    // }
+  };
+
   return (
     <GraphContext.Provider
       value={{
@@ -493,6 +517,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
         undo,
         redo,
         openGraph,
+        cleanGraph: cleanGraphHandler,
       }}
     >
       {children}

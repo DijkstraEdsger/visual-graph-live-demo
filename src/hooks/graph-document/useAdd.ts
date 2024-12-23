@@ -16,7 +16,10 @@ export const useAdd = () => {
     setPending(true);
     const addedDocument = await addGraph(name, graph);
     setPending(false);
-    dispatch({ type: "OPEN_GRAPH", payload: { ...addedDocument } });
+    dispatch({
+      type: "OPEN_GRAPH",
+      payload: state.isNewDocumentPending ? null : { ...addedDocument },
+    });
   };
 
   return {

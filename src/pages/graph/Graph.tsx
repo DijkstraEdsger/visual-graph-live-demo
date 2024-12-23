@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import SaveDocumentModal from "components/document/save-modal";
 import OpenDocument from "components/document/open-modal";
 import SaveConfirmExistsModal from "components/document/save-confirm-exists";
+import WantToSave from "components/document/want-to-save";
 
 const GraphWithAsyncData = withAsyncData(Graph);
 
@@ -103,6 +104,7 @@ const GraphPage = () => {
       <SaveDocumentModal />
       <SaveConfirmExistsModal />
       <OpenDocument />
+      <WantToSave />
     </div>
   );
 };

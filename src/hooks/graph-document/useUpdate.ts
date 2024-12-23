@@ -20,8 +20,12 @@ export const useUpdate = () => {
     setPending(false);
     dispatch({
       type: "UPDATE_GRAPH",
-      payload: updatedDocument,
+      payload: state.isNewDocumentPending ? null : updatedDocument,
     });
+
+    // if (!state.isNewDocumentPending) {
+    //   dispatch({ type: "OPEN_GRAPH", payload: { ...updatedDocument } });
+    // }
   };
 
   return {

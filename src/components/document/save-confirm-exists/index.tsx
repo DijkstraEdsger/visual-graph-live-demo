@@ -9,6 +9,11 @@ import {
 import { UIActionType } from "contexts/app-context/ui/types";
 import { useUpdate } from "hooks/graph-document/useUpdate";
 import Icon from "components/Icon";
+import { useGraph } from "contexts/graphContext";
+import {
+  useGraphDocumentDispatch,
+  useGraphDocumentState,
+} from "contexts/graph-document-context";
 
 const SaveConfirmExistsModal: React.FC = () => {
   const {
@@ -17,6 +22,9 @@ const SaveConfirmExistsModal: React.FC = () => {
   const dispatch = useAppDispatch();
   const { updateGraphDocument } = useUpdate();
   const buttonNoRef = useRef<HTMLButtonElement>(null);
+  const { cleanGraph } = useGraph();
+  const documentDispatch = useGraphDocumentDispatch();
+  const { isNewDocumentPending } = useGraphDocumentState();
 
   useEffect(() => {
     if (buttonNoRef.current && confirmSaveModal?.isOpen) {
@@ -28,6 +36,11 @@ const SaveConfirmExistsModal: React.FC = () => {
     await updateGraphDocument?.(confirmSaveModal?.data?.name ?? "");
     dispatch({ type: UIActionType.UI_CLOSE_SAVE_DOCUMENT_MODAL });
     dispatch({ type: UIActionType.UI_CLOSE_CONFIRM_SAVE_MODAL });
+
+    if (isNewDocumentPending) {
+      documentDispatch({ type: "SET_IS_NEW_DOCUMENT_PENDING", payload: false });
+      cleanGraph?.();
+    }
   };
 
   const noHandler = () => {

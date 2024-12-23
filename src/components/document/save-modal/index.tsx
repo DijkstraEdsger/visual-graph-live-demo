@@ -10,6 +10,11 @@ import {
 import { UIActionType } from "contexts/app-context/ui/types";
 import { useAdd } from "hooks/graph-document/useAdd";
 import { useExists } from "hooks/graph-document/useExists";
+import {
+  useGraphDocumentDispatch,
+  useGraphDocumentState,
+} from "contexts/graph-document-context";
+import { useGraph } from "contexts/graphContext";
 
 const SaveDocumentModal: React.FC = () => {
   const [name, setName] = useState("");
@@ -21,6 +26,9 @@ const SaveDocumentModal: React.FC = () => {
   const { pending, addNewGraphDocument } = useAdd();
   const inputTextRef = useRef<HTMLInputElement>(null);
   const { existsGraphDocument } = useExists();
+  const { isNewDocumentPending } = useGraphDocumentState();
+  const { cleanGraph } = useGraph();
+  const documentDispatch = useGraphDocumentDispatch();
 
   useEffect(() => {
     if (inputTextRef.current && saveDocumentModal?.isOpen) {
@@ -47,11 +55,23 @@ const SaveDocumentModal: React.FC = () => {
     } else {
       await addNewGraphDocument?.(name);
       dispatch({ type: UIActionType.UI_CLOSE_SAVE_DOCUMENT_MODAL });
+
+      if (isNewDocumentPending) {
+        cleanGraph?.();
+        documentDispatch({
+          type: "SET_IS_NEW_DOCUMENT_PENDING",
+          payload: false,
+        });
+      }
     }
   };
 
   const cancelHandler = () => {
     dispatch({ type: UIActionType.UI_CLOSE_SAVE_DOCUMENT_MODAL });
+
+    if (isNewDocumentPending) {
+      documentDispatch({ type: "SET_IS_NEW_DOCUMENT_PENDING", payload: false });
+    }
   };
 
   return (

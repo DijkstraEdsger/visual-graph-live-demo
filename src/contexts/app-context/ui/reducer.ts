@@ -50,6 +50,20 @@ export const uiReducer = (state: UIState, action: UIAction): UIState => {
           },
         },
       };
+    case UIActionType.UI_OPEN_WANT_TO_SAVE_MODAL:
+      return {
+        ...state,
+        wantToSaveModal: {
+          isOpen: true,
+        },
+      };
+    case UIActionType.UI_CLOSE_WANT_TO_SAVE_MODAL:
+      return {
+        ...state,
+        wantToSaveModal: {
+          isOpen: false,
+        },
+      };
 
     default:
       return state;

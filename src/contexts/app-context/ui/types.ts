@@ -2,6 +2,7 @@ export interface UIState {
   saveDocumentModal: SaveDocumentModalState;
   openDocumentModal: OpenDocumentModalState;
   confirmSaveModal: ConfirmSaveModalState;
+  wantToSaveModal: WantToSaveModalState;
 }
 
 export enum UIActionType {
@@ -11,6 +12,8 @@ export enum UIActionType {
   UI_CLOSE_OPEN_DOCUMENT_MODAL = "UI_CLOSE_OPEN_DOCUMENT_MODAL",
   UI_OPEN_CONFIRM_SAVE_MODAL = "UI_OPEN_CONFIRM_SAVE_MODAL",
   UI_CLOSE_CONFIRM_SAVE_MODAL = "UI_CLOSE_CONFIRM_SAVE_MODAL",
+  UI_OPEN_WANT_TO_SAVE_MODAL = "UI_OPEN_WANT_TO_SAVE_MODAL",
+  UI_CLOSE_WANT_TO_SAVE_MODAL = "UI_CLOSE_WANT_TO_SAVE_MODAL",
 }
 
 // export type UIAction =
@@ -33,4 +36,8 @@ export interface ConfirmSaveModalState {
   data: {
     name: string | null;
   };
+}
+
+export interface WantToSaveModalState {
+  isOpen: boolean;
 }

@@ -6,7 +6,10 @@ import { ActiveAlgorithm } from "types/graph";
 import classes from "./classes.module.scss";
 import { useAppDispatch } from "contexts/app-context/root/provider";
 import { UIActionType } from "contexts/app-context/ui/types";
-import { useGraphDocumentState } from "contexts/graph-document-context";
+import {
+  useGraphDocumentDispatch,
+  useGraphDocumentState,
+} from "contexts/graph-document-context";
 import { useUpdate } from "hooks/graph-document/useUpdate";
 
 type TItem = {
@@ -24,11 +27,15 @@ const useHeaderVM = () => {
     setActiveAlgorithmHandler,
     undo,
     redo,
+    cleanGraph,
   } = useGraph();
   const { theme, toggleTheme } = useThemeContext();
   const dispatch = useAppDispatch();
   const { openedDocument } = useGraphDocumentState();
   const { updateGraphDocument } = useUpdate();
+  const { isDocumentModified } = useGraphDocumentState();
+  const appDispatch = useAppDispatch();
+  const documentDispatch = useGraphDocumentDispatch();
 
   const openSaveDocumentModalHandler = () => {
     if (openedDocument) {
@@ -42,13 +49,26 @@ const useHeaderVM = () => {
     dispatch({ type: UIActionType.UI_OPEN_OPEN_DOCUMENT_MODAL });
   };
 
+  const newDocumentHandler = () => {
+    if (isDocumentModified) {
+      appDispatch({ type: UIActionType.UI_OPEN_WANT_TO_SAVE_MODAL });
+      documentDispatch({ type: "SET_IS_NEW_DOCUMENT_PENDING", payload: true });
+    } else {
+      cleanGraph?.();
+      documentDispatch({
+        type: "OPEN_GRAPH",
+        payload: null,
+      });
+    }
+  };
+
   const menus: TItem[] = [
     {
       label: "File",
       items: [
         {
           label: "New",
-          onClick: () => console.log("New"),
+          onClick: newDocumentHandler,
           icon: <Icon name="new-document" size="16px" />,
         },
         {
