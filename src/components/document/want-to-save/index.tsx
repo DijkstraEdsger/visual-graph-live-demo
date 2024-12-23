@@ -23,7 +23,8 @@ const WantToSave: React.FC = () => {
   const buttonSaveRef = useRef<HTMLButtonElement>(null);
   const { cleanGraph } = useGraph();
   const documentDispatch = useGraphDocumentDispatch();
-  const { openedDocument } = useGraphDocumentState();
+  const { openedDocument, isNewDocumentPending, isPendingToOpen } =
+    useGraphDocumentState();
 
   useEffect(() => {
     if (buttonSaveRef.current && wantToSaveModal?.isOpen) {
@@ -32,31 +33,60 @@ const WantToSave: React.FC = () => {
   }, [wantToSaveModal?.isOpen]);
 
   const saveHandler = async () => {
-    if (openedDocument) {
-      await updateGraphDocument();
-      dispatch({ type: UIActionType.UI_CLOSE_WANT_TO_SAVE_MODAL });
-      documentDispatch({ type: "SET_IS_NEW_DOCUMENT_PENDING", payload: false });
-      cleanGraph?.();
-    } else {
-      dispatch({ type: UIActionType.UI_CLOSE_WANT_TO_SAVE_MODAL });
-      dispatch({ type: UIActionType.UI_OPEN_SAVE_DOCUMENT_MODAL });
+    if (isNewDocumentPending) {
+      if (openedDocument) {
+        await updateGraphDocument();
+        dispatch({ type: UIActionType.UI_CLOSE_WANT_TO_SAVE_MODAL });
+        documentDispatch({
+          type: "SET_IS_NEW_DOCUMENT_PENDING",
+          payload: false,
+        });
+        cleanGraph?.();
+      } else {
+        dispatch({ type: UIActionType.UI_CLOSE_WANT_TO_SAVE_MODAL });
+        dispatch({ type: UIActionType.UI_OPEN_SAVE_DOCUMENT_MODAL });
+      }
+    }
+
+    if (isPendingToOpen) {
+      if (openedDocument) {
+        await updateGraphDocument();
+        dispatch({ type: UIActionType.UI_CLOSE_WANT_TO_SAVE_MODAL });
+        documentDispatch({
+          type: "SET_IS_PENDING_TO_OPEN",
+          payload: false,
+        });
+        dispatch({ type: UIActionType.UI_OPEN_OPEN_DOCUMENT_MODAL });
+      } else {
+        dispatch({ type: UIActionType.UI_CLOSE_WANT_TO_SAVE_MODAL });
+        dispatch({ type: UIActionType.UI_OPEN_SAVE_DOCUMENT_MODAL });
+      }
     }
   };
 
   const cancelHandler = () => {
     dispatch({ type: UIActionType.UI_CLOSE_WANT_TO_SAVE_MODAL });
     documentDispatch({ type: "SET_IS_NEW_DOCUMENT_PENDING", payload: false });
+    documentDispatch({ type: "SET_IS_PENDING_TO_OPEN", payload: false });
   };
 
   const doNotSaveHandler = () => {
+    if (isNewDocumentPending) {
+      cleanGraph?.();
+      documentDispatch({ type: "SET_IS_NEW_DOCUMENT_PENDING", payload: false });
+      documentDispatch({ type: "SET_IS_DOCUMENT_MODIFIED", payload: false });
+      documentDispatch({
+        type: "OPEN_GRAPH",
+        payload: null,
+      });
+    }
+
+    if (isPendingToOpen) {
+      dispatch({ type: UIActionType.UI_OPEN_OPEN_DOCUMENT_MODAL });
+      documentDispatch({ type: "SET_IS_PENDING_TO_OPEN", payload: false });
+    }
+
     dispatch({ type: UIActionType.UI_CLOSE_WANT_TO_SAVE_MODAL });
-    cleanGraph?.();
-    documentDispatch({ type: "SET_IS_NEW_DOCUMENT_PENDING", payload: false });
-    documentDispatch({ type: "SET_IS_DOCUMENT_MODIFIED", payload: false });
-    documentDispatch({
-      type: "OPEN_GRAPH",
-      payload: null,
-    });
   };
 
   return (

@@ -24,7 +24,7 @@ const SaveConfirmExistsModal: React.FC = () => {
   const buttonNoRef = useRef<HTMLButtonElement>(null);
   const { cleanGraph } = useGraph();
   const documentDispatch = useGraphDocumentDispatch();
-  const { isNewDocumentPending } = useGraphDocumentState();
+  const { isNewDocumentPending, isPendingToOpen } = useGraphDocumentState();
 
   useEffect(() => {
     if (buttonNoRef.current && confirmSaveModal?.isOpen) {
@@ -40,6 +40,14 @@ const SaveConfirmExistsModal: React.FC = () => {
     if (isNewDocumentPending) {
       documentDispatch({ type: "SET_IS_NEW_DOCUMENT_PENDING", payload: false });
       cleanGraph?.();
+    }
+
+    if (isPendingToOpen) {
+      dispatch({ type: UIActionType.UI_OPEN_OPEN_DOCUMENT_MODAL });
+      documentDispatch({
+        type: "SET_IS_PENDING_TO_OPEN",
+        payload: false,
+      });
     }
   };
 

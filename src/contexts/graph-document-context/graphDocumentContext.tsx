@@ -17,6 +17,7 @@ interface GraphState {
   openedDocument: DocumentGraph | null;
   isDocumentModified: boolean;
   isNewDocumentPending: boolean;
+  isPendingToOpen: boolean;
 }
 
 interface OpenGraphAction {
@@ -59,6 +60,11 @@ interface SetIsNewDocumentPendingAction {
   payload: boolean;
 }
 
+interface SetIsPendingToOpenAction {
+  type: "SET_IS_PENDING_TO_OPEN";
+  payload: boolean;
+}
+
 type GraphAction =
   | AddGraphAction
   | DeleteGraphAction
@@ -67,13 +73,15 @@ type GraphAction =
   | OpenGraphAction
   | UpdateGraphAction
   | SetIsDocumentModifiedAction
-  | SetIsNewDocumentPendingAction;
+  | SetIsNewDocumentPendingAction
+  | SetIsPendingToOpenAction;
 
 export const initialState: GraphState = {
   graphs: [],
   openedDocument: null,
   isDocumentModified: false,
   isNewDocumentPending: false,
+  isPendingToOpen: false,
 };
 
 const GraphDocumentContext = createContext<{
@@ -142,6 +150,11 @@ const graphDocumentReducer = (
       return {
         ...state,
         isNewDocumentPending: action.payload,
+      };
+    case "SET_IS_PENDING_TO_OPEN":
+      return {
+        ...state,
+        isPendingToOpen: action.payload,
       };
     default:
       return state;

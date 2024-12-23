@@ -26,7 +26,7 @@ const SaveDocumentModal: React.FC = () => {
   const { pending, addNewGraphDocument } = useAdd();
   const inputTextRef = useRef<HTMLInputElement>(null);
   const { existsGraphDocument } = useExists();
-  const { isNewDocumentPending } = useGraphDocumentState();
+  const { isNewDocumentPending, isPendingToOpen } = useGraphDocumentState();
   const { cleanGraph } = useGraph();
   const documentDispatch = useGraphDocumentDispatch();
 
@@ -63,15 +63,30 @@ const SaveDocumentModal: React.FC = () => {
           payload: false,
         });
       }
+
+      if (isPendingToOpen) {
+        dispatch({ type: UIActionType.UI_OPEN_OPEN_DOCUMENT_MODAL });
+        documentDispatch({
+          type: "SET_IS_PENDING_TO_OPEN",
+          payload: false,
+        });
+      }
     }
   };
 
   const cancelHandler = () => {
-    dispatch({ type: UIActionType.UI_CLOSE_SAVE_DOCUMENT_MODAL });
-
     if (isNewDocumentPending) {
       documentDispatch({ type: "SET_IS_NEW_DOCUMENT_PENDING", payload: false });
     }
+
+    if (isPendingToOpen) {
+      documentDispatch({
+        type: "SET_IS_PENDING_TO_OPEN",
+        payload: false,
+      });
+    }
+
+    dispatch({ type: UIActionType.UI_CLOSE_SAVE_DOCUMENT_MODAL });
   };
 
   return (

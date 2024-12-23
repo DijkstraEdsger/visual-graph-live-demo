@@ -46,7 +46,12 @@ const useHeaderVM = () => {
   };
 
   const openOpenDocumentModalHandler = () => {
-    dispatch({ type: UIActionType.UI_OPEN_OPEN_DOCUMENT_MODAL });
+    if (isDocumentModified) {
+      appDispatch({ type: UIActionType.UI_OPEN_WANT_TO_SAVE_MODAL });
+      documentDispatch({ type: "SET_IS_PENDING_TO_OPEN", payload: true });
+    } else {
+      dispatch({ type: UIActionType.UI_OPEN_OPEN_DOCUMENT_MODAL });
+    }
   };
 
   const newDocumentHandler = () => {
