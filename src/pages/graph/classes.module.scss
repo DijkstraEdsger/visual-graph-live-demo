@@ -23,7 +23,8 @@
   border-right: 1px solid var(--color-border-parameters-section);
 }
 
-.header-parameters {
+.header-parameters,
+.header-graph-properties {
   height: 34px;
   font-size: 18px;
   font-weight: bold;
@@ -31,4 +32,13 @@
   margin-bottom: 20px;
   border-bottom: 2px solid var(--color-border-parameters-section-header);
   padding-bottom: 10px;
+}
+
+.graph-properties-section {
+  width: 350px;
+  background-color: var(--color-background-parameters-section);
+  padding: 10px;
+  box-sizing: border-box;
+  height: calc(100vh - var(--size-height-header));
+  border-left: 1px solid var(--color-border-parameters-section);
 }

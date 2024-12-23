@@ -101,6 +101,11 @@ const GraphPage = () => {
           />
         </GraphContainer>
       </div>
+      <div className={classes["graph-properties-section"]}>
+        <header className={classes["header-graph-properties"]}>
+          Properties
+        </header>
+      </div>
       <SaveDocumentModal />
       <SaveConfirmExistsModal />
       <OpenDocument />
