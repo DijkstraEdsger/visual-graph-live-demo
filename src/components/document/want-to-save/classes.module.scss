@@ -1,0 +1,35 @@
+.actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 16px;
+  width: 100%;
+  margin-top: 24px;
+  padding: 5px;
+}
+
+.actions__save,
+.actions__cancel {
+  max-width: 100px;
+}
+
+.actions__do_not_save {
+  max-width: 120px;
+}
+
+.alert {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+}
+
+.alert__icon {
+  width: 36px;
+  height: 36px;
+}
+
+.alert__text {
+  color: var(--color-font-modal-title);
+}

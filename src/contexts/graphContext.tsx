@@ -20,6 +20,12 @@ import {
   NodeId,
   Position,
 } from "types/graph";
+import {
+  useGraphDocumentDispatch,
+  useGraphDocumentState,
+} from "./graph-document-context";
+import { useAppDispatch } from "./app-context/root/provider";
+import { UIActionType } from "./app-context/ui/types";
 
 type TimeStampHistoryItem = {
   graph: GraphState;
@@ -54,6 +60,7 @@ enum ActionType {
   DELETE_EDGE = "edge/delete",
   UPDATE_IS_DIRECTED = "isDirected/update",
   SET_STATE = "state/set",
+  CLEAN_STATE = "state/clean",
 }
 
 type UpdatePositionType = {
@@ -71,7 +78,7 @@ type ActionPayload =
 
 type Action = {
   type: ActionType;
-  payload: ActionPayload;
+  payload?: ActionPayload;
 };
 
 const reducer: React.Reducer<GraphState, Action> = (
@@ -160,10 +167,17 @@ const reducer: React.Reducer<GraphState, Action> = (
       return {
         ...newState,
       };
+    case ActionType.CLEAN_STATE:
+      return {
+        edges: [],
+        vertices: [],
+        isDirected: false,
+      };
   }
 };
 
 const GraphContext = createContext<{
+  graph: GraphState;
   vertices: INode[];
   edges: IEdge[];
   traversalPath: NodeId[];
@@ -190,7 +204,14 @@ const GraphContext = createContext<{
   cleanHighlighted?: () => void;
   undo?: () => void;
   redo?: () => void;
+  openGraph?: (data: GraphState) => void;
+  cleanGraph?: () => void;
 }>({
+  graph: {
+    vertices: [],
+    edges: [],
+    isDirected: false,
+  },
   vertices: [],
   edges: [],
   traversalPath: [],
@@ -229,6 +250,9 @@ const GraphProvider: FC<GraphProviderProps> = ({
     redo: [],
   });
   const [state, dispatch] = useReducer(reducer, initialState);
+  const documentDispatch = useGraphDocumentDispatch();
+  // const { isDocumentModified } = useGraphDocumentState();
+  // const appDispatch = useAppDispatch();
 
   const updateHistoryStack = ({
     prevVertices,
@@ -306,15 +330,18 @@ const GraphProvider: FC<GraphProviderProps> = ({
 
   const setIsDirectedHandler = (isDirected: boolean) => {
     dispatch({ type: ActionType.UPDATE_IS_DIRECTED, payload: isDirected });
+    documentDispatch({ type: "SET_IS_DOCUMENT_MODIFIED", payload: true });
   };
 
   const addEdgeHandler = (edge: IEdge) => {
     dispatch({ type: ActionType.ADD_EDGE, payload: edge });
+    documentDispatch({ type: "SET_IS_DOCUMENT_MODIFIED", payload: true });
     adapter.addEdge(edge);
   };
 
   const addVerticeHandler = (vertice: INode) => {
     dispatch({ type: ActionType.ADD_VERTICE, payload: vertice });
+    documentDispatch({ type: "SET_IS_DOCUMENT_MODIFIED", payload: true });
 
     adapter.addNode(vertice);
   };
@@ -345,6 +372,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
         position,
       },
     });
+    documentDispatch({ type: "SET_IS_DOCUMENT_MODIFIED", payload: true });
   };
 
   const downloadGraphAsTxt = () => {
@@ -381,6 +409,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
           isDirected: data.isDirected,
         };
         dispatch({ type: ActionType.SET_STATE, payload: newState });
+        documentDispatch({ type: "SET_IS_DOCUMENT_MODIFIED", payload: true });
         createGraphFromData(data);
       };
       reader.readAsText(file);
@@ -389,8 +418,19 @@ const GraphProvider: FC<GraphProviderProps> = ({
     inputFileRef.current!.value = "";
   };
 
+  const openGraph = (data: GraphState) => {
+    const newState: GraphState = {
+      vertices: data.vertices,
+      edges: data.edges,
+      isDirected: data.isDirected,
+    };
+    dispatch({ type: ActionType.SET_STATE, payload: newState });
+    createGraphFromData(data);
+  };
+
   const removeEdge = (edge: IEdge) => {
     dispatch({ type: ActionType.DELETE_EDGE, payload: edge });
+    documentDispatch({ type: "SET_IS_DOCUMENT_MODIFIED", payload: true });
     adapter.removeEdge(edge);
   };
 
@@ -398,6 +438,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
     adapter.removeNode(vertice.id);
 
     dispatch({ type: ActionType.DELETE_VERTICE, payload: vertice.id });
+    documentDispatch({ type: "SET_IS_DOCUMENT_MODIFIED", payload: true });
 
     const newTraversalPath = traversalPath.filter((v) => v !== vertice.id);
     setWayPoints(newTraversalPath);
@@ -436,9 +477,19 @@ const GraphProvider: FC<GraphProviderProps> = ({
     setHighlightedVertices([]);
   };
 
+  const cleanGraphHandler = () => {
+    dispatch({ type: ActionType.CLEAN_STATE });
+    // if (isDocumentModified) {
+    //   appDispatch({ type: UIActionType.UI_OPEN_WANT_TO_SAVE_MODAL });
+    // } else {
+    //   dispatch({ type: ActionType.CLEAN_STATE });
+    // }
+  };
+
   return (
     <GraphContext.Provider
       value={{
+        graph: state,
         vertices: state.vertices,
         edges: state.edges,
         traversalPath,
@@ -465,6 +516,8 @@ const GraphProvider: FC<GraphProviderProps> = ({
         cleanHighlighted,
         undo,
         redo,
+        openGraph,
+        cleanGraph: cleanGraphHandler,
       }}
     >
       {children}

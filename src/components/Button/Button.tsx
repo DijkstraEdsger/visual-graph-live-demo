@@ -1,29 +1,28 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import classes from "./classes.module.scss";
 
 interface ButtonProps {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
+  className?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({
-  onClick,
-  children,
-  type = "button",
-  disabled,
-}) => {
-  return (
-    <button
-      type={type}
-      onClick={onClick}
-      className={classes.button}
-      disabled={disabled}
-    >
-      {children}
-    </button>
-  );
-};
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ onClick, children, type = "button", disabled, className }, ref) => {
+    return (
+      <button
+        type={type}
+        onClick={onClick}
+        className={`${classes.button} ${className}`}
+        disabled={disabled}
+        ref={ref}
+      >
+        {children}
+      </button>
+    );
+  }
+);
 
 export default Button;

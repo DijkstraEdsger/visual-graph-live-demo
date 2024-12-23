@@ -1,0 +1,31 @@
+.actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 16px;
+  width: 100%;
+  margin-top: 24px;
+  padding: 5px;
+}
+
+.actions__yes,
+.actions__no {
+  max-width: 100px;
+}
+
+.alert {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+}
+
+.alert__icon {
+  width: 36px;
+  height: 36px;
+}
+
+.alert__text {
+  color: var(--color-font-modal-title);
+}

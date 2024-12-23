@@ -4,6 +4,13 @@ import { useGraph } from "contexts/graphContext";
 import { useThemeContext } from "contexts/themeContext";
 import { ActiveAlgorithm } from "types/graph";
 import classes from "./classes.module.scss";
+import { useAppDispatch } from "contexts/app-context/root/provider";
+import { UIActionType } from "contexts/app-context/ui/types";
+import {
+  useGraphDocumentDispatch,
+  useGraphDocumentState,
+} from "contexts/graph-document-context";
+import { useUpdate } from "hooks/graph-document/useUpdate";
 
 type TItem = {
   label: string | ReactNode;
@@ -20,8 +27,45 @@ const useHeaderVM = () => {
     setActiveAlgorithmHandler,
     undo,
     redo,
+    cleanGraph,
   } = useGraph();
   const { theme, toggleTheme } = useThemeContext();
+  const dispatch = useAppDispatch();
+  const { openedDocument } = useGraphDocumentState();
+  const { updateGraphDocument } = useUpdate();
+  const { isDocumentModified } = useGraphDocumentState();
+  const appDispatch = useAppDispatch();
+  const documentDispatch = useGraphDocumentDispatch();
+
+  const openSaveDocumentModalHandler = () => {
+    if (openedDocument) {
+      updateGraphDocument();
+    } else {
+      dispatch({ type: UIActionType.UI_OPEN_SAVE_DOCUMENT_MODAL });
+    }
+  };
+
+  const openOpenDocumentModalHandler = () => {
+    if (isDocumentModified) {
+      appDispatch({ type: UIActionType.UI_OPEN_WANT_TO_SAVE_MODAL });
+      documentDispatch({ type: "SET_IS_PENDING_TO_OPEN", payload: true });
+    } else {
+      dispatch({ type: UIActionType.UI_OPEN_OPEN_DOCUMENT_MODAL });
+    }
+  };
+
+  const newDocumentHandler = () => {
+    if (isDocumentModified) {
+      appDispatch({ type: UIActionType.UI_OPEN_WANT_TO_SAVE_MODAL });
+      documentDispatch({ type: "SET_IS_NEW_DOCUMENT_PENDING", payload: true });
+    } else {
+      cleanGraph?.();
+      documentDispatch({
+        type: "OPEN_GRAPH",
+        payload: null,
+      });
+    }
+  };
 
   const menus: TItem[] = [
     {
@@ -29,18 +73,28 @@ const useHeaderVM = () => {
       items: [
         {
           label: "New",
-          onClick: () => console.log("New"),
+          onClick: newDocumentHandler,
           icon: <Icon name="new-document" size="16px" />,
         },
         {
           label: "Open",
-          onClick: () => inputFileRef.current?.click(),
+          onClick: openOpenDocumentModalHandler,
           icon: <Icon name="open" size="16px" />,
+        },
+        {
+          label: "Save",
+          onClick: openSaveDocumentModalHandler,
+          icon: <Icon name="save-document" size="16px" />,
         },
         {
           label: "Download",
           onClick: downloadGraphAsTxt,
           icon: <Icon name="download" size="16px" />,
+        },
+        {
+          label: "Upload",
+          onClick: () => inputFileRef.current?.click(),
+          icon: <Icon name="upload" size="16px" />,
         },
       ],
     },

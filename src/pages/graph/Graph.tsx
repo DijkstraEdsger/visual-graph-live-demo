@@ -9,6 +9,10 @@ import Switch from "components/Switch/Switch";
 import BellmanFordInputs from "components/AlgorithmsInputs/BellmanFordInputs/BellmanFordInputs";
 import Prim from "components/AlgorithmsInputs/Prim/Prim";
 import { useEffect } from "react";
+import SaveDocumentModal from "components/document/save-modal";
+import OpenDocument from "components/document/open-modal";
+import SaveConfirmExistsModal from "components/document/save-confirm-exists";
+import WantToSave from "components/document/want-to-save";
 
 const GraphWithAsyncData = withAsyncData(Graph);
 
@@ -97,6 +101,10 @@ const GraphPage = () => {
           />
         </GraphContainer>
       </div>
+      <SaveDocumentModal />
+      <SaveConfirmExistsModal />
+      <OpenDocument />
+      <WantToSave />
     </div>
   );
 };

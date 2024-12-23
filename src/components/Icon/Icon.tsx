@@ -18,6 +18,10 @@ import { ReactComponent as NetworkFlowIcon } from "assets/icons/network-flow.svg
 import { ReactComponent as MatchingIcon } from "assets/icons/matching.svg";
 import { ReactComponent as SunIcon } from "assets/icons/sun.svg";
 import { ReactComponent as MoonIcon } from "assets/icons/moon.svg";
+import { ReactComponent as CloseIcon } from "assets/icons/close.svg";
+import { ReactComponent as SaveIcon } from "assets/icons/save-document.svg";
+import { ReactComponent as FileIcon } from "assets/icons/file.svg";
+import { ReactComponent as AlertTriangleIcon } from "assets/icons/alert-triangle.svg";
 
 interface IconProps {
   name: string;
@@ -50,6 +54,10 @@ const icons: {
   matching: MatchingIcon,
   sun: SunIcon,
   moon: MoonIcon,
+  "save-document": SaveIcon,
+  close: CloseIcon,
+  file: FileIcon,
+  "alert-triangle": AlertTriangleIcon,
 };
 
 const Icon: React.FC<IconProps> = ({ name, size = "sm", style, ...props }) => {

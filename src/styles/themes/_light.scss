@@ -8,6 +8,8 @@
 @use "../tokens/components/vertice" as vertice;
 @use "../tokens/components/menubar" as menubar;
 @use "../tokens/components/switch" as switch;
+@use "../tokens/components/modal" as modal;
+@use "../tokens/components/document-list" as documentList;
 @use "../tokens/size";
 @use "../tokens/typography" as font;
 
@@ -143,6 +145,20 @@
 
   --color-background-theme-button: #ffffff;
   --color-background-theme-button-hover: #f1f2f3;
+
+  // Modal
+
+  --color-background-modal: #{modal.$color-background-modal-light};
+  --color-font-modal-title: #{modal.$color-font-modal-title-light};
+  --color-background-modal-close-hover: #{modal.$color-background-modal-close-hover-light};
+
+  // Document list
+
+  --color-background-document-list-item-default: #{documentList.$color-background-document-list-item-default-light};
+  --color-background-document-list-item-hover: #{documentList.$color-background-document-list-item-hover-light};
+  --color-font-document-list-item-default: #{documentList.$color-font-document-list-item-default-light};
+  --color-background-document-list-item-selected: #{documentList.$color-background-document-list-item-selected-light};
+  --color-font-document-list-item-selected: #{documentList.$color-font-document-list-item-selected-light};
 
   --size-height-header: 36px;
 }
