@@ -104,7 +104,10 @@ const useHeaderVM = () => {
         {
           label: (
             <div className={classes.edit_menu_item}>
-              Undo<span className={classes.edit_menu_item__keys}>Ctrl+Z</span>
+              Undo
+              <span className={classes.edit_menu_item__keys}>
+                <kbd>Ctrl</kbd>+<kbd>Z</kbd>
+              </span>
             </div>
           ),
           onClick: undo,
@@ -113,7 +116,10 @@ const useHeaderVM = () => {
         {
           label: (
             <div className={classes.edit_menu_item}>
-              Redo<span className={classes.edit_menu_item__keys}>Ctrl+Y</span>
+              Redo
+              <span className={classes.edit_menu_item__keys}>
+                <kbd>Ctrl</kbd>+<kbd>Y</kbd>
+              </span>
             </div>
           ),
           onClick: redo,

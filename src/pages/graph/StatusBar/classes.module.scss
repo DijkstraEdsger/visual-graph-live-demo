@@ -1,0 +1,13 @@
+.status_bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: var(--color-background-status-bar);
+  color: var(--color-font-status-bar);
+  text-align: center;
+}
+
+.status_bar__mouse_position {
+}
