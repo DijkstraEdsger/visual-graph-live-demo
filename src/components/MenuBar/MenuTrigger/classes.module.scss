@@ -9,7 +9,7 @@
   border-radius: var(--size-border-radius-menutrigger);
   font-size: var(--size-font-menutrigger);
   line-height: 20px;
-  transition: background-color 0.3s;
+  // transition: background-color 0.3s;
 }
 
 .menu-trigger:hover,
@@ -33,4 +33,43 @@
 .menu-trigger--disabled:hover {
   background-color: var(--color-background-menutrigger-disabled-hover);
   color: var(--color-font-menutrigger-disabled-hover);
+}
+
+// menutrigger root
+
+.menu-trigger-root {
+  padding: var(--size-padding-menutrigger);
+  cursor: pointer;
+  color: var(--color-font-menutrigger-header-default);
+  background-color: var(--color-background-menutrigger-header-default);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: var(--size-border-radius-menutrigger);
+  font-size: var(--size-font-menutrigger);
+  line-height: 20px;
+  // transition: background-color 0.3s;
+}
+
+.menu-trigger-root:hover,
+.menu-trigger-root--higlighted {
+  background-color: var(--color-background-menutrigger-header-hover);
+  color: var(--color-font-menutrigger-header-hover);
+}
+
+.menu-trigger-root:focus {
+  outline: none;
+  border: var(--size-border-menutrigger-focus);
+}
+
+.menu-trigger-root--disabled {
+  cursor: default;
+  background-color: var(--color-background-menutrigger-header-disabled);
+  color: var(--color-font-menutrigger-header-disabled);
+  opacity: 0.4;
+}
+
+.menu-trigger-root--disabled:hover {
+  background-color: var(--color-background-menutrigger-header-disabled-hover);
+  color: var(--color-font-menutrigger-header-disabled-hover);
 }

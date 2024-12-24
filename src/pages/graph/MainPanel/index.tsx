@@ -5,7 +5,7 @@ import Switch from "components/Switch/Switch";
 import { GraphContainer } from "contexts/graphContainerContext";
 import withAsyncData from "components/HOCs/withAsyncData";
 import Graph from "components/Graph/Graph";
-import StatusBar from "../StatusBar";
+// import StatusBar from "../StatusBar";
 
 const GraphWithAsyncData = withAsyncData(Graph);
 
@@ -43,7 +43,7 @@ const MainPanel: React.FC = () => {
           onAddVertice={addVerticeHandler}
           isDirected={isDirected}
         />
-        <StatusBar />
+        {/* <StatusBar /> */}
       </GraphContainer>
     </div>
   );

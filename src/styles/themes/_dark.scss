@@ -46,6 +46,15 @@
   --color-font-menutrigger-disabled: #{menubar.$color-font-menutrigger-disabled-dark};
   --color-font-menutrigger-disabled-hover: #{menubar.$color-font-menutrigger-disabled-hover-dark};
 
+  --color-background-menutrigger-header-default: #{menubar.$color-background-menutrigger-header-default-dark};
+  --color-background-menutrigger-header-hover: #{menubar.$color-background-menutrigger-header-hover-dark};
+  --color-background-menutrigger-header-disabled: #{menubar.$color-background-menutrigger-header-disabled-dark};
+  --color-background-menutrigger-header-disabled-hover: #{menubar.$color-background-menutrigger-header-disabled-hover-dark};
+  --color-font-menutrigger-header-default: #{menubar.$color-font-menutrigger-header-default-dark};
+  --color-font-menutrigger-header-hover: #{menubar.$color-font-menutrigger-header-hover-dark};
+  --color-font-menutrigger-header-disabled: #{menubar.$color-font-menutrigger-header-disabled-dark};
+  --color-font-menutrigger-header-disabled-hover: #{menubar.$color-font-menutrigger-header-disabled-hover-dark};
+
   // Menu
 
   --color-background-menu: #{menubar.$color-background-menu-dark};
@@ -68,6 +77,7 @@
   --color-background-parameters-section: #{parametersSection.$color-background-parameters-section-dark};
   --color-border-parameters-section: #{parametersSection.$color-border-parameters-section-dark};
   --color-border-parameters-section-header: #{parametersSection.$color-border-parameters-section-header-dark};
+  --color-font-parameter-section-header: #{parametersSection.$color-font-parameter-section-header-dark};
 
   // Main section
 
@@ -89,7 +99,7 @@
 
   // Label
 
-  --color-font-label: #e4e4e4;
+  --color-font-label: #c8c8c8;
 
   // Vertice
 
@@ -111,14 +121,18 @@
 
   // ThemeButton
 
-  --color-background-theme-button: #1c1c1e;
-  --color-background-theme-button-hover: #3a3a3c;
+  --color-background-theme-button: #181819;
+  --color-background-theme-button-hover: #2d2e2f;
+  --color-font-theme-button: #868687;
+  --color-font-theme-button-hover: #ffffff;
 
   // Modal
 
   --color-background-modal: #{modal.$color-background-modal-dark};
   --color-font-modal-title: #{modal.$color-font-modal-title-dark};
   --color-background-modal-close-hover: #{modal.$color-background-modal-close-hover-dark};
+  --color-font-modal-close: #{modal.$color-font-modal-close-dark};
+  --color-font-modal-close-hover: #{modal.$color-font-modal-close-hover-dark};
 
   // Document list
 

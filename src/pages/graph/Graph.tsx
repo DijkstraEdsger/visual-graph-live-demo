@@ -6,6 +6,7 @@ import WantToSave from "components/document/want-to-save";
 import GraphPropertiesPanel from "./GraphPropertiesPanel";
 import AlgorithmsParametersPanel from "./AlgorithmsParametersPanel";
 import MainPanel from "./MainPanel";
+import StatusBar from "./StatusBar";
 
 const GraphPage = () => {
   return (
@@ -13,6 +14,7 @@ const GraphPage = () => {
       <GraphPropertiesPanel />
       <MainPanel />
       <AlgorithmsParametersPanel />
+      <StatusBar />
       <SaveDocumentModal />
       <SaveConfirmExistsModal />
       <OpenDocument />

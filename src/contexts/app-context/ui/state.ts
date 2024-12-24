@@ -16,4 +16,5 @@ export const initialState: UIState = {
   wantToSaveModal: {
     isOpen: false,
   },
+  mousePosition: null,
 };

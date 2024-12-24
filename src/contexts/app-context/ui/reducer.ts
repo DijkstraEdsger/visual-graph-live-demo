@@ -64,6 +64,11 @@ export const uiReducer = (state: UIState, action: UIAction): UIState => {
           isOpen: false,
         },
       };
+    case UIActionType.UI_SET_MOUSE_POSITION:
+      return {
+        ...state,
+        mousePosition: action.payload,
+      };
 
     default:
       return state;

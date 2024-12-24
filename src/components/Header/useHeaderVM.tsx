@@ -11,6 +11,11 @@ import {
   useGraphDocumentState,
 } from "contexts/graph-document-context";
 import { useUpdate } from "hooks/graph-document/useUpdate";
+import GraphTraversalIcon from "components/Icon/Icons/GraphTraversalIcon";
+import MinimumSpanningTreeIcon from "components/Icon/Icons/MinimumSpanningTreeIcon";
+import ShortestPathIcon from "components/Icon/Icons/ShortestPathIcon";
+import NetworkFlowIcon from "components/Icon/Icons/NetworkFlowIcon";
+import MatchingIcon from "components/Icon/Icons/MatchingIcon";
 
 type TItem = {
   label: string | ReactNode;
@@ -149,7 +154,7 @@ const useHeaderVM = () => {
       items: [
         {
           label: "Shortest Path",
-          icon: <Icon name="shortest-path" size="16px" />,
+          icon: <ShortestPathIcon size="16px" />,
           items: [
             {
               label: "Dijkstra",
@@ -176,7 +181,7 @@ const useHeaderVM = () => {
         },
         {
           label: "Minimum Spanning Tree",
-          icon: <Icon name="minimum-spanning-tree" size="16px" />,
+          icon: <MinimumSpanningTreeIcon size="16px" />,
           items: [
             {
               label: "Kruskal",
@@ -191,7 +196,8 @@ const useHeaderVM = () => {
         },
         {
           label: "Graph Traversal",
-          icon: <Icon name="graph-traversal" size="16px" />,
+          // icon: <Icon name="graph-traversal" size="16px" />,
+          icon: <GraphTraversalIcon size="16px" />,
           items: [
             {
               label: "Depth First Search",
@@ -207,7 +213,7 @@ const useHeaderVM = () => {
         },
         {
           label: "Network Flow",
-          icon: <Icon name="network-flow" size="16px" />,
+          icon: <NetworkFlowIcon size="16px" />,
           items: [
             {
               label: "Ford-Fulkerson",
@@ -223,7 +229,7 @@ const useHeaderVM = () => {
         },
         {
           label: "Matching",
-          icon: <Icon name="matching" size="16px" />,
+          icon: <MatchingIcon size="16px" />,
           items: [
             {
               label: "Bipartite Matching",
