@@ -1,0 +1,14 @@
+.status_bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 6px;
+  background-color: var(--color-background-status-bar);
+  color: var(--color-font-status-bar);
+  border-top: 1px solid var(--color-border-top-status-bar);
+  font-size: 14px;
+}
+
+.status_bar__mouse_position {
+}

@@ -9,6 +9,7 @@ import "./styles/main.scss";
 import { ThemeProvider } from "contexts/themeContext";
 import { GraphDocumentProvider } from "contexts/graph-document-context";
 import { AppProvider } from "contexts/app-context/root/provider";
+import { MathJaxContext } from "better-react-mathjax";
 
 interface Node {
   id: string;
@@ -36,6 +37,7 @@ interface CustomGraphVisualizationProps {
 
 function App() {
   return (
+    // <MathJaxContext>
     <AppProvider>
       <ThemeProvider>
         <GraphDocumentProvider>
@@ -51,6 +53,7 @@ function App() {
         </GraphDocumentProvider>
       </ThemeProvider>
     </AppProvider>
+    // </MathJaxContext>
   );
 }
 

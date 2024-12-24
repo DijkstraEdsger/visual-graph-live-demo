@@ -19,6 +19,10 @@ const GraphContainerContext = React.createContext<{
     x: number;
     y: number;
   };
+  mousePosition?: {
+    x: number;
+    y: number;
+  };
 }>({
   container: null,
 });
@@ -45,6 +49,7 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
     x: number;
     y: number;
   }>({ x: 0, y: 0 });
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   React.useEffect(() => {
     setContainer(graphContainerRef.current);
@@ -69,13 +74,19 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const handleMouseMove = (e: any) => {
-    if (!isDragging) return;
     const containerRect = graphContainerRef.current?.getBoundingClientRect();
 
-    setLineEnd({
-      x: e.clientX - containerRect!.left,
-      y: e.clientY - containerRect!.top,
+    setMousePosition({
+      x: Math.floor(e.clientX - containerRect!.left),
+      y: Math.floor(e.clientY - containerRect!.top),
     });
+
+    if (isDragging) {
+      setLineEnd({
+        x: e.clientX - containerRect!.left,
+        y: e.clientY - containerRect!.top,
+      });
+    }
   };
 
   const handleMouseUp = () => {
@@ -104,6 +115,7 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
           handleMouseDown,
         },
         doubleClickPosition,
+        mousePosition,
       }}
     >
       <div

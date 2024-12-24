@@ -11,6 +11,7 @@ export default class GraphlibAdapter implements IGraphAdapter {
     this.graph = new Graph({ directed: isDirected });
     nodes.forEach((node) => this.addNode(node));
     edges.forEach((edge) => this.addEdge(edge));
+    // this.graph.
   }
 
   createGraph(

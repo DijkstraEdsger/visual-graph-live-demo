@@ -9,6 +9,7 @@
 @use "../tokens/components/menubar" as menubar;
 @use "../tokens/components/switch" as switch;
 @use "../tokens/components/modal" as modal;
+@use "../tokens/components/status-bar" as statusBar;
 @use "../tokens/components/document-list" as documentList;
 @use "../tokens/size";
 @use "../tokens/typography" as font;
@@ -159,6 +160,12 @@
   --color-font-document-list-item-default: #{documentList.$color-font-document-list-item-default-light};
   --color-background-document-list-item-selected: #{documentList.$color-background-document-list-item-selected-light};
   --color-font-document-list-item-selected: #{documentList.$color-font-document-list-item-selected-light};
+
+  // Status bar
+
+  --color-background-status-bar: #{statusBar.$color-background-status-bar-light};
+  --color-font-status-bar: #{statusBar.$color-font-status-bar-light};
+  --color-border-top-status-bar: #{statusBar.$color-border-top-status-bar-light};
 
   --size-height-header: 36px;
 }
