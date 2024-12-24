@@ -1,17 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import classes from "./classes.module.scss";
+import { useGraphContainer } from "contexts/graphContainerContext";
 
 const StatusBar: React.FC = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    setMousePosition({ x: event.clientX, y: event.clientY });
-  };
+  const { mousePosition } = useGraphContainer();
 
   return (
     <div className={classes.status_bar}>
       <div className={classes.status_bar__mouse_position}>
-        Mouse Position: {mousePosition.x}, {mousePosition.y}
+        x: {mousePosition?.x}, y: {mousePosition?.y}
       </div>
     </div>
   );

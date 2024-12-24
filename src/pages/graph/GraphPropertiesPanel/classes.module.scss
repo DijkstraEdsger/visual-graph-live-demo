@@ -1,11 +1,12 @@
 .panel {
-  width: 350px;
+  width: 300px;
   background-color: var(--color-background-parameters-section);
   padding: 10px;
   box-sizing: border-box;
   height: calc(100vh - var(--size-height-header));
-  border-left: 1px solid var(--color-border-parameters-section);
+  border-right: 1px solid var(--color-border-parameters-section);
   color: var(--color-font-label);
+  flex-shrink: 0;
 }
 
 .panel__header {

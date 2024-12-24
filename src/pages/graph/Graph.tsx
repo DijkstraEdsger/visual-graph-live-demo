@@ -4,17 +4,15 @@ import OpenDocument from "components/document/open-modal";
 import SaveConfirmExistsModal from "components/document/save-confirm-exists";
 import WantToSave from "components/document/want-to-save";
 import GraphPropertiesPanel from "./GraphPropertiesPanel";
-import StatusBar from "./StatusBar";
 import AlgorithmsParametersPanel from "./AlgorithmsParametersPanel";
 import MainPanel from "./MainPanel";
 
 const GraphPage = () => {
   return (
     <div className={classes["page-container"]}>
-      <AlgorithmsParametersPanel />
-      <MainPanel />
       <GraphPropertiesPanel />
-      <StatusBar />
+      <MainPanel />
+      <AlgorithmsParametersPanel />
       <SaveDocumentModal />
       <SaveConfirmExistsModal />
       <OpenDocument />
