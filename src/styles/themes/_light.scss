@@ -63,6 +63,16 @@
   --color-font-menutrigger-hover: #{menubar.$color-font-menutrigger-hover-light};
   --color-font-menutrigger-disabled: #{menubar.$color-font-menutrigger-disabled-light};
   --color-font-menutrigger-disabled-hover: #{menubar.$color-font-menutrigger-disabled-hover-light};
+
+  --color-background-menutrigger-header-default: #{menubar.$color-background-menutrigger-header-default-light};
+  --color-background-menutrigger-header-hover: #{menubar.$color-background-menutrigger-header-hover-light};
+  --color-background-menutrigger-header-disabled: #{menubar.$color-background-menutrigger-header-disabled-light};
+  --color-background-menutrigger-header-disabled-hover: #{menubar.$color-background-menutrigger-header-disabled-hover-light};
+  --color-font-menutrigger-header-default: #{menubar.$color-font-menutrigger-header-default-light};
+  --color-font-menutrigger-header-hover: #{menubar.$color-font-menutrigger-header-hover-light};
+  --color-font-menutrigger-header-disabled: #{menubar.$color-font-menutrigger-header-disabled-light};
+  --color-font-menutrigger-header-disabled-hover: #{menubar.$color-font-menutrigger-header-disabled-hover-light};
+
   --size-padding-menutrigger: #{menubar.$size-padding-menutrigger};
   --size-border-radius-menutrigger: #{menubar.$size-border-radius-menutrigger};
   --size-font-menutrigger: #{menubar.$size-font-menutrigger};
@@ -101,6 +111,7 @@
   --color-background-parameters-section: #{parametersSection.$color-background-parameters-section-light};
   --color-border-parameters-section: #{parametersSection.$color-border-parameters-section-light};
   --color-border-parameters-section-header: #{parametersSection.$color-border-parameters-section-header-light};
+  --color-font-parameter-section-header: #{parametersSection.$color-font-parameter-section-header-light};
 
   // Main section
 
@@ -144,14 +155,18 @@
 
   // ThemeButton
 
-  --color-background-theme-button: #ffffff;
-  --color-background-theme-button-hover: #f1f2f3;
+  --color-background-theme-button: #f8f8f9;
+  --color-background-theme-button-hover: #e4e4e5;
+  --color-font-theme-button: #616162;
+  --color-font-theme-button-hover: #1f1f20;
 
   // Modal
 
   --color-background-modal: #{modal.$color-background-modal-light};
   --color-font-modal-title: #{modal.$color-font-modal-title-light};
   --color-background-modal-close-hover: #{modal.$color-background-modal-close-hover-light};
+  --color-font-modal-close: #{modal.$color-font-modal-close-light};
+  --color-font-modal-close-hover: #{modal.$color-font-modal-close-hover-light};
 
   // Document list
 

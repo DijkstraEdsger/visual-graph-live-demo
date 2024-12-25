@@ -7,9 +7,11 @@
   height: 32px;
   padding: 4px;
   border-radius: 4px;
+  color: var(--color-font-theme-button);
   transition: background-color 0.3s;
 
   &:hover {
     background-color: var(--color-background-theme-button-hover);
+    color: var(--color-font-theme-button-hover);
   }
 }

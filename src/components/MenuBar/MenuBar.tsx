@@ -113,6 +113,7 @@ const MenuBar: React.FC<MenubarProps> = ({ menus = [], ...props }) => {
             onClose={() => setOpenIndex(-1)}
             disabled={item.disabled}
             onMouseOver={() => handleOnMouseOver(index)}
+            isRootMenuTrigger
           >
             {item.label}
           </MenuItem>

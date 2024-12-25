@@ -3,21 +3,39 @@
 =============================================*/
 
 $color-background-menutrigger-default-light: #ffffff;
-$color-background-menutrigger-default-dark: #1c1c1e;
-$color-background-menutrigger-hover-light: #f1f2f3;
-$color-background-menutrigger-hover-dark: #3a3a3c;
+$color-background-menutrigger-default-dark: #1f1f20;
+$color-background-menutrigger-hover-light: #0060b9;
+$color-background-menutrigger-hover-dark: #0079d5;
 $color-background-menutrigger-disabled-light: #ffffff;
-$color-background-menutrigger-disabled-dark: #1c1c1e;
+$color-background-menutrigger-disabled-dark: #1f1f20;
 $color-background-menutrigger-disabled-hover-light: #ffffff;
-$color-background-menutrigger-disabled-hover-dark: #1c1c1e;
-$color-font-menutrigger-default-light: #1d1f22;
-$color-font-menutrigger-default-dark: #e4e4e4;
-$color-font-menutrigger-hover-light: #1d1f22;
-$color-font-menutrigger-hover-dark: #e4e4e4;
+$color-background-menutrigger-disabled-hover-dark: #1f1f20;
+$color-font-menutrigger-default-light: #404041;
+$color-font-menutrigger-default-dark: #c8c8c8;
+$color-font-menutrigger-hover-light: #ffffff;
+$color-font-menutrigger-hover-dark: #ffffff;
 $color-font-menutrigger-disabled-light: #a3a5ad;
 $color-font-menutrigger-disabled-dark: #a3a5adff;
 $color-font-menutrigger-disabled-hover-light: #a3a5ad;
 $color-font-menutrigger-disabled-hover-dark: #a3a5adff;
+
+$color-background-menutrigger-header-default-light: #f8f8f9;
+$color-background-menutrigger-header-default-dark: #181819;
+$color-background-menutrigger-header-hover-light: #e4e4e5;
+$color-background-menutrigger-header-hover-dark: #2d2e2f;
+$color-background-menutrigger-header-disabled-light: #f8f8f9;
+$color-background-menutrigger-header-disabled-dark: #181819;
+$color-background-menutrigger-header-disabled-hover-light: #f8f8f9;
+$color-background-menutrigger-header-disabled-hover-dark: #181819;
+$color-font-menutrigger-header-default-light: #222223;
+$color-font-menutrigger-header-default-dark: #c8c8c8;
+$color-font-menutrigger-header-hover-light: #222223;
+$color-font-menutrigger-header-hover-dark: #c8c8c8;
+$color-font-menutrigger-header-disabled-light: #a3a5ad;
+$color-font-menutrigger-header-disabled-dark: #a3a5adff;
+$color-font-menutrigger-header-disabled-hover-light: #a3a5ad;
+$color-font-menutrigger-header-disabled-hover-dark: #a3a5adff;
+
 $size-padding-menutrigger: 6px 10px 6px 12px;
 $size-border-radius-menutrigger: 4px;
 $size-font-menutrigger: 14px;
@@ -26,17 +44,17 @@ $size-border-menutrigger-focus: 0px;
 /*=============================================
 =                 Menu Bar                    =
 =============================================*/
-$menubar-color: #1d1f22;
-$menubar-bg: #ffffff;
-$menubar-border-color: #f1f2f3;
+$menubar-color: #222223;
+$menubar-bg: #f8f8f9;
+$menubar-border-color: #e4e4e5;
 
 /*=============================================
 =                 Menu                        =
 =============================================*/
 
 $color-background-menu-light: #ffffff;
-$color-background-menu-dark: #1c1c1e;
-$size-padding-menu: 6px 0;
+$color-background-menu-dark: #1f1f20;
+$size-padding-menu: 6px 2px;
 $size-border-menu: 1px;
 $size-border-radius-menu: 4px;
 $box-shadow-menu-light: 0px 10px 38px -10px rgba(22, 23, 24, 0.35),

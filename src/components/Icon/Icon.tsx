@@ -27,6 +27,7 @@ interface IconProps {
   name: string;
   size?: string;
   style?: React.CSSProperties;
+  color?: string;
   props?: any;
 }
 
@@ -60,7 +61,13 @@ const icons: {
   "alert-triangle": AlertTriangleIcon,
 };
 
-const Icon: React.FC<IconProps> = ({ name, size = "sm", style, ...props }) => {
+const Icon: React.FC<IconProps> = ({
+  name,
+  size = "sm",
+  style,
+  color = "currentColor",
+  ...props
+}) => {
   const SvgIcon = icons[name];
 
   return SvgIcon ? (
@@ -70,6 +77,7 @@ const Icon: React.FC<IconProps> = ({ name, size = "sm", style, ...props }) => {
         height: size,
         ...style,
       }}
+      fill={color}
       {...props}
     />
   ) : null;

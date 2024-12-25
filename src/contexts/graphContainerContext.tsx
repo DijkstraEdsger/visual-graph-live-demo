@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import classes from "./classes.module.scss";
+import { useAppDispatch } from "./app-context/root/provider";
+import { UIActionType } from "./app-context/ui/types";
 
 const GraphContainerContext = React.createContext<{
   container: HTMLDivElement | null;
@@ -19,10 +21,10 @@ const GraphContainerContext = React.createContext<{
     x: number;
     y: number;
   };
-  mousePosition?: {
-    x: number;
-    y: number;
-  };
+  // mousePosition?: {
+  //   x: number;
+  //   y: number;
+  // } | null;
 }>({
   container: null,
 });
@@ -49,7 +51,11 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
     x: number;
     y: number;
   }>({ x: 0, y: 0 });
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  // const [mousePosition, setMousePosition] = useState<{
+  //   x: number;
+  //   y: number;
+  // } | null>(null);
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     setContainer(graphContainerRef.current);
@@ -76,9 +82,16 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
   const handleMouseMove = (e: any) => {
     const containerRect = graphContainerRef.current?.getBoundingClientRect();
 
-    setMousePosition({
-      x: Math.floor(e.clientX - containerRect!.left),
-      y: Math.floor(e.clientY - containerRect!.top),
+    // setMousePosition({
+    //   x: Math.floor(e.clientX - containerRect!.left),
+    //   y: Math.floor(e.clientY - containerRect!.top),
+    // });
+    dispatch({
+      type: UIActionType.UI_SET_MOUSE_POSITION,
+      payload: {
+        x: Math.floor(e.clientX - containerRect!.left),
+        y: Math.floor(e.clientY - containerRect!.top),
+      },
     });
 
     if (isDragging) {
@@ -87,6 +100,14 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
         y: e.clientY - containerRect!.top,
       });
     }
+  };
+
+  const handleMouseLeave = (e: any) => {
+    // setMousePosition(null);
+    dispatch({
+      type: UIActionType.UI_SET_MOUSE_POSITION,
+      payload: null,
+    });
   };
 
   const handleMouseUp = () => {
@@ -115,13 +136,14 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
           handleMouseDown,
         },
         doubleClickPosition,
-        mousePosition,
+        // mousePosition,
       }}
     >
       <div
         ref={graphContainerRef}
         className={classes.graph_container}
         onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
         onMouseUp={handleMouseUp}
         onDoubleClick={onDoubleClickHandler}
         title="Double click to add a new vertice"

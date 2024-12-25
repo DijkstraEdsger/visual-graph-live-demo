@@ -53,10 +53,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: var(--color-font-modal-close);
   transition: background-color 0.2s;
 
   &:hover {
     background-color: var(--color-background-modal-close-hover);
+    color: var(--color-font-modal-close-hover);
     transition: background-color 0.2s;
   }
 }
