@@ -1,6 +1,6 @@
 import { useGraph } from "contexts/graphContext";
 
-const useAlgorithmsParametersPanelVM = () => {
+const useAlgorithmControlSectionVM = () => {
   const { activeAlgorithm, algorithms, cleanPath, cleanHighlighted } =
     useGraph();
 
@@ -12,4 +12,4 @@ const useAlgorithmsParametersPanelVM = () => {
   };
 };
 
-export default useAlgorithmsParametersPanelVM;
+export default useAlgorithmControlSectionVM;
