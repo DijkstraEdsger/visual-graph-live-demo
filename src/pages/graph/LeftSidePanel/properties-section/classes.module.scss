@@ -1,0 +1,15 @@
+.section {
+  width: 100%;
+  border-bottom: 1px solid var(--color-border-bottom-panel-sub-section);
+  padding: 0 10px;
+}
+
+.section h2 {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 4px 0;
+}
+
+.section__body {
+  padding: 8px;
+}

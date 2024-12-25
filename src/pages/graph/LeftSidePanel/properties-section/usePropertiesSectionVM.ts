@@ -1,6 +1,6 @@
 import { useGraph } from "contexts/graphContext";
 
-const useGraphPropertiesPanelVM = () => {
+const usePropertiesSectionVM = () => {
   const { graph } = useGraph();
 
   return {
@@ -9,4 +9,4 @@ const useGraphPropertiesPanelVM = () => {
   };
 };
 
-export default useGraphPropertiesPanelVM;
+export default usePropertiesSectionVM;

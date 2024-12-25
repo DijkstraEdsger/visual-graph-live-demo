@@ -1,7 +1,6 @@
 .panel {
   width: 300px;
   background-color: var(--color-background-parameters-section);
-  padding: 10px;
   box-sizing: border-box;
   height: calc(100vh - var(--size-height-header));
   border-right: 1px solid var(--color-border-parameters-section);
@@ -10,13 +9,17 @@
 }
 
 .panel__header {
+  padding: 10px;
+  border-bottom: 1px solid var(--color-border-parameters-section-header);
+
   h2 {
-    height: 34px;
-    font-size: 18px;
-    font-weight: bold;
+    font-weight: 400;
+    font-size: 16px;
     color: var(--color-font-parameter-section-header);
-    margin-bottom: 20px;
-    border-bottom: 2px solid var(--color-border-parameters-section-header);
-    padding-bottom: 10px;
   }
+}
+
+.panel__sections {
+  display: flex;
+  flex-direction: column;
 }

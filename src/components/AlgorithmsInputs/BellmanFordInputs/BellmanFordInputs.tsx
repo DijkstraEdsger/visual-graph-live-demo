@@ -44,13 +44,13 @@ const BellmanFordInputs: React.FC<BellmanFordInputsProps> = ({
       />
 
       <br />
+      <Button onClick={onCleanPath}>Reset</Button>
       <Button
         onClick={() => onRun(startNode, endNode)}
         disabled={!startNode || !endNode}
       >
         Run
       </Button>
-      <Button onClick={onCleanPath}>Clean Path</Button>
     </div>
   );
 };
