@@ -36,24 +36,17 @@ const MinimumSpanningTreeIcon: React.FC<IconProps> = ({
       <circle cx="20" cy="16" r="1.5" fill={color} />
 
       {/* MST Edges */}
-      <line x1="12" y1="4" x2="6" y2="10" stroke="#ff0000" stroke-width="1.5" />
-      <line
-        x1="12"
-        y1="4"
-        x2="18"
-        y2="10"
-        stroke="#ff0000"
-        stroke-width="1.5"
-      />
-      <line x1="6" y1="10" x2="4" y2="16" stroke="#ff0000" stroke-width="1.5" />
-      <line x1="6" y1="10" x2="8" y2="16" stroke="#ff0000" stroke-width="1.5" />
+      <line x1="12" y1="4" x2="6" y2="10" stroke="#ff0000" strokeWidth="1.5" />
+      <line x1="12" y1="4" x2="18" y2="10" stroke="#ff0000" strokeWidth="1.5" />
+      <line x1="6" y1="10" x2="4" y2="16" stroke="#ff0000" strokeWidth="1.5" />
+      <line x1="6" y1="10" x2="8" y2="16" stroke="#ff0000" strokeWidth="1.5" />
       <line
         x1="18"
         y1="10"
         x2="16"
         y2="16"
         stroke="#ff0000"
-        stroke-width="1.5"
+        strokeWidth="1.5"
       />
       <line
         x1="18"
@@ -61,7 +54,7 @@ const MinimumSpanningTreeIcon: React.FC<IconProps> = ({
         x2="20"
         y2="16"
         stroke="#ff0000"
-        stroke-width="1.5"
+        strokeWidth="1.5"
       />
     </svg>
   );

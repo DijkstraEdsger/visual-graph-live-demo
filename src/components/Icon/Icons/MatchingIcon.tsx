@@ -40,17 +40,17 @@ const MatchingIcon: React.FC<IconProps> = ({
       <circle cx="18" cy="18" r="2" fill={color} />
 
       {/* Edges */}
-      <line x1="6" y1="6" x2="18" y2="6" stroke="#b0bec5" stroke-width="1" />
-      <line x1="6" y1="6" x2="18" y2="12" stroke="#b0bec5" stroke-width="1" />
-      <line x1="6" y1="12" x2="18" y2="6" stroke="#b0bec5" stroke-width="1" />
-      <line x1="6" y1="12" x2="18" y2="12" stroke="#b0bec5" stroke-width="1" />
-      <line x1="6" y1="18" x2="18" y2="12" stroke="#b0bec5" stroke-width="1" />
-      <line x1="6" y1="18" x2="18" y2="18" stroke="#b0bec5" stroke-width="1" />
+      <line x1="6" y1="6" x2="18" y2="6" stroke="#b0bec5" strokeWidth="1" />
+      <line x1="6" y1="6" x2="18" y2="12" stroke="#b0bec5" strokeWidth="1" />
+      <line x1="6" y1="12" x2="18" y2="6" stroke="#b0bec5" strokeWidth="1" />
+      <line x1="6" y1="12" x2="18" y2="12" stroke="#b0bec5" strokeWidth="1" />
+      <line x1="6" y1="18" x2="18" y2="12" stroke="#b0bec5" strokeWidth="1" />
+      <line x1="6" y1="18" x2="18" y2="18" stroke="#b0bec5" strokeWidth="1" />
 
       {/* Matching Edges */}
-      <line x1="6" y1="6" x2="18" y2="6" stroke="#ff0000" stroke-width="2" />
-      <line x1="6" y1="12" x2="18" y2="12" stroke="#ff0000" stroke-width="2" />
-      <line x1="6" y1="18" x2="18" y2="18" stroke="#ff0000" stroke-width="2" />
+      <line x1="6" y1="6" x2="18" y2="6" stroke="#ff0000" strokeWidth="2" />
+      <line x1="6" y1="12" x2="18" y2="12" stroke="#ff0000" strokeWidth="2" />
+      <line x1="6" y1="18" x2="18" y2="18" stroke="#ff0000" strokeWidth="2" />
     </svg>
   );
 };

@@ -38,10 +38,10 @@ const NetworkFlowIcon: React.FC<IconProps> = ({
       {/* Sink Node */}
 
       {/* Edges */}
-      <line x1="4" y1="12" x2="12" y2="6" stroke="#b0bec5" stroke-width="1" />
-      <line x1="4" y1="12" x2="12" y2="18" stroke="#b0bec5" stroke-width="1" />
-      <line x1="12" y1="6" x2="20" y2="12" stroke="#b0bec5" stroke-width="1" />
-      <line x1="12" y1="18" x2="20" y2="12" stroke="#b0bec5" stroke-width="1" />
+      <line x1="4" y1="12" x2="12" y2="6" stroke="#b0bec5" strokeWidth="1" />
+      <line x1="4" y1="12" x2="12" y2="18" stroke="#b0bec5" strokeWidth="1" />
+      <line x1="12" y1="6" x2="20" y2="12" stroke="#b0bec5" strokeWidth="1" />
+      <line x1="12" y1="18" x2="20" y2="12" stroke="#b0bec5" strokeWidth="1" />
 
       {/* Flow Path */}
       <line
@@ -50,8 +50,8 @@ const NetworkFlowIcon: React.FC<IconProps> = ({
         x2="20"
         y2="12"
         stroke="#ff0000"
-        stroke-width="2"
-        marker-end="url(#arrow-smallest)"
+        strokeWidth="2"
+        markerEnd="url(#arrow-smallest)"
       />
 
       {/* Arrow Marker */}

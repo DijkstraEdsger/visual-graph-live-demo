@@ -30,11 +30,11 @@ const ShortestPathIcon: React.FC<IconProps> = ({
       <circle cx="20" cy="4" r="2" fill={color} />
       <circle cx="4" cy="20" r="2" fill={color} />
       <circle cx="20" cy="20" r="2" fill={color} />
-      <line x1="4" y1="4" x2="20" y2="4" stroke={color} stroke-width="1" />
-      <line x1="4" y1="4" x2="4" y2="20" stroke={color} stroke-width="1" />
-      <line x1="20" y1="4" x2="20" y2="20" stroke={color} stroke-width="1" />
-      <line x1="4" y1="20" x2="20" y2="20" stroke={color} stroke-width="1" />
-      <line x1="4" y1="4" x2="20" y2="20" stroke="#ff0000" stroke-width="2" />
+      <line x1="4" y1="4" x2="20" y2="4" stroke={color} strokeWidth="1" />
+      <line x1="4" y1="4" x2="4" y2="20" stroke={color} strokeWidth="1" />
+      <line x1="20" y1="4" x2="20" y2="20" stroke={color} strokeWidth="1" />
+      <line x1="4" y1="20" x2="20" y2="20" stroke={color} strokeWidth="1" />
+      <line x1="4" y1="4" x2="20" y2="20" stroke="#ff0000" strokeWidth="2" />
     </svg>
   );
 };
