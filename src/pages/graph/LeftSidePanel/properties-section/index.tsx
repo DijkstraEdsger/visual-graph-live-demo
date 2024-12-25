@@ -4,7 +4,8 @@ import { MathJax } from "better-react-mathjax";
 import usePropertiesSectionVM from "./usePropertiesSectionVM";
 
 const PropertiesSection: React.FC = () => {
-  const { numberOfEdges, numberOfVertices } = usePropertiesSectionVM();
+  const { numberOfEdges, numberOfVertices, isComplete } =
+    usePropertiesSectionVM();
 
   return (
     <section className={classes.section}>
@@ -14,7 +15,15 @@ const PropertiesSection: React.FC = () => {
         <p>Edges: {numberOfEdges}</p>
         <p>Degree: -</p>
         <p>Size: -</p>
-        <p>Bipartite: -</p>
+        <p>
+          Is complete: {isComplete ? "Yes" : "No"}{" "}
+          {isComplete && (
+            <var>
+              &#40;K<sub>{numberOfVertices}</sub>&#41;
+            </var>
+          )}
+        </p>
+        {/* <p>Bipartite: -</p> */}
       </div>
       {/* <p>
         <MathJax>\( G = (V, A) \)</MathJax>

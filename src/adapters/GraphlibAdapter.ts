@@ -125,4 +125,46 @@ export default class GraphlibAdapter implements IGraphAdapter {
 
     return path.reverse();
   }
+
+  isCompleteGraph = (vertices: INode[] = [], edges: IEdge[] = []): boolean => {
+    const n = vertices.length;
+
+    if (n === 0 && edges.length === 0) {
+      return true;
+    }
+
+    const requiredNumberOfEdges = (n * (n - 1)) / 2;
+
+    if (edges.length !== requiredNumberOfEdges) {
+      return false;
+    }
+
+    const modifiedVertices = vertices.map((vertice) => vertice.id);
+    const modifiedEdegs = edges.map((edge) => [edge.source, edge.target]);
+
+    const edgeSet = new Set(modifiedEdegs.map((edge) => JSON.stringify(edge)));
+
+    for (let i = 0; i < n; i++) {
+      for (let j = i + 1; j < n; j++) {
+        const edge1 = JSON.stringify([
+          modifiedVertices[i],
+          modifiedVertices[j],
+        ]);
+        const edge2 = JSON.stringify([
+          modifiedVertices[j],
+          modifiedVertices[i],
+        ]);
+
+        if (!edgeSet.has(edge1) && !edgeSet.has(edge2)) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  };
+
+  // isBipartite(): boolean {
+
+  // }
 }

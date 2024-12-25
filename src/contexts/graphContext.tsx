@@ -20,12 +20,7 @@ import {
   NodeId,
   Position,
 } from "types/graph";
-import {
-  useGraphDocumentDispatch,
-  useGraphDocumentState,
-} from "./graph-document-context";
-import { useAppDispatch } from "./app-context/root/provider";
-import { UIActionType } from "./app-context/ui/types";
+import { useGraphDocumentDispatch } from "./graph-document-context";
 
 type TimeStampHistoryItem = {
   graph: GraphState;
@@ -191,6 +186,8 @@ const GraphContext = createContext<{
   };
   activeAlgorithm?: string | null;
   isDirected?: boolean;
+  isComplete?: boolean;
+  isBipartite?: boolean;
   setIsDirectedHandler: (isDirected: boolean) => void;
   addVerticeHandler: (vertice: INode) => void;
   addEdgeHandler: (edge: IEdge) => void;
@@ -239,6 +236,8 @@ const GraphProvider: FC<GraphProviderProps> = ({
   const [traversalPath, setWayPoints] = useState<NodeId[]>([]);
   const [highlightedEdges, setHighlightedEdges] = useState<IEdge[]>([]);
   const [highlightedVertices, setHighlightedVertices] = useState<NodeId[]>([]);
+  const [isComplete, setIsComplete] = useState<boolean>(false);
+  const [isBipartite, setIsBipartite] = useState<boolean>(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [graphAdapter, setGraphAdapter] = useState<IGraphAdapter | null>(null);
   const [shortestPaths, setShortestPaths] = useState<
@@ -363,6 +362,11 @@ const GraphProvider: FC<GraphProviderProps> = ({
       // Undo tracking end
     };
   }, [state]);
+
+  useEffect(() => {
+    setIsComplete(adapter.isCompleteGraph(state.vertices, state.edges));
+    // setIsBipartite(adapter.)
+  }, [state.vertices.length, state.edges.length]);
 
   const updatePositions = (vertice: INode, position: Position) => {
     dispatch({
@@ -503,6 +507,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
           prim: runPrimHandler,
         },
         isDirected: state.isDirected,
+        isComplete,
         setIsDirectedHandler,
         addVerticeHandler,
         addEdgeHandler,
