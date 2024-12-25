@@ -206,7 +206,7 @@ const useGraph = ({
     if (edges) {
       updateEdgesElements();
     }
-  }, [edges, verticesElements]);
+  }, [edges]);
 
   const isEdgeTraversed = (edge: IEdge) => {
     const { source, target } = edge;
