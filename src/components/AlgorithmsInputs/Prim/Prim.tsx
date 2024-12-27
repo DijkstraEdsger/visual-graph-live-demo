@@ -11,7 +11,7 @@ const Prim: React.FC<PrimProps> = ({ onRun, onClean = () => {} }) => {
   return (
     <div className={classes.prim}>
       <Button onClick={onClean}>Reset</Button>
-      <Button onClick={onRun}>Run</Button>
+      <Button onClick={onRun}>Run & Show</Button>
     </div>
   );
 };

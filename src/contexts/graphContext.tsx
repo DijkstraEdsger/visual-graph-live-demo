@@ -183,11 +183,14 @@ const GraphContext = createContext<{
     dijkstra: (source: NodeId, target: NodeId) => void;
     bellmanFord: (source: NodeId, target: NodeId) => void;
     prim: () => any;
+    dfs: (startNode: NodeId) => any;
   };
   activeAlgorithm?: string | null;
   isDirected?: boolean;
   isComplete?: boolean;
   isBipartite?: boolean;
+  dfsTraversal?: IEdge[];
+  selectedVertice?: NodeId | null;
   setIsDirectedHandler: (isDirected: boolean) => void;
   addVerticeHandler: (vertice: INode) => void;
   addEdgeHandler: (edge: IEdge) => void;
@@ -199,10 +202,12 @@ const GraphContext = createContext<{
   setActiveAlgorithmHandler?: (algorithm: string) => void;
   cleanPath?: () => void;
   cleanHighlighted?: () => void;
+  cleanDfsResult?: () => void;
   undo?: () => void;
   redo?: () => void;
   openGraph?: (data: GraphState) => void;
   cleanGraph?: () => void;
+  selectVerticeHandler?: (verticeId: NodeId) => void;
 }>({
   graph: {
     vertices: [],
@@ -214,6 +219,7 @@ const GraphContext = createContext<{
   traversalPath: [],
   inputFileRef: { current: null },
   isDirected: false,
+  selectedVertice: null,
   setIsDirectedHandler: () => {},
   addVerticeHandler: () => {},
   addEdgeHandler: () => {},
@@ -236,7 +242,9 @@ const GraphProvider: FC<GraphProviderProps> = ({
   const [traversalPath, setWayPoints] = useState<NodeId[]>([]);
   const [highlightedEdges, setHighlightedEdges] = useState<IEdge[]>([]);
   const [highlightedVertices, setHighlightedVertices] = useState<NodeId[]>([]);
+  const [dfsTraversal, setDfsTraversal] = useState<IEdge[]>([]);
   const [isComplete, setIsComplete] = useState<boolean>(false);
+  const [selectedVertice, setSelectedVertice] = useState<NodeId | null>(null);
   const [isBipartite, setIsBipartite] = useState<boolean>(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [graphAdapter, setGraphAdapter] = useState<IGraphAdapter | null>(null);
@@ -461,6 +469,16 @@ const GraphProvider: FC<GraphProviderProps> = ({
     setHighlightedVertices(nodes);
   };
 
+  const runDfsHandler = (startNode: NodeId) => {
+    const { edges } = adapter.dfs({
+      vertices: state.vertices,
+      edges: state.edges,
+      startVertex: startNode,
+      isDirected: state.isDirected ?? false,
+    });
+    setDfsTraversal(edges);
+  };
+
   const runBellmanFordHandler = (source: NodeId, target: NodeId) => {
     const paths = adapter.runBellmanFord(source);
     setShortestPaths(paths);
@@ -481,6 +499,10 @@ const GraphProvider: FC<GraphProviderProps> = ({
     setHighlightedVertices([]);
   };
 
+  const cleanDfsResult = () => {
+    setDfsTraversal([]);
+  };
+
   const cleanGraphHandler = () => {
     dispatch({ type: ActionType.CLEAN_STATE });
     // if (isDocumentModified) {
@@ -488,6 +510,10 @@ const GraphProvider: FC<GraphProviderProps> = ({
     // } else {
     //   dispatch({ type: ActionType.CLEAN_STATE });
     // }
+  };
+
+  const selectVerticeHandler = (verticeId: NodeId) => {
+    setSelectedVertice(verticeId);
   };
 
   return (
@@ -505,9 +531,12 @@ const GraphProvider: FC<GraphProviderProps> = ({
           dijkstra: runDijkstraHandler,
           bellmanFord: runBellmanFordHandler,
           prim: runPrimHandler,
+          dfs: runDfsHandler,
         },
         isDirected: state.isDirected,
         isComplete,
+        dfsTraversal,
+        selectedVertice,
         setIsDirectedHandler,
         addVerticeHandler,
         addEdgeHandler,
@@ -519,10 +548,12 @@ const GraphProvider: FC<GraphProviderProps> = ({
         setActiveAlgorithmHandler,
         cleanPath,
         cleanHighlighted,
+        cleanDfsResult,
         undo,
         redo,
         openGraph,
         cleanGraph: cleanGraphHandler,
+        selectVerticeHandler,
       }}
     >
       {children}

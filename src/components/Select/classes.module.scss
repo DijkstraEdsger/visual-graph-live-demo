@@ -1,0 +1,44 @@
+.select__input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid var(--color-border-text-field-default);
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: var(--color-background-text-field);
+  color: var(--color-font-text-field);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.select__input:focus {
+  border-color: var(--color-border-text-field-focus);
+  box-shadow: var(--box-shadow-text-field-focus);
+  outline: none;
+}
+
+.select__input--error,
+.select__input--error:focus {
+  border-color: #f44336;
+}
+
+.select__input--error:focus {
+  box-shadow: 0 0 5px #f44336;
+}
+
+.select__label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: var(--color-font-label);
+}
+
+.select__helper-text {
+  color: #666;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.select__helper-text--error {
+  color: #f44336;
+}

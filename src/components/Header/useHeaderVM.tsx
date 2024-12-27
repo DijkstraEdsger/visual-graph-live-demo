@@ -201,8 +201,7 @@ const useHeaderVM = () => {
           items: [
             {
               label: "Depth First Search",
-              disabled: true,
-              onClick: () => console.log("Depth First Search"),
+              onClick: () => setActiveAlgorithmHandler?.(ActiveAlgorithm.DFS),
             },
             {
               label: "Breadth First Search",

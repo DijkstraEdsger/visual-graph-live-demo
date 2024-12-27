@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import classes from "./classes.module.scss";
 import { useAppDispatch } from "./app-context/root/provider";
 import { UIActionType } from "./app-context/ui/types";
@@ -61,23 +61,26 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
     setContainer(graphContainerRef.current);
   }, []);
 
-  const handleMouseDown = (verticeRef: React.RefObject<HTMLDivElement>) => {
-    setIsDragging(true);
-    const rect = verticeRef.current?.getBoundingClientRect() as DOMRect;
-    const containerRect = graphContainerRef.current?.getBoundingClientRect();
+  const handleMouseDown = useCallback(
+    (verticeRef: React.RefObject<HTMLDivElement>) => {
+      setIsDragging(true);
+      const rect = verticeRef.current?.getBoundingClientRect() as DOMRect;
+      const containerRect = graphContainerRef.current?.getBoundingClientRect();
 
-    const x = rect.left + rect.width / 2 - containerRect?.left!;
-    const y = rect.top + rect.height / 2 - containerRect?.top!;
+      const x = rect.left + rect.width / 2 - containerRect?.left!;
+      const y = rect.top + rect.height / 2 - containerRect?.top!;
 
-    setLineStart({
-      x,
-      y,
-    });
-    setLineEnd({
-      x,
-      y,
-    });
-  };
+      setLineStart({
+        x,
+        y,
+      });
+      setLineEnd({
+        x,
+        y,
+      });
+    },
+    [graphContainerRef]
+  );
 
   const handleMouseMove = (e: any) => {
     const containerRect = graphContainerRef.current?.getBoundingClientRect();
@@ -111,9 +114,11 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const handleMouseUp = () => {
-    setIsDragging(false);
-    setLineStart({ x: 0, y: 0 });
-    setLineEnd({ x: 0, y: 0 });
+    if (isDragging) {
+      setIsDragging(false);
+      setLineStart({ x: 0, y: 0 });
+      setLineEnd({ x: 0, y: 0 });
+    }
   };
 
   const onDoubleClickHandler = (e: React.MouseEvent) => {
@@ -125,20 +130,26 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
     });
   };
 
+  const edgeConection = useMemo(() => {
+    return {
+      isDragging,
+      lineStart,
+      lineEnd,
+      handleMouseDown,
+    };
+  }, [isDragging, lineStart, lineEnd, handleMouseDown]);
+
+  const value = useMemo(() => {
+    return {
+      container: container,
+      edgeConection,
+      doubleClickPosition,
+      // mousePosition,
+    };
+  }, [container, edgeConection, doubleClickPosition]);
+
   return (
-    <GraphContainerContext.Provider
-      value={{
-        container: container,
-        edgeConection: {
-          isDragging,
-          lineStart,
-          lineEnd,
-          handleMouseDown,
-        },
-        doubleClickPosition,
-        // mousePosition,
-      }}
-    >
+    <GraphContainerContext.Provider value={value}>
       <div
         ref={graphContainerRef}
         className={classes.graph_container}

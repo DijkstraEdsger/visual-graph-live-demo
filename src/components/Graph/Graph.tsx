@@ -9,6 +9,7 @@ type GraphProps = {
   highlightedEdges?: IEdge[];
   highlightedVertices?: NodeId[];
   isDirected?: boolean;
+  dfsTraversal?: IEdge[];
   onAddEdge?: (edge: IEdge) => void;
   onAddVertice?: (vertice: INode) => void;
 };
@@ -20,6 +21,7 @@ const Graph: React.FC<GraphProps> = ({
   highlightedEdges = [],
   highlightedVertices = [],
   isDirected = false,
+  dfsTraversal = [],
   onAddEdge = () => {},
   onAddVertice = () => {},
 }: GraphProps) => {
@@ -29,6 +31,7 @@ const Graph: React.FC<GraphProps> = ({
     traversalPath,
     highlightedEdges,
     highlightedVertices,
+    dfsTraversal,
     onAddEdge,
     onAddVertice,
   });

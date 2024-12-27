@@ -5,10 +5,16 @@ import DijkstraInputs from "components/AlgorithmsInputs/DijkstraInputs/DijkstraI
 import BellmanFordInputs from "components/AlgorithmsInputs/BellmanFordInputs/BellmanFordInputs";
 import Prim from "components/AlgorithmsInputs/Prim/Prim";
 import useAlgorithmControlSectionVM from "./useAlgorithmControlSectionVM";
+import DfsControls from "components/AlgorithmsInputs/DfsControls/DfsControls";
 
 const AlgorithmControlSection: React.FC = () => {
-  const { activeAlgorithm, algorithms, cleanPath, cleanHighlighted } =
-    useAlgorithmControlSectionVM();
+  const {
+    activeAlgorithm,
+    algorithms,
+    cleanPath,
+    cleanHighlighted,
+    cleanDfsResult,
+  } = useAlgorithmControlSectionVM();
 
   return (
     <section className={classes.section}>
@@ -33,6 +39,9 @@ const AlgorithmControlSection: React.FC = () => {
         )}
         {activeAlgorithm === ActiveAlgorithm.PRIM && (
           <Prim onRun={() => algorithms?.prim()} onClean={cleanHighlighted} />
+        )}
+        {activeAlgorithm === ActiveAlgorithm.DFS && (
+          <DfsControls onRun={algorithms?.dfs} onReset={cleanDfsResult} />
         )}
       </div>
     </section>

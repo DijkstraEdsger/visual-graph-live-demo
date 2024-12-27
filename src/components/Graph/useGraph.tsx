@@ -13,6 +13,7 @@ type GraphProps = {
   traversalPath?: NodeId[];
   highlightedEdges?: IEdge[];
   highlightedVertices?: NodeId[];
+  dfsTraversal?: IEdge[];
   onAddEdge?: (edge: IEdge) => void;
   onAddVertice?: (vertice: INode) => void;
 };
@@ -23,6 +24,7 @@ const useGraph = ({
   traversalPath = [],
   highlightedEdges = [],
   highlightedVertices = [],
+  dfsTraversal = [],
   onAddEdge = () => {},
   onAddVertice = () => {},
 }: GraphProps) => {
@@ -31,8 +33,86 @@ const useGraph = ({
   const [edgesElements, setEdgesElements] = useState<JSX.Element[]>([]);
   const [newEdge, setNewEdge] = useState<IEdge | null>(null);
   const { edgeConection, doubleClickPosition } = useGraphContainer();
-  const { isDirected, updatePositions, removeEdge, removeVertice } =
-    useGraphGlobalContext();
+  const {
+    isDirected,
+    selectedVertice,
+    updatePositions,
+    removeEdge,
+    removeVertice,
+  } = useGraphGlobalContext();
+
+  useEffect(() => {
+    if (selectedVertice) {
+      const verticesElementsCopy = [...verticesElements];
+      const findIndexVertice = vertices.findIndex(
+        (vertice) => vertice.id === selectedVertice
+      );
+
+      verticesElementsCopy.forEach((verticeEl, index) => {
+        verticesElementsCopy[index] = cloneElement(verticeEl, {
+          ...verticeEl.props,
+          isVisited: index === findIndexVertice,
+        });
+      });
+
+      setVerticesElements([...verticesElementsCopy]);
+    }
+  }, [selectedVertice]);
+
+  useEffect(() => {
+    if (dfsTraversal.length > 0) {
+      showDfsResult();
+    } else {
+      updateVerticesElements();
+      updateEdgesElements();
+    }
+  }, [dfsTraversal]);
+
+  const showDfsResult = () => {
+    const edgesElIndexes: number[] = dfsTraversal.reduce(
+      (acc: number[], edge) => {
+        const edgeIndex = edges.findIndex(
+          (e) =>
+            (e.source === edge.source && e.target === edge.target) ||
+            (e.source === edge.target && e.target === edge.source)
+        );
+
+        if (edgeIndex !== -1) {
+          acc.push(edgeIndex);
+        }
+
+        return acc;
+      },
+      []
+    );
+
+    const updatedEdgesElements = [...edgesElements];
+    const verticesElementsCopy = [...verticesElements];
+
+    edgesElIndexes.forEach((edgeIndex) => {
+      const edgeEl = updatedEdgesElements[edgeIndex];
+
+      updatedEdgesElements[edgeIndex] = cloneElement(edgeEl, {
+        isTraversed: true,
+      });
+    });
+
+    dfsTraversal.forEach((edge, index) => {
+      const findIndexVertice = vertices.findIndex(
+        (vertice) => vertice.id === edge.target
+      );
+      verticesElementsCopy[findIndexVertice] = cloneElement(
+        verticesElementsCopy[findIndexVertice],
+        {
+          ...verticesElementsCopy[findIndexVertice].props,
+          isVisited: true,
+        }
+      );
+    });
+
+    setEdgesElements(updatedEdgesElements);
+    setVerticesElements(verticesElementsCopy);
+  };
 
   useEffect(() => {
     if (vertices) {
@@ -56,9 +136,7 @@ const useGraph = ({
   }, [highlightedEdges]);
 
   useEffect(() => {
-    if (highlightedVertices.length) {
-      updateVerticesElements();
-    }
+    updateVerticesElements();
   }, [highlightedVertices]);
 
   const updateEdgesElementsWithHiglightedEdges = () => {

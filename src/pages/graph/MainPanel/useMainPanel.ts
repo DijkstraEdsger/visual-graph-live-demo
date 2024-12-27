@@ -9,6 +9,7 @@ const useMainPanel = () => {
     highlightedEdges,
     highlightedVertices,
     isDirected,
+    dfsTraversal,
     setIsDirectedHandler,
     addEdgeHandler,
     addVerticeHandler,
@@ -42,6 +43,7 @@ const useMainPanel = () => {
     traversalPath,
     highlightedEdges,
     highlightedVertices,
+    dfsTraversal,
     addEdgeHandler,
     addVerticeHandler,
   };

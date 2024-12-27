@@ -3,6 +3,8 @@ import dijkstra from "@dagrejs/graphlib/lib/alg/dijkstra";
 import prim from "@dagrejs/graphlib/lib/alg/prim";
 import { IGraphAdapter } from "interfaces/IGraphAdapter";
 import { IEdge, INode, IShortestPath, NodeId } from "types/graph";
+import GraphV3 from "graphology";
+import { dfsFromNode } from "graphology-traversal";
 
 export default class GraphlibAdapter implements IGraphAdapter {
   private graph: Graph;
@@ -167,4 +169,72 @@ export default class GraphlibAdapter implements IGraphAdapter {
   // isBipartite(): boolean {
 
   // }
+
+  dfs({
+    vertices,
+    edges,
+    startVertex,
+    isDirected,
+  }: {
+    vertices: INode[];
+    edges: IEdge[];
+    startVertex: NodeId;
+    isDirected: boolean;
+  }): { edges: IEdge[] } {
+    const graphV3 = new GraphV3({
+      type: isDirected ? "directed" : "undirected",
+    });
+
+    vertices.forEach((vertex) => {
+      graphV3.addNode(vertex.id);
+    });
+
+    edges.forEach((edge) => {
+      graphV3.addEdge(edge.source, edge.target);
+    });
+
+    const trackEnteringVertices: any[] = [];
+    const stackEnteringVerticesDepth: any[] = [];
+    const trackEdges: IEdge[] = [];
+
+    dfsFromNode(graphV3, startVertex, function (node, attr, depth) {
+      if (trackEnteringVertices.length > 0) {
+        if (
+          depth >
+          stackEnteringVerticesDepth[stackEnteringVerticesDepth.length - 1]
+        ) {
+          const addEdgev3: IEdge = {
+            source: trackEnteringVertices[trackEnteringVertices.length - 1],
+            target: node,
+            weight: 0,
+          };
+          trackEdges.push(addEdgev3);
+          trackEnteringVertices.push(node);
+          stackEnteringVerticesDepth.push(depth);
+        } else {
+          while (
+            depth <=
+            stackEnteringVerticesDepth[stackEnteringVerticesDepth.length - 1]
+          ) {
+            trackEnteringVertices.pop();
+            stackEnteringVerticesDepth.pop();
+          }
+
+          const addEdgev3: IEdge = {
+            source: trackEnteringVertices[trackEnteringVertices.length - 1],
+            target: node,
+            weight: 0,
+          };
+          trackEdges.push(addEdgev3);
+          trackEnteringVertices.push(node);
+          stackEnteringVerticesDepth.push(depth);
+        }
+      } else {
+        trackEnteringVertices.push(node);
+        stackEnteringVerticesDepth.push(depth);
+      }
+    });
+
+    return { edges: trackEdges };
+  }
 }

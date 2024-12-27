@@ -49,7 +49,7 @@ const BellmanFordInputs: React.FC<BellmanFordInputsProps> = ({
         onClick={() => onRun(startNode, endNode)}
         disabled={!startNode || !endNode}
       >
-        Run
+        Run & Show
       </Button>
     </div>
   );

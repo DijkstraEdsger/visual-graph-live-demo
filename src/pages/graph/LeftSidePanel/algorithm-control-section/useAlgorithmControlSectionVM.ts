@@ -1,14 +1,20 @@
 import { useGraph } from "contexts/graphContext";
 
 const useAlgorithmControlSectionVM = () => {
-  const { activeAlgorithm, algorithms, cleanPath, cleanHighlighted } =
-    useGraph();
+  const {
+    activeAlgorithm,
+    algorithms,
+    cleanPath,
+    cleanHighlighted,
+    cleanDfsResult,
+  } = useGraph();
 
   return {
     activeAlgorithm,
     algorithms,
     cleanPath,
     cleanHighlighted,
+    cleanDfsResult,
   };
 };
 
