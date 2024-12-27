@@ -1,6 +1,7 @@
-import React from "react";
-import TextField from "components/TextField/TextField";
+import React, { useId } from "react";
 import Button from "components/Button/Button";
+import Select from "components/Select";
+import { useGraph } from "contexts/graphContext";
 
 interface BellmanFordInputsProps {
   onRun: (startNode: string, endNode: string) => void;
@@ -13,34 +14,50 @@ const BellmanFordInputs: React.FC<BellmanFordInputsProps> = ({
 }) => {
   const [startNode, setStartNode] = React.useState("");
   const [endNode, setEndNode] = React.useState("");
+  const id = useId();
+  const {
+    graph: { vertices },
+    selectVerticeHandler,
+  } = useGraph();
 
-  const handleStartNodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setStartNode(e.target.value);
+  const handleEndNodeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setEndNode(e.target.value);
   };
 
-  const handleEndNodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEndNode(e.target.value);
+  const handleStartNodeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setStartNode(e.target.value);
+    selectVerticeHandler?.(e.target.value);
   };
 
   return (
     <div>
-      <TextField
-        placeholder="Enter starting node"
+      <Select
+        id={`${id}-start-node`}
+        placeholder="Select starting node"
         onChange={handleStartNodeChange}
         value={startNode}
         label="Starting Node"
-        type="text"
         name="startNode"
-        id="startNode"
+        options={vertices
+          ?.filter((v) => v.id !== endNode)
+          .map((vertice) => ({
+            value: vertice.id,
+            label: vertice.label,
+          }))}
       />
-      <TextField
-        placeholder="Enter ending node"
+      <Select
+        id={`${id}-end-node`}
+        placeholder="Select ending node"
         onChange={handleEndNodeChange}
         value={endNode}
         label="Ending Node"
-        type="text"
         name="endNode"
-        id="endNode"
+        options={vertices
+          ?.filter((v) => v.id !== startNode)
+          .map((vertice) => ({
+            value: vertice.id,
+            label: vertice.label,
+          }))}
       />
 
       <br />

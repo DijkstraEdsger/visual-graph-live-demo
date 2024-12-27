@@ -29,11 +29,10 @@ const DfsControls: React.FC<DfsControlsProps> = ({
     <div className={classes.controls}>
       <Select
         id={inputId}
-        placeholder="Enter starting node"
+        placeholder="Select starting node"
         onChange={handleStartNodeChange}
         value={startNode}
         label="Starting Node"
-        type="text"
         name="startNode"
         options={vertices?.map((vertice) => ({
           value: vertice.id,

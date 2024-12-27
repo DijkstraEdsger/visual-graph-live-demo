@@ -11,7 +11,6 @@ interface SelectProps {
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   value: string;
   label: string;
-  type: string;
   name: string;
   id: string;
   helperText?: string;
@@ -24,7 +23,6 @@ const Select: React.FC<SelectProps> = ({
   onChange,
   value,
   label,
-  type,
   name,
   id,
   helperText,
