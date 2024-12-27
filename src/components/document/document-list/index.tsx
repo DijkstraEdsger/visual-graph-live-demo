@@ -14,6 +14,22 @@ import {
 import { dateToLocalString } from "utils/util-functions";
 import NameCell from "./name-cell";
 import classes from "./classes.module.scss";
+import DeleteButton from "./delete-button";
+import GearIcon from "components/Icon/Icons/GearIcon";
+
+const HeaderComponentActions = () => (
+  <div
+    style={{
+      height: 32,
+      width: 32,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+  >
+    <GearIcon size="20px" />
+  </div>
+);
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -33,6 +49,7 @@ interface IRow {
   modifiedDate?: string;
   vertices?: number;
   edges?: number;
+  actions?: any;
 }
 
 interface GraphDocumentListProps {
@@ -88,6 +105,14 @@ const GraphDocumentList: React.FC<GraphDocumentListProps> = ({
       field: "edges",
       cellClass: classes.document_list__cell,
       maxWidth: 80,
+    },
+    {
+      field: "actions",
+      cellRenderer: (props: any) => <DeleteButton documentName={props} />,
+      cellClass: classes.document_list__cell_delete,
+      maxWidth: 60,
+      headerComponent: HeaderComponentActions,
+      headerClass: classes.document_list__header_actions,
     },
   ]);
 

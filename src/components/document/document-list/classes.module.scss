@@ -11,3 +11,19 @@
     border: none !important;
   }
 }
+
+.document_list__cell_delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:focus-within {
+    border: none !important;
+  }
+}
+
+.document_list__header_actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

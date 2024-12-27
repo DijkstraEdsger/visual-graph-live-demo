@@ -162,6 +162,12 @@
   --color-font-theme-button: #616162;
   --color-font-theme-button-hover: #1f1f20;
 
+  // DeleteButton
+
+  --color-background-delete-button: transparent;
+  --color-background-delete-button-hover: #e4e4e5;
+  --color-font-delete-button: #b01221;
+
   // Modal
 
   --color-background-modal: #{modal.$color-background-modal-light};
