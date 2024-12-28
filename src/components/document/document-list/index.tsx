@@ -16,6 +16,8 @@ import NameCell from "./name-cell";
 import classes from "./classes.module.scss";
 import DeleteButton from "./delete-button";
 import GearIcon from "components/Icon/Icons/GearIcon";
+import { useAppDispatch } from "contexts/app-context/root/provider";
+import { UIActionType } from "contexts/app-context/ui/types";
 
 const HeaderComponentActions = () => (
   <div
@@ -63,6 +65,7 @@ const GraphDocumentList: React.FC<GraphDocumentListProps> = ({
   onDocumentSelected,
   onDocumentDoubleClick,
 }) => {
+  const documentDispatch = useAppDispatch();
   const [rowData, setRowData] = useState<IRow[]>(
     documents.map((document) => ({
       ...document,
@@ -82,6 +85,15 @@ const GraphDocumentList: React.FC<GraphDocumentListProps> = ({
       }))
     );
   }, [documents]);
+
+  const openConfirmDeleteModal = (documentName: string) => {
+    console.log("open");
+
+    documentDispatch({
+      type: UIActionType.UI_OPEN_CONFIRM_DELETE_MODAL,
+      payload: documentName,
+    });
+  };
 
   const [colDefs, setColDefs] = useState<ColDef<IRow>[]>([
     {
@@ -108,7 +120,12 @@ const GraphDocumentList: React.FC<GraphDocumentListProps> = ({
     },
     {
       field: "actions",
-      cellRenderer: (props: any) => <DeleteButton documentName={props} />,
+      cellRenderer: (props: any) => (
+        <DeleteButton
+          documentName={props.data?.name}
+          onClick={openConfirmDeleteModal}
+        />
+      ),
       cellClass: classes.document_list__cell_delete,
       maxWidth: 60,
       headerComponent: HeaderComponentActions,

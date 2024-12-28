@@ -69,6 +69,26 @@ export const uiReducer = (state: UIState, action: UIAction): UIState => {
         ...state,
         mousePosition: action.payload,
       };
+    case UIActionType.UI_OPEN_CONFIRM_DELETE_MODAL:
+      return {
+        ...state,
+        confirmDeleteModal: {
+          isOpen: true,
+          data: {
+            name: action.payload,
+          },
+        },
+      };
+    case UIActionType.UI_CLOSE_CONFIRM_DELETE_MODAL:
+      return {
+        ...state,
+        confirmDeleteModal: {
+          isOpen: false,
+          data: {
+            name: null,
+          },
+        },
+      };
 
     default:
       return state;

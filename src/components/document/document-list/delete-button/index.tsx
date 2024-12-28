@@ -22,7 +22,7 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({
       className={classes.delete_button}
       aria-label="Delete document"
     >
-      <Icon name="delete" size="16px" />
+      <Icon name="delete" size="18px" />
     </button>
   );
 };

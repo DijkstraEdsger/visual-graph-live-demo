@@ -17,4 +17,10 @@ export const initialState: UIState = {
     isOpen: false,
   },
   mousePosition: null,
+  confirmDeleteModal: {
+    isOpen: false,
+    data: {
+      name: null,
+    },
+  },
 };

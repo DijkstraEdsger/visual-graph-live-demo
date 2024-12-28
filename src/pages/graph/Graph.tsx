@@ -6,6 +6,7 @@ import WantToSave from "components/document/want-to-save";
 import MainPanel from "./MainPanel";
 import StatusBar from "./StatusBar";
 import LeftSidePanel from "./LeftSidePanel";
+import DeleteConfirmModal from "components/document/delete-confirm";
 
 const GraphPage = () => {
   return (
@@ -17,6 +18,7 @@ const GraphPage = () => {
       <SaveConfirmExistsModal />
       <OpenDocument />
       <WantToSave />
+      <DeleteConfirmModal />
     </div>
   );
 };

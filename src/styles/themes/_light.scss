@@ -39,6 +39,14 @@
   --color-font-button-secondary-hover: #{button.$color-font-button-secondary-hover-light};
   --color-font-button-secondary-active: #{button.$color-font-button-secondary-active-light};
 
+  --color-background-button-error-default: #{button.$color-background-button-error-default-light};
+  --color-background-button-error-hover: #{button.$color-background-button-error-hover-light};
+  --color-background-button-error-disabled: #{button.$color-background-button-error-disabled-light};
+  --color-border-button-error-default: #{button.$color-border-button-error-default-light};
+  --color-border-button-error-hover: #{button.$color-border-button-error-hover-light};
+  --color-font-button-error-default: #{button.$color-font-button-error-default-light};
+  --color-font-button-error-hover: #{button.$color-font-button-error-hover-light};
+
   --size-border-button: #{button.$size-border-button};
   --size-border-radius-button: #{button.$size-border-radius-button};
   --size-padding-button: #{button.$size-padding-button};
@@ -165,8 +173,9 @@
   // DeleteButton
 
   --color-background-delete-button: transparent;
-  --color-background-delete-button-hover: #e4e4e5;
+  --color-background-delete-button-hover: #b01221;
   --color-font-delete-button: #b01221;
+  --color-font-delete-button-hover: #ffffff;
 
   // Modal
 

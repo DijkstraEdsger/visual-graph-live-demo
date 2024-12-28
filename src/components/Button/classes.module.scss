@@ -11,10 +11,20 @@
   cursor: pointer;
   transition: background-color var(--time-transition-button),
     box-shadow var(--time-transition-button);
+
+  &--error {
+    color: var(--color-font-button-error-default);
+    background-color: var(--color-background-button-error-default);
+  }
 }
 
 .button:hover {
   background-color: var(--color-background-button-primary-hover);
+}
+
+.button--error:hover {
+  color: var(--color-font-button-error-hover);
+  background-color: var(--color-background-button-error-hover);
 }
 
 .button:focus {

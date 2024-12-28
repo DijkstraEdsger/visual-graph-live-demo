@@ -35,6 +35,14 @@
   --color-font-button-secondary-hover: #{button.$color-font-button-secondary-hover-dark};
   --color-font-button-secondary-active: #{button.$color-font-button-secondary-active-dark};
 
+  --color-background-button-error-default: #{button.$color-background-button-error-default-dark};
+  --color-background-button-error-hover: #{button.$color-background-button-error-hover-dark};
+  --color-background-button-error-disabled: #{button.$color-background-button-error-disabled-dark};
+  --color-border-button-error-default: #{button.$color-border-button-error-default-dark};
+  --color-border-button-error-hover: #{button.$color-border-button-error-hover-dark};
+  --color-font-button-error-default: #{button.$color-font-button-error-default-dark};
+  --color-font-button-error-hover: #{button.$color-font-button-error-hover-dark};
+
   // MenubarTrigger
 
   --color-background-menutrigger-default: #{menubar.$color-background-menutrigger-default-dark};
@@ -131,8 +139,9 @@
   // DeleteButton
 
   --color-background-delete-button: transparent;
-  --color-background-delete-button-hover: #2d2e2f;
-  --color-font-delete-button: #f27a67;
+  --color-background-delete-button-hover: #a03125;
+  --color-font-delete-button: #a03125;
+  --color-font-delete-button-hover: #ffffff;
 
   // Modal
 
