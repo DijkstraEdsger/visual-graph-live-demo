@@ -67,7 +67,7 @@ const DijkstraInputs: React.FC<DijkstraInputsProps> = ({
           onClick={() => onRunDijkstra(startNode, endNode)}
           disabled={!startNode || !endNode}
         >
-          Run & Show
+          Show result
         </Button>
       </div>
     </div>

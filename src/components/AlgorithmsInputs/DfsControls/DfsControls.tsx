@@ -43,7 +43,7 @@ const DfsControls: React.FC<DfsControlsProps> = ({
       <div className={classes.controls__buttons}>
         <Button onClick={onReset}>Reset</Button>
         <Button onClick={() => onRun?.(startNode)} disabled={!startNode}>
-          Run & Show
+          Show result
         </Button>
       </div>
     </div>
