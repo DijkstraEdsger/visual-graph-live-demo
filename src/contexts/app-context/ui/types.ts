@@ -5,6 +5,7 @@ export interface UIState {
   wantToSaveModal: WantToSaveModalState;
   mousePosition: MousePositionState | null;
   confirmDeleteModal: ConfirmDeleteModalState;
+  transitionSpeedSetting: TransitionSpeedSettingModalState;
 }
 
 export enum UIActionType {
@@ -19,6 +20,8 @@ export enum UIActionType {
   UI_SET_MOUSE_POSITION = "UI_SET_MOUSE_POSITION",
   UI_OPEN_CONFIRM_DELETE_MODAL = "UI_OPEN_CONFIRM_DELETE_MODAL",
   UI_CLOSE_CONFIRM_DELETE_MODAL = "UI_CLOSE_CONFIRM_DELETE_MODAL",
+  UI_OPEN_TRANSITION_SPEED_SETTING_MODAL = "UI_OPEN_TRANSITION_SPEED_SETTING_MODAL",
+  UI_CLOSE_TRANSITION_SPEED_SETTING_MODAL = "UI_CLOSE_TRANSITION_SPEED_SETTING_MODAL",
 }
 
 // export type UIAction =
@@ -57,4 +60,8 @@ export interface ConfirmDeleteModalState {
   data: {
     name: string | null;
   };
+}
+
+export interface TransitionSpeedSettingModalState {
+  isOpen: boolean;
 }

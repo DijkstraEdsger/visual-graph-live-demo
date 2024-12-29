@@ -18,6 +18,7 @@ const MainPanel: React.FC = () => {
     highlightedVertices,
     highlightedEdges,
     dfsTraversal,
+    speed,
     setIsDirectedHandler,
     addEdgeHandler,
     addVerticeHandler,
@@ -40,7 +41,7 @@ const MainPanel: React.FC = () => {
           highlightedVertices={highlightedVertices}
           dfsTraversal={dfsTraversal}
           animatePath
-          speed={2}
+          speed={speed}
           onAddEdge={addEdgeHandler}
           onAddVertice={addVerticeHandler}
           isDirected={isDirected}

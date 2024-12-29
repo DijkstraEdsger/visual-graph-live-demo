@@ -1,0 +1,25 @@
+.actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 16px;
+  width: 100%;
+  margin-top: 24px;
+  padding: 5px;
+}
+
+.actions__save,
+.actions__cancel {
+  max-width: 100px;
+}
+
+.speed_labels {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  font-size: 14px;
+  color: var(--color-font-label);
+
+  span {
+    text-align: center;
+  }
+}

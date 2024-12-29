@@ -87,8 +87,6 @@ const GraphDocumentList: React.FC<GraphDocumentListProps> = ({
   }, [documents]);
 
   const openConfirmDeleteModal = (documentName: string) => {
-    console.log("open");
-
     documentDispatch({
       type: UIActionType.UI_OPEN_CONFIRM_DELETE_MODAL,
       payload: documentName,

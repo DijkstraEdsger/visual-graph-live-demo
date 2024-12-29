@@ -89,6 +89,20 @@ export const uiReducer = (state: UIState, action: UIAction): UIState => {
           },
         },
       };
+    case UIActionType.UI_OPEN_TRANSITION_SPEED_SETTING_MODAL:
+      return {
+        ...state,
+        transitionSpeedSetting: {
+          isOpen: true,
+        },
+      };
+    case UIActionType.UI_CLOSE_TRANSITION_SPEED_SETTING_MODAL:
+      return {
+        ...state,
+        transitionSpeedSetting: {
+          isOpen: false,
+        },
+      };
 
     default:
       return state;

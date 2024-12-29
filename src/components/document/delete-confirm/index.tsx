@@ -19,10 +19,6 @@ const DeleteConfirmModal: React.FC = () => {
   const { name } = confirmDeleteModal?.data ?? {};
 
   useEffect(() => {
-    console.log("name", name);
-  }, [name]);
-
-  useEffect(() => {
     if (buttonCancelRef.current && confirmDeleteModal?.isOpen) {
       buttonCancelRef.current.focus();
     }

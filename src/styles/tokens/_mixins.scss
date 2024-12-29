@@ -30,3 +30,7 @@
 @mixin margin($space) {
   margin: map-get($spacing, $space);
 }
+
+@function hex-to-rgba($hex, $alpha) {
+  @return rgba(red($hex), green($hex), blue($hex), $alpha);
+}

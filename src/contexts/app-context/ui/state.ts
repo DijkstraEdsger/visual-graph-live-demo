@@ -23,4 +23,7 @@ export const initialState: UIState = {
       name: null,
     },
   },
+  transitionSpeedSetting: {
+    isOpen: false,
+  },
 };

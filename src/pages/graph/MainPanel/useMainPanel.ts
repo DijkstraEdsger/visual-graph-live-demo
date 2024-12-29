@@ -1,3 +1,4 @@
+import { useAppState } from "contexts/app-context/root/provider";
 import { useGraph } from "contexts/graphContext";
 import { useEffect } from "react";
 
@@ -16,6 +17,9 @@ const useMainPanel = () => {
     undo,
     redo,
   } = useGraph();
+  const {
+    settings: { transitionSpeed },
+  } = useAppState();
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -44,6 +48,7 @@ const useMainPanel = () => {
     highlightedEdges,
     highlightedVertices,
     dfsTraversal,
+    speed: transitionSpeed.speed,
     addEdgeHandler,
     addVerticeHandler,
   };

@@ -11,6 +11,7 @@
 @use "../tokens/components/modal" as modal;
 @use "../tokens/components/status-bar" as statusBar;
 @use "../tokens/components/document-list" as documentList;
+@use "../tokens/components/slider" as slider;
 @use "../tokens/size";
 @use "../tokens/typography" as font;
 
@@ -198,6 +199,15 @@
   --color-background-status-bar: #{statusBar.$color-background-status-bar-light};
   --color-font-status-bar: #{statusBar.$color-font-status-bar-light};
   --color-border-top-status-bar: #{statusBar.$color-border-top-status-bar-light};
+
+  // Slider
+
+  --color-background-slider-default: #{slider.$color-background-slider-default-light};
+  --color-background-slider-hover: #{slider.$color-background-slider-hover-light};
+  --color-background-slider-thumb-default: #{slider.$color-background-slider-thumb-default-light};
+  --color-background-slider-thumb-hover: #{slider.$color-background-slider-thumb-hover-light};
+  --box-shadow-slider-thumb-hover: #{slider.$box-shadow-slider-thumb-hover-light};
+  --color-font-slider-label-selected: #000000;
 
   --size-height-header: 36px;
 }

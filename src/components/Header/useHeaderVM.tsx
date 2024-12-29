@@ -72,6 +72,10 @@ const useHeaderVM = () => {
     }
   };
 
+  const openTransitionSpeedSettingModal = () => {
+    appDispatch({ type: UIActionType.UI_OPEN_TRANSITION_SPEED_SETTING_MODAL });
+  };
+
   const menus: TItem[] = [
     {
       label: "File",
@@ -260,6 +264,10 @@ const useHeaderVM = () => {
         {
           label: `Change to ${theme === "light" ? "Dark" : "Light"} mode`,
           onClick: toggleTheme,
+        },
+        {
+          label: "Transition speed",
+          onClick: openTransitionSpeedSettingModal,
         },
         // {
         //   label: "Change Language",

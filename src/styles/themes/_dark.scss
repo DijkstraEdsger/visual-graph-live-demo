@@ -11,6 +11,7 @@
 @use "../tokens/components/modal" as modal;
 @use "../tokens/components/status-bar" as statusBar;
 @use "../tokens/components/document-list" as documentList;
+@use "../tokens/components/slider" as slider;
 
 [data-theme="dark"] {
   // Button
@@ -164,4 +165,13 @@
   --color-background-status-bar: #{statusBar.$color-background-status-bar-dark};
   --color-font-status-bar: #{statusBar.$color-font-status-bar-dark};
   --color-border-top-status-bar: #{statusBar.$color-border-top-status-bar-dark};
+
+  // Slider
+
+  --color-background-slider-default: #{slider.$color-background-slider-default-dark};
+  --color-background-slider-hover: #{slider.$color-background-slider-hover-dark};
+  --color-background-slider-thumb-default: #{slider.$color-background-slider-thumb-default-dark};
+  --color-background-slider-thumb-hover: #{slider.$color-background-slider-thumb-hover-dark};
+  --box-shadow-slider-thumb-hover: #{slider.$box-shadow-slider-thumb-hover-dark};
+  --color-font-slider-label-selected: #ffffff;
 }

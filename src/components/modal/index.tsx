@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useId, useRef } from "react";
 import { motion } from "framer-motion";
 import classes from "./classes.module.scss";
 import Icon from "components/Icon";
@@ -22,6 +22,7 @@ const Modal: React.FC<ModalProps> = ({
   disableFocused = false,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -50,7 +51,7 @@ const Modal: React.FC<ModalProps> = ({
         animate={{ opacity: 1 }}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="modal-title"
+        aria-labelledby={titleId}
         className={classes["modal-overlay"]}
         onClick={onClose}
       >
@@ -66,7 +67,7 @@ const Modal: React.FC<ModalProps> = ({
           }}
         >
           <div className={classes["modal-header"]}>
-            <h2 id="modal-title">{title}</h2>
+            <h2 id={titleId}>{title}</h2>
             <button
               onClick={onClose}
               aria-label="Close modal"
