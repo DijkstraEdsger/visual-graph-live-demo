@@ -3,6 +3,7 @@ import Button from "components/Button/Button";
 import classes from "./classes.module.scss";
 import Select from "components/Select";
 import { useGraph } from "contexts/graphContext";
+import { useAppState } from "contexts/app-context/root/provider";
 
 interface DfsControlsProps {
   onRun?: (startNode: string) => void;
@@ -19,6 +20,9 @@ const DfsControls: React.FC<DfsControlsProps> = ({
     graph: { vertices },
     selectVerticeHandler,
   } = useGraph();
+  const {
+    algorithm: { isRunning, isShowingResult },
+  } = useAppState();
 
   const handleStartNodeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setStartNode(e.target.value);
@@ -42,8 +46,15 @@ const DfsControls: React.FC<DfsControlsProps> = ({
 
       <div className={classes.controls__buttons}>
         <Button onClick={onReset}>Reset</Button>
-        <Button onClick={() => onRun?.(startNode)} disabled={!startNode}>
-          Show result
+        <Button
+          onClick={() => onRun?.(startNode)}
+          disabled={!startNode || isRunning || isShowingResult}
+        >
+          {isRunning
+            ? "Running..."
+            : isShowingResult
+            ? "Showing..."
+            : "Show result"}
         </Button>
       </div>
     </div>

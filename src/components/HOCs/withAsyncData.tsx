@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useAppDispatch } from "contexts/app-context/root/provider";
+import { AlgorithmActionType } from "contexts/app-context/algorithm/types";
 
 const withAsyncData = (Component: React.FC<any>) => {
   const WrappedComponent = ({
@@ -12,6 +14,39 @@ const withAsyncData = (Component: React.FC<any>) => {
     const [dfsTraversalSecuential, setDfsTraversalSecuential] = useState<any>(
       []
     );
+    const appDispatch = useAppDispatch();
+
+    useEffect(() => {
+      if (wayPointsSecuential.length === 0) {
+        appDispatch({
+          type: AlgorithmActionType.SET_IS_ALGORITHM_SHOWING_RESULT,
+          payload: true,
+        });
+      }
+
+      if (wayPointsSecuential.length === traversalPath?.length) {
+        appDispatch({
+          type: AlgorithmActionType.SET_IS_ALGORITHM_SHOWING_RESULT,
+          payload: false,
+        });
+      }
+    }, [traversalPath, wayPointsSecuential, appDispatch]);
+
+    useEffect(() => {
+      if (dfsTraversalSecuential.length === 0) {
+        appDispatch({
+          type: AlgorithmActionType.SET_IS_ALGORITHM_SHOWING_RESULT,
+          payload: true,
+        });
+      }
+
+      if (dfsTraversalSecuential.length === dfsTraversal?.length) {
+        appDispatch({
+          type: AlgorithmActionType.SET_IS_ALGORITHM_SHOWING_RESULT,
+          payload: false,
+        });
+      }
+    }, [dfsTraversal, dfsTraversalSecuential, appDispatch]);
 
     useEffect(() => {
       let interval: NodeJS.Timeout;

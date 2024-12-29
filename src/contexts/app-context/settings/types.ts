@@ -7,7 +7,7 @@ export enum SettingsActionType {
 }
 
 interface SetTransitionSpeedAction {
-  type: SettingsActionType;
+  type: SettingsActionType.SET_TRANSITION_SPEED;
   payload: number;
 }
 

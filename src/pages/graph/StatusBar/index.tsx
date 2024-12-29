@@ -7,15 +7,22 @@ const StatusBar: React.FC = () => {
   // const { mousePosition } = useGraphContainer();
   const {
     ui: { mousePosition },
+    algorithm: { selected, isRunning, isShowingResult },
   } = useAppState();
 
   return (
     <div className={classes.status_bar}>
-      {mousePosition && (
-        <div className={classes.status_bar__mouse_position}>
-          x: {mousePosition?.x}, y: {mousePosition?.y}
-        </div>
-      )}
+      <div className={classes.status_bar__mouse_position}>
+        {mousePosition && (
+          <span>
+            x: {mousePosition?.x}, y: {mousePosition?.y}
+          </span>
+        )}
+      </div>
+      <div className={classes.status_bar__notification}>
+        {isRunning && <span>Running</span>}
+        {isShowingResult && <span>Showing result</span>}
+      </div>
     </div>
   );
 };

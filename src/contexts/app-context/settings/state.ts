@@ -2,6 +2,6 @@ import { SettingsState } from "./types";
 
 export const initialState: SettingsState = {
   transitionSpeed: {
-    speed: 1,
+    speed: 2,
   },
 };

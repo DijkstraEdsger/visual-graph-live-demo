@@ -3,6 +3,7 @@ import Button from "components/Button/Button";
 import classes from "./classes.module.scss";
 import Select from "components/Select";
 import { useGraph } from "contexts/graphContext";
+import { useAppState } from "contexts/app-context/root/provider";
 
 interface DijkstraInputsProps {
   onRunDijkstra: (startNode: string, endNode: string) => void;
@@ -20,6 +21,9 @@ const DijkstraInputs: React.FC<DijkstraInputsProps> = ({
     graph: { vertices },
     selectVerticeHandler,
   } = useGraph();
+  const {
+    algorithm: { isRunning, isShowingResult },
+  } = useAppState();
 
   const handleEndNodeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setEndNode(e.target.value);
@@ -65,9 +69,13 @@ const DijkstraInputs: React.FC<DijkstraInputsProps> = ({
         <Button onClick={onCleanPath}>Reset</Button>
         <Button
           onClick={() => onRunDijkstra(startNode, endNode)}
-          disabled={!startNode || !endNode}
+          disabled={!startNode || !endNode || isRunning || isShowingResult}
         >
-          Show result
+          {isRunning
+            ? "Running..."
+            : isShowingResult
+            ? "Showing..."
+            : "Show result"}
         </Button>
       </div>
     </div>

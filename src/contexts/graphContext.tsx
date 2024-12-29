@@ -21,6 +21,8 @@ import {
   Position,
 } from "types/graph";
 import { useGraphDocumentDispatch } from "./graph-document-context";
+import { useAppDispatch } from "./app-context/root/provider";
+import { AlgorithmActionType } from "./app-context/algorithm/types";
 
 type TimeStampHistoryItem = {
   graph: GraphState;
@@ -258,6 +260,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
   });
   const [state, dispatch] = useReducer(reducer, initialState);
   const documentDispatch = useGraphDocumentDispatch();
+  const appDispatch = useAppDispatch();
   // const { isDocumentModified } = useGraphDocumentState();
   // const appDispatch = useAppDispatch();
 
@@ -457,7 +460,15 @@ const GraphProvider: FC<GraphProviderProps> = ({
   };
 
   const runDijkstraHandler = (source: NodeId, target: NodeId) => {
+    appDispatch({
+      type: AlgorithmActionType.SET_IS_ALGORITHM_RUNNING,
+      payload: true,
+    });
     const paths = adapter.runDijkstra(source);
+    appDispatch({
+      type: AlgorithmActionType.SET_IS_ALGORITHM_RUNNING,
+      payload: false,
+    });
     setShortestPaths(paths);
     const path = adapter.buildPath(paths, source.toString(), target.toString());
     setWayPoints(path);
@@ -470,11 +481,19 @@ const GraphProvider: FC<GraphProviderProps> = ({
   };
 
   const runDfsHandler = (startNode: NodeId) => {
+    appDispatch({
+      type: AlgorithmActionType.SET_IS_ALGORITHM_RUNNING,
+      payload: true,
+    });
     const { edges } = adapter.dfs({
       vertices: state.vertices,
       edges: state.edges,
       startVertex: startNode,
       isDirected: state.isDirected ?? false,
+    });
+    appDispatch({
+      type: AlgorithmActionType.SET_IS_ALGORITHM_RUNNING,
+      payload: false,
     });
     setDfsTraversal(edges);
   };
@@ -488,6 +507,10 @@ const GraphProvider: FC<GraphProviderProps> = ({
 
   const setActiveAlgorithmHandler = (algorithm: string) => {
     setActiveAlgorithm(algorithm);
+    appDispatch({
+      type: AlgorithmActionType.SET_SELECTED_ALGORITHM,
+      payload: algorithm,
+    });
   };
 
   const cleanPath = () => {
