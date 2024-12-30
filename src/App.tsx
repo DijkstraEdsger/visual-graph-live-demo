@@ -10,6 +10,8 @@ import { ThemeProvider } from "contexts/themeContext";
 import { GraphDocumentProvider } from "contexts/graph-document-context";
 import { AppProvider } from "contexts/app-context/root/provider";
 import { MathJaxContext } from "better-react-mathjax";
+import { ToastContainer } from "react-toastify";
+import "./styles/CustomToastify.scss";
 
 interface Node {
   id: string;
@@ -51,6 +53,7 @@ function App() {
             </BrowserRouter>
           </GraphProvider>
         </GraphDocumentProvider>
+        <ToastContainer />
       </ThemeProvider>
     </AppProvider>
     // </MathJaxContext>

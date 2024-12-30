@@ -4,6 +4,7 @@ import {
 } from "contexts/graph-document-context";
 import { deleteGraph } from "db/indexedDB";
 import { useCallback } from "react";
+import { toast } from "react-toastify";
 
 export const useDelete = () => {
   const state = useGraphDocumentState();
@@ -13,6 +14,15 @@ export const useDelete = () => {
     async (name: string) => {
       await deleteGraph(name);
       dispatch({ type: "DELETE_GRAPH", payload: name });
+      toast.warn("Graph deleted.", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     },
     [dispatch]
   );

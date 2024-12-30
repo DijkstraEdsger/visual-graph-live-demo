@@ -5,6 +5,7 @@ import {
 } from "contexts/graph-document-context";
 import { useGraph } from "contexts/graphContext";
 import { addGraph } from "db/indexedDB";
+import { toast } from "react-toastify";
 
 export const useAdd = () => {
   const state = useGraphDocumentState();
@@ -19,6 +20,15 @@ export const useAdd = () => {
     dispatch({
       type: "OPEN_GRAPH",
       payload: state.isNewDocumentPending ? null : { ...addedDocument },
+    });
+    toast.success("Graph saved successfully!", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
     });
   };
 

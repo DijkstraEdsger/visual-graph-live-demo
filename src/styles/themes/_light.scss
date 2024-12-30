@@ -12,6 +12,7 @@
 @use "../tokens/components/status-bar" as statusBar;
 @use "../tokens/components/document-list" as documentList;
 @use "../tokens/components/slider" as slider;
+@use "../tokens/components/toast" as toast;
 @use "../tokens/size";
 @use "../tokens/typography" as font;
 
@@ -208,6 +209,16 @@
   --color-background-slider-thumb-hover: #{slider.$color-background-slider-thumb-hover-light};
   --box-shadow-slider-thumb-hover: #{slider.$box-shadow-slider-thumb-hover-light};
   --color-font-slider-label-selected: #000000;
+
+  // Toast
+
+  --color-background-toast-success: #{toast.$color-background-toast-success-light};
+  --color-background-toast-progress-bar-success: #{toast.$color-background-toast-progress-bar-success-light};
+  --color-background-toast-warning: #{toast.$color-background-toast-warning-light};
+  --color-background-toast-progress-bar-warning: #{toast.$color-background-toast-progress-bar-warning-light};
+  --color-font-toast: #{toast.$color-font-toast-light};
+  --toastify-color-success: #4caf51;
+  --toastify-color-warning: #{toast.$toastify-color-warning-light};
 
   --size-height-header: 36px;
 }

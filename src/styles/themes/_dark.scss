@@ -12,6 +12,7 @@
 @use "../tokens/components/status-bar" as statusBar;
 @use "../tokens/components/document-list" as documentList;
 @use "../tokens/components/slider" as slider;
+@use "../tokens/components/toast" as toast;
 
 [data-theme="dark"] {
   // Button
@@ -174,4 +175,14 @@
   --color-background-slider-thumb-hover: #{slider.$color-background-slider-thumb-hover-dark};
   --box-shadow-slider-thumb-hover: #{slider.$box-shadow-slider-thumb-hover-dark};
   --color-font-slider-label-selected: #ffffff;
+
+  // Toast
+
+  --color-background-toast-success: #{toast.$color-background-toast-success-dark};
+  --color-background-toast-progress-bar-success: #{toast.$color-background-toast-progress-bar-success-dark};
+  --color-background-toast-warning: #{toast.$color-background-toast-warning-dark};
+  --color-background-toast-progress-bar-warning: #{toast.$color-background-toast-progress-bar-warning-dark};
+  --color-font-toast: #{toast.$color-font-toast-dark};
+  --toastify-color-success: #4caf51;
+  --toastify-color-warning: #{toast.$toastify-color-warning-dark};
 }

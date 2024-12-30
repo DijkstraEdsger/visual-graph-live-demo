@@ -1,0 +1,45 @@
+.Toastify__toast-container {
+}
+
+.Toastify__toast {
+  background-color: #3498db;
+  color: var(--color-font-toast);
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.Toastify__toast--success {
+  background-color: var(--color-background-toast-success);
+}
+
+.Toastify__toast--error {
+  background-color: #e74c3c;
+}
+
+.Toastify__toast--info {
+  background-color: #2c3e50;
+}
+
+.Toastify__toast--warning {
+  background-color: var(--color-background-toast-warning);
+}
+
+.Toastify__progress-bar--success {
+  background-color: var(--color-background-toast-progress-bar-success);
+}
+
+.Toastify__progress-bar--warning {
+  background-color: var(--color-background-toast-progress-bar-warning);
+}
+
+.Toastify__close-button {
+  color: var(--color-font-modal-close);
+  opacity: 1;
+
+  &:hover {
+    color: var(--color-font-modal-close-hover);
+    transition: background-color 0.2s;
+  }
+}

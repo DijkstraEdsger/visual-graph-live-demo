@@ -64,7 +64,7 @@ const SaveConfirmExistsModal: React.FC = () => {
     >
       <div className={classes.alert}>
         <div className={classes.alert__icon}>
-          <Icon name="alert-triangle" size="36px" />
+          <Icon name="alert-triangle" size="36px" color="#ffc107" />
         </div>
         <p className={classes.alert__text}>
           {confirmSaveModal?.data?.name} already exists. Do you want to replace

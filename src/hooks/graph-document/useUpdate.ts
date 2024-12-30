@@ -5,6 +5,7 @@ import {
 import { useGraph } from "contexts/graphContext";
 import { updateGraph } from "db/indexedDB";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export const useUpdate = () => {
   const state = useGraphDocumentState();
@@ -21,6 +22,15 @@ export const useUpdate = () => {
     dispatch({
       type: "UPDATE_GRAPH",
       payload: state.isNewDocumentPending ? null : updatedDocument,
+    });
+    toast.success("Graph saved successfully!", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
     });
 
     // if (!state.isNewDocumentPending) {
