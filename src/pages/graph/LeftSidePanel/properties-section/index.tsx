@@ -13,8 +13,6 @@ const PropertiesSection: React.FC = () => {
       <div className={classes.section__body}>
         <p>Vertices: {numberOfVertices}</p>
         <p>Edges: {numberOfEdges}</p>
-        <p>Degree: -</p>
-        <p>Size: -</p>
         <p>
           Is complete: {isComplete ? "Yes" : "No"}{" "}
           {isComplete && (
