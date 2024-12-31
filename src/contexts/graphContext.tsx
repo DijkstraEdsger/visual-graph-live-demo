@@ -23,6 +23,7 @@ import {
 import { useGraphDocumentDispatch } from "./graph-document-context";
 import { useAppDispatch } from "./app-context/root/provider";
 import { AlgorithmActionType } from "./app-context/algorithm/types";
+import { toast } from "react-toastify";
 
 type TimeStampHistoryItem = {
   graph: GraphState;
@@ -470,7 +471,22 @@ const GraphProvider: FC<GraphProviderProps> = ({
       payload: false,
     });
     setShortestPaths(paths);
-    const path = adapter.buildPath(paths, source.toString(), target.toString());
+    let path: NodeId[] = [];
+
+    try {
+      path = adapter.buildPath(paths, source.toString(), target.toString());
+    } catch (error) {
+      toast.error((error as Error).message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+
     setWayPoints(path);
   };
 
