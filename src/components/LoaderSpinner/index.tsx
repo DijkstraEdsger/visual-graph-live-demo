@@ -2,11 +2,21 @@ import React from "react";
 import LogoIcon from "components/Icon/Icons/LogoIcon";
 import classes from "./classes.module.scss";
 
-const LoaderSpinner: React.FC = () => {
+interface LoaderSpinnerProps {
+  size?: number;
+}
+
+const LoaderSpinner: React.FC<LoaderSpinnerProps> = ({ size = 18 }) => {
   return (
-    <div className={classes.loader}>
-      <LogoIcon size="18px" />
-    </div>
+    <span
+      className={classes.loader}
+      style={{
+        width: `${size}px`,
+        height: `${size}px`,
+      }}
+    >
+      <LogoIcon size={`${size}px`} />
+    </span>
   );
 };
 

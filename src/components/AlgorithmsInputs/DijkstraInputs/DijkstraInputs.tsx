@@ -4,6 +4,7 @@ import classes from "./classes.module.scss";
 import Select from "components/Select";
 import { useGraph } from "contexts/graphContext";
 import { useAppState } from "contexts/app-context/root/provider";
+import LoaderSpinner from "components/LoaderSpinner";
 
 interface DijkstraInputsProps {
   onRunDijkstra: (startNode: string, endNode: string) => void;
@@ -83,11 +84,14 @@ const DijkstraInputs: React.FC<DijkstraInputsProps> = ({
           onClick={() => onRunDijkstra(startNode, endNode)}
           disabled={!startNode || !endNode || isRunning || isShowingResult}
         >
-          {isRunning
-            ? "Running..."
-            : isShowingResult
-            ? "Showing..."
-            : "Show result"}
+          <span className={classes.dijkstra__button_show_content}>
+            {(isRunning || isShowingResult) && <LoaderSpinner size={14} />}
+            {isRunning
+              ? "Running..."
+              : isShowingResult
+              ? "Showing..."
+              : "Show result"}
+          </span>
         </Button>
       </div>
     </div>

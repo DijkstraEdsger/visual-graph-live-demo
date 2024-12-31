@@ -4,6 +4,7 @@ import classes from "./classes.module.scss";
 import Select from "components/Select";
 import { useGraph } from "contexts/graphContext";
 import { useAppState } from "contexts/app-context/root/provider";
+import LoaderSpinner from "components/LoaderSpinner";
 
 interface DfsControlsProps {
   onRun?: (startNode: string) => void;
@@ -56,11 +57,14 @@ const DfsControls: React.FC<DfsControlsProps> = ({
           onClick={() => onRun?.(startNode)}
           disabled={!startNode || isRunning || isShowingResult}
         >
-          {isRunning
-            ? "Running..."
-            : isShowingResult
-            ? "Showing..."
-            : "Show result"}
+          <span className={classes.controls__button_show_content}>
+            {(isRunning || isShowingResult) && <LoaderSpinner size={14} />}
+            {isRunning
+              ? "Running..."
+              : isShowingResult
+              ? "Showing..."
+              : "Show result"}
+          </span>
         </Button>
       </div>
     </div>

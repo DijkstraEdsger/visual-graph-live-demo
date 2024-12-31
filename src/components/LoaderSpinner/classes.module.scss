@@ -1,7 +1,6 @@
 .loader {
+  display: inline-block;
   animation: spin 2s linear infinite;
-  width: 18px;
-  height: 18px;
 }
 
 @keyframes spin {
