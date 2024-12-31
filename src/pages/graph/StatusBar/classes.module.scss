@@ -21,4 +21,6 @@
 .status_bar__notification {
   width: 200px;
   height: 100%;
+  display: flex;
+  gap: 4px;
 }

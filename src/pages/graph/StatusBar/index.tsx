@@ -1,10 +1,9 @@
 import React from "react";
 import classes from "./classes.module.scss";
-import { useGraphContainer } from "contexts/graphContainerContext";
 import { useAppState } from "contexts/app-context/root/provider";
+import LoaderSpinner from "components/LoaderSpinner";
 
 const StatusBar: React.FC = () => {
-  // const { mousePosition } = useGraphContainer();
   const {
     ui: { mousePosition },
     algorithm: { selected, isRunning, isShowingResult },
@@ -20,6 +19,7 @@ const StatusBar: React.FC = () => {
         )}
       </div>
       <div className={classes.status_bar__notification}>
+        {(isRunning || isShowingResult) && <LoaderSpinner />}
         {isRunning && <span>Running</span>}
         {isShowingResult && <span>Showing result</span>}
       </div>
