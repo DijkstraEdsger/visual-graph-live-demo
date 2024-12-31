@@ -38,10 +38,16 @@ const DfsControls: React.FC<DfsControlsProps> = ({
         value={startNode}
         label="Starting Node"
         name="startNode"
-        options={vertices?.map((vertice) => ({
-          value: vertice.id,
-          label: vertice.label,
-        }))}
+        options={[
+          {
+            value: "",
+            label: "None",
+          },
+          ...vertices?.map((vertice) => ({
+            value: vertice.id,
+            label: vertice.label,
+          })),
+        ]}
       />
 
       <div className={classes.controls__buttons}>

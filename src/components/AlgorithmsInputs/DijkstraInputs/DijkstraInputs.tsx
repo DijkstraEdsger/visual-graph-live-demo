@@ -43,12 +43,18 @@ const DijkstraInputs: React.FC<DijkstraInputsProps> = ({
         value={startNode}
         label="Starting Node"
         name="startNode"
-        options={vertices
-          ?.filter((v) => v.id !== endNode)
-          .map((vertice) => ({
-            value: vertice.id,
-            label: vertice.label,
-          }))}
+        options={[
+          {
+            value: "",
+            label: "None",
+          },
+          ...vertices
+            ?.filter((v) => v.id !== endNode)
+            .map((vertice) => ({
+              value: vertice.id,
+              label: vertice.label,
+            })),
+        ]}
       />
       <Select
         id={`${id}-end-node`}
@@ -57,12 +63,18 @@ const DijkstraInputs: React.FC<DijkstraInputsProps> = ({
         value={endNode}
         label="Ending Node"
         name="endNode"
-        options={vertices
-          ?.filter((v) => v.id !== startNode)
-          .map((vertice) => ({
-            value: vertice.id,
-            label: vertice.label,
-          }))}
+        options={[
+          {
+            value: "",
+            label: "None",
+          },
+          ...vertices
+            ?.filter((v) => v.id !== startNode)
+            .map((vertice) => ({
+              value: vertice.id,
+              label: vertice.label,
+            })),
+        ]}
       />
 
       <div className={classes.dijkstra__buttons}>
