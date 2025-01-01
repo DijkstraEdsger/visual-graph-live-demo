@@ -26,4 +26,7 @@ export const initialState: UIState = {
   transitionSpeedSetting: {
     isOpen: false,
   },
+  aboutModal: {
+    isOpen: false,
+  },
 };

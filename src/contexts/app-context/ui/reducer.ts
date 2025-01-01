@@ -103,6 +103,20 @@ export const uiReducer = (state: UIState, action: UIAction): UIState => {
           isOpen: false,
         },
       };
+    case UIActionType.UI_OPEN_ABOUT_MODAL:
+      return {
+        ...state,
+        aboutModal: {
+          isOpen: true,
+        },
+      };
+    case UIActionType.UI_CLOSE_ABOUT_MODAL:
+      return {
+        ...state,
+        aboutModal: {
+          isOpen: false,
+        },
+      };
 
     default:
       return state;

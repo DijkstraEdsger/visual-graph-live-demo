@@ -185,4 +185,14 @@
   --color-font-toast: #{toast.$color-font-toast-dark};
   --toastify-color-success: #4caf51;
   --toastify-color-warning: #{toast.$toastify-color-warning-dark};
+
+  // scrollbar
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #3a3a3a;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #868687;
+  }
 }

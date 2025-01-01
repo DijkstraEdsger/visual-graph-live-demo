@@ -78,3 +78,12 @@ code {
   padding-top: var(--size-height-header);
   height: calc(100vh - var(--size-height-header));
 }
+
+::-webkit-scrollbar {
+  overflow: visible;
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+}

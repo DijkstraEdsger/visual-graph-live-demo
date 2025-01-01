@@ -91,7 +91,7 @@ const WantToSave: React.FC = () => {
 
   return (
     <Modal
-      title="GraphBuilder"
+      title="Graph Builder"
       isOpen={wantToSaveModal?.isOpen}
       onClose={cancelHandler}
       maxWidth={460}

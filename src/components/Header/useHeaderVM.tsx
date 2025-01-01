@@ -76,6 +76,10 @@ const useHeaderVM = () => {
     appDispatch({ type: UIActionType.UI_OPEN_TRANSITION_SPEED_SETTING_MODAL });
   };
 
+  const openAboutModal = () => {
+    appDispatch({ type: UIActionType.UI_OPEN_ABOUT_MODAL });
+  };
+
   const menus: TItem[] = [
     {
       label: "File",
@@ -253,8 +257,7 @@ const useHeaderVM = () => {
       items: [
         {
           label: "About",
-          disabled: true,
-          onClick: () => console.log("About"),
+          onClick: openAboutModal,
         },
       ],
     },

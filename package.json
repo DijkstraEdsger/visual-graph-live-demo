@@ -1,6 +1,6 @@
 {
-  "name": "graph",
-  "version": "0.1.0",
+  "name": "graph-builder",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@dagrejs/graphlib": "^2.2.4",

@@ -8,6 +8,7 @@ import StatusBar from "./StatusBar";
 import LeftSidePanel from "./LeftSidePanel";
 import DeleteConfirmModal from "components/document/delete-confirm";
 import SpeedSettingsModal from "components/SpeedSettingsModal";
+import AboutModal from "components/AboutModal";
 
 const GraphPage = () => {
   return (
@@ -21,6 +22,7 @@ const GraphPage = () => {
       <WantToSave />
       <DeleteConfirmModal />
       <SpeedSettingsModal />
+      <AboutModal />
     </div>
   );
 };
