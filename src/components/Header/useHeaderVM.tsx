@@ -80,6 +80,10 @@ const useHeaderVM = () => {
     appDispatch({ type: UIActionType.UI_OPEN_ABOUT_MODAL });
   };
 
+  const openInstructionsModal = () => {
+    appDispatch({ type: UIActionType.UI_OPEN_INSTRUCTIONS_MODAL });
+  };
+
   const menus: TItem[] = [
     {
       label: "File",
@@ -258,6 +262,10 @@ const useHeaderVM = () => {
         {
           label: "About",
           onClick: openAboutModal,
+        },
+        {
+          label: "Instructions",
+          onClick: openInstructionsModal,
         },
       ],
     },

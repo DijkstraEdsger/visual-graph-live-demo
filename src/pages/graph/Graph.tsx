@@ -9,6 +9,7 @@ import LeftSidePanel from "./LeftSidePanel";
 import DeleteConfirmModal from "components/document/delete-confirm";
 import SpeedSettingsModal from "components/SpeedSettingsModal";
 import AboutModal from "components/AboutModal";
+import InstructionsModal from "components/InstructionsModal";
 
 const GraphPage = () => {
   return (
@@ -23,6 +24,7 @@ const GraphPage = () => {
       <DeleteConfirmModal />
       <SpeedSettingsModal />
       <AboutModal />
+      <InstructionsModal />
     </div>
   );
 };

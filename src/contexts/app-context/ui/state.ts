@@ -29,4 +29,7 @@ export const initialState: UIState = {
   aboutModal: {
     isOpen: false,
   },
+  instructionsModal: {
+    isOpen: false,
+  },
 };
