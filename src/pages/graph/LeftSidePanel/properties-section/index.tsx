@@ -14,8 +14,9 @@ const PropertiesSection: React.FC = () => {
         <p>Vertices: {numberOfVertices}</p>
         <p>Edges: {numberOfEdges}</p>
         <p>
-          Is complete: {isComplete ? "Yes" : "No"}{" "}
-          {isComplete && (
+          Is complete:{" "}
+          {numberOfVertices > 0 ? (isComplete ? "Yes" : "No") : "-"}{" "}
+          {numberOfVertices > 0 && isComplete && (
             <var>
               &#40;K<sub>{numberOfVertices}</sub>&#41;
             </var>
