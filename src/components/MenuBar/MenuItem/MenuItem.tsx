@@ -1,8 +1,8 @@
+import Icon from "components/Icon";
 import React, { ReactNode } from "react";
 import Menu from "../Menu";
-import classes from "./classes.module.scss";
 import MenuTrigger from "../MenuTrigger";
-import Icon from "components/Icon";
+import classes from "./classes.module.scss";
 
 type TItem = {
   label: string | ReactNode;
@@ -74,7 +74,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
             display: "flex",
             alignItems: "center",
             columnGap: 8,
-            width: "-webkit-fill-available",
+            width: "100%",
           }}
         >
           {icon}
