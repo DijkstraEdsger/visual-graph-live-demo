@@ -85,11 +85,11 @@ const reducer: React.Reducer<GraphState, Action> = (
 ): GraphState => {
   switch (action.type) {
     case ActionType.ADD_VERTICE:
-      const newVertice = action.payload as INode;
+      const newVertex = action.payload as INode;
 
       return {
         ...state,
-        vertices: [...structuredClone(state.vertices), newVertice],
+        vertices: [...structuredClone(state.vertices), newVertex],
       };
 
     case ActionType.DELETE_VERTICE:
@@ -113,12 +113,10 @@ const reducer: React.Reducer<GraphState, Action> = (
 
       const verticesCopy = [...structuredClone(state.vertices)];
 
-      const findVerticeIndex = verticesCopy.findIndex(
-        (v: INode) => v.id === id
-      );
+      const findVertexIndex = verticesCopy.findIndex((v: INode) => v.id === id);
 
-      if (findVerticeIndex !== -1) {
-        verticesCopy[findVerticeIndex].position = {
+      if (findVertexIndex !== -1) {
+        verticesCopy[findVertexIndex].position = {
           left: position.x,
           top: position.y,
         };
@@ -193,15 +191,15 @@ const GraphContext = createContext<{
   isComplete?: boolean;
   isBipartite?: boolean;
   dfsTraversal?: IEdge[];
-  selectedVertice?: NodeId | null;
+  selectedVertex?: NodeId | null;
   setIsDirectedHandler: (isDirected: boolean) => void;
-  addVerticeHandler: (vertice: INode) => void;
+  addVertexHandler: (vertice: INode) => void;
   addEdgeHandler: (edge: IEdge) => void;
   downloadGraphAsTxt: () => void;
   uploadGraph: () => void;
   updatePositions: (vertice: INode, position: Position) => void;
   removeEdge?: (edge: IEdge) => void;
-  removeVertice?: (vertice: INode) => void;
+  removeVertex?: (vertice: INode) => void;
   setActiveAlgorithmHandler?: (algorithm: string) => void;
   cleanPath?: () => void;
   cleanHighlighted?: () => void;
@@ -210,7 +208,7 @@ const GraphContext = createContext<{
   redo?: () => void;
   openGraph?: (data: GraphState) => void;
   cleanGraph?: () => void;
-  selectVerticeHandler?: (verticeId: NodeId) => void;
+  selectVertexHandler?: (verticeId: NodeId) => void;
 }>({
   graph: {
     vertices: [],
@@ -222,15 +220,15 @@ const GraphContext = createContext<{
   traversalPath: [],
   inputFileRef: { current: null },
   isDirected: false,
-  selectedVertice: null,
+  selectedVertex: null,
   setIsDirectedHandler: () => {},
-  addVerticeHandler: () => {},
+  addVertexHandler: () => {},
   addEdgeHandler: () => {},
   downloadGraphAsTxt: () => {},
   uploadGraph: () => {},
   updatePositions: () => {},
   removeEdge: () => {},
-  removeVertice: () => {},
+  removeVertex: () => {},
   undo: () => {},
   redo: () => {},
 });
@@ -247,7 +245,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
   const [highlightedVertices, setHighlightedVertices] = useState<NodeId[]>([]);
   const [dfsTraversal, setDfsTraversal] = useState<IEdge[]>([]);
   const [isComplete, setIsComplete] = useState<boolean>(false);
-  const [selectedVertice, setSelectedVertice] = useState<NodeId | null>(null);
+  const [selectedVertex, setSelectedVertex] = useState<NodeId | null>(null);
   const [isBipartite, setIsBipartite] = useState<boolean>(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [graphAdapter, setGraphAdapter] = useState<IGraphAdapter | null>(null);
@@ -350,7 +348,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
     adapter.addEdge(edge);
   };
 
-  const addVerticeHandler = (vertice: INode) => {
+  const addVertexHandler = (vertice: INode) => {
     dispatch({ type: ActionType.ADD_VERTICE, payload: vertice });
     documentDispatch({ type: "SET_IS_DOCUMENT_MODIFIED", payload: true });
 
@@ -450,7 +448,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
     adapter.removeEdge(edge);
   };
 
-  const removeVertice = (vertice: INode) => {
+  const removeVertex = (vertice: INode) => {
     adapter.removeNode(vertice.id);
 
     dispatch({ type: ActionType.DELETE_VERTICE, payload: vertice.id });
@@ -551,8 +549,8 @@ const GraphProvider: FC<GraphProviderProps> = ({
     // }
   };
 
-  const selectVerticeHandler = (verticeId: NodeId) => {
-    setSelectedVertice(verticeId);
+  const selectVertexHandler = (verticeId: NodeId) => {
+    setSelectedVertex(verticeId);
   };
 
   return (
@@ -575,15 +573,15 @@ const GraphProvider: FC<GraphProviderProps> = ({
         isDirected: state.isDirected,
         isComplete,
         dfsTraversal,
-        selectedVertice,
+        selectedVertex,
         setIsDirectedHandler,
-        addVerticeHandler,
+        addVertexHandler,
         addEdgeHandler,
         downloadGraphAsTxt,
         uploadGraph,
         updatePositions,
         removeEdge,
-        removeVertice,
+        removeVertex,
         setActiveAlgorithmHandler,
         cleanPath,
         cleanHighlighted,
@@ -592,7 +590,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
         redo,
         openGraph,
         cleanGraph: cleanGraphHandler,
-        selectVerticeHandler,
+        selectVertexHandler,
       }}
     >
       {children}

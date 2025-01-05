@@ -20,7 +20,7 @@ const DijkstraInputs: React.FC<DijkstraInputsProps> = ({
   const id = useId();
   const {
     graph: { vertices },
-    selectVerticeHandler,
+    selectVertexHandler,
   } = useGraph();
   const {
     algorithm: { isRunning, isShowingResult },
@@ -32,7 +32,7 @@ const DijkstraInputs: React.FC<DijkstraInputsProps> = ({
 
   const handleStartNodeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setStartNode(e.target.value);
-    selectVerticeHandler?.(e.target.value);
+    selectVertexHandler?.(e.target.value);
   };
 
   return (
@@ -51,9 +51,9 @@ const DijkstraInputs: React.FC<DijkstraInputsProps> = ({
           },
           ...vertices
             ?.filter((v) => v.id !== endNode)
-            .map((vertice) => ({
-              value: vertice.id,
-              label: vertice.label,
+            .map((vertex) => ({
+              value: vertex.id,
+              label: vertex.label,
             })),
         ]}
       />
@@ -71,9 +71,9 @@ const DijkstraInputs: React.FC<DijkstraInputsProps> = ({
           },
           ...vertices
             ?.filter((v) => v.id !== startNode)
-            .map((vertice) => ({
-              value: vertice.id,
-              label: vertice.label,
+            .map((vertex) => ({
+              value: vertex.id,
+              label: vertex.label,
             })),
         ]}
       />

@@ -5,7 +5,6 @@ import Switch from "components/Switch/Switch";
 import { GraphContainer } from "contexts/graphContainerContext";
 import withAsyncData from "components/HOCs/withAsyncData";
 import Graph from "components/Graph/Graph";
-// import StatusBar from "../StatusBar";
 
 const GraphWithAsyncData = withAsyncData(Graph);
 
@@ -21,7 +20,7 @@ const MainPanel: React.FC = () => {
     speed,
     setIsDirectedHandler,
     addEdgeHandler,
-    addVerticeHandler,
+    addVertexHandler,
   } = useMainPanel();
 
   return (
@@ -43,10 +42,9 @@ const MainPanel: React.FC = () => {
           animatePath
           speed={speed}
           onAddEdge={addEdgeHandler}
-          onAddVertice={addVerticeHandler}
+          onAddVertex={addVertexHandler}
           isDirected={isDirected}
         />
-        {/* <StatusBar /> */}
       </GraphContainer>
     </div>
   );

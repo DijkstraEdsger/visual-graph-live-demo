@@ -1,3 +1,4 @@
+/* eslint-disable spellcheck/spell-checker */
 import { Children, cloneElement, forwardRef, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import classes from "./classes.module.scss";

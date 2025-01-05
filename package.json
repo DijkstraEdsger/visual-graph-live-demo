@@ -34,8 +34,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "stylelint src/**/*.scss",
-    "lint:fix": "stylelint src/**/*.scss --fix"
+    "lint": "eslint ./src --ext .ts,.tsx,.js,.jsx"
   },
   "husky": {
     "hooks": {
@@ -64,6 +63,7 @@
     ]
   },
   "devDependencies": {
+    "eslint-plugin-spellcheck": "^0.0.20",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
     "prettier": "^2.0.5",

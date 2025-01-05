@@ -17,7 +17,7 @@ const BellmanFordInputs: React.FC<BellmanFordInputsProps> = ({
   const id = useId();
   const {
     graph: { vertices },
-    selectVerticeHandler,
+    selectVertexHandler,
   } = useGraph();
 
   const handleEndNodeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -26,7 +26,7 @@ const BellmanFordInputs: React.FC<BellmanFordInputsProps> = ({
 
   const handleStartNodeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setStartNode(e.target.value);
-    selectVerticeHandler?.(e.target.value);
+    selectVertexHandler?.(e.target.value);
   };
 
   return (
@@ -40,9 +40,9 @@ const BellmanFordInputs: React.FC<BellmanFordInputsProps> = ({
         name="startNode"
         options={vertices
           ?.filter((v) => v.id !== endNode)
-          .map((vertice) => ({
-            value: vertice.id,
-            label: vertice.label,
+          .map((vertex) => ({
+            value: vertex.id,
+            label: vertex.label,
           }))}
       />
       <Select
@@ -54,9 +54,9 @@ const BellmanFordInputs: React.FC<BellmanFordInputsProps> = ({
         name="endNode"
         options={vertices
           ?.filter((v) => v.id !== startNode)
-          .map((vertice) => ({
-            value: vertice.id,
-            label: vertice.label,
+          .map((vertex) => ({
+            value: vertex.id,
+            label: vertex.label,
           }))}
       />
 

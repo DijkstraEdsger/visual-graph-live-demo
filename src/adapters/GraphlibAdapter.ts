@@ -141,10 +141,10 @@ export default class GraphlibAdapter implements IGraphAdapter {
       return false;
     }
 
-    const modifiedVertices = vertices.map((vertice) => vertice.id);
-    const modifiedEdegs = edges.map((edge) => [edge.source, edge.target]);
+    const modifiedVertices = vertices.map((vertex) => vertex.id);
+    const modifiedEdges = edges.map((edge) => [edge.source, edge.target]);
 
-    const edgeSet = new Set(modifiedEdegs.map((edge) => JSON.stringify(edge)));
+    const edgeSet = new Set(modifiedEdges.map((edge) => JSON.stringify(edge)));
 
     for (let i = 0; i < n; i++) {
       for (let j = i + 1; j < n; j++) {
@@ -181,34 +181,34 @@ export default class GraphlibAdapter implements IGraphAdapter {
     startVertex: NodeId;
     isDirected: boolean;
   }): { edges: IEdge[] } {
-    const graphV3 = new GraphV3({
+    const graph = new GraphV3({
       type: isDirected ? "directed" : "undirected",
     });
 
     vertices.forEach((vertex) => {
-      graphV3.addNode(vertex.id);
+      graph.addNode(vertex.id);
     });
 
     edges.forEach((edge) => {
-      graphV3.addEdge(edge.source, edge.target);
+      graph.addEdge(edge.source, edge.target);
     });
 
     const trackEnteringVertices: any[] = [];
     const stackEnteringVerticesDepth: any[] = [];
     const trackEdges: IEdge[] = [];
 
-    dfsFromNode(graphV3, startVertex, function (node, attr, depth) {
+    dfsFromNode(graph, startVertex, function (node, attr, depth) {
       if (trackEnteringVertices.length > 0) {
         if (
           depth >
           stackEnteringVerticesDepth[stackEnteringVerticesDepth.length - 1]
         ) {
-          const addEdgev3: IEdge = {
+          const addEdge: IEdge = {
             source: trackEnteringVertices[trackEnteringVertices.length - 1],
             target: node,
             weight: 0,
           };
-          trackEdges.push(addEdgev3);
+          trackEdges.push(addEdge);
           trackEnteringVertices.push(node);
           stackEnteringVerticesDepth.push(depth);
         } else {
@@ -220,12 +220,12 @@ export default class GraphlibAdapter implements IGraphAdapter {
             stackEnteringVerticesDepth.pop();
           }
 
-          const addEdgev3: IEdge = {
+          const addEdge: IEdge = {
             source: trackEnteringVertices[trackEnteringVertices.length - 1],
             target: node,
             weight: 0,
           };
-          trackEdges.push(addEdgev3);
+          trackEdges.push(addEdge);
           trackEnteringVertices.push(node);
           stackEnteringVerticesDepth.push(depth);
         }

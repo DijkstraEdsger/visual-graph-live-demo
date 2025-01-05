@@ -15,7 +15,7 @@ type VerticeProps = {
   label?: string | number;
   isVisited?: boolean;
   initialPosition?: InitialPositionType;
-  isAVerticeTryingToConnect?: boolean;
+  isAVertexTryingToConnect?: boolean;
   onMouseDownEdgeHint?: (ref: any) => void;
   onMouseUpEdgeHint?: (label: string | number) => void;
   onChangePosition?: (position: Position) => void;
@@ -28,7 +28,7 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
       label,
       isVisited = false,
       initialPosition,
-      isAVerticeTryingToConnect = false,
+      isAVertexTryingToConnect = false,
       onMouseDownEdgeHint = () => {},
       onMouseUpEdgeHint = () => {},
       onChangePosition = () => {},
@@ -119,7 +119,7 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
     const onMouseUpEdgeHintHandler: React.MouseEventHandler<HTMLDivElement> = (
       e
     ) => {
-      if (isAVerticeTryingToConnect) {
+      if (isAVertexTryingToConnect) {
         onMouseUpEdgeHint(label || "");
       }
     };
@@ -133,7 +133,7 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
         <div
           id={id}
           className={`${classes.vertice} ${
-            isAVerticeTryingToConnect ? classes.connecting : ""
+            isAVertexTryingToConnect ? classes.connecting : ""
           } ${isVisited ? classes["vertice--visited"] : ""}`}
           onMouseUp={onMouseUpEdgeHintHandler}
         >
