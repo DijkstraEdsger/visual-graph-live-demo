@@ -34,7 +34,7 @@ const Menu: React.FC<MenuProps> = (
 ) => {
   const menuRef = React.useRef<HTMLUListElement>(null);
   const [openIndex, setOpenIndex] = React.useState<number>(-1);
-  const [higlightedIndex, setHiglightedIndex] = React.useState<number>(-1);
+  const [highlightedIndex, setHighlightedIndex] = React.useState<number>(-1);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -118,13 +118,13 @@ const Menu: React.FC<MenuProps> = (
       setOpenIndex(index);
     }
 
-    setHiglightedIndex(index);
+    setHighlightedIndex(index);
     item?.onClick?.();
   };
 
   const handleOnMouseOver = (index: number) => {
     setOpenIndex(index);
-    setHiglightedIndex(index);
+    setHighlightedIndex(index);
   };
 
   const onKeyDownHandler = (e: React.KeyboardEvent) => {
@@ -134,29 +134,29 @@ const Menu: React.FC<MenuProps> = (
       case "ArrowDown":
         e.stopPropagation();
 
-        if (higlightedIndex < menuItems?.length - 1) {
-          setHiglightedIndex(higlightedIndex + 1);
+        if (highlightedIndex < menuItems?.length - 1) {
+          setHighlightedIndex(highlightedIndex + 1);
         } else {
-          setHiglightedIndex(0);
+          setHighlightedIndex(0);
         }
         break;
       case "ArrowUp":
         e.stopPropagation();
 
-        if (higlightedIndex > 0) {
-          setHiglightedIndex(higlightedIndex - 1);
+        if (highlightedIndex > 0) {
+          setHighlightedIndex(highlightedIndex - 1);
         } else {
-          setHiglightedIndex(menuItems?.length - 1);
+          setHighlightedIndex(menuItems?.length - 1);
         }
         break;
       case "Enter":
         e.stopPropagation();
-        handleOnClick(menuItems[higlightedIndex], higlightedIndex);
+        handleOnClick(menuItems[highlightedIndex], highlightedIndex);
         break;
       case "ArrowRight":
-        if (menuItems[higlightedIndex]?.items) {
+        if (menuItems[highlightedIndex]?.items) {
           e.stopPropagation();
-          handleOnClick(menuItems[higlightedIndex], higlightedIndex);
+          handleOnClick(menuItems[highlightedIndex], highlightedIndex);
         }
         break;
       case "ArrowLeft":
@@ -194,7 +194,7 @@ const Menu: React.FC<MenuProps> = (
           <MenuItem
             key={index}
             menuItems={item.items}
-            isHighlighted={higlightedIndex === index}
+            isHighlighted={highlightedIndex === index}
             onClick={() => handleOnClick(item, index)}
             onMouseOver={() => handleOnMouseOver(index)}
             open={openIndex === index}

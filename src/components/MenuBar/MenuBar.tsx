@@ -17,7 +17,7 @@ interface MenubarProps {
 const MenuBar: React.FC<MenubarProps> = ({ menus = [], ...props }) => {
   const menubarRef = React.useRef<HTMLDivElement>(null);
   const [openIndex, setOpenIndex] = React.useState<number>(-1);
-  const [higlightedIndex, setHiglightedIndex] = React.useState<number>(-1);
+  const [highlightedIndex, setHighlightedIndex] = React.useState<number>(-1);
 
   // click outside
   useEffect(() => {
@@ -28,7 +28,7 @@ const MenuBar: React.FC<MenubarProps> = ({ menus = [], ...props }) => {
           !menubarRef.current.contains(e.target as Node)
         ) {
           setOpenIndex(-1);
-          setHiglightedIndex(-1);
+          setHighlightedIndex(-1);
         }
       }
     };
@@ -43,16 +43,16 @@ const MenuBar: React.FC<MenubarProps> = ({ menus = [], ...props }) => {
   useEffect(() => {
     if (
       openIndex >= 0 &&
-      higlightedIndex >= 0 &&
-      higlightedIndex !== openIndex
+      highlightedIndex >= 0 &&
+      highlightedIndex !== openIndex
     ) {
-      onClickHandler(menus[higlightedIndex], higlightedIndex);
+      onClickHandler(menus[highlightedIndex], highlightedIndex);
     }
-  }, [higlightedIndex, openIndex, menus]);
+  }, [highlightedIndex, openIndex, menus]);
 
   const onClickHandler = (item: TItem, index = -1) => {
     setOpenIndex(index);
-    setHiglightedIndex(index);
+    setHighlightedIndex(index);
     item?.onClick?.();
   };
 
@@ -61,23 +61,23 @@ const MenuBar: React.FC<MenubarProps> = ({ menus = [], ...props }) => {
 
     switch (key) {
       case "ArrowRight":
-        if (higlightedIndex < menus?.length - 1) {
-          setHiglightedIndex(higlightedIndex + 1);
+        if (highlightedIndex < menus?.length - 1) {
+          setHighlightedIndex(highlightedIndex + 1);
         } else {
-          setHiglightedIndex(0);
+          setHighlightedIndex(0);
         }
 
         break;
       case "ArrowLeft":
-        if (higlightedIndex > 0) {
-          setHiglightedIndex(higlightedIndex - 1);
+        if (highlightedIndex > 0) {
+          setHighlightedIndex(highlightedIndex - 1);
         } else {
-          setHiglightedIndex(menus?.length - 1);
+          setHighlightedIndex(menus?.length - 1);
         }
 
         break;
       case "Enter":
-        onClickHandler(menus[higlightedIndex], higlightedIndex);
+        onClickHandler(menus[highlightedIndex], highlightedIndex);
         break;
 
       default:
@@ -88,7 +88,7 @@ const MenuBar: React.FC<MenubarProps> = ({ menus = [], ...props }) => {
   const handleOnMouseOver = (index: number) => {
     if (openIndex !== -1) {
       setOpenIndex(index);
-      setHiglightedIndex(index);
+      setHighlightedIndex(index);
     }
   };
 
@@ -109,7 +109,7 @@ const MenuBar: React.FC<MenubarProps> = ({ menus = [], ...props }) => {
             isMainMenu
             onClick={() => onClickHandler(item, index)}
             open={openIndex === index}
-            isHighlighted={higlightedIndex === index}
+            isHighlighted={highlightedIndex === index}
             onClose={() => setOpenIndex(-1)}
             disabled={item.disabled}
             onMouseOver={() => handleOnMouseOver(index)}

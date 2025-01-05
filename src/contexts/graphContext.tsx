@@ -51,9 +51,9 @@ const initialState: GraphState = {
 };
 
 enum ActionType {
-  ADD_VERTICE = "vertice/add",
-  DELETE_VERTICE = "vertice/delete",
-  UPDATE_VERTICE_POSITION = "vertice/updatePosition",
+  ADD_VERTEX = "vertex/add",
+  DELETE_VERTEX = "vertex/delete",
+  UPDATE_VERTEX_POSITION = "vertex/updatePosition",
   ADD_EDGE = "edge/add",
   DELETE_EDGE = "edge/delete",
   UPDATE_IS_DIRECTED = "isDirected/update",
@@ -62,7 +62,7 @@ enum ActionType {
 }
 
 type UpdatePositionType = {
-  verticeId: NodeId;
+  vertexId: NodeId;
   position: Position;
 };
 
@@ -84,7 +84,7 @@ const reducer: React.Reducer<GraphState, Action> = (
   action
 ): GraphState => {
   switch (action.type) {
-    case ActionType.ADD_VERTICE:
+    case ActionType.ADD_VERTEX:
       const newVertex = action.payload as INode;
 
       return {
@@ -92,14 +92,14 @@ const reducer: React.Reducer<GraphState, Action> = (
         vertices: [...structuredClone(state.vertices), newVertex],
       };
 
-    case ActionType.DELETE_VERTICE:
-      const verticeId = action.payload as NodeId;
+    case ActionType.DELETE_VERTEX:
+      const vertexId = action.payload as NodeId;
       const filteredVertices = structuredClone(state.vertices).filter(
-        (vertice: INode) => vertice.id !== verticeId
+        (vertex: INode) => vertex.id !== vertexId
       );
 
       const filteredEdges = structuredClone(state.edges).filter(
-        (e: IEdge) => e.source !== verticeId && e.target !== verticeId
+        (e: IEdge) => e.source !== vertexId && e.target !== vertexId
       );
 
       return {
@@ -107,8 +107,8 @@ const reducer: React.Reducer<GraphState, Action> = (
         vertices: [...filteredVertices],
         edges: [...filteredEdges],
       };
-    case ActionType.UPDATE_VERTICE_POSITION:
-      const { verticeId: id, position }: UpdatePositionType =
+    case ActionType.UPDATE_VERTEX_POSITION:
+      const { vertexId: id, position }: UpdatePositionType =
         action.payload as UpdatePositionType;
 
       const verticesCopy = [...structuredClone(state.vertices)];
@@ -193,13 +193,13 @@ const GraphContext = createContext<{
   dfsTraversal?: IEdge[];
   selectedVertex?: NodeId | null;
   setIsDirectedHandler: (isDirected: boolean) => void;
-  addVertexHandler: (vertice: INode) => void;
+  addVertexHandler: (vertex: INode) => void;
   addEdgeHandler: (edge: IEdge) => void;
   downloadGraphAsTxt: () => void;
   uploadGraph: () => void;
-  updatePositions: (vertice: INode, position: Position) => void;
+  updatePositions: (vertex: INode, position: Position) => void;
   removeEdge?: (edge: IEdge) => void;
-  removeVertex?: (vertice: INode) => void;
+  removeVertex?: (vertex: INode) => void;
   setActiveAlgorithmHandler?: (algorithm: string) => void;
   cleanPath?: () => void;
   cleanHighlighted?: () => void;
@@ -208,7 +208,7 @@ const GraphContext = createContext<{
   redo?: () => void;
   openGraph?: (data: GraphState) => void;
   cleanGraph?: () => void;
-  selectVertexHandler?: (verticeId: NodeId) => void;
+  selectVertexHandler?: (vertexId: NodeId) => void;
 }>({
   graph: {
     vertices: [],
@@ -348,11 +348,11 @@ const GraphProvider: FC<GraphProviderProps> = ({
     adapter.addEdge(edge);
   };
 
-  const addVertexHandler = (vertice: INode) => {
-    dispatch({ type: ActionType.ADD_VERTICE, payload: vertice });
+  const addVertexHandler = (vertex: INode) => {
+    dispatch({ type: ActionType.ADD_VERTEX, payload: vertex });
     documentDispatch({ type: "SET_IS_DOCUMENT_MODIFIED", payload: true });
 
-    adapter.addNode(vertice);
+    adapter.addNode(vertex);
   };
 
   useEffect(() => {
@@ -378,11 +378,11 @@ const GraphProvider: FC<GraphProviderProps> = ({
     // setIsBipartite(adapter.)
   }, [state.vertices.length, state.edges.length]);
 
-  const updatePositions = (vertice: INode, position: Position) => {
+  const updatePositions = (vertex: INode, position: Position) => {
     dispatch({
-      type: ActionType.UPDATE_VERTICE_POSITION,
+      type: ActionType.UPDATE_VERTEX_POSITION,
       payload: {
-        verticeId: vertice.id,
+        vertexId: vertex.id,
         position,
       },
     });
@@ -448,13 +448,13 @@ const GraphProvider: FC<GraphProviderProps> = ({
     adapter.removeEdge(edge);
   };
 
-  const removeVertex = (vertice: INode) => {
-    adapter.removeNode(vertice.id);
+  const removeVertex = (vertex: INode) => {
+    adapter.removeNode(vertex.id);
 
-    dispatch({ type: ActionType.DELETE_VERTICE, payload: vertice.id });
+    dispatch({ type: ActionType.DELETE_VERTEX, payload: vertex.id });
     documentDispatch({ type: "SET_IS_DOCUMENT_MODIFIED", payload: true });
 
-    const newTraversalPath = traversalPath.filter((v) => v !== vertice.id);
+    const newTraversalPath = traversalPath.filter((v) => v !== vertex.id);
     setWayPoints(newTraversalPath);
   };
 
@@ -549,8 +549,8 @@ const GraphProvider: FC<GraphProviderProps> = ({
     // }
   };
 
-  const selectVertexHandler = (verticeId: NodeId) => {
-    setSelectedVertex(verticeId);
+  const selectVertexHandler = (vertexId: NodeId) => {
+    setSelectedVertex(vertexId);
   };
 
   return (

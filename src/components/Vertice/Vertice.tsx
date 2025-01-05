@@ -11,7 +11,7 @@ import Drag from "components/Drag/Drag";
 import { InitialPositionType, Position } from "types/graph";
 import { ArrowRightIcon, Cross2Icon } from "@radix-ui/react-icons";
 
-type VerticeProps = {
+type VertexProps = {
   label?: string | number;
   isVisited?: boolean;
   initialPosition?: InitialPositionType;
@@ -22,7 +22,7 @@ type VerticeProps = {
   onRemove?: () => void;
 };
 
-const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
+const Vertice = forwardRef<HTMLDivElement, VertexProps>(
   (
     {
       label,
@@ -132,9 +132,9 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
       >
         <div
           id={id}
-          className={`${classes.vertice} ${
+          className={`${classes.vertex} ${
             isAVertexTryingToConnect ? classes.connecting : ""
-          } ${isVisited ? classes["vertice--visited"] : ""}`}
+          } ${isVisited ? classes["vertex--visited"] : ""}`}
           onMouseUp={onMouseUpEdgeHintHandler}
         >
           <span>{label}</span>
@@ -149,7 +149,7 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
           </div>
           <div
             ref={removeRef}
-            className={classes["remove-vertice"]}
+            className={classes["remove-vertex"]}
             style={{
               visibility: isHintVisible ? "visible" : "hidden",
             }}

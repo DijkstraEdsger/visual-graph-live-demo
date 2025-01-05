@@ -19,7 +19,7 @@ const OpenDocument: React.FC = () => {
   const dispatch = useAppDispatch();
   const state = useGraphDocumentState();
   const { getGraphDocument } = useGet();
-  const { loading, getAllGraphDocuments } = useGetAll();
+  const { getAllGraphDocuments } = useGetAll();
   const [selectedDocument, setSelectedDocument] = useState<string | null>(null);
 
   const handleSelectDocument = (graphName: string) => {

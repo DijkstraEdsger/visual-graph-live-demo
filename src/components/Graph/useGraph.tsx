@@ -5,7 +5,7 @@ import { cloneElement, createRef, useEffect, useRef, useState } from "react";
 import { IEdge, INode, NodeId } from "types/graph";
 import { useGraph as useGraphGlobalContext } from "contexts/graphContext";
 
-const VERTICE_SIZE = 50;
+const VERTEX_SIZE = 50;
 
 type GraphProps = {
   vertices?: INode[];
@@ -129,7 +129,7 @@ const useGraph = ({
 
   useEffect(() => {
     if (highlightedEdges.length > 1) {
-      updateEdgesElementsWithHiglightedEdges();
+      updateEdgesElementsWithHighlightedEdges();
     } else {
       updateEdgesElements();
     }
@@ -139,7 +139,7 @@ const useGraph = ({
     updateVerticesElements();
   }, [highlightedVertices]);
 
-  const updateEdgesElementsWithHiglightedEdges = () => {
+  const updateEdgesElementsWithHighlightedEdges = () => {
     const edgesElIndexes: number[] = highlightedEdges.reduce(
       (acc: number[], edge) => {
         const edgeIndex = edges.findIndex(
@@ -201,8 +201,8 @@ const useGraph = ({
     if (doubleClickPosition && isValidVertexPosition(doubleClickPosition)) {
       const newVertexLabel = generateNewVertexLabel();
       const updatedPosition = {
-        x: doubleClickPosition.x - VERTICE_SIZE / 2,
-        y: doubleClickPosition.y - VERTICE_SIZE / 2,
+        x: doubleClickPosition.x - VERTEX_SIZE / 2,
+        y: doubleClickPosition.y - VERTEX_SIZE / 2,
       };
 
       const newVertex: INode = {

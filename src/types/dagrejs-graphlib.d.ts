@@ -1,3 +1,4 @@
+/* eslint-disable spellcheck/spell-checker */
 declare module "@dagrejs/graphlib/lib/alg/dijkstra" {
   import { Graph } from "@dagrejs/graphlib";
 

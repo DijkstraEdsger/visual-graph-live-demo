@@ -93,6 +93,7 @@ const GraphDocumentList: React.FC<GraphDocumentListProps> = ({
     });
   };
 
+  // eslint-disable-next-line spellcheck/spell-checker
   const [colDefs, setColDefs] = useState<ColDef<IRow>[]>([
     {
       field: "name",
@@ -136,6 +137,7 @@ const GraphDocumentList: React.FC<GraphDocumentListProps> = ({
   >(() => {
     return {
       mode: "singleRow",
+      // eslint-disable-next-line spellcheck/spell-checker
       checkboxes: false,
       enableClickSelection: true,
     };
@@ -153,6 +155,7 @@ const GraphDocumentList: React.FC<GraphDocumentListProps> = ({
     <div className={classes.document_list}>
       <AgGridReact
         rowData={rowData}
+        // eslint-disable-next-line spellcheck/spell-checker
         columnDefs={colDefs}
         rowSelection={rowSelection}
         defaultColDef={defaultColDef}
