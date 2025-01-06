@@ -35,7 +35,14 @@
           "checkbox",
           "resize",
           "submenu",
-          "menuitem"
+          "menuitem",
+          "mousemove",
+          "Warshall",
+          "Kruskal",
+          "Fulkerson",
+          "Edmonds",
+          "Karp",
+          "Svg"
         ]
       }
     ]

@@ -23,6 +23,7 @@ const GearIcon: React.FC<IconProps> = ({
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
+      // eslint-disable-next-line spellcheck/spell-checker
       className="icon icon-tabler icons-tabler-outline icon-tabler-settings"
       stroke={color}
       style={{
