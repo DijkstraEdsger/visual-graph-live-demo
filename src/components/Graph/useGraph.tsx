@@ -1,11 +1,11 @@
 import Line from "components/Line/Line";
-import Vertice from "components/Vertice/Vertice";
+import Vertex from "components/Vertex/Vertex";
 import { useGraphContainer } from "contexts/graphContainerContext";
 import { cloneElement, createRef, useEffect, useRef, useState } from "react";
 import { IEdge, INode, NodeId } from "types/graph";
 import { useGraph as useGraphGlobalContext } from "contexts/graphContext";
 
-const VERTICE_SIZE = 50;
+const VERTEX_SIZE = 50;
 
 type GraphProps = {
   vertices?: INode[];
@@ -15,7 +15,7 @@ type GraphProps = {
   highlightedVertices?: NodeId[];
   dfsTraversal?: IEdge[];
   onAddEdge?: (edge: IEdge) => void;
-  onAddVertice?: (vertice: INode) => void;
+  onAddVertex?: (vertex: INode) => void;
 };
 
 const useGraph = ({
@@ -26,38 +26,38 @@ const useGraph = ({
   highlightedVertices = [],
   dfsTraversal = [],
   onAddEdge = () => {},
-  onAddVertice = () => {},
+  onAddVertex = () => {},
 }: GraphProps) => {
   const verticesRefs = useRef(vertices.map(() => createRef<HTMLDivElement>()));
   const [verticesElements, setVerticesElements] = useState<JSX.Element[]>([]);
   const [edgesElements, setEdgesElements] = useState<JSX.Element[]>([]);
   const [newEdge, setNewEdge] = useState<IEdge | null>(null);
-  const { edgeConection, doubleClickPosition } = useGraphContainer();
+  const { edgeConnection, doubleClickPosition } = useGraphContainer();
   const {
     isDirected,
-    selectedVertice,
+    selectedVertex,
     updatePositions,
     removeEdge,
-    removeVertice,
+    removeVertex,
   } = useGraphGlobalContext();
 
   useEffect(() => {
-    if (selectedVertice) {
+    if (selectedVertex) {
       const verticesElementsCopy = [...verticesElements];
-      const findIndexVertice = vertices.findIndex(
-        (vertice) => vertice.id === selectedVertice
+      const findIndexVertex = vertices.findIndex(
+        (vertex) => vertex.id === selectedVertex
       );
 
-      verticesElementsCopy.forEach((verticeEl, index) => {
-        verticesElementsCopy[index] = cloneElement(verticeEl, {
-          ...verticeEl.props,
-          isVisited: index === findIndexVertice,
+      verticesElementsCopy.forEach((vertexEl, index) => {
+        verticesElementsCopy[index] = cloneElement(vertexEl, {
+          ...vertexEl.props,
+          isVisited: index === findIndexVertex,
         });
       });
 
       setVerticesElements([...verticesElementsCopy]);
     }
-  }, [selectedVertice]);
+  }, [selectedVertex]);
 
   useEffect(() => {
     if (dfsTraversal.length > 0) {
@@ -98,13 +98,13 @@ const useGraph = ({
     });
 
     dfsTraversal.forEach((edge, index) => {
-      const findIndexVertice = vertices.findIndex(
-        (vertice) => vertice.id === edge.target
+      const findIndexVertex = vertices.findIndex(
+        (vertex) => vertex.id === edge.target
       );
-      verticesElementsCopy[findIndexVertice] = cloneElement(
-        verticesElementsCopy[findIndexVertice],
+      verticesElementsCopy[findIndexVertex] = cloneElement(
+        verticesElementsCopy[findIndexVertex],
         {
-          ...verticesElementsCopy[findIndexVertice].props,
+          ...verticesElementsCopy[findIndexVertex].props,
           isVisited: true,
         }
       );
@@ -118,7 +118,7 @@ const useGraph = ({
     if (vertices) {
       updateVerticesElements();
     }
-  }, [edgeConection]);
+  }, [edgeConnection]);
 
   useEffect(() => {
     if (vertices) {
@@ -129,7 +129,7 @@ const useGraph = ({
 
   useEffect(() => {
     if (highlightedEdges.length > 1) {
-      updateEdgesElementsWithHiglightedEdges();
+      updateEdgesElementsWithHighlightedEdges();
     } else {
       updateEdgesElements();
     }
@@ -139,7 +139,7 @@ const useGraph = ({
     updateVerticesElements();
   }, [highlightedVertices]);
 
-  const updateEdgesElementsWithHiglightedEdges = () => {
+  const updateEdgesElementsWithHighlightedEdges = () => {
     const edgesElIndexes: number[] = highlightedEdges.reduce(
       (acc: number[], edge) => {
         const edgeIndex = edges.findIndex(
@@ -188,30 +188,30 @@ const useGraph = ({
     }
   }, [newEdge]);
 
-  const generateNewVerticeLabel = () => {
-    const maxVertice = Math.max(...vertices.map((v) => Number(v.id)), 0);
-    return (maxVertice + 1).toString();
+  const generateNewVertexLabel = () => {
+    const maxVertex = Math.max(...vertices.map((v) => Number(v.id)), 0);
+    return (maxVertex + 1).toString();
   };
 
-  const isValidVerticePosition = (position: { x: number; y: number }) => {
+  const isValidVertexPosition = (position: { x: number; y: number }) => {
     return position.x !== 0 && position.y !== 0;
   };
 
   useEffect(() => {
-    if (doubleClickPosition && isValidVerticePosition(doubleClickPosition)) {
-      const newVerticeLabel = generateNewVerticeLabel();
+    if (doubleClickPosition && isValidVertexPosition(doubleClickPosition)) {
+      const newVertexLabel = generateNewVertexLabel();
       const updatedPosition = {
-        x: doubleClickPosition.x - VERTICE_SIZE / 2,
-        y: doubleClickPosition.y - VERTICE_SIZE / 2,
+        x: doubleClickPosition.x - VERTEX_SIZE / 2,
+        y: doubleClickPosition.y - VERTEX_SIZE / 2,
       };
 
-      const newVertice: INode = {
-        id: newVerticeLabel,
-        label: String(newVerticeLabel),
+      const newVertex: INode = {
+        id: newVertexLabel,
+        label: String(newVertexLabel),
         position: { left: updatedPosition.x, top: updatedPosition.y },
       };
 
-      onAddVertice(newVertice);
+      onAddVertex(newVertex);
     }
   }, [doubleClickPosition]);
 
@@ -221,12 +221,12 @@ const useGraph = ({
     );
   };
 
-  const isVerticeVisited = (vertice: INode) => {
-    return traversalPath.includes(vertice.id);
+  const isVertexVisited = (vertex: INode) => {
+    return traversalPath.includes(vertex.id);
   };
 
-  const setNewConnectionInitialVertice = (
-    verticeRef: React.RefObject<HTMLDivElement>,
+  const setNewConnectionInitialVertex = (
+    vertexRef: React.RefObject<HTMLDivElement>,
     data: string | number
   ) => {
     const edge: IEdge = {
@@ -236,11 +236,11 @@ const useGraph = ({
     };
 
     setNewEdge(edge);
-    edgeConection?.handleMouseDown(verticeRef);
+    edgeConnection?.handleMouseDown(vertexRef);
   };
 
-  const setNewConnectionSecondVertice = (
-    verticeRef: React.RefObject<HTMLDivElement>,
+  const setNewConnectionSecondVertex = (
+    vertexRef: React.RefObject<HTMLDivElement>,
     data: string | number
   ) => {
     const edge: IEdge = {
@@ -249,30 +249,30 @@ const useGraph = ({
     };
 
     setNewEdge(edge);
-    edgeConection?.handleMouseDown(verticeRef);
+    edgeConnection?.handleMouseDown(vertexRef);
   };
 
   const updateVerticesElements = () => {
-    const verticesEl = vertices.map((vertice, index) => {
-      const isVisited = isVerticeVisited(vertice);
-      const isHighlighted = highlightedVertices.includes(+vertice.id);
+    const verticesEl = vertices.map((vertex, index) => {
+      const isVisited = isVertexVisited(vertex);
+      const isHighlighted = highlightedVertices.includes(+vertex.id);
 
       return (
-        <Vertice
-          key={vertice.id}
-          label={vertice.id}
+        <Vertex
+          key={vertex.id}
+          label={vertex.id}
           isVisited={isVisited || isHighlighted}
           ref={verticesRefs.current[index]}
-          initialPosition={vertice.position}
+          initialPosition={vertex.position}
           onMouseDownEdgeHint={(ref) =>
-            setNewConnectionInitialVertice(ref, vertice.id)
+            setNewConnectionInitialVertex(ref, vertex.id)
           }
-          isAVerticeTryingToConnect={edgeConection?.isDragging}
+          isAVertexTryingToConnect={edgeConnection?.isDragging}
           onMouseUpEdgeHint={(data) => {
-            setNewConnectionSecondVertice(verticesRefs.current[index], data);
+            setNewConnectionSecondVertex(verticesRefs.current[index], data);
           }}
-          onChangePosition={(position) => updatePositions?.(vertice, position)}
-          onRemove={() => removeVertice?.(vertice)}
+          onChangePosition={(position) => updatePositions?.(vertex, position)}
+          onRemove={() => removeVertex?.(vertex)}
         />
       );
     });
@@ -302,16 +302,16 @@ const useGraph = ({
 
   const updateEdgesElements = () => {
     const edgesEl = edges.map((edge) => {
-      const vertice1 = edge.source;
-      const vertice2 = edge.target;
-      const vertice1Ref =
-        verticesRefs.current[vertices.findIndex((v) => v.id === vertice1)];
-      const vertice2Ref =
-        verticesRefs.current[vertices.findIndex((v) => v.id === vertice2)];
+      const vertex1 = edge.source;
+      const vertex2 = edge.target;
+      const vertex1Ref =
+        verticesRefs.current[vertices.findIndex((v) => v.id === vertex1)];
+      const vertex2Ref =
+        verticesRefs.current[vertices.findIndex((v) => v.id === vertex2)];
       const isTraversed = isEdgeTraversed(edge);
 
-      const div1Rect = vertice1Ref.current?.getBoundingClientRect();
-      const div2Rect = vertice2Ref.current?.getBoundingClientRect();
+      const div1Rect = vertex1Ref.current?.getBoundingClientRect();
+      const div2Rect = vertex2Ref.current?.getBoundingClientRect();
       const div1X = div1Rect?.x;
       const div1Y = div1Rect?.y;
       const div2X = div2Rect?.x;
@@ -319,9 +319,9 @@ const useGraph = ({
 
       return (
         <Line
-          key={`${vertice1}-${vertice2}`}
-          div1Ref={vertice1Ref}
-          div2Ref={vertice2Ref}
+          key={`${vertex1}-${vertex2}`}
+          div1Ref={vertex1Ref}
+          div2Ref={vertex2Ref}
           isTraversed={isTraversed}
           onRemove={() => removeEdge?.(edge)}
           isDirected={isDirected}
@@ -338,15 +338,15 @@ const useGraph = ({
 
   const updateEdgesElementsWithTraversalPath = () => {
     const edgesElIndexes: number[] = traversalPath.reduce(
-      (acc: number[], vertice, index) => {
+      (acc: number[], vertex, index) => {
         const nextIndex = index + 1;
-        const nextVertice = traversalPath[nextIndex];
+        const nextVertex = traversalPath[nextIndex];
 
-        if (nextVertice) {
+        if (nextVertex) {
           const edgeIndex = edges.findIndex(
             (edge) =>
-              (edge.source === vertice && edge.target === nextVertice) ||
-              (edge.source === nextVertice && edge.target === vertice)
+              (edge.source === vertex && edge.target === nextVertex) ||
+              (edge.source === nextVertex && edge.target === vertex)
           );
 
           if (edgeIndex !== -1) {
@@ -393,7 +393,7 @@ const useGraph = ({
   return {
     verticesElements,
     edgesElements,
-    edgeConection,
+    edgeConnection,
   };
 };
 

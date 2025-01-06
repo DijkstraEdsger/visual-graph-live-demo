@@ -11,7 +11,7 @@ type GraphProps = {
   isDirected?: boolean;
   dfsTraversal?: IEdge[];
   onAddEdge?: (edge: IEdge) => void;
-  onAddVertice?: (vertice: INode) => void;
+  onAddVertex?: (vertex: INode) => void;
 };
 
 const Graph: React.FC<GraphProps> = ({
@@ -23,9 +23,9 @@ const Graph: React.FC<GraphProps> = ({
   isDirected = false,
   dfsTraversal = [],
   onAddEdge = () => {},
-  onAddVertice = () => {},
+  onAddVertex = () => {},
 }: GraphProps) => {
-  const { verticesElements, edgesElements, edgeConection } = useGraph({
+  const { verticesElements, edgesElements, edgeConnection } = useGraph({
     vertices,
     edges,
     traversalPath,
@@ -33,7 +33,7 @@ const Graph: React.FC<GraphProps> = ({
     highlightedVertices,
     dfsTraversal,
     onAddEdge,
-    onAddVertice,
+    onAddVertex,
   });
 
   return (
@@ -67,10 +67,10 @@ const Graph: React.FC<GraphProps> = ({
         )}
         {edgesElements}
         <line
-          x1={edgeConection?.lineStart.x}
-          y1={edgeConection?.lineStart.y}
-          x2={edgeConection?.lineEnd.x}
-          y2={edgeConection?.lineEnd.y}
+          x1={edgeConnection?.lineStart.x}
+          y1={edgeConnection?.lineStart.y}
+          x2={edgeConnection?.lineEnd.x}
+          y2={edgeConnection?.lineEnd.y}
           stroke="var(--color-stroke-line-edge-default)"
           markerEnd="url(#arrowhead)"
           strokeWidth="2"

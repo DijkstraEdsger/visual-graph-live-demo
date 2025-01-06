@@ -10,43 +10,43 @@ const withAsyncData = (Component: React.FC<any>) => {
     speed = 1,
     ...props
   }: any) => {
-    const [wayPointsSecuential, setWayPointsSecuential] = useState<any>([]);
-    const [dfsTraversalSecuential, setDfsTraversalSecuential] = useState<any>(
+    const [wayPointsSequential, setWayPointsSequential] = useState<any>([]);
+    const [dfsTraversalSequential, setDfsTraversalSequential] = useState<any>(
       []
     );
     const appDispatch = useAppDispatch();
 
     useEffect(() => {
-      if (wayPointsSecuential.length === 0) {
+      if (wayPointsSequential.length === 0) {
         appDispatch({
           type: AlgorithmActionType.SET_IS_ALGORITHM_SHOWING_RESULT,
           payload: true,
         });
       }
 
-      if (wayPointsSecuential.length === traversalPath?.length) {
+      if (wayPointsSequential.length === traversalPath?.length) {
         appDispatch({
           type: AlgorithmActionType.SET_IS_ALGORITHM_SHOWING_RESULT,
           payload: false,
         });
       }
-    }, [traversalPath, wayPointsSecuential, appDispatch]);
+    }, [traversalPath, wayPointsSequential, appDispatch]);
 
     useEffect(() => {
-      if (dfsTraversalSecuential.length === 0) {
+      if (dfsTraversalSequential.length === 0) {
         appDispatch({
           type: AlgorithmActionType.SET_IS_ALGORITHM_SHOWING_RESULT,
           payload: true,
         });
       }
 
-      if (dfsTraversalSecuential.length === dfsTraversal?.length) {
+      if (dfsTraversalSequential.length === dfsTraversal?.length) {
         appDispatch({
           type: AlgorithmActionType.SET_IS_ALGORITHM_SHOWING_RESULT,
           payload: false,
         });
       }
-    }, [dfsTraversal, dfsTraversalSecuential, appDispatch]);
+    }, [dfsTraversal, dfsTraversalSequential, appDispatch]);
 
     useEffect(() => {
       let interval: NodeJS.Timeout;
@@ -55,7 +55,7 @@ const withAsyncData = (Component: React.FC<any>) => {
         let counter = 1;
         interval = setInterval(() => {
           const newWayPoints = traversalPath?.slice(0, counter);
-          setWayPointsSecuential(newWayPoints);
+          setWayPointsSequential(newWayPoints);
           counter += 1;
 
           if (newWayPoints?.length === traversalPath?.length) {
@@ -63,7 +63,7 @@ const withAsyncData = (Component: React.FC<any>) => {
           }
         }, 1000 / speed);
       } else {
-        setWayPointsSecuential(traversalPath);
+        setWayPointsSequential(traversalPath);
       }
 
       return () => clearInterval(interval);
@@ -76,7 +76,7 @@ const withAsyncData = (Component: React.FC<any>) => {
         let counter = 1;
         interval = setInterval(() => {
           const newEdges = dfsTraversal?.slice(0, counter);
-          setDfsTraversalSecuential(newEdges);
+          setDfsTraversalSequential(newEdges);
           counter += 1;
 
           if (newEdges?.length === dfsTraversal?.length) {
@@ -84,7 +84,7 @@ const withAsyncData = (Component: React.FC<any>) => {
           }
         }, 1000 / speed);
       } else {
-        setDfsTraversalSecuential(dfsTraversal);
+        setDfsTraversalSequential(dfsTraversal);
       }
 
       return () => clearInterval(interval);
@@ -93,8 +93,8 @@ const withAsyncData = (Component: React.FC<any>) => {
     return (
       <Component
         {...props}
-        traversalPath={wayPointsSecuential}
-        dfsTraversal={dfsTraversalSecuential}
+        traversalPath={wayPointsSequential}
+        dfsTraversal={dfsTraversalSequential}
       />
     );
   };

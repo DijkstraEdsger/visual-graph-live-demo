@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Modal from "components/modal";
 import classes from "./classes.module.scss";
 import Button from "components/Button/Button";

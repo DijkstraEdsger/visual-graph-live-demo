@@ -1,0 +1,50 @@
+{
+  "extends": "react-app",
+  "plugins": ["spellcheck"],
+  "rules": {
+    "spellcheck/spell-checker": [
+      1,
+      {
+        "comments": true,
+        "strings": true,
+        "identifiers": true,
+        "templates": true,
+        "lang": "en_US",
+        "skipWords": [
+          "Jax",
+          "dijkstra",
+          "dfs",
+          "Graphlib",
+          "undirected",
+          "Rect",
+          "keydown",
+          "onupgradeneeded",
+          "onsuccess",
+          "readwrite",
+          "readonly",
+          "Txt",
+          "href",
+          "Roboto",
+          "Renderer",
+          "mouseenter",
+          "mouseleave",
+          "touchstart",
+          "mousedown",
+          "touchend",
+          "textfield",
+          "checkbox",
+          "resize",
+          "submenu",
+          "menuitem",
+          "mousemove",
+          "Warshall",
+          "Kruskal",
+          "Fulkerson",
+          "Edmonds",
+          "Karp",
+          "Svg"
+        ]
+      }
+    ]
+  }
+}

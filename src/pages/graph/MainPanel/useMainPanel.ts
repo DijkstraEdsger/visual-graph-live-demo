@@ -13,7 +13,7 @@ const useMainPanel = () => {
     dfsTraversal,
     setIsDirectedHandler,
     addEdgeHandler,
-    addVerticeHandler,
+    addVertexHandler,
     undo,
     redo,
   } = useGraph();
@@ -50,7 +50,7 @@ const useMainPanel = () => {
     dfsTraversal,
     speed: transitionSpeed.speed,
     addEdgeHandler,
-    addVerticeHandler,
+    addVertexHandler,
   };
 };
 

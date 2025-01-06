@@ -19,7 +19,7 @@ const DfsControls: React.FC<DfsControlsProps> = ({
   const inputId = useId();
   const {
     graph: { vertices },
-    selectVerticeHandler,
+    selectVertexHandler,
   } = useGraph();
   const {
     algorithm: { isRunning, isShowingResult },
@@ -27,7 +27,7 @@ const DfsControls: React.FC<DfsControlsProps> = ({
 
   const handleStartNodeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setStartNode(e.target.value);
-    selectVerticeHandler?.(e.target.value);
+    selectVertexHandler?.(e.target.value);
   };
 
   return (
@@ -44,9 +44,9 @@ const DfsControls: React.FC<DfsControlsProps> = ({
             value: "",
             label: "None",
           },
-          ...vertices?.map((vertice) => ({
-            value: vertice.id,
-            label: vertice.label,
+          ...vertices?.map((vertex) => ({
+            value: vertex.id,
+            label: vertex.label,
           })),
         ]}
       />

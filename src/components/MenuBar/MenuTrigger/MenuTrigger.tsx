@@ -19,7 +19,7 @@ const MenuTrigger = forwardRef<HTMLDivElement, MenuTriggerProps>(
         ref={ref}
         role="menuitem"
         className={`${classes["menu-trigger-root"]} ${
-          isHighlighted ? classes["menu-trigger-root--higlighted"] : ""
+          isHighlighted ? classes["menu-trigger-root--highlighted"] : ""
         } ${disabled ? classes["menu-trigger-root--disabled"] : ""}`}
         onClick={onClick}
         tabIndex={0}
@@ -33,7 +33,7 @@ const MenuTrigger = forwardRef<HTMLDivElement, MenuTriggerProps>(
         ref={ref}
         role="menuitem"
         className={`${classes["menu-trigger"]} ${
-          isHighlighted ? classes["menu-trigger--higlighted"] : ""
+          isHighlighted ? classes["menu-trigger--highlighted"] : ""
         } ${disabled ? classes["menu-trigger--disabled"] : ""}`}
         onClick={onClick}
         tabIndex={0}

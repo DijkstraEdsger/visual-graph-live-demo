@@ -5,7 +5,7 @@ import { UIActionType } from "./app-context/ui/types";
 
 const GraphContainerContext = React.createContext<{
   container: HTMLDivElement | null;
-  edgeConection?: {
+  edgeConnection?: {
     isDragging: boolean;
     lineStart: {
       x: number;
@@ -15,7 +15,7 @@ const GraphContainerContext = React.createContext<{
       x: number;
       y: number;
     };
-    handleMouseDown: (verticeRef: React.RefObject<HTMLDivElement>) => void;
+    handleMouseDown: (vertexRef: React.RefObject<HTMLDivElement>) => void;
   };
   doubleClickPosition?: {
     x: number;
@@ -62,9 +62,9 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   const handleMouseDown = useCallback(
-    (verticeRef: React.RefObject<HTMLDivElement>) => {
+    (vertexRef: React.RefObject<HTMLDivElement>) => {
       setIsDragging(true);
-      const rect = verticeRef.current?.getBoundingClientRect() as DOMRect;
+      const rect = vertexRef.current?.getBoundingClientRect() as DOMRect;
       const containerRect = graphContainerRef.current?.getBoundingClientRect();
 
       const x = rect.left + rect.width / 2 - containerRect?.left!;
@@ -130,7 +130,7 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
     });
   };
 
-  const edgeConection = useMemo(() => {
+  const edgeConnection = useMemo(() => {
     return {
       isDragging,
       lineStart,
@@ -142,11 +142,11 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
   const value = useMemo(() => {
     return {
       container: container,
-      edgeConection,
+      edgeConnection,
       doubleClickPosition,
       // mousePosition,
     };
-  }, [container, edgeConection, doubleClickPosition]);
+  }, [container, edgeConnection, doubleClickPosition]);
 
   return (
     <GraphContainerContext.Provider value={value}>
@@ -157,7 +157,7 @@ export const GraphContainer: React.FC<{ children: React.ReactNode }> = ({
         onMouseLeave={handleMouseLeave}
         onMouseUp={handleMouseUp}
         onDoubleClick={onDoubleClickHandler}
-        title="Double click to add a new vertice"
+        title="Double click to add a new vertex"
       >
         {children}
       </div>

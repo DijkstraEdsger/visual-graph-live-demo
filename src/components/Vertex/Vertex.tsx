@@ -11,24 +11,24 @@ import Drag from "components/Drag/Drag";
 import { InitialPositionType, Position } from "types/graph";
 import { ArrowRightIcon, Cross2Icon } from "@radix-ui/react-icons";
 
-type VerticeProps = {
+type VertexProps = {
   label?: string | number;
   isVisited?: boolean;
   initialPosition?: InitialPositionType;
-  isAVerticeTryingToConnect?: boolean;
+  isAVertexTryingToConnect?: boolean;
   onMouseDownEdgeHint?: (ref: any) => void;
   onMouseUpEdgeHint?: (label: string | number) => void;
   onChangePosition?: (position: Position) => void;
   onRemove?: () => void;
 };
 
-const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
+const Vertex = forwardRef<HTMLDivElement, VertexProps>(
   (
     {
       label,
       isVisited = false,
       initialPosition,
-      isAVerticeTryingToConnect = false,
+      isAVertexTryingToConnect = false,
       onMouseDownEdgeHint = () => {},
       onMouseUpEdgeHint = () => {},
       onChangePosition = () => {},
@@ -119,7 +119,7 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
     const onMouseUpEdgeHintHandler: React.MouseEventHandler<HTMLDivElement> = (
       e
     ) => {
-      if (isAVerticeTryingToConnect) {
+      if (isAVertexTryingToConnect) {
         onMouseUpEdgeHint(label || "");
       }
     };
@@ -132,9 +132,9 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
       >
         <div
           id={id}
-          className={`${classes.vertice} ${
-            isAVerticeTryingToConnect ? classes.connecting : ""
-          } ${isVisited ? classes["vertice--visited"] : ""}`}
+          className={`${classes.vertex} ${
+            isAVertexTryingToConnect ? classes.connecting : ""
+          } ${isVisited ? classes["vertex--visited"] : ""}`}
           onMouseUp={onMouseUpEdgeHintHandler}
         >
           <span>{label}</span>
@@ -149,7 +149,7 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
           </div>
           <div
             ref={removeRef}
-            className={classes["remove-vertice"]}
+            className={classes["remove-vertex"]}
             style={{
               visibility: isHintVisible ? "visible" : "hidden",
             }}
@@ -163,4 +163,4 @@ const Vertice = forwardRef<HTMLDivElement, VerticeProps>(
   }
 );
 
-export default Vertice;
+export default Vertex;
