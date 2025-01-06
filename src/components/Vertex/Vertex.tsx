@@ -22,7 +22,7 @@ type VertexProps = {
   onRemove?: () => void;
 };
 
-const Vertice = forwardRef<HTMLDivElement, VertexProps>(
+const Vertex = forwardRef<HTMLDivElement, VertexProps>(
   (
     {
       label,
@@ -163,4 +163,4 @@ const Vertice = forwardRef<HTMLDivElement, VertexProps>(
   }
 );
 
-export default Vertice;
+export default Vertex;

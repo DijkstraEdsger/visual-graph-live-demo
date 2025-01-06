@@ -1,5 +1,5 @@
 import Line from "components/Line/Line";
-import Vertice from "components/Vertice/Vertice";
+import Vertex from "components/Vertex/Vertex";
 import { useGraphContainer } from "contexts/graphContainerContext";
 import { cloneElement, createRef, useEffect, useRef, useState } from "react";
 import { IEdge, INode, NodeId } from "types/graph";
@@ -258,7 +258,7 @@ const useGraph = ({
       const isHighlighted = highlightedVertices.includes(+vertex.id);
 
       return (
-        <Vertice
+        <Vertex
           key={vertex.id}
           label={vertex.id}
           isVisited={isVisited || isHighlighted}

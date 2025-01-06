@@ -6,7 +6,7 @@ import LoaderSpinner from "components/LoaderSpinner";
 const StatusBar: React.FC = () => {
   const {
     ui: { mousePosition },
-    algorithm: { selected, isRunning, isShowingResult },
+    algorithm: { isRunning, isShowingResult },
   } = useAppState();
 
   return (
