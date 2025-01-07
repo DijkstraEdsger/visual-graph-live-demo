@@ -6,6 +6,7 @@ import {
   useAppState,
 } from "contexts/app-context/root/provider";
 import { UIActionType } from "contexts/app-context/ui/types";
+import { VERSION } from "version";
 
 const AboutModal: React.FC = () => {
   const {
@@ -83,7 +84,7 @@ const AboutModal: React.FC = () => {
           <b>Author:</b> Humberto Lázaro Martínez Morales
         </li>
         <li>
-          <b>Version:</b> 1.0.0
+          <b>Version:</b> {VERSION}
         </li>
       </ul>
       <p className={classes.about__footer}>

@@ -42,7 +42,9 @@
           "Fulkerson",
           "Edmonds",
           "Karp",
-          "Svg"
+          "Svg",
+          "fs",
+          "utf8"
         ]
       }
     ]
