@@ -33,7 +33,7 @@
   "scripts": {
     "get-version": "node scripts/get-version.js",
     "start": "npm run get-version && react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run get-version && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./src --ext .ts,.tsx,.js,.jsx"
