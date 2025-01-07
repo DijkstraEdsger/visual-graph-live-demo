@@ -1,10 +1,10 @@
 import { Graph } from "@dagrejs/graphlib";
-import dijkstra from "@dagrejs/graphlib/lib/alg/dijkstra";
 import prim from "@dagrejs/graphlib/lib/alg/prim";
 import { IGraphAdapter } from "interfaces/IGraphAdapter";
 import { IEdge, INode, IShortestPath, NodeId } from "types/graph";
 import GraphV3 from "graphology";
 import { dfsFromNode } from "graphology-traversal";
+import dijkstra from "graphology-shortest-path/dijkstra";
 
 export default class GraphlibAdapter implements IGraphAdapter {
   private graph: Graph;
@@ -37,38 +37,52 @@ export default class GraphlibAdapter implements IGraphAdapter {
     this.graph.setEdge(source, target, edge.weight);
   }
 
-  runDijkstra(source: NodeId): Record<NodeId, IShortestPath> {
-    const result = dijkstra(this.graph, source.toString());
-    const formattedResult: Record<
-      string,
-      { distance: number; predecessor: string | null }
-    > = {};
+  runDijkstra({
+    vertices,
+    edges,
+    startVertex,
+    endVertex,
+    isDirected,
+  }: {
+    vertices: INode[];
+    edges: IEdge[];
+    startVertex: NodeId;
+    endVertex: NodeId;
+    isDirected: boolean;
+  }): NodeId[] {
+    const graph = new GraphV3({
+      type: isDirected ? "directed" : "undirected",
+    });
 
-    for (const node in result) {
-      formattedResult[node] = {
-        distance: result[node].distance,
-        predecessor: result[node].predecessor ?? null,
-      };
-    }
+    vertices.forEach((vertex) => {
+      graph.addNode(vertex.id);
+    });
 
-    return formattedResult;
+    edges.forEach((edge) => {
+      graph.addEdge(edge.source, edge.target);
+    });
+
+    const path = dijkstra.bidirectional(graph, startVertex, endVertex);
+
+    return path;
   }
 
   runBellmanFord(source: NodeId): Record<NodeId, IShortestPath> {
-    const result = dijkstra(this.graph, source.toString());
-    const formattedResult: Record<
-      string,
-      { distance: number; predecessor: string | null }
-    > = {};
+    // const result = dijkstra(this.graph, source.toString());
+    // const formattedResult: Record<
+    //   string,
+    //   { distance: number; predecessor: string | null }
+    // > = {};
 
-    for (const node in result) {
-      formattedResult[node] = {
-        distance: result[node].distance,
-        predecessor: result[node].predecessor ?? null,
-      };
-    }
+    // for (const node in result) {
+    //   formattedResult[node] = {
+    //     distance: result[node].distance,
+    //     predecessor: result[node].predecessor ?? null,
+    //   };
+    // }
 
-    return formattedResult;
+    // return formattedResult;
+    return {};
   }
 
   private weightFunction = (edge: { v: string; w: string }) =>

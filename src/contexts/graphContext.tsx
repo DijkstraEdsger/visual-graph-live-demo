@@ -463,18 +463,20 @@ const GraphProvider: FC<GraphProviderProps> = ({
       type: AlgorithmActionType.SET_IS_ALGORITHM_RUNNING,
       payload: true,
     });
-    const paths = adapter.runDijkstra(source);
+    const path = adapter.runDijkstra({
+      vertices: state.vertices,
+      edges: state.edges,
+      startVertex: source,
+      endVertex: target,
+      isDirected: state.isDirected ?? false,
+    });
     appDispatch({
       type: AlgorithmActionType.SET_IS_ALGORITHM_RUNNING,
       payload: false,
     });
-    setShortestPaths(paths);
-    let path: NodeId[] = [];
 
-    try {
-      path = adapter.buildPath(paths, source.toString(), target.toString());
-    } catch (error) {
-      toast.error((error as Error).message, {
+    if (!path) {
+      toast.error(`No path found between ${source} and ${target}.`, {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -485,7 +487,7 @@ const GraphProvider: FC<GraphProviderProps> = ({
       });
     }
 
-    setWayPoints(path);
+    setWayPoints(path ?? []);
   };
 
   const runPrimHandler = () => {
